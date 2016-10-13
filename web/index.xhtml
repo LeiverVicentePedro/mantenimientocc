@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" lang="es">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>SIMAPRECO - ITO</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+        <script src="js/bootstrap.min.js"/>
+        <script src="js/jquery-3.1.0.min.js"/>
+    </h:head>
+    <h:body>
+        <div class="container" Style=" background-color:#e7e7e7; height: 8em">
+            <div class="col-md-3" id="left">
+                <h:graphicImage value="imagen/gobmx.png" width="180 em" height="70 em" style="margin-top: 1em"/>
+            </div>
+            <div class="col-md-6">
+                <p:outputLabel class="text-capitalize text-center container" style=" font-size:1.7em; margin-top: 0.8em" value="Tecnologico Nacional de Mexico"/>
+                <p:outputLabel class="text-capitalize text-center container"  style=" font-size:1.4em; margin-top: 0.5em" value="Sistema de Mantenimiento"/>
+            </div>
+            <div class="col-md-3 text-right" style="margin-top: 1em">
+                <h:graphicImage value="imagen/ito.png"/>
+            </div>
+        </div>
+        <div class="container" style="margin-top: 10em">
+            <div class="col-md-12 text-center">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <f:view>
+                        <h:form>
+                            <p:inputText class="form-control" placeholder="Usuario" id="campoUsuario" value=""/>
+                            <br/>
+                            <p:inputText class="form-control" id="campoContraseña" placeholder="Contraseña" value="" type="password"/>
+                            <br/>
+                            <p:commandButton value="Acceder" action="#" actionListener="#"/>
+                        </h:form>
+                    </f:view>
+                </div>
+            </div>
+
+            <div class="col-md-6 text-center" style="margin-top: 10em">
+                <p:commandLink value="¿Eres Nuevo?" action="#" actionListener="#"/>
+            </div>
+            <div class="col-md-6 text-center" style="margin-top: 10em">
+                <p:commandLink value="¿Olvidaste Tu Clave?" action="#" actionListener="#"/>
+            </div>
+            
+            <div class="col-md-12 text-center" Style=" background-color:#e7e7e7; margin-top: 5em; height: 2.7em">
+                
+            </div>
+        </div>
+    </h:body>
+</html>
+
