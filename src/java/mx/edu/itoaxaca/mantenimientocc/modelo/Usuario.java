@@ -17,9 +17,9 @@ public class Usuario {
     private String apellidoMaterno;
     private String correo;
     private String clave;
-    private int idArea;
-    private int idDepartamento;
-    private int idOficina;
+    private Area idArea;
+    private Departamento idDepartamento;
+    private Oficina_solicitante idOficina;
     private int nivel;
 
     public int getIdUsuario() {
@@ -86,11 +86,11 @@ public class Usuario {
         this.idDepartamento = idDepartamento;
     }
 
-    public oficina_solicitante getIdOficina() {
+    public Oficina_solicitante getIdOficina() {
         return idOficina;
     }
 
-    public void setIdOficina(oficina_solicitante idOficina) {
+    public void setIdOficina(Oficina_solicitante idOficina) {
         this.idOficina = idOficina;
     }
 
