@@ -11,7 +11,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Area;
 
 public class AreaDAO extends Conexion {
     
-    public void registrar (Area arearegistra) throws Exception{
+    public void registrarArea (Area arearegistra) throws Exception{
         try{
             this.Conectar();
             PreparedStatement consulta= this.getConexion().prepareStatement("INSERT INTO area (nombre_area,estatus) values(?,?)");
@@ -28,7 +28,7 @@ public class AreaDAO extends Conexion {
         }
     }
     
-    public List<Area> listar() throws Exception{
+    public List<Area> listarArea() throws Exception{
      List<Area> lista;
         ResultSet resultadoset;
      try{
@@ -56,7 +56,7 @@ public class AreaDAO extends Conexion {
      return lista;
     }
     
-    public Area elegirDato(Area area) throws Exception{
+    public Area elegirDatoArea(Area area) throws Exception{
         Area areados=null;
         ResultSet resultadoset;
         
@@ -91,7 +91,22 @@ public class AreaDAO extends Conexion {
             consulta.setBoolean(2,areamodificar.getEstatus());
             consulta.setInt(3,areamodificar.getIdarea());
             
-            consulta.executeQuery();
+            consulta.executeUpdate();
+        }
+        catch(Exception e){
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }
+    }  
+    
+    public void eliminarArea (Area areaeliminar) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement consulta= this.getConexion().prepareStatement("DELETE FROM area WHERE idarea=?");
+            consulta.setInt(1,areaeliminar.getIdarea());
+            consulta.executeUpdate();
         }
         catch(Exception e){
            throw e; 
