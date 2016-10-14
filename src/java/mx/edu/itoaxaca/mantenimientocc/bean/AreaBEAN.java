@@ -14,6 +14,8 @@ public class AreaBEAN {
  
     private Area area = new Area();
     private List<Area> listaArea;
+    private String accion;
+    
 
     public Area getArea() {
         return area;
@@ -23,11 +25,32 @@ public class AreaBEAN {
         this.area = area;
     }
     
-    public void registrarArea() throws Exception{
+    public void operarArea() throws Exception{
+        switch(accion)
+        {
+            case "Registrar":
+                this.registrarArea();
+                this.limpiarArea();
+                break;
+            case "Modificar":
+                this.modificarArea();
+                this.limpiarArea();
+                break;
+        }
+    }
+    
+    public void limpiarArea(){
+        this.area.setNombre_area("");
+        this.area.setEstatus(Boolean.TRUE);
+    }
+     //--Metodos para Registrar y Modificar
+    
+    private void registrarArea() throws Exception{
         AreaDAO areadao;
             try{
                 areadao= new AreaDAO();
-                areadao.registrar(area);
+                areadao.registrarArea(area);
+                this.listarArea();
         
             }
             catch(Exception e)
@@ -35,6 +58,21 @@ public class AreaBEAN {
                 throw e;
             }
     }   
+    
+      private void modificarArea() throws Exception{
+        AreaDAO areadao;
+            try{
+                areadao= new AreaDAO();
+                areadao.modificarArea(area);
+                this.listarArea();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+    } 
+    
+    //-----Metodos get y set de listar
 
     public List<Area> getListaArea() {
         return listaArea;
@@ -44,11 +82,25 @@ public class AreaBEAN {
         this.listaArea = listaArea;
     }
     
+    //--metodos get y set de la variable accion
+
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+        this.limpiarArea();
+        
+    }
+    
+    //----Metodos 
+    
     public void listarArea() throws Exception{
         AreaDAO areadao;
         try{
             areadao=new AreaDAO();
-            listaArea = areadao.listar();
+            listaArea = areadao.listarArea();
         }
         catch(Exception e){
             throw e;
@@ -60,10 +112,11 @@ public class AreaBEAN {
         Area areaTemporal;
         try{
             areadao= new AreaDAO();
-            areaTemporal=areadao.elegirDato(areaElegirDato);
+            areaTemporal=areadao.elegirDatoArea(areaElegirDato);
             
             if(areaTemporal != null){
                 this.area = areaTemporal;
+                this.accion="Modificar";
             }
             }
         catch (Exception e){
@@ -72,11 +125,12 @@ public class AreaBEAN {
         
     }
     
-    public void modificarArea() throws Exception{
+     
+    public void eliminarArea(Area areaEliminar) throws Exception{
         AreaDAO areadao;
             try{
                 areadao= new AreaDAO();
-                areadao.modificarArea(area);
+                areadao.eliminarArea(areaEliminar);
                 this.listarArea();
             }
             catch(Exception e)
