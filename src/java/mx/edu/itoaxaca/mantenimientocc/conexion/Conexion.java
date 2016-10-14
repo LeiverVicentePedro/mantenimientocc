@@ -28,7 +28,7 @@ public class Conexion {
     public void Conectar() throws Exception{
         try{
       Class.forName("com.mysql.jdbc.Driver");
-      conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=10161024");
+      conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=admin");
     }catch(Exception ex){
         throw ex;
     }
