@@ -25,7 +25,9 @@
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" onclick="#{areaBEAN.setAccion('Registrar')}" />         
             <p:commandButton value="Listar" actionListener="#{areaBEAN.listarArea()}" update="data"/>
             
-            <p:dataTable id="data" value="#{areaBEAN.listaArea}" var="area">
+            <p:dataTable id="data" value="#{areaBEAN.listaArea}" var="area"  paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
                 <p:column headerText="Nombre de Area">
                     <p:outputLabel value="#{area.nombre_area}"/>
                 </p:column>
