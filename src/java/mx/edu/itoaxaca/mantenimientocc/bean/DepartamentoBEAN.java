@@ -7,6 +7,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import mx.edu.itoaxaca.mantenimientocc.dao.DepartamentoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 
 
@@ -24,6 +25,18 @@ public class DepartamentoBEAN {
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
+    
+    public void registrarDepartamento() throws Exception{
+        DepartamentoDAO departamentodao;
+            try{
+                departamentodao= new DepartamentoDAO();
+                departamentodao.registrarDepartamento(departamento);
+            }
+            catch(Exception e)
+            {
+                System.out.println("error en BEAN");
+            }
+    }   
     
   
     

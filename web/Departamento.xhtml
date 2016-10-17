@@ -23,22 +23,25 @@
                 <f:event type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
                 <h:form>
                     <p:outputLabel value="Clave Departamento"/>
-                    <p:inputText/>
+                    <p:inputText value="#{departamentoBEAN.departamento.claveDepartamento}"/>
                     <p:outputLabel value="Nombre de Departamento"/>
-                    <p:inputText/>
+                    <p:inputText value="#{departamentoBEAN.departamento.nombreDepartamento}"/>
                     <p:outputLabel value="Nombre de area"/>
-                    <p:selectOneMenu value="#{departamentoBEAN.departamento.idarea}" converter="omnifaces.SelectItemsConverter">
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                            <f:selectItems value="#{areaBEAN.listaArea}" var="area" itemLabel="#{area.nombre_area}" itemValue="#{area}"/>
+                            <f:selectItems value="#{areaBEAN.listaArea}" var="areaitem" itemLabel="#{areaitem.nombre_area}" itemValue="#{areaitem}"/>
                         </p:selectOneMenu> 
                     <p:outputLabel value="Estatus"/>
-                    <p:selectOneMenu/>
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}">
+                        <f:selectItem itemLabel="true" itemValue="true"/>
+                        <f:selectItem itemLabel="false" itemValue="false"/>
+                    </p:selectOneMenu>
                     
-                       
-                    
-                        
-                    
+                    <h:commandButton value="Nuevo" actionListener="#{departamentoBEAN.registrarDepartamento()}"/> 
                 </h:form>
+                
+               
+                
             </ui:define>
 
             <ui:define name="bottom">
