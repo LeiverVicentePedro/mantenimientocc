@@ -14,7 +14,7 @@ public class Departamento {
     private int idDepartamento;
     private String claveDepartamento;
     private String nombreDepartamento;
-    private Area idArea;
+    private Area idarea;
 
     public int getIdDepartamento() {
         return idDepartamento;
@@ -40,12 +40,12 @@ public class Departamento {
         this.nombreDepartamento = nombreDepartamento;
     }
 
-    public Area getIdArea() {
-        return idArea;
+    public Area getIdarea() {
+        return idarea;
     }
 
-    public void setIdArea(Area idArea) {
-        this.idArea = idArea;
+    public void setIdarea(Area idarea) {
+        this.idarea = idarea;
     }
 
     public boolean isEstatus() {

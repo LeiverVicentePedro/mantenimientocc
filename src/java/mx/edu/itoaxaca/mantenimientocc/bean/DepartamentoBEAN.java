@@ -5,12 +5,27 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
-/**
- *
- * @author Jerusalen
- */
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
+
+
+
+@ManagedBean
+@ViewScoped
 public class DepartamentoBEAN {
     
+  private Departamento departamento= new Departamento();
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+    
+  
     
     
 }

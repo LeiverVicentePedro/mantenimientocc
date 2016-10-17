@@ -2,37 +2,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html" lang="es"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:head>
-         <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <!--<h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Facelets Template</title>
-         <link href="css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
-        <script src="js/bootstrap.min.js"/>
-        <script src="js/jquery-3.1.0.min.js"/>
-        
     </h:head>
 
     <h:body>
 
-        <div id="top" class="container" Style=" background-color:#e7e7e7; height: 8em">
-            <div class="col-md-3" id="left">
-                <h:graphicImage value="imagen/gobmx.png" width="180 em" height="70 em" style="margin-top: 1em"/>
-            </div>
-            <div class="col-md-6">
-                <p:outputLabel class="text-capitalize text-center container" style=" font-size:1.7em; margin-top: 0.8em" value="Tecnologico Nacional de Mexico"/>
-                <p:outputLabel class="text-capitalize text-center container"  style=" font-size:1.4em; margin-top: 0.5em" value="Sistema de Mantenimiento"/>
-            </div>
-            <div class="col-md-3 text-right" style="margin-top: 1em">
-                <h:graphicImage value="imagen/ito.png"/>
-            </div>
+        <div id="top">
+            <ui:insert name="top">Top</ui:insert>
         </div>
-        <div class="container">
+        <div>
             <div id="left">
                 <ui:insert name="left">Left</ui:insert>
             </div>
@@ -40,7 +24,7 @@
                 <ui:insert name="content">Content</ui:insert>
             </div>
         </div>
-        <div id="bottom" class="container text-center" Style=" background-color:#e7e7e7; margin-top: 5em; height: 2.7em">
+        <div id="bottom">
             <ui:insert name="bottom">Bottom</ui:insert>
         </div>
 

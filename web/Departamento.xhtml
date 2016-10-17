@@ -27,9 +27,9 @@
                     <p:outputLabel value="Nombre de Departamento"/>
                     <p:inputText/>
                     <p:outputLabel value="Nombre de area"/>
-                     <p:selectOneMenu value="">
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.idarea}" converter="omnifaces.SelectItemsConverter">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                            <f:selectItems value="#{areaBEAN.listaArea}" var="area" itemLabel="#{area.nombre_area}" itemValue="#{area.idarea}"/>
+                            <f:selectItems value="#{areaBEAN.listaArea}" var="area" itemLabel="#{area.nombre_area}" itemValue="#{area}"/>
                         </p:selectOneMenu> 
                     <p:outputLabel value="Estatus"/>
                     <p:selectOneMenu/>
