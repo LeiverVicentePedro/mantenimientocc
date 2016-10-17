@@ -11,4 +11,6 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
  */
 public class DepartamentoBEAN {
     
+    
+    
 }
