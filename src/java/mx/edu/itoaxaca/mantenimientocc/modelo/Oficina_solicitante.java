@@ -15,7 +15,7 @@ public class Oficina_solicitante {
     private String nombreOficina;
     private Departamento idDepartamento;
     private int Extencion;
-    private boolean estatus;
+    private Boolean estatus;
 
     public int getIdOficinaSolicitante() {
         return idOficinaSolicitante;
@@ -49,11 +49,15 @@ public class Oficina_solicitante {
         this.Extencion = Extencion;
     }
 
-    public boolean isEstatus() {
+    public Boolean getEstatus() {
         return estatus;
     }
 
-    public void setEstatus(boolean estatus) {
+    public void setEstatus(Boolean estatus) {
         this.estatus = estatus;
     }
+
+   
+
+    
 }

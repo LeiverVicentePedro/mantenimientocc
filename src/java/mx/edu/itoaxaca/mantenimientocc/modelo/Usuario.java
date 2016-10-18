@@ -17,10 +17,12 @@ public class Usuario {
     private String apellidoMaterno;
     private String correo;
     private String clave;
-    private Area idArea;
-    private Departamento idDepartamento;
-    private Oficina_solicitante idOficina;
     private int nivel;
+    private Oficina_solicitante idOficina;
+    private String rfc;
+    private String profesion;
+    private String tipoBT;
+    private boolean estatus;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -70,20 +72,12 @@ public class Usuario {
         this.clave = clave;
     }
 
-    public Area getIdArea() {
-        return idArea;
+    public int getNivel() {
+        return nivel;
     }
 
-    public void setIdArea(Area idArea) {
-        this.idArea = idArea;
-    }
-
-    public Departamento getIdDepartamento() {
-        return idDepartamento;
-    }
-
-    public void setIdDepartamento(Departamento idDepartamento) {
-        this.idDepartamento = idDepartamento;
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 
     public Oficina_solicitante getIdOficina() {
@@ -94,13 +88,36 @@ public class Usuario {
         this.idOficina = idOficina;
     }
 
-    public int getNivel() {
-        return nivel;
+    public String getRfc() {
+        return rfc;
     }
 
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
     }
-    
-    
+
+    public String getProfesion() {
+        return profesion;
+    }
+
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
+    }
+
+    public String getTipoBT() {
+        return tipoBT;
+    }
+
+    public void setTipoBT(String tipoBT) {
+        this.tipoBT = tipoBT;
+    }
+
+    public boolean isEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(boolean estatus) {
+        this.estatus = estatus;
+    }
+     
 }

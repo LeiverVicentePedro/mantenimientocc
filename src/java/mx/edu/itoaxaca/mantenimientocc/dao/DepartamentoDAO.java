@@ -52,7 +52,7 @@ public class DepartamentoDAO extends Conexion{
              departamento.setIddepartamento(resultadoset.getInt("iddepartamento"));
              departamento.setClave_departamento(resultadoset.getString("clave_departamento"));
              departamento.setNombre_departamento(resultadoset.getString("nombre_departamento"));
-             departamento.setArea((Area) resultadoset.getObject("idarea"));
+            // departamento.setArea((Area) resultadoset.getObject("idarea"));
              departamento.setEstatus(resultadoset.getBoolean("estatus"));
              
              lista.add(departamento);

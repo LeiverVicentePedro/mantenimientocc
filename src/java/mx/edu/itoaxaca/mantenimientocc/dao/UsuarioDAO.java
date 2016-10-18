@@ -8,8 +8,6 @@ package mx.edu.itoaxaca.mantenimientocc.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Area;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Oficina_solicitante;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
@@ -23,17 +21,19 @@ public class UsuarioDAO extends Conexion{
     {
         try{
             this.Conectar();
-            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO usuario (nombre, apellido_materno, apellido_paterno,correo, clave, id_area, nivel,id_departamento, id_oficina)"
-                    + "VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO usuario (nombre, apellido_materno, apellido_paterno,correo, clave, nivel,id_oficina, rfc, profesion, tipo_bt, estatus)"
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             inserta.setString(1,usuarioRegistrar.getNombre());
             inserta.setString(2, usuarioRegistrar.getApellidoMaterno());
             inserta.setString(3, usuarioRegistrar.getApellidoPaterno());
             inserta.setString(4, usuarioRegistrar.getCorreo());
             inserta.setString(5, usuarioRegistrar.getClave());
-            inserta.setInt(6, usuarioRegistrar.getIdArea().getIdarea());
-            inserta.setInt(7, usuarioRegistrar.getNivel());
-            inserta.setInt(8, usuarioRegistrar.getIdDepartamento().getIddepartamento());
-            inserta.setInt(9, usuarioRegistrar.getIdOficina().getIdOficinaSolicitante());
+            inserta.setInt(6, usuarioRegistrar.getNivel());
+            inserta.setInt(7, usuarioRegistrar.getIdOficina().getIdOficinaSolicitante());
+            inserta.setString(8, usuarioRegistrar.getRfc());
+            inserta.setString(9, usuarioRegistrar.getProfesion());
+            inserta.setString(10, usuarioRegistrar.getTipoBT());
+            inserta.setBoolean(11, usuarioRegistrar.isEstatus());
             
             inserta.executeUpdate();
             
@@ -50,6 +50,7 @@ public class UsuarioDAO extends Conexion{
         try{
             this.Conectar();
             PreparedStatement consultar = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE correo=?");
+            consultar.setString(1,correo);
             ResultSet resultado = consultar.executeQuery();
             
             usuarioUnico.setIdUsuario(resultado.getInt("idUsuario"));
@@ -58,11 +59,12 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setApellidoMaterno(resultado.getString("apellido_materno"));
             usuarioUnico.setCorreo(resultado.getString("correo"));
             usuarioUnico.setClave(resultado.getString("clave"));
-            usuarioUnico.setIdArea((Area) resultado.getObject("id_area"));
-            usuarioUnico.setIdDepartamento((Departamento) resultado.getObject("id_departamento"));
-            usuarioUnico.setIdOficina((Oficina_solicitante) resultado.getObject("id_oficina"));
             usuarioUnico.setNivel(resultado.getInt("nivel"));
-            
+            usuarioUnico.setIdOficina((Oficina_solicitante) resultado.getObject("id_oficina"));
+            usuarioUnico.setRfc(resultado.getString("rfc"));
+            usuarioUnico.setProfesion(resultado.getString("profesion"));
+            usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
+            usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
             resultado.close();
             
             return usuarioUnico;
@@ -72,7 +74,5 @@ public class UsuarioDAO extends Conexion{
            this.Cerrar();
         }
       
-    }
-    
-     
+    }  
 }

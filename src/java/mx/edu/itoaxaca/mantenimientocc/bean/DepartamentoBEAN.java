@@ -30,10 +30,10 @@ public class DepartamentoBEAN {
     }
     
     public void registrarDepartamento() throws Exception{
-        DepartamentoDAO departamentodao;
+        DepartamentoDAO departamentoDao;
             try{
-                departamentodao= new DepartamentoDAO();
-                departamentodao.registrarDepartamento(departamento);
+                departamentoDao= new DepartamentoDAO();
+                departamentoDao.registrarDepartamento(departamento);
             }
             catch(Exception e)
             {
