@@ -45,9 +45,7 @@
                     
                     <p:commandButton value="Listar" actionListener="#{departamentoBEAN.listarDepartamento()}" update="data"/>
             
-                    <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento"  paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
+                    <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento" >
                 <p:column headerText="Clave Departamento">
                     <p:outputLabel value="#{departamento.clave_departamento}"/>
                 </p:column>
