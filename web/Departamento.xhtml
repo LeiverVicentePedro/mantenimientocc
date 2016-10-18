@@ -23,9 +23,9 @@
                 <f:event type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
                 <h:form>
                     <p:outputLabel value="Clave Departamento"/>
-                    <p:inputText value="#{departamentoBEAN.departamento.claveDepartamento}"/>
+                    <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}"/>
                     <p:outputLabel value="Nombre de Departamento"/>
-                    <p:inputText value="#{departamentoBEAN.departamento.nombreDepartamento}"/>
+                    <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}"/>
                     <p:outputLabel value="Nombre de area"/>
                     <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
@@ -40,7 +40,38 @@
                     <h:commandButton value="Nuevo" actionListener="#{departamentoBEAN.registrarDepartamento()}"/> 
                 </h:form>
                 
-               
+                <h:form id="formaExterior">                      
+            
+                    
+                    <p:commandButton value="Listar" actionListener="#{departamentoBEAN.listarDepartamento()}" update="data"/>
+            
+                    <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento"  paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+                <p:column headerText="Clave Departamento">
+                    <p:outputLabel value="#{departamento.clave_departamento}"/>
+                </p:column>
+                        
+                <p:column headerText="Nombre Departamento">
+                    <p:outputLabel value="#{departamento.nombre_departamento}"/>
+                </p:column> 
+                
+                 <p:column headerText="Area">
+                     <p:outputLabel value="#{departamento.area.nombre_area}"/>
+                </p:column> 
+                
+                
+                <p:column headerText="Estatus">
+                    <p:outputLabel value="#{departamento.estatus}"/>
+                </p:column>
+                
+                <p:column headerText="Modificar">
+                </p:column>
+                
+                <p:column headerText="Eliminar">
+                </p:column>
+            </p:dataTable>
+        </h:form>
                 
             </ui:define>
 

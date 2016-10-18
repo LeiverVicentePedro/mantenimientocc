@@ -11,34 +11,34 @@ package mx.edu.itoaxaca.mantenimientocc.modelo;
  */
 public class Departamento {
     
-    private int idDepartamento;
-    private String claveDepartamento;
-    private String nombreDepartamento;
+    private int iddepartamento;
+    private String clave_departamento;
+    private String nombre_departamento;
     private Area area;
     private Boolean estatus;
 
-    public int getIdDepartamento() {
-        return idDepartamento;
+    public int getIddepartamento() {
+        return iddepartamento;
     }
 
-    public void setIdDeparrtameto(int idDeparrtameto) {
-        this.idDepartamento = idDeparrtameto;
+    public void setIddepartamento(int iddepartamento) {
+        this.iddepartamento = iddepartamento;
     }
 
-    public String getClaveDepartamento() {
-        return claveDepartamento;
+    public String getClave_departamento() {
+        return clave_departamento;
     }
 
-    public void setClaveDepartamento(String claveDepartamento) {
-        this.claveDepartamento = claveDepartamento;
+    public void setClave_departamento(String clave_departamento) {
+        this.clave_departamento = clave_departamento;
     }
 
-    public String getNombreDepartamento() {
-        return nombreDepartamento;
+    public String getNombre_departamento() {
+        return nombre_departamento;
     }
 
-    public void setNombreDepartamento(String nombreDepartamento) {
-        this.nombreDepartamento = nombreDepartamento;
+    public void setNombre_departamento(String nombre_departamento) {
+        this.nombre_departamento = nombre_departamento;
     }
 
     public Area getArea() {

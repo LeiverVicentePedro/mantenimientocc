@@ -32,7 +32,7 @@ public class UsuarioDAO extends Conexion{
             inserta.setString(5, usuarioRegistrar.getClave());
             inserta.setInt(6, usuarioRegistrar.getIdArea().getIdarea());
             inserta.setInt(7, usuarioRegistrar.getNivel());
-            inserta.setInt(8, usuarioRegistrar.getIdDepartamento().getIdDepartamento());
+            inserta.setInt(8, usuarioRegistrar.getIdDepartamento().getIddepartamento());
             inserta.setInt(9, usuarioRegistrar.getIdOficina().getIdOficinaSolicitante());
             
             inserta.executeUpdate();

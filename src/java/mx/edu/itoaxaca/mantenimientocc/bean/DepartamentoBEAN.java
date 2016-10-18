@@ -5,6 +5,8 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
+
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.DepartamentoDAO;
@@ -17,6 +19,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 public class DepartamentoBEAN {
     
   private Departamento departamento= new Departamento();
+  private List<Departamento> listadepartamento;
 
     public Departamento getDepartamento() {
         return departamento;
@@ -37,8 +40,27 @@ public class DepartamentoBEAN {
                 System.out.println("error en BEAN");
             }
     }   
+
+    public List<Departamento> getListadepartamento() {
+        return listadepartamento;
+    }
+
+    public void setListadepartamento(List<Departamento> listadepartamento) {
+        this.listadepartamento = listadepartamento;
+    }
     
-  
+   //Metodo ´para listar 
+    
+    public void listarDepartamento() throws Exception{
+        DepartamentoDAO departamentodao;
+        try{
+            departamentodao=new DepartamentoDAO();
+            listadepartamento = departamentodao.listarDepartamento();
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
     
     
 }
