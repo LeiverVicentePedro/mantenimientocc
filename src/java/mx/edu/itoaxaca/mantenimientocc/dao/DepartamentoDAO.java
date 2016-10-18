@@ -14,6 +14,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Area;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 
 
+
 /**
  *
  * @author Jerusalen
@@ -39,6 +40,7 @@ public class DepartamentoDAO extends Conexion{
         }
     }
     
+    
      public List<Departamento> listarDepartamento() throws Exception{
      List<Departamento> lista;
         ResultSet resultadoset;
@@ -52,7 +54,11 @@ public class DepartamentoDAO extends Conexion{
              departamento.setIddepartamento(resultadoset.getInt("iddepartamento"));
              departamento.setClave_departamento(resultadoset.getString("clave_departamento"));
              departamento.setNombre_departamento(resultadoset.getString("nombre_departamento"));
+
             // departamento.setArea((Area) resultadoset.getObject("idarea"));
+
+             departamento.setArea(new AreaDAO().buscarIdArea(resultadoset.getInt("id_area")));
+
              departamento.setEstatus(resultadoset.getBoolean("estatus"));
              
              lista.add(departamento);
@@ -60,6 +66,7 @@ public class DepartamentoDAO extends Conexion{
              
      }
      catch(Exception e){
+         System.out.println("error en departamentoDao "+e);
          throw e;
          
      }

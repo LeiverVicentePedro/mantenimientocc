@@ -114,6 +114,33 @@ public class AreaDAO extends Conexion {
         finally{
            this.Cerrar();
         }
-    }    
+    }   
+    
+    public Area buscarIdArea(int idarea) throws Exception{
+        Area areabusca= new Area();
+        ResultSet resultadosetbusca;
+      try{
+            this.Conectar();
+            PreparedStatement consulta= this.getConexion().prepareCall("SELECT * FROM area WHERE idarea=?");
+            consulta.setInt(1,idarea);
+            resultadosetbusca=consulta.executeQuery();
+            if(resultadosetbusca.next()){
+            areabusca.setIdarea(resultadosetbusca.getInt("idarea"));
+            areabusca.setNombre_area(resultadosetbusca.getString("nombre_area"));
+            areabusca.setEstatus(resultadosetbusca.getBoolean("estatus"));
+            }
+            resultadosetbusca.close();
+            
+        }
+        catch(Exception e){
+            System.out.println("error en AreaDAO->buscarIdArea "+e);
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }  
+        return areabusca;
+    }
     
 }
+
