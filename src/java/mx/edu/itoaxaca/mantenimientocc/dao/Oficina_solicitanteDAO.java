@@ -6,8 +6,11 @@
 package mx.edu.itoaxaca.mantenimientocc.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Oficina_solicitante;
 
 /**
@@ -33,5 +36,33 @@ public class Oficina_solicitanteDAO extends Conexion{
         finally{
            this.Cerrar();
         }
+    }
+    
+    public List<Oficina_solicitante> buscarOficinaSolicitantePorIdDepartamento(int idDepartamento) throws Exception{
+        List listaOficinaSolicitantePorDepartamento =null;
+        ResultSet resultadoConsulta;
+        try{
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM oficinas_solicitantes where id_departamento=?");
+            consulta.setInt(1, idDepartamento);
+            resultadoConsulta = consulta.executeQuery();
+            listaOficinaSolicitantePorDepartamento = new ArrayList();
+            while(resultadoConsulta.next())
+            {
+                Oficina_solicitante oficina = new Oficina_solicitante();
+                oficina.setIdOficinaSolicitante(resultadoConsulta.getInt("idoficinas"));
+                oficina.setNombreOficina(resultadoConsulta.getString("nombre_oficina"));
+                oficina.setIdDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultadoConsulta.getInt("id_departamento")));
+                oficina.setExtencion(resultadoConsulta.getInt("extencion"));
+                oficina.setEstatus(resultadoConsulta.getBoolean("estatus"));
+                listaOficinaSolicitantePorDepartamento.add(oficina);
+            }
+            resultadoConsulta.close();
+            
+        }catch(Exception ex){
+            System.out.println("Error en Oficina_solicitanteDAO->listaOficinaSolicitante "+ex);
+            throw ex;
+        }
+        return listaOficinaSolicitantePorDepartamento;
     }
 }
