@@ -8,7 +8,10 @@ public class Area {
     private String nombre_area;
     private Boolean estatus;
 
-        
+  
+    
+    
+    
  
 
     public int getIdarea() {

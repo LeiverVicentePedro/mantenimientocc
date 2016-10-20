@@ -24,7 +24,31 @@
                
                  <h:form id="formaExterior">                      
             
-                     <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" update=":lista" /> 
+                     <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" update=":lista" onclick="#{departamentoBEAN.setAccion('Registrar')}"/> 
+                     <p:commandButton value="Listar" actionListener="#{departamentoBEAN.listarDepartamento()}" update="data"/>
+                     
+                     <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento">
+                         
+                         <p:column headerText="Clave Departamento">
+                             <p:outputLabel value="#{departamento.clave_departamento}"/>
+                         </p:column>
+                         <p:column headerText="Nombre de Departamento">
+                             <p:outputLabel value="#{departamento.nombre_departamento}"/>
+                         </p:column>
+                         <p:column headerText="Area">
+                             <p:outputLabel value="#{departamento.area.nombre_area}"/>
+                         </p:column>
+                         <p:column headerText="Estatus">
+                             <p:outputLabel value="#{departamento.estatus}"/>
+                         </p:column>
+                         <p:column headerText="Modificar">
+                          
+                             <p:commandLink value="Modificar" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('Datos').show();" update=":lista"/>
+                         </p:column>
+                         <p:column headerText="Eliminar">
+                             <p:commandLink value="Eliminar" actionListener="#{departamentoBEAN.eliminarDepartamento(departamento)}" update="data"/>
+                         </p:column>
+                    </p:dataTable>
                  </h:form>
                 
                 
@@ -46,7 +70,7 @@
                         <f:selectItem itemLabel="false" itemValue="false"/>
                     </p:selectOneMenu>
                     
-                    <p:commandButton value="Registra" actionListener="#{departamentoBEAN.registrarDepartamento()}" oncomplete="PF('Datos').hide();" update="lista"/>
+                    <p:commandButton value="#{departamentoBEAN.accion}" actionListener="#{departamentoBEAN.operarDepartamento()}" oncomplete="PF('Datos').hide();" update="lista"/>
                     <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                     
                 </h:form>
