@@ -144,5 +144,60 @@ public class DepartamentoDAO extends Conexion{
     }   
     
     
+     public Departamento buscarIdDepartamento(int idDepartamento) throws Exception{
+         Departamento departamento = new Departamento();
+         ResultSet resultadoConsulta;
+         try{
+             this.Conectar();
+             PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM departamento where iddepartamento=?");
+             consulta.setInt(1, idDepartamento);
+             resultadoConsulta = consulta.executeQuery();
+              if(resultadoConsulta.next()){
+             departamento.setIddepartamento(resultadoConsulta.getInt("iddepartamento"));
+             departamento.setClave_departamento(resultadoConsulta.getString("clave_departamento"));
+             departamento.setNombre_departamento(resultadoConsulta.getString("nombre_departamento"));
+             departamento.setArea(new AreaDAO().buscarIdArea(resultadoConsulta.getInt("id_area")));
+             departamento.setEstatus(resultadoConsulta.getBoolean("estatus"));
+              }
+              resultadoConsulta.close();
+              
+         }catch(Exception ex){
+             System.out.println("Error en DepartamentoDAO -> buscarIdDepartamento "+ex);
+             throw ex;
+         }finally{
+             this.Cerrar();
+         }
+         return departamento;
+     }
     
+     public List<Departamento> buscarDepartamentoPorIdArea(int idArea) throws Exception{
+         
+         List<Departamento> listaDepartamentoDeUnArea = null;
+         ResultSet resultadoConsulta;
+         try{
+             this.Conectar();
+             PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM departamento where id_area=?");
+             consulta.setInt(1, idArea);
+             resultadoConsulta = consulta.executeQuery();
+             listaDepartamentoDeUnArea = new ArrayList();
+             while(resultadoConsulta.next()){
+             Departamento departamento = new Departamento();
+             departamento.setIddepartamento(resultadoConsulta.getInt("iddepartamento"));
+             departamento.setClave_departamento(resultadoConsulta.getString("clave_departamento"));
+             departamento.setNombre_departamento(resultadoConsulta.getString("nombre_departamento"));
+             departamento.setArea(new AreaDAO().buscarIdArea(resultadoConsulta.getInt("id_area")));
+             departamento.setEstatus(resultadoConsulta.getBoolean("estatus"));
+             
+             listaDepartamentoDeUnArea.add(departamento);
+              }
+              resultadoConsulta.close();
+              
+         }catch(Exception ex){
+             System.out.println("Error en DepartamentoDAO -> buscarDepartamentoPorIdArea "+ex);
+             throw ex;
+         }finally{
+             this.Cerrar();
+         }
+         return listaDepartamentoDeUnArea;
+     }
 }

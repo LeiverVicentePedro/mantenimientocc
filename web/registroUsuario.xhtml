@@ -33,12 +33,16 @@
                     <p:inputText class="form-control" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.objetoUsuario.nombre}"/>
                     <p:inputText class="form-control" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.objetoUsuario.apellidoPaterno}"/>
                     <p:inputText class="form-control" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.objetoUsuario.apellidoMaterno}"/>
-                    <p:multiSelectListbox value="#{multiSelectView.selection}" effect="slide" header="Area" showHeaders="true">
-                        <f:selectItems value="#{multiSelectView.categories}"/>
+                   
+                    <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="slider">
+                        <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                     </p:multiSelectListbox>
                     <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}"/>
                     <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.objetoUsuario.profesion}"/>
-                    <p:inputText class="form-control" placeholder="estatus" id="profesionUsuario" value="#{usuarioBEAN.objetoUsuario.profesion}"/>
+                    <p:inputText class="form-control" placeholder="Estatus" id="estatusUsuario" value="#{usuarioBEAN.objetoUsuario.estatus}"/>
+                    
+                    <p:commandButton value="Save"  update="out" style="display:block;margin:10px 0" />
+                    <h:outputText id="out" value="Value: #{usuarioBEAN.objetoUsuario.idOficina}" style="display:block" /> 
                 </h:form>
 
         </div>
