@@ -55,7 +55,7 @@ public class AreaBEAN {
             }
             catch(Exception e)
             {
-                throw e;
+                System.out.println("error en AREA BEAN -->RegistrarAREA"+e);
             }
     }   
     

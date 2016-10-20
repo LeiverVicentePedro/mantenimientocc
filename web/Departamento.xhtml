@@ -20,8 +20,17 @@
             </ui:define>
 
             <ui:define name="content">
-                <f:event type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
-                <h:form>
+                
+               
+                 <h:form id="formaExterior">                      
+            
+                     <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" update=":lista" /> 
+                 </h:form>
+                
+                
+                <p:dialog header="DatosModificar" widgetVar="Datos" id="dialogoDatos" > 
+                    <h:form id="lista">
+                    <f:event type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
                     <p:outputLabel value="Clave Departamento"/>
                     <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}"/>
                     <p:outputLabel value="Nombre de Departamento"/>
@@ -37,39 +46,14 @@
                         <f:selectItem itemLabel="false" itemValue="false"/>
                     </p:selectOneMenu>
                     
-                    <h:commandButton value="Nuevo" actionListener="#{departamentoBEAN.registrarDepartamento()}"/> 
-                </h:form>
-                
-                <h:form id="formaExterior">                      
-            
+                    <p:commandButton value="Registra" actionListener="#{departamentoBEAN.registrarDepartamento()}" oncomplete="PF('Datos').hide();" update="lista"/>
+                    <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                     
-                    <p:commandButton value="Listar" actionListener="#{departamentoBEAN.listarDepartamento()}" update="data"/>
-            
-                    <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento" >
-                <p:column headerText="Clave Departamento">
-                    <p:outputLabel value="#{departamento.clave_departamento}"/>
-                </p:column>
-                        
-                <p:column headerText="Nombre Departamento">
-                    <p:outputLabel value="#{departamento.nombre_departamento}"/>
-                </p:column> 
+                </h:form>
+               
+                </p:dialog>
                 
-                 <p:column headerText="Area">
-                     <p:outputLabel value="#{departamento.area.nombre_area}"/>
-                </p:column> 
-                
-                
-                <p:column headerText="Estatus">
-                    <p:outputLabel value="#{departamento.estatus}"/>
-                </p:column>
-                
-                <p:column headerText="Modificar">
-                </p:column>
-                
-                <p:column headerText="Eliminar">
-                </p:column>
-            </p:dataTable>
-        </h:form>
+              
                 
             </ui:define>
 

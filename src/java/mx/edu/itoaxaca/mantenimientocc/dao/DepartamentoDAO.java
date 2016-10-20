@@ -29,13 +29,14 @@ public class DepartamentoDAO extends Conexion{
             consulta.setString(2,departamentoregistra.getNombre_departamento());
             consulta.setInt(3,departamentoregistra.getArea().getIdarea());
             consulta.setBoolean(4,departamentoregistra.getEstatus());
-            
             consulta.executeUpdate();
+            
         }
         catch(Exception e){
-           System.out.println("error en DAO"); 
+        System.out.println("error en Departamento DAO -->RegistrarDEPTO"+"/n"+e);
+       // System.out.println("error en DAO"); 
         }
-        finally{
+     finally{
            this.Cerrar();
         }
     }
@@ -54,10 +55,7 @@ public class DepartamentoDAO extends Conexion{
              departamento.setIddepartamento(resultadoset.getInt("iddepartamento"));
              departamento.setClave_departamento(resultadoset.getString("clave_departamento"));
              departamento.setNombre_departamento(resultadoset.getString("nombre_departamento"));
-
-            // departamento.setArea((Area) resultadoset.getObject("idarea"));
-
-             departamento.setArea(new AreaDAO().buscarIdArea(resultadoset.getInt("id_area")));
+            departamento.setArea(new AreaDAO().buscarIdArea(resultadoset.getInt("id_area")));
 
              departamento.setEstatus(resultadoset.getBoolean("estatus"));
              

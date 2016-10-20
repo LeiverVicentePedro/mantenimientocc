@@ -10,6 +10,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.DepartamentoDAO;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Area;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 
 
@@ -19,7 +20,10 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 public class DepartamentoBEAN {
     
   private Departamento departamento= new Departamento();
+ 
   private List<Departamento> listadepartamento;
+
+    
 
     public Departamento getDepartamento() {
         return departamento;
@@ -32,12 +36,12 @@ public class DepartamentoBEAN {
     public void registrarDepartamento() throws Exception{
         DepartamentoDAO departamentoDao;
             try{
-                departamentoDao= new DepartamentoDAO();
+               departamentoDao= new DepartamentoDAO();
                 departamentoDao.registrarDepartamento(departamento);
             }
             catch(Exception e)
             {
-                System.out.println("error en BEAN");
+                System.out.println("error en Departamento BEAN -->RegistrarDepartamentoBEAN"+e);
             }
     }   
 
