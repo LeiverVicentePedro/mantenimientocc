@@ -29,13 +29,13 @@ public class DepartamentoDAO extends Conexion{
             consulta.setString(2,departamentoregistra.getNombre_departamento());
             consulta.setInt(3,departamentoregistra.getArea().getIdarea());
             consulta.setBoolean(4,departamentoregistra.getEstatus());
-            
             consulta.executeUpdate();
         }
         catch(Exception e){
-           System.out.println("error en DAO"); 
+        System.out.println("error en Departamento DAO -->RegistrarDEPTO"+"/n"+e);
+       // System.out.println("error en DAO"); 
         }
-        finally{
+     finally{
            this.Cerrar();
         }
     }
@@ -54,10 +54,7 @@ public class DepartamentoDAO extends Conexion{
              departamento.setIddepartamento(resultadoset.getInt("iddepartamento"));
              departamento.setClave_departamento(resultadoset.getString("clave_departamento"));
              departamento.setNombre_departamento(resultadoset.getString("nombre_departamento"));
-
-            // departamento.setArea((Area) resultadoset.getObject("idarea"));
-
-             departamento.setArea(new AreaDAO().buscarIdArea(resultadoset.getInt("id_area")));
+            departamento.setArea(new AreaDAO().buscarIdArea(resultadoset.getInt("id_area")));
 
              departamento.setEstatus(resultadoset.getBoolean("estatus"));
              
@@ -66,7 +63,7 @@ public class DepartamentoDAO extends Conexion{
              
      }
      catch(Exception e){
-         System.out.println("error en departamentoDao "+e);
+         System.out.println("error en departamentoDao metodo Listar"+e);
          throw e;
          
      }
@@ -75,6 +72,75 @@ public class DepartamentoDAO extends Conexion{
      }
      return lista;
     }
+     
+     
+     public Departamento elegirDatoDepartamento(Departamento departamento) throws Exception{
+        Departamento departamentodos=null;
+        ResultSet resultadosetdepartamento;
+        try{
+            this.Conectar();
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT iddepartamento, clave_departamento, nombre_departamento,id_area,estatus FROM departamento WHERE iddepartamento=?");
+            consulta.setInt(1, departamento.getIddepartamento());
+            resultadosetdepartamento = consulta.executeQuery();
+            while(resultadosetdepartamento.next())
+            {
+              departamentodos= new Departamento();
+              
+             departamentodos.setIddepartamento(resultadosetdepartamento.getInt("iddepartamento"));
+              departamentodos.setClave_departamento(resultadosetdepartamento.getString("clave_departamento"));
+              departamentodos.setNombre_departamento(resultadosetdepartamento.getString("nombre_departamento"));
+              departamentodos.setArea(new AreaDAO().buscarIdArea(resultadosetdepartamento.getInt("id_area")));
+              departamentodos.setEstatus(resultadosetdepartamento.getBoolean("estatus"));
+            }
+        }
+        catch(Exception e){
+           System.out.println("error en departamentoDao metodo ElegirDato"+e);
+        }
+        finally{
+           this.Cerrar();
+        }
+        return departamentodos;
+    }
+     
+     
+    //metodo modificar departamento
+     
+     public void modificarDepartamento (Departamento departamentomodificar) throws Exception{
+          
+        try{
+            this.Conectar();
+            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE departamento SET clave_departamento=?, nombre_departamento=?, id_area=?, estatus=? WHERE iddepartamento=?");
+            consulta.setInt(1, departamentomodificar.getIddepartamento());
+            consulta.setString(2, departamentomodificar.getClave_departamento());
+            consulta.setString(3, departamentomodificar.getNombre_departamento());
+            consulta.setInt(4,departamentomodificar.getArea().getIdarea());
+            consulta.setBoolean(5,departamentomodificar.getEstatus());
+            consulta.executeUpdate();
+        }
+        catch(Exception e){
+          System.out.println("error en departamentoDao metodo Modificar"+e);
+        }
+        finally{
+           this.Cerrar();
+        }
+    }  
+     
+   //metodo eliminaf
+      public void eliminarDepartamento (Departamento departamentoeliminar) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement consulta= this.getConexion().prepareStatement("DELETE FROM departamento WHERE id_area=?");
+            consulta.setInt(1,departamentoeliminar.getArea().getIdarea());
+            consulta.executeUpdate();
+        }
+        catch(Exception e){
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }
+    }   
+    
     
      public Departamento buscarIdDepartamento(int idDepartamento) throws Exception{
          Departamento departamento = new Departamento();

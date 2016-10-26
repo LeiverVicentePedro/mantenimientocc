@@ -20,8 +20,41 @@
             </ui:define>
 
             <ui:define name="content">
-                <f:event type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
-                <h:form>
+                
+               
+                 <h:form id="formaExterior">                      
+            
+                     <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" update=":dialogoDatos" onclick="#{departamentoBEAN.setAccion('Registrar')}"/> 
+                     <p:commandButton value="Listar" actionListener="#{departamentoBEAN.listarDepartamento()}" update="data"/>
+                     
+                     
+                     <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento">
+                         
+                         <p:column headerText="Clave Departamento">
+                             <p:outputLabel value="#{departamento.clave_departamento}"/>
+                         </p:column>
+                         <p:column headerText="Nombre de Departamento">
+                             <p:outputLabel value="#{departamento.nombre_departamento}"/>
+                         </p:column>
+                         <p:column headerText="Area">
+                             <p:outputLabel value="#{departamento.area.nombre_area}"/>
+                         </p:column>
+                         <p:column headerText="Estatus">
+                             <p:outputLabel value="#{departamento.estatus}"/>
+                         </p:column>
+                         <p:column headerText="Modificar">
+                             <p:commandLink value="Modificar" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('DatosModificar').show();" update=":dialogoDatosModificar" onclick="#{departamentoBEAN.setAccion('Modificar')}"/>
+                         </p:column>
+                         <p:column headerText="Eliminar">
+                             <p:commandLink value="Eliminar" actionListener="#{departamentoBEAN.eliminarDepartamento(departamento)}" update="data"/>
+                         </p:column>
+                    </p:dataTable>
+                 </h:form>
+                
+                
+                <p:dialog header="DatosModificar" widgetVar="Datos" id="dialogoDatos" > 
+                    <h:form id="lista">
+                    <f:event id="event" type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
                     <p:outputLabel value="Clave Departamento"/>
                     <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}"/>
                     <p:outputLabel value="Nombre de Departamento"/>
@@ -29,7 +62,7 @@
                     <p:outputLabel value="Nombre de area"/>
                     <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                            <f:selectItems value="#{areaBEAN.listaArea}" var="areaitem" itemLabel="#{areaitem.nombre_area}" itemValue="#{areaitem}"/>
+                            <f:selectItems value="#{areaBEAN.listaArea}" var="areaitem" itemLabel="#{areaitem}" itemValue="#{areaitem}"/>
                         </p:selectOneMenu> 
                     <p:outputLabel value="Estatus"/>
                     <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}">
@@ -37,39 +70,40 @@
                         <f:selectItem itemLabel="false" itemValue="false"/>
                     </p:selectOneMenu>
                     
-                    <h:commandButton value="Nuevo" actionListener="#{departamentoBEAN.registrarDepartamento()}"/> 
-                </h:form>
-                
-                <h:form id="formaExterior">                      
-            
+                    <p:commandButton value="Registtrar" actionListener="#{departamentoBEAN.registrarDepartamento()}" oncomplete="PF('Datos').hide();" update="lista"/>
+                                       
+                    <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                     
-                    <p:commandButton value="Listar" actionListener="#{departamentoBEAN.listarDepartamento()}" update="data"/>
-            
-                    <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento" >
-                <p:column headerText="Clave Departamento">
-                    <p:outputLabel value="#{departamento.clave_departamento}"/>
-                </p:column>
-                        
-                <p:column headerText="Nombre Departamento">
-                    <p:outputLabel value="#{departamento.nombre_departamento}"/>
-                </p:column> 
+                </h:form>
+                </p:dialog>
                 
-                 <p:column headerText="Area">
-                     <p:outputLabel value="#{departamento.area.nombre_area}"/>
-                </p:column> 
+                <p:dialog header="DatosModificarDos" widgetVar="DatosModificar" id="dialogoDatosModificar" > 
+                    
+                    <h:form id="listaModificar">
+                        <f:event id="event" type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
+                    <p:outputLabel value="Clave Departamento"/>
+                    <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}"/>
+                    <p:outputLabel value="Nombre de Departamento"/>
+                    <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}"/>
+                    <p:outputLabel value="Nombre de area"/>
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter">
+                        <f:selectItems value="#{areaBEAN.listaArea}" var="areaitem" itemLabel="#{areaitem.nombre_area}" itemValue="#{areaitem}"/>
+                        </p:selectOneMenu> 
+                    <p:outputLabel value="Estatus"/>
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}">
+                        <f:selectItem itemLabel="true" itemValue="true"/>
+                        <f:selectItem itemLabel="false" itemValue="false"/>
+                    </p:selectOneMenu>
+                     
+                    <p:commandButton value="Modificar" actionListener="#{departamentoBEAN.modificarDepartamento()}" oncomplete="PF('DatosModificar').hide();" update="listaModificar"/>
+                    <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosModificar').hide();" />
+                    
+                </h:form>
+                </p:dialog>
                 
                 
-                <p:column headerText="Estatus">
-                    <p:outputLabel value="#{departamento.estatus}"/>
-                </p:column>
                 
-                <p:column headerText="Modificar">
-                </p:column>
-                
-                <p:column headerText="Eliminar">
-                </p:column>
-            </p:dataTable>
-        </h:form>
+              
                 
             </ui:define>
 

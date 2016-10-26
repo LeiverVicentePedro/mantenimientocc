@@ -7,6 +7,41 @@ public class Area {
     private int idarea;
     private String nombre_area;
     private Boolean estatus;
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + this.idarea;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Area other = (Area) obj;
+        if (this.idarea != other.idarea) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+    @Override
+    public String toString() {
+        return String.format("%s[idarea=%d]",getClass().getSimpleName(),getIdarea());
+    }
+
+  */
+    
+    
     
     
  

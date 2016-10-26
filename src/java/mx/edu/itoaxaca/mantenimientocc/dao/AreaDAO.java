@@ -21,7 +21,7 @@ public class AreaDAO extends Conexion {
             consulta.executeUpdate();
         }
         catch(Exception e){
-           throw e; 
+          System.out.println("error en AREA DAO -->RegistrarAREA"+"/n"+e);
         }
         finally{
            this.Cerrar();
