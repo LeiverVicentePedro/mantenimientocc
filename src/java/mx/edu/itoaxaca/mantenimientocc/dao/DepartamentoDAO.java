@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Area;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 
 
@@ -110,11 +109,11 @@ public class DepartamentoDAO extends Conexion{
         try{
             this.Conectar();
             PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE departamento SET clave_departamento=?, nombre_departamento=?, id_area=?, estatus=? WHERE iddepartamento=?");
-            consulta.setInt(1, departamentomodificar.getIddepartamento());
-            consulta.setString(2, departamentomodificar.getClave_departamento());
-            consulta.setString(3, departamentomodificar.getNombre_departamento());
-            consulta.setInt(4,departamentomodificar.getArea().getIdarea());
-            consulta.setBoolean(5,departamentomodificar.getEstatus());
+            consulta.setString(1, departamentomodificar.getClave_departamento());
+            consulta.setString(2, departamentomodificar.getNombre_departamento());
+            consulta.setInt(3,departamentomodificar.getArea().getIdarea());
+            consulta.setBoolean(4,departamentomodificar.getEstatus());
+            consulta.setInt(5, departamentomodificar.getIddepartamento());
             consulta.executeUpdate();
         }
         catch(Exception e){
@@ -129,8 +128,8 @@ public class DepartamentoDAO extends Conexion{
       public void eliminarDepartamento (Departamento departamentoeliminar) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement consulta= this.getConexion().prepareStatement("DELETE FROM departamento WHERE id_area=?");
-            consulta.setInt(1,departamentoeliminar.getArea().getIdarea());
+            PreparedStatement consulta= this.getConexion().prepareStatement("DELETE FROM departamento WHERE iddepartamento=?");
+            consulta.setInt(1,departamentoeliminar.getIddepartamento());
             consulta.executeUpdate();
         }
         catch(Exception e){

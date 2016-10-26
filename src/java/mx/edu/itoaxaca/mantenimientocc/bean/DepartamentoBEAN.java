@@ -87,7 +87,8 @@ public class DepartamentoBEAN {
         Departamento departamentoTemporal;
         try{
             departamentodao= new DepartamentoDAO();
-            departamentoTemporal=departamentodao.elegirDatoDepartamento(departamentoElegirDato);
+            departamentoTemporal = new Departamento();
+            departamentoTemporal = departamentodao.elegirDatoDepartamento(departamentoElegirDato);
             
             if(departamentoTemporal != null){
                 this.departamento = departamentoTemporal;
