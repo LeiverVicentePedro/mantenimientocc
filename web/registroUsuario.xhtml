@@ -11,11 +11,11 @@
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <h:outputStylesheet library="css" name="bootstrap-theme.min.css"/>
         <h:outputScript library="js" name="bootstrap.min.js"/>
-        <h:outputScript library="js" name="jquery-3.1.0.min.js"/>
+
     </h:head>
     <h:body>
         <div class="container" Style=" background-color:#e5e5e5; height: 8em">
-            <div class="col-md-3" id="left">
+            <div class="col-md-3">
                 <h:graphicImage library="images" name="gobmx.png" width="180 em" height="70 em" style="margin-top: 1em"/>
             </div>
             <div class="col-md-6">
@@ -27,26 +27,54 @@
             </div>
         </div>
 
-        <div class="container" style="margin-top: 10em">
+        <div class="container text-center" style="margin-top: 2em">
+            <p:growl id="mensaje" autoUpdate="true"/>
             
                 <h:form>
-                    <p:inputText class="form-control" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.objetoUsuario.nombre}"/>
-                    <p:inputText class="form-control" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.objetoUsuario.apellidoPaterno}"/>
-                    <p:inputText class="form-control" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.objetoUsuario.apellidoMaterno}"/>
-                   
-                    <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="slider">
-                        <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
-                    </p:multiSelectListbox>
-                    <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}"/>
-                    <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.objetoUsuario.profesion}"/>
-                    <p:inputText class="form-control" placeholder="Estatus" id="estatusUsuario" value="#{usuarioBEAN.objetoUsuario.estatus}"/>
-                    
-                    <p:commandButton value="Save"  update="out" style="display:block;margin:10px 0" />
-                    <h:outputText id="out" value="Value: #{usuarioBEAN.objetoUsuario.idOficina}" style="display:block" /> 
+                    <p:outputLabel value="REGISTRO NUEVO USUARIO" class="text-capitalize"/>
+                    <p:separator style="visibility: hidden"/>
+                    <p:panel header="Datos Personales" class="text-center container" style=" width: 70%">
+                        <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
+                            <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" />
+                            <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido"/>
+                            <p:inputText class="" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoPaterno}" required="true" requiredMessage="Apellido Paterno Requerido"/>
+                            <p:inputText class="" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoMaterno}" required="true" requiredMessage="Apellido Materno Requerido"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:separator style="visibility: hidden"/>
+                    <p:panel header="Sobre su Trabajo" class="text-center container " style="width: 70%" >
+                        <h:panelGrid columns="2" cellpadding="5" cellspacing="10">
+                            <p:multiSelectListbox value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
+                                <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
+                            </p:multiSelectListbox>
+                            <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.profesion}" required="true" requiredMessage="Profesion Requerida"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:separator style="visibility: hidden"/>
+                    <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container">
+                        <h:panelGrid columns="3" class="container-fluid">
+                            <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.correo}" required="true" requiredMessage="Cuenta de Correo Requerido"/>
+                            <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido"/>
+                            <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" type="password" required="true" requiredMessage="Confirme su Contraseña"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:separator style="visibility: hidden"/>
+                    <div class="container text-center">
+                        <p:commandButton value="Cancelar" action="index.xhtml"/>
+                        <p:commandButton value="Registrar" actionListener="#{usuarioBEAN.registrarNuevoUsuario}"/>
+                    </div>
                 </h:form>
+                
+            </div>
+        <div class="container">
+            <footer class="col-md-12" Style=" background-color:#e5e5e5; position: relative; bottom: -1em; height: 3em">
+                <div class="text-center">
 
+
+                </div>
+            </footer>
         </div>
-
     </h:body>
 </html>
+
 
