@@ -18,8 +18,6 @@ public class AreaBEAN {
     private String accion;
 
 
-    
-
     public Area getArea() {
         return area;
     }

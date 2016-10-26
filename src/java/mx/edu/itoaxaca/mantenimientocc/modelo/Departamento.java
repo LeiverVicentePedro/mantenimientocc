@@ -5,51 +5,19 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author leiver
  */
-public class Departamento {
+public class Departamento implements Serializable{
     
     private int iddepartamento;
     private String clave_departamento;
     private String nombre_departamento;
     private Area area;
     private Boolean estatus;
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + this.iddepartamento;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Departamento other = (Departamento) obj;
-        if (this.iddepartamento != other.iddepartamento) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-         return String.format("%s[iddepartamento=%d]",getClass().getSimpleName(),getIddepartamento());
-        
-    }
-    
-    
-    
 
     public int getIddepartamento() {
         return iddepartamento;

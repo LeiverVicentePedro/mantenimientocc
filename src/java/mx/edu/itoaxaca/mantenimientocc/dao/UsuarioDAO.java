@@ -33,11 +33,12 @@ public class UsuarioDAO extends Conexion{
             inserta.setString(8, usuarioRegistrar.getRfc());
             inserta.setString(9, usuarioRegistrar.getProfesion());
             inserta.setString(10, usuarioRegistrar.getTipoBT());
-            inserta.setBoolean(11, usuarioRegistrar.isEstatus());
+            inserta.setBoolean(11, usuarioRegistrar.getEstatus());
             
             inserta.executeUpdate();
             
         }catch(Exception ex){
+            System.out.println("Error en UsuarioDAO -> RegistrarUsuario "+ex);
             throw ex;
         }finally{
             this.Cerrar();

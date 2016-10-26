@@ -7,11 +7,9 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 
 
 import java.util.List;
-import java.util.Objects;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.DepartamentoDAO;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Area;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 
 
@@ -89,7 +87,8 @@ public class DepartamentoBEAN {
         Departamento departamentoTemporal;
         try{
             departamentodao= new DepartamentoDAO();
-            departamentoTemporal=departamentodao.elegirDatoDepartamento(departamentoElegirDato);
+            departamentoTemporal = new Departamento();
+            departamentoTemporal = departamentodao.elegirDatoDepartamento(departamentoElegirDato);
             
             if(departamentoTemporal != null){
                 this.departamento = departamentoTemporal;

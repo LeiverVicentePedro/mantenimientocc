@@ -22,7 +22,7 @@ public class Usuario {
     private String rfc;
     private String profesion;
     private String tipoBT;
-    private boolean estatus;
+    private Boolean estatus;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -112,12 +112,44 @@ public class Usuario {
         this.tipoBT = tipoBT;
     }
 
-    public boolean isEstatus() {
+    public Boolean getEstatus() {
         return estatus;
     }
 
-    public void setEstatus(boolean estatus) {
+    public void setEstatus(Boolean estatus) {
         this.estatus = estatus;
+    }
+
+   
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + this.idUsuario;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (this.idUsuario != other.idUsuario) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s[idUsuario=%d]",getClass().getSimpleName(),getIdUsuario());
     }
      
 }

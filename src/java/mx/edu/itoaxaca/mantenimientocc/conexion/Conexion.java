@@ -29,8 +29,8 @@ public class Conexion {
     public void Conectar() throws Exception{
         try{
       Class.forName("com.mysql.jdbc.Driver");
-     conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=admin");
-    //  conexion = DriverManager.getConnection("jdbc:mysql://sql37.hostinger.mx:3306/u759045733_cc?user=u759045733_adm&password=administrador");
+      conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=admin");
+      //conexion = DriverManager.getConnection("jdbc:mysql://sql37.hostinger.mx:3306/u759045733_cc?user=u759045733_adm&password=administrador");
       
     }catch(Exception ex){
         System.out.println("Error de Conexion" +ex+" ==============================");
