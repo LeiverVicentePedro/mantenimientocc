@@ -77,7 +77,6 @@ public class DepartamentoDAO extends Conexion{
      public Departamento elegirDatoDepartamento(Departamento departamento) throws Exception{
         Departamento departamentodos=null;
         ResultSet resultadosetdepartamento;
-        
         try{
             this.Conectar();
              PreparedStatement consulta= this.getConexion().prepareStatement("SELECT iddepartamento, clave_departamento, nombre_departamento,id_area,estatus FROM departamento WHERE iddepartamento=?");
@@ -86,6 +85,7 @@ public class DepartamentoDAO extends Conexion{
             while(resultadosetdepartamento.next())
             {
               departamentodos= new Departamento();
+              
              departamentodos.setIddepartamento(resultadosetdepartamento.getInt("iddepartamento"));
               departamentodos.setClave_departamento(resultadosetdepartamento.getString("clave_departamento"));
               departamentodos.setNombre_departamento(resultadosetdepartamento.getString("nombre_departamento"));
@@ -94,7 +94,6 @@ public class DepartamentoDAO extends Conexion{
             }
         }
         catch(Exception e){
-            
            System.out.println("error en departamentoDao metodo ElegirDato"+e);
         }
         finally{
@@ -107,6 +106,7 @@ public class DepartamentoDAO extends Conexion{
     //metodo modificar departamento
      
      public void modificarDepartamento (Departamento departamentomodificar) throws Exception{
+          
         try{
             this.Conectar();
             PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE departamento SET clave_departamento=?, nombre_departamento=?, id_area=?, estatus=? WHERE iddepartamento=?");
@@ -115,8 +115,6 @@ public class DepartamentoDAO extends Conexion{
             consulta.setString(3, departamentomodificar.getNombre_departamento());
             consulta.setInt(4,departamentomodificar.getArea().getIdarea());
             consulta.setBoolean(5,departamentomodificar.getEstatus());
-           
-            
             consulta.executeUpdate();
         }
         catch(Exception e){
@@ -131,8 +129,8 @@ public class DepartamentoDAO extends Conexion{
       public void eliminarDepartamento (Departamento departamentoeliminar) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement consulta= this.getConexion().prepareStatement("DELETE FROM departamento WHERE iddepartamento=?");
-            consulta.setInt(1,departamentoeliminar.getIddepartamento());
+            PreparedStatement consulta= this.getConexion().prepareStatement("DELETE FROM departamento WHERE id_area=?");
+            consulta.setInt(1,departamentoeliminar.getArea().getIdarea());
             consulta.executeUpdate();
         }
         catch(Exception e){

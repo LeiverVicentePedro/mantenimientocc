@@ -7,6 +7,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 
 
 import java.util.List;
+import java.util.Objects;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.DepartamentoDAO;
@@ -22,6 +23,9 @@ public class DepartamentoBEAN {
   private Departamento departamento= new Departamento();
   private List<Departamento> listadepartamento;
   private String accion;//esta variable es para usarla en un switch y poder escoger si es opcion registrar o modificar
+
+  
+  
   
   
    //metodo get y set de variable accion
@@ -44,10 +48,14 @@ public class DepartamentoBEAN {
     //metodo Registrar departamento
     public void registrarDepartamento() throws Exception{
         DepartamentoDAO departamentoDao;
+        
             try{
+                
                departamentoDao= new DepartamentoDAO();
                 departamentoDao.registrarDepartamento(departamento);
+                
             }
+            
             catch(Exception e)
             {
                 System.out.println("error en Departamento BEAN -->RegistrarDepartamentoBEAN"+e);
@@ -94,16 +102,16 @@ public class DepartamentoBEAN {
         
     }
     
-     private void modificarDepartamento() throws Exception{
+     public void modificarDepartamento() throws Exception{
         DepartamentoDAO departamentodao;
             try{
                 departamentodao= new DepartamentoDAO();
                 departamentodao.modificarDepartamento(departamento);
-                this.listarDepartamento();
+               // this.listarDepartamento();
             }
             catch(Exception e)
             {
-                throw e;
+                System.out.println("error en departamentoBEAN metodo -->modificar"+e);
             }
     } 
      

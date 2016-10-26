@@ -3,6 +3,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 
 
 import java.util.List;
+import java.util.Objects;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.AreaDAO;
@@ -15,6 +16,8 @@ public class AreaBEAN {
     private Area area = new Area();
     private List<Area> listaArea;
     private String accion;
+
+
     
 
     public Area getArea() {
