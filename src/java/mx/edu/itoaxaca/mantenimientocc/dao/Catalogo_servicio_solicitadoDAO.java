@@ -22,8 +22,8 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
         try{
             this.Conectar();
             PreparedStatement consulta= this.getConexion().prepareStatement("INSERT INTO catalogo_servicio_solicitado (servicio_solicitado) values(?)");
-            consulta.setInt(1, catalogo_servicio_solicitado.getIdcatalogo_servicio_solicitado());
-            consulta.setString(2,catalogo_servicio_solicitado.getServicio_solicitado());
+          
+            consulta.setString(1,catalogo_servicio_solicitado.getServicio_solicitado());
            
             consulta.executeUpdate();
         }

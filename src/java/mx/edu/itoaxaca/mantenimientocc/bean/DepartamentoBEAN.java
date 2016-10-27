@@ -23,15 +23,13 @@ public class DepartamentoBEAN {
   private String accion;//esta variable es para usarla en un switch y poder escoger si es opcion registrar o modificar
 
   
-  
-  
-  
    //metodo get y set de variable accion
     public String getAccion() {
         return accion;
     }
 
     public void setAccion(String accion) {
+         this.limpiarDepartamento();
         this.accion = accion;
     }
 
@@ -51,7 +49,7 @@ public class DepartamentoBEAN {
                 
                departamentoDao= new DepartamentoDAO();
                 departamentoDao.registrarDepartamento(departamento);
-                
+                this.listarDepartamento();
             }
             
             catch(Exception e)
@@ -106,7 +104,7 @@ public class DepartamentoBEAN {
             try{
                 departamentodao= new DepartamentoDAO();
                 departamentodao.modificarDepartamento(departamento);
-               // this.listarDepartamento();
+               this.listarDepartamento();
             }
             catch(Exception e)
             {
@@ -121,11 +119,11 @@ public class DepartamentoBEAN {
         {
             case "Registrar":
                 this.registrarDepartamento();
-                //this.limpiarDepartamento();
+               this.limpiarDepartamento();
                 break;
             case "Modificar":
                 this.modificarDepartamento();
-               // this.limpiarDepartamento();
+               this.limpiarDepartamento();
                 break;
         }
     }
@@ -141,7 +139,13 @@ public class DepartamentoBEAN {
             {
                 throw e;
             }
-    } 
+    }
+     
+     public void limpiarDepartamento(){
+        this.departamento.setClave_departamento("");
+        this.departamento.setNombre_departamento("");
+        this.departamento.setEstatus(Boolean.TRUE);
+    }
     
     
 }

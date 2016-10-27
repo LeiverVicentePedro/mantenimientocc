@@ -10,6 +10,34 @@ public class Area implements Serializable{
     private String nombre_area;
     private Boolean estatus;
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 19 * hash + this.idarea;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Area other = (Area) obj;
+        if (this.idarea != other.idarea) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+
     public int getIdarea() {
         return idarea;
     }
