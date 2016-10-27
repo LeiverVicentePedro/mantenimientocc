@@ -147,5 +147,4 @@ public class DepartamentoBEAN {
         this.departamento.setEstatus(Boolean.TRUE);
     }
     
-    
 }
