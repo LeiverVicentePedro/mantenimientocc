@@ -46,9 +46,12 @@ public class UsuarioBEAN {
     private String confirmacionContraseña;
     private String mensajeClaseUsuario = "vacio";
     private List<SelectItem> listaOficinaUsuario;
-    static String usuarioCorreo, contraseñaCorreo;
+    static String usuarioCorreo;
+    static String contraseñaCorreo;
     static Properties propiedades;
     static Session sesion;
+    private String recuperaCorreo;
+
 
     public void registrarUsuario() throws Exception {
         UsuarioDAO usuarioDao;
@@ -87,6 +90,26 @@ public class UsuarioBEAN {
         }
     }
 
+     public void recuperarCuenta() throws Exception{
+     UsuarioDAO usuarioDao;
+     Usuario usuariodeCuenta = new Usuario();
+     try{
+         usuarioDao = new UsuarioDAO();
+         usuariodeCuenta = usuarioDao.consultarUsuario(recuperaCorreo);
+         
+         if(usuariodeCuenta.getCorreo().isEmpty()){
+             mensajeClaseUsuario = "El Correo no Existe Proporcione el correo con el que se registro.";
+         }else{
+             mensajeClaseUsuario = "La informacion a sido enviada a su Correo.";
+             enviarMensajeRecuperacion(usuariodeCuenta.getCorreo(),usuariodeCuenta.getClave());
+         }
+         FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensajeClaseUsuario);
+         RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+     }catch(Exception ex){
+         System.out.println("Error en UsuarioBEAN ->recuperarCuenta "+ex);
+         throw ex;
+     }
+    }
     @PostConstruct
     public void llenaListaOficinaUsuario() {
         listaOficinaUsuario = new ArrayList<SelectItem>();
@@ -143,7 +166,7 @@ public class UsuarioBEAN {
 
         }
     }
-
+    
     public Usuario getRegistroUsuarioNuevo() {
         return registroUsuarioNuevo;
     }
@@ -183,16 +206,23 @@ public class UsuarioBEAN {
     public void setMensajeClaseUsuario(String mensajeClaseUsuario) {
         this.mensajeClaseUsuario = mensajeClaseUsuario;
     }
+    
+     public String getRecuperaCorreo() {
+        return recuperaCorreo;
+    }
 
+    public void setRecuperaCorreo(String recuperaCorreo) {
+        this.recuperaCorreo = recuperaCorreo;
+    }
     /* creacion de metodos para envio de mensajeria por correo*/
     private void enviarMensaje(String correo,String clave) {
         try {
             setup();
             String asunto="Registro en el Sistema SIMAPRECO del TEC-OAX";
-            String mensaje="Gracias por registrarse/n"+"Su Cuenta a sido creada de manera satisfactoria a con los siguentes datos:\n"
+            String mensaje="Gracias por registrarse\n"+"Su Cuenta a sido creada de manera satisfactoria a con los siguentes datos:\n"
                     +"DATOS PARA ACCEDER A SU CUENTA\n"+
-                    correo+"\n"+
-                    clave+"\n"+
+                    "Su cuenta de Acceso: "+correo+"\n"+
+                    "Su clave de acceso: "+clave+"\n"+
                     "Con esta informacion podra acceder a su cuenta en el sistema";
 
             Message crearCorreo = new MimeMessage(sesion);
@@ -205,11 +235,32 @@ public class UsuarioBEAN {
             System.out.println("Error en UsuarioBEAN -> enviarMensaje "+ex);
         }
     }
+    
+    private void enviarMensajeRecuperacion(String correo,String clave) {
+        try {
+            setup();
+            String asunto="Recuperacion de Cuenta del Sistema SIMAPRECO del TEC-OAX";
+            String mensaje="Datos pertenecientes a la cuenta del Sistema SIMAPRECO del INSTITUTO TECNOLÓGICO DE OAXACA\n"
+                    +"DATOS DE SU CUENTA\n"+
+                    "Su cuenta de Acceso: "+correo+"\n"+
+                    "Su clave de acceso: "+clave+"\n"+
+                    "Con esta informacion podra acceder a su cuenta en el sistema";
 
+            Message crearCorreo = new MimeMessage(sesion);
+            crearCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(correo));
+            crearCorreo.setSubject(asunto);
+            crearCorreo.setText(mensaje);
+//Enviamos el Mensaje
+            Transport.send(crearCorreo);
+        } catch (Exception ex) {
+            System.out.println("Error en UsuarioBEAN -> enviarMensaje "+ex);
+        }
+    }
+    
     private static void setup() throws MessagingException {
         //datos de conexion
-        usuarioCorreo = "vpleiver@gmail.om";
-        contraseñaCorreo = "elviamaria";
+        usuarioCorreo = "10161024@itoaxaca.edu.mx";
+        contraseñaCorreo = "Pequekrn";
         //propiedades de la conexion
         propiedades = new Properties();
         propiedades.put("mail.smtp.auth", "true");

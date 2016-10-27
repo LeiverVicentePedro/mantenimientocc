@@ -47,14 +47,14 @@ public class UsuarioDAO extends Conexion{
     
     public Usuario consultarUsuario(String  correo) throws Exception
     {
-        Usuario usuarioUnico = null;
+        Usuario usuarioUnico = new Usuario();
         try{
             this.Conectar();
             PreparedStatement consultar = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE correo=?");
             consultar.setString(1,correo);
             ResultSet resultado = consultar.executeQuery();
             
-            usuarioUnico.setIdUsuario(resultado.getInt("idUsuario"));
+            usuarioUnico.setIdUsuario(resultado.getInt("idusuario"));
             usuarioUnico.setNombre(resultado.getString("nombre"));
             usuarioUnico.setApellidoPaterno(resultado.getString("apellido_paterno"));
             usuarioUnico.setApellidoMaterno(resultado.getString("apellido_materno"));
@@ -70,6 +70,7 @@ public class UsuarioDAO extends Conexion{
             
             return usuarioUnico;
         }catch(Exception ex){
+            System.out.println("Error en UsuarioDAO -> consultaUsuario");
             throw ex;
         }finally{
            this.Cerrar();
