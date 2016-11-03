@@ -12,28 +12,76 @@
 
            
                 <ui:define name="content">
-                    <f:event type="preRenderView" listener="#{departamentoBEAN.listarDepartamento()}"/>
-                <h:form>
+                    <h:form id="formaExterior">
+                        <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{oficina_solicitanteBEAN.setAccion('Registrar')}" update=":dialogoDatos" />
+                        <p:commandButton value="Listar" actionListener="#{oficina_solicitanteBEAN.listarOficina()}" update="data"/>
+                        
+                     <p/>
+                     <p:dataTable id="data" value="#{oficina_solicitanteBEAN.listaOficina}" var="oficina" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+
+                        <p:column headerText="Nombre de Oficina" >
+                            <p:outputLabel value="#{oficina.nombreOficina}"  />
+                        </p:column>
+                        <p:column headerText="Departamento">
+                            <p:outputLabel value="#{oficina.departamento.nombre_departamento}"/>
+                        </p:column>
+                         
+                        <p:column headerText="Extencion">
+                            <p:outputLabel value="#{oficina.extencion}"/>
+                        </p:column>
+                        <p:column headerText="Estatus">
+                            <p:outputLabel value="#{oficina.estatus}"/>
+                        </p:column>
+                        <p:column headerText="Modificar">
+                            <p:commandLink value="Modificar" actionListener="#{oficina_solicitanteBEAN.elegirDatoOficina(oficina)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                         </p:column>
+                         <p:column headerText="Eliminar">
+                             <p:commandLink value="Eliminar" actionListener="#{oficina_solicitanteBEAN.eliminarOficina(oficina)}" update="data"/>
+                        
+                         </p:column>
+                    </p:dataTable>
+                     
+                     
+                 </h:form>
+                   
+                   <p:dialog header="Datos Oficina" widgetVar="Datos" id="dialogoDatos" class="container-fluid">  
+                   
+                    <h:form id="lista">
+                     <f:event type="preRenderView" listener="#{departamentoBEAN.listarDepartamento()}"/>
+                     
                     <p:outputLabel value="Nombre de Oficina"/>
-                    <p:inputText value="#{oficina_solicitanteBEAN.oficina.nombreOficina}"/>
+                    <p:inputText value="#{oficina_solicitanteBEAN.oficina.nombreOficina}" required="true" requiredMessage="Se requiere Nombre de Oficina"/>
                     
+                    <!-- el style es para poder alinear correctamente el selectOneMenu -->
+                    <style type="text/css">                                      
+                    .selectMenu { display: inline-block; vertical-align: top; }
+                    </style>
                      <p:outputLabel value="Nombre de departamento"/>
-                     <p:selectOneMenu value="#{oficina_solicitanteBEAN.oficina.idDepartamento}" converter="omnifaces.SelectItemsConverter">
+                     <p:selectOneMenu value="#{oficina_solicitanteBEAN.oficina.departamento}" converter="omnifaces.SelectItemsConverter"  styleClass="selectMenu" required="true" requiredMessage="Seleccione un Departamento" >
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                             <f:selectItems value="#{departamentoBEAN.listadepartamento}" var="departamentoitem" itemLabel="#{departamentoitem.nombre_departamento}" itemValue="#{departamentoitem}"/>
                         </p:selectOneMenu> 
+                    <p/>
                     
+                    <center>
                     <p:outputLabel value="Extencion"/>
-                    <p:inputText value="#{oficina_solicitanteBEAN.oficina.extencion}"/>
+                    <p:inputText value="#{oficina_solicitanteBEAN.oficina.extencion}" required="true" requiredMessage="Se necesita un numero de Extención"/>
                    
                     <p:outputLabel value="Estatus"/>
-                    <p:selectOneMenu value="#{oficina_solicitanteBEAN.oficina.estatus}">
+                    <p:selectOneMenu value="#{oficina_solicitanteBEAN.oficina.estatus}" required="true" requiredMessage=" Se necesita un Estatus" styleClass="selectMenu">
                         <f:selectItem itemLabel="true" itemValue="true"/>
                         <f:selectItem itemLabel="false" itemValue="false"/>
                     </p:selectOneMenu>
+                     <p/>
                     
-                    <h:commandButton value="Nuevo" actionListener="#{oficina_solicitanteBEAN.registrarOficina()}"/> 
-                </h:form>
+                    <p:commandButton value="#{oficina_solicitanteBEAN.accion}" actionListener="#{oficina_solicitanteBEAN.operarOficina()}" oncomplete="PF('Datos').hide();" update="lista"/>
+                    
+                    <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
+                    </center>
+                    </h:form>
+                   </p:dialog>
                 
              
                 

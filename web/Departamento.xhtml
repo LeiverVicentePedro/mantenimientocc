@@ -27,7 +27,9 @@
                     <p:commandButton value="Listar" actionListener="#{departamentoBEAN.listarDepartamento()}" update="data"/>
 
                      <p/>
-                    <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento">
+                    <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
 
                         <p:column headerText="Clave Departamento">
                             <p:outputLabel value="#{departamento.clave_departamento}"/>
@@ -56,25 +58,31 @@
                     <f:event id="event" type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
                     
                     
-                    <p:outputLabel value="&nbsp;Clave Departamento" style="align: left"/>
-                    <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}" required="true" requiredMessage="Se requiere Clave Departamento" style="align: right"/>
+                    <p:outputLabel value="&nbsp;Clave Departamento&nbsp;&nbsp;"  />
+                    <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}" required="true" requiredMessage="Se requiere Clave Departamento" >
+                        
+                    </p:inputText>
+                   
                     <p/>
-                    
-                    <p:outputLabel value="&nbsp;Nombre de Departamento"/>
-                    <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}" required="true" requiredMessage="Se requiere Nombre de Departamento"/>
+                    <p align="left">
+                    <p:outputLabel value="&nbsp;Nombre de Departamento &nbsp;"/>
+                    <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}" required="true" requiredMessage="Se requiere Nombre de Departamento"  />
+                    </p>
+                   
                    <p/>
                     <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
                     <style type="text/css">                                      
                     .selectMenu { display: inline-block; vertical-align: top; }
                     </style>
                     
-                    <p:outputLabel value="&nbsp;Nombre de area"/>
-                    <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter" styleClass="selectMenu">
+                    <p:outputLabel value="&nbsp;Nombre de area&nbsp;"/>
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter" styleClass="selectMenu" required="true" requiredMessage="Se Requiere Area">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                             <f:selectItems value="#{areaBEAN.listaArea}" var="areaitem" itemLabel="#{areaitem.nombre_area}" itemValue="#{areaitem}"/>
-                        </p:selectOneMenu> 
-                    <p:outputLabel value="&nbsp;Estatus"/>
-                    <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}" styleClass="selectMenu">
+                    </p:selectOneMenu> 
+                    <p:outputLabel value="&nbsp;Estatus&nbsp;"/>
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}" styleClass="selectMenu" required="true" requiredMessage="Se Requiere un Estatus"> 
+                    
                         <f:selectItem itemLabel="true" itemValue="true"/>
                         <f:selectItem itemLabel="false" itemValue="false"/>
                     </p:selectOneMenu>

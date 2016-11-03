@@ -144,6 +144,7 @@ public class DepartamentoBEAN {
      public void limpiarDepartamento(){
         this.departamento.setClave_departamento("");
         this.departamento.setNombre_departamento("");
+        this.departamento.setArea(null);
         this.departamento.setEstatus(Boolean.TRUE);
     }
     

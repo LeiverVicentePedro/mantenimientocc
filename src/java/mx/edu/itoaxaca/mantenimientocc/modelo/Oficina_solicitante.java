@@ -5,17 +5,47 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author leiver
  */
-public class Oficina_solicitante {
+public class Oficina_solicitante implements Serializable {
     
     private int idOficinaSolicitante;
     private String nombreOficina;
-    private Departamento idDepartamento;
+    private Departamento departamento;
     private int Extencion;
     private Boolean estatus;
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + this.idOficinaSolicitante;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Oficina_solicitante other = (Oficina_solicitante) obj;
+        if (this.idOficinaSolicitante != other.idOficinaSolicitante) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 
     public int getIdOficinaSolicitante() {
         return idOficinaSolicitante;
@@ -33,14 +63,15 @@ public class Oficina_solicitante {
         this.nombreOficina = nombreOficina;
     }
 
-    public Departamento getIdDepartamento() {
-        return idDepartamento;
+    public Departamento getDepartamento() {
+        return departamento;
     }
 
-    public void setIdDepartamento(Departamento idDepartamento) {
-        this.idDepartamento = idDepartamento;
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 
+    
     public int getExtencion() {
         return Extencion;
     }

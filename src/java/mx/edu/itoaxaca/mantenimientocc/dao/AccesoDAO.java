@@ -38,7 +38,7 @@ public class AccesoDAO extends Conexion {
                 usuario.setClave(resultado.getString("clave"));
                 usuario.setEstatus(resultado.getBoolean("estatus"));
                 usuario.setNivel(resultado.getInt("nivel"));
-                usuario.setIdOficina(new Oficina_solicitanteDAO().buscarOficinaPorIdOficina(resultado.getInt("id_oficina")));
+                usuario.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
             }else{
                 System.out.println("usuario en else "+ usuario);
                 return usuario;

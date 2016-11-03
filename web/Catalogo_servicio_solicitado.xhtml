@@ -15,7 +15,7 @@
                 <p:growl id="msj" autoUpdate="true"/>
         <h:form id="formaExterior">                      
             
-            <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" onclick="#{catalogo_servicio_solicitadoBEAN.setAccion('Registrar')}" />         
+            <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();"  onclick="#{catalogo_servicio_solicitadoBEAN.setAccion('Registrar')}" update=":dialogoDatos"/>         
             <p:commandButton value="Listar" actionListener="#{catalogo_servicio_solicitadoBEAN.listarCatalogo()}" update="data"/>
             
             <p:dataTable id="data" value="#{catalogo_servicio_solicitadoBEAN.catalogoLista}" var="catalogo"  paginator="true"
@@ -40,7 +40,7 @@
         <p:dialog header="DatosModificar" widgetVar="Datos" id="dialogoDatos">
             <h:form>
                  <p:outputLabel for="txtNombre" value="Nombre de Servicio"/>
-                 <p:inputText id="txtNombre" value="#{catalogo_servicio_solicitadoBEAN.catalogo.servicio_solicitado}"/>
+                 <p:inputText id="txtNombre" value="#{catalogo_servicio_solicitadoBEAN.catalogo.servicio_solicitado}" required="true" requiredMessage="Se requiere Nombre de Servicio"/>
             
             
                  <p:commandButton value="#{catalogo_servicio_solicitadoBEAN.accion}" actionListener="#{catalogo_servicio_solicitadoBEAN.operarCatalogo()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
