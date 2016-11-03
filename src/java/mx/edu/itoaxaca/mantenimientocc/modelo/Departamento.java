@@ -59,6 +59,31 @@ public class Departamento implements Serializable{
         this.estatus = estatus;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + this.iddepartamento;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Departamento other = (Departamento) obj;
+        if (this.iddepartamento != other.iddepartamento) {
+            return false;
+        }
+        return true;
+    }
+
     
     
 }

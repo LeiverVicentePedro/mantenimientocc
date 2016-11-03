@@ -32,10 +32,12 @@ public class AreaBEAN {
             case "Registrar":
                 this.registrarArea();
                 this.limpiarArea();
+                
                 break;
             case "Modificar":
                 this.modificarArea();
                 this.limpiarArea();
+               
                 break;
         }
     }
@@ -90,8 +92,9 @@ public class AreaBEAN {
     }
 
     public void setAccion(String accion) {
-        this.accion = accion;
         this.limpiarArea();
+        this.accion = accion;
+        
         
     }
     

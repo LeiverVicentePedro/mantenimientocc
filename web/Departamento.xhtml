@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+
+
+                <h:form id="formaExterior">                      
+                    <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{departamentoBEAN.setAccion('Registrar')}" update=":dialogoDatos" />
+                    <p:commandButton value="Listar" actionListener="#{departamentoBEAN.listarDepartamento()}" update="data"/>
+
+                     <p/>
+                    <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" var="departamento" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+
+                        <p:column headerText="Clave Departamento">
+                            <p:outputLabel value="#{departamento.clave_departamento}"/>
+                        </p:column>
+                        <p:column headerText="Nombre de Departamento">
+                            <p:outputLabel value="#{departamento.nombre_departamento}"/>
+                        </p:column>
+                        <p:column headerText="Area">
+                            <p:outputLabel value="#{departamento.area.nombre_area}"/>
+                        </p:column>
+                        <p:column headerText="Estatus">
+                            <p:outputLabel value="#{departamento.estatus}"/>
+                        </p:column>
+                        <p:column headerText="Modificar">
+                             <p:commandLink value="Modificar" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                         </p:column>
+                         <p:column headerText="Eliminar">
+                             <p:commandLink value="Eliminar" actionListener="#{departamentoBEAN.eliminarDepartamento(departamento)}" update="data"/>
+                         </p:column>
+                    </p:dataTable>
+                 </h:form>
+                
+                
+                <p:dialog header="Datos Departamento" widgetVar="Datos" id="dialogoDatos" class="container-fluid"> 
+                    <h:form id="lista">
+                    <f:event id="event" type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
+                    
+                    
+                    <p:outputLabel value="&nbsp;Clave Departamento&nbsp;&nbsp;"  />
+                    <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}" required="true" requiredMessage="Se requiere Clave Departamento" >
+                        
+                    </p:inputText>
+                   
+                    <p/>
+                    <p align="left">
+                    <p:outputLabel value="&nbsp;Nombre de Departamento &nbsp;"/>
+                    <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}" required="true" requiredMessage="Se requiere Nombre de Departamento"  />
+                    </p>
+                   
+                   <p/>
+                    <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
+                    <style type="text/css">                                      
+                    .selectMenu { display: inline-block; vertical-align: top; }
+                    </style>
+                    
+                    <p:outputLabel value="&nbsp;Nombre de area&nbsp;"/>
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter" styleClass="selectMenu" required="true" requiredMessage="Se Requiere Area">
+                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                            <f:selectItems value="#{areaBEAN.listaArea}" var="areaitem" itemLabel="#{areaitem.nombre_area}" itemValue="#{areaitem}"/>
+                    </p:selectOneMenu> 
+                    <p:outputLabel value="&nbsp;Estatus&nbsp;"/>
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}" styleClass="selectMenu" required="true" requiredMessage="Se Requiere un Estatus"> 
+                    
+                        <f:selectItem itemLabel="true" itemValue="true"/>
+                        <f:selectItem itemLabel="false" itemValue="false"/>
+                    </p:selectOneMenu>
+                    <p/>
+                    <center>
+                    <p:commandButton value="#{departamentoBEAN.accion}" actionListener="#{departamentoBEAN.operarDepartamento()}" oncomplete="PF('Datos').hide();" update="lista"/>
+                    
+                    <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
+                    </center>
+                    </h:form>
+                </p:dialog>
+
+
+
+
+
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

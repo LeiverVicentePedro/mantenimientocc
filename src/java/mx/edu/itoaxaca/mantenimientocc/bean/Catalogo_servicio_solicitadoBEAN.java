@@ -48,6 +48,7 @@ public class Catalogo_servicio_solicitadoBEAN {
     }
 
     public void setAccion(String accion) {
+        this.limpiarCatolo_servicio_solicitado();
         this.accion = accion;
     }
     
@@ -141,10 +142,11 @@ public class Catalogo_servicio_solicitadoBEAN {
             {
                 throw e;
             }
+            
+            
     } 
     
-   
-    
+  
     
     
     

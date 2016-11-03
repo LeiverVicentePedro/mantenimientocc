@@ -19,21 +19,24 @@
             </ui:define>
            -->
             <ui:define name="content">
-                 <p:growl id="msj" autoUpdate="true"/>
+                <p:growl id="msj" showDetail="true" sticky="true"/>
         <h:form id="formaExterior">                      
-            
-            <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" onclick="#{areaBEAN.setAccion('Registrar')}" />         
+           
+            <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{areaBEAN.setAccion('Registrar')}" update=":dialogoDatos" />         
             <p:commandButton value="Listar" actionListener="#{areaBEAN.listarArea()}" update="data"/>
-            
+             <p/>
             <p:dataTable id="data" value="#{areaBEAN.listaArea}" var="area"  paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15">
                 <p:column headerText="Nombre de Area">
-                    <p:outputLabel value="#{area.nombre_area}"/>
+                    <p:outputLabel value="#{area.nombre_area}" />
+                   
                 </p:column>
                 
                 <p:column headerText="Estatus">
-                    <p:outputLabel value="#{area.estatus}"/>
+                    <p:outputLabel value="#{area.estatus}"  >
+                        <f:converter converterId="conversionEstatus"/>
+                    </p:outputLabel>
                 </p:column>
                 
                 <p:column headerText="Modificar">
@@ -46,21 +49,27 @@
             </p:dataTable>
         </h:form>
         
-        <p:dialog header="DatosModificar" widgetVar="Datos" id="dialogoDatos">
+        <p:dialog header="Datos de Area" widgetVar="Datos" id="dialogoDatos">
             <h:form>
+                <p/>
                  <p:outputLabel for="txtNombre" value="Nombre de Area"/>
-            <p:inputText id="txtNombre" value="#{areaBEAN.area.nombre_area}"/>
-            
-            <p:outputLabel value="Estatus"/>
-            <p:selectOneMenu value="#{areaBEAN.area.estatus}">
-                <f:selectItem itemLabel="true" itemValue="true"/>
-                <f:selectItem itemLabel="false" itemValue="false"/>
+                 <p:inputText id="txtNombre" value="#{areaBEAN.area.nombre_area}" required="true" requiredMessage="Nombre De Area Requerido"/>
+                 
+            <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
+            <style type="text/css">                                      
+            .selectMenu { display: inline-block; vertical-align: top; }
+            </style>
+        
+            <p:outputLabel value="&nbsp; Estatus"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+            <p:selectOneMenu value="#{areaBEAN.area.estatus}" styleClass="selectMenu" >
+                <f:selectItem itemLabel="Activo" itemValue="true"/>
+                <f:selectItem itemLabel="Inactivo" itemValue="false"/>
             </p:selectOneMenu>
-            
-            
+            <p/>
+            <center>
             <p:commandButton value="#{areaBEAN.accion}" actionListener="#{areaBEAN.operarArea()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
             <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
-           
+            </center>
             </h:form>
         </p:dialog>
             </ui:define>
