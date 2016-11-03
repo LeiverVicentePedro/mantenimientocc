@@ -7,7 +7,10 @@ package mx.edu.itoaxaca.mantenimientocc.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Oficina_solicitante;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
 /**
@@ -15,41 +18,42 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
  * @author leiver
  */
 public class AccesoDAO extends Conexion {
-
-    public Usuario accesoUsuario(String correo, String clave) throws Exception {
-        Usuario usuario = new Usuario();
-        try {
+    
+    public Usuario accesoUsuario(String correo, String clave) throws Exception{
+        Usuario usuario = null;
+        ResultSet resultado;
+        try{
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE correo=? and clave=?");
+            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM usuario WHERE correo=? and clave=?");
             consulta.setString(1, correo);
             consulta.setString(2, clave);
-            ResultSet resultado = consulta.executeQuery();
-            System.out.println("impresion resultset Row "+resultado.getRow()+"");
-            if (resultado!=null) {
-                resultado.next();
+             resultado= consulta.executeQuery();
+            if(resultado.next()==true){
+                usuario = new Usuario();
                 usuario.setIdUsuario(resultado.getInt("idusuario"));
                 usuario.setNombre(resultado.getString("nombre"));
                 usuario.setApellidoPaterno(resultado.getString("apellido_paterno"));
                 usuario.setApellidoMaterno(resultado.getString("apellido_materno"));
-                usuario.setRfc(resultado.getString("rfc"));
                 usuario.setProfesion(resultado.getString("profesion"));
+                usuario.setRfc(resultado.getString("rfc"));
                 usuario.setTipoBT(resultado.getString("tipo_bt"));
+                usuario.setNivel(resultado.getInt("nivel"));
                 usuario.setCorreo(resultado.getString("correo"));
                 usuario.setClave(resultado.getString("clave"));
                 usuario.setEstatus(resultado.getBoolean("estatus"));
-                usuario.setNivel(resultado.getInt("nivel"));
                 usuario.setIdOficina(new Oficina_solicitanteDAO().buscarOficinaPorIdOficina(resultado.getInt("id_oficina")));
+                resultado.close();
             }else{
-                System.out.println("usuario en else "+ usuario);
-                return usuario;
+                System.out.println("Esta vacio el objeto ");
             }
-        } catch (Exception ex) {
-            System.out.println("Error en AccesoDAO -> accesoUsuario " + ex);
+            
+            return usuario;
+        }catch(Exception ex){
+            System.out.println("Error en AccesoDAO -> accesoUsuario "+ex);
             throw ex;
-        } finally {
+        }finally{
             this.Cerrar();
         }
-        System.out.println("usuario en si encontro "+ usuario);
-        return usuario;
-    }
+        
+    } 
 }

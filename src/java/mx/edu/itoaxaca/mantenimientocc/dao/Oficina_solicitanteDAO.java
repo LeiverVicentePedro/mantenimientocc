@@ -9,10 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import mx.edu.itoaxaca.mantenimientocc.bean.AreaBEAN;
-import mx.edu.itoaxaca.mantenimientocc.bean.DepartamentoBEAN;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Oficina_solicitante;
 
 /**
@@ -71,24 +68,33 @@ public class Oficina_solicitanteDAO extends Conexion{
     }
     
     public Oficina_solicitante buscarOficinaPorIdOficina(int idOficina) throws Exception{
-        Oficina_solicitante oficina = new Oficina_solicitante();
+        Oficina_solicitante oficina =null;
+        ResultSet resultadoConsulta;
         try{
             this.Conectar();
             PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM oficinas_solicitantes where idoficinas=?");
             consulta.setInt(1, idOficina);
-            ResultSet resultadoConsulta = consulta.executeQuery();
-            resultadoConsulta.next();
+             resultadoConsulta = consulta.executeQuery();
+            if(resultadoConsulta.next()==true){
+                oficina = new Oficina_solicitante();
             oficina.setIdOficinaSolicitante(resultadoConsulta.getInt("idoficinas"));
             oficina.setExtencion(resultadoConsulta.getInt("extencion"));
             oficina.setNombreOficina(resultadoConsulta.getString("nombre_oficina"));
             oficina.setEstatus(resultadoConsulta.getBoolean("estatus"));
             oficina.setIdDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultadoConsulta.getInt("id_departamento")));
+            consulta.close();
+            }
+            else{
+                System.out.println("Error en objeto vacio");
+            }
+            
+            return oficina;
         }catch(Exception ex){
             System.out.println("Error en Oficina_solicitanteDAO -> buscarOficinaPorIdOficina "+ex);
             throw ex;
         }finally{
             this.Cerrar();
         }
-        return oficina;
+        
     }
 }
