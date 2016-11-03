@@ -9,6 +9,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.dao.AccesoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import org.primefaces.context.RequestContext;
@@ -25,7 +26,7 @@ public class AccesoBEAN {
     private String correo;
     private String clave;
     private Usuario usuarioBean = new Usuario();
-    
+    private String nombreCompleto;
     
     public String getRedireccion() {
         return redireccion;
@@ -76,11 +77,12 @@ public class AccesoBEAN {
         try{
             accesodao = new AccesoDAO();
             System.out.println("valores de correo="+correo+" valore de clave="+clave);
-            System.out.println("objeto de recepcion " + accesodao.accesoUsuario(correo, clave).getIdUsuario()+"");
-            if(accesodao.accesoUsuario(correo, clave).getIdUsuario() != 0){
+            System.out.println("objeto de recepcion " + accesodao.accesoUsuario(correo, clave)+"");
+            if(accesodao.accesoUsuario(correo, clave) != null){
                 usuarioBean=accesodao.accesoUsuario(correo, clave);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioBean);
                 setMensajeAcceso("Bienvenido");
-                setRedireccion("area.xhtml");
+                setRedireccion("principal.xhtml");
             }
             else{
                 setMensajeAcceso("Credenciales incorrectos");
@@ -94,5 +96,28 @@ public class AccesoBEAN {
             throw ex;
         }
         
+    }
+   
+    public void  setNombreCompleto(){
+        nombreCompleto = usuarioBean.getNombre()+" "+usuarioBean.getApellidoPaterno()+" "+usuarioBean.getApellidoMaterno();
+        System.out.println(nombreCompleto);
+    }
+    public String getNombreCompleto(){
+        return nombreCompleto;
+    }
+    
+    public void exite(){
+        try{
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");
+        if(usuarioVive == null){
+            contexto.getExternalContext().redirect("index.xhtml");
+        }
+        else{
+            nombreCompleto= usuarioVive.getNombre()+" "+usuarioVive.getApellidoPaterno()+" "+usuarioVive.getApellidoMaterno();
+        }
+        }catch(Exception ex){
+            
+        }
     }
 }
