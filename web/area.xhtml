@@ -34,7 +34,9 @@
                 </p:column>
                 
                 <p:column headerText="Estatus">
-                    <p:outputLabel value="#{area.estatus}"/>
+                    <p:outputLabel value="#{area.estatus}"  >
+                        <f:converter converterId="conversionEstatus"/>
+                    </p:outputLabel>
                 </p:column>
                 
                 <p:column headerText="Modificar">
@@ -60,8 +62,8 @@
         
             <p:outputLabel value="&nbsp; Estatus"/> <!-- &nbsp; --><!--sirve para dar espacio -->
             <p:selectOneMenu value="#{areaBEAN.area.estatus}" styleClass="selectMenu" >
-                <f:selectItem itemLabel="true" itemValue="true"/>
-                <f:selectItem itemLabel="false" itemValue="false"/>
+                <f:selectItem itemLabel="Activo" itemValue="true"/>
+                <f:selectItem itemLabel="Inactivo" itemValue="false"/>
             </p:selectOneMenu>
             <p/>
             <center>
