@@ -15,17 +15,18 @@ public class ConversionEstatus implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-       return value;
+    
+     return value;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-    String estatus="";
+          String estatus="";
         if(value!=null)
         {
           
-            estatus=(String)value;
-            switch(estatus){
+            estatus=String.valueOf(value);
+          switch(estatus){
                 case "true":
                     estatus="Activo";
                     break;
@@ -37,6 +38,9 @@ public class ConversionEstatus implements Converter {
             
         }
         return estatus;
+        
+        
+        
         
     }
     
