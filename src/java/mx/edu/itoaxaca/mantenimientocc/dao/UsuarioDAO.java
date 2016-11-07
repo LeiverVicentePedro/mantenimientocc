@@ -7,6 +7,8 @@ package mx.edu.itoaxaca.mantenimientocc.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Oficina_solicitante;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
@@ -53,7 +55,7 @@ public class UsuarioDAO extends Conexion{
             PreparedStatement consultar = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE correo=?");
             consultar.setString(1,correo);
             ResultSet resultado = consultar.executeQuery();
-            
+            if(resultado.next()==true){
             usuarioUnico.setIdUsuario(resultado.getInt("idusuario"));
             usuarioUnico.setNombre(resultado.getString("nombre"));
             usuarioUnico.setApellidoPaterno(resultado.getString("apellido_paterno"));
@@ -61,20 +63,117 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setCorreo(resultado.getString("correo"));
             usuarioUnico.setClave(resultado.getString("clave"));
             usuarioUnico.setNivel(resultado.getInt("nivel"));
-            usuarioUnico.setIdOficina((Oficina_solicitante) resultado.getObject("id_oficina"));
+            usuarioUnico.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
             usuarioUnico.setRfc(resultado.getString("rfc"));
             usuarioUnico.setProfesion(resultado.getString("profesion"));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
+            }
             resultado.close();
-            
             return usuarioUnico;
         }catch(Exception ex){
             System.out.println("Error en UsuarioDAO -> consultaUsuario");
             throw ex;
         }finally{
            this.Cerrar();
+        } 
+    }
+    
+    public Usuario consultarUsuarioPorId(Usuario usuario) throws Exception
+    {
+        Usuario usuarioUnico = new Usuario();
+        try{
+            this.Conectar();
+            PreparedStatement consultar = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE idusuario=?");
+            consultar.setInt(1,usuario.getIdUsuario());
+            ResultSet resultado = consultar.executeQuery();
+            if(resultado.next()==true){
+            usuarioUnico.setIdUsuario(resultado.getInt("idusuario"));
+            usuarioUnico.setNombre(resultado.getString("nombre"));
+            usuarioUnico.setApellidoPaterno(resultado.getString("apellido_paterno"));
+            usuarioUnico.setApellidoMaterno(resultado.getString("apellido_materno"));
+            usuarioUnico.setCorreo(resultado.getString("correo"));
+            usuarioUnico.setClave(resultado.getString("clave"));
+            usuarioUnico.setNivel(resultado.getInt("nivel"));
+            usuarioUnico.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
+            usuarioUnico.setRfc(resultado.getString("rfc"));
+            usuarioUnico.setProfesion(resultado.getString("profesion"));
+            usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
+            usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
+            
+            }
+            resultado.close();
+            return usuarioUnico;
+        }catch(Exception ex){
+            System.out.println("Error en UsuarioDAO -> consultaUsuarioPorId "+ex);
+            throw ex;
+        }finally{
+           this.Cerrar();
+        } 
+    }
+    
+    public List<Usuario> listaUsuarioDepartamento(Usuario usuario) throws Exception
+    {
+        List<Usuario> listaUsuarioDepartamento = null;
+        
+        ResultSet resultado;
+        System.out.println("usuario: "+usuario.getIdOficina().getIdOficinaSolicitante());
+       try{
+           this.Conectar();
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE id_oficina=?");
+           consulta.setInt(1,usuario.getIdOficina().getIdOficinaSolicitante());
+           resultado = consulta.executeQuery();
+           listaUsuarioDepartamento = new ArrayList();
+           while(resultado.next()){
+               Usuario usuarioParaLista = new Usuario();
+             usuarioParaLista.setIdUsuario(resultado.getInt("idusuario"));
+            usuarioParaLista.setNombre(resultado.getString("nombre"));
+            usuarioParaLista.setApellidoPaterno(resultado.getString("apellido_paterno"));
+            usuarioParaLista.setApellidoMaterno(resultado.getString("apellido_materno"));
+            usuarioParaLista.setCorreo(resultado.getString("correo"));
+            usuarioParaLista.setClave(resultado.getString("clave"));
+            usuarioParaLista.setNivel(resultado.getInt("nivel"));
+            usuarioParaLista.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
+            usuarioParaLista.setRfc(resultado.getString("rfc"));
+            usuarioParaLista.setProfesion(resultado.getString("profesion"));
+            usuarioParaLista.setTipoBT(resultado.getString("tipo_bt"));
+            usuarioParaLista.setEstatus(resultado.getBoolean("estatus"));
+            
+            listaUsuarioDepartamento.add(usuarioParaLista);
+            
+           }
+           resultado.close();
+           
+           
+       }catch(Exception ex){
+           System.out.println("Eror en UsuarioDAO -> listaUsuarioDepartamento "+ex);
+       }finally{
+           this.Cerrar();
+       }
+       return listaUsuarioDepartamento;
+    }
+    
+    public void modificarUsuario(Usuario usuario) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("UPDATE usuario SET  rfc=?, nombre=?, apellido_paterno=?, apellido_materno=?, correo=?, clave=?, nivel=?, id_oficina=?, profesion=?, tipo_bt=?, estatus=? WHERE idusuario=?");
+            consulta.setString(1, usuario.getRfc());
+            consulta.setString(2, usuario.getNombre());
+            consulta.setString(3, usuario.getApellidoPaterno());
+            consulta.setString(4,usuario.getApellidoMaterno());
+            consulta.setString(5, usuario.getCorreo());
+            consulta.setString(6, usuario.getClave());
+            consulta.setInt(7, usuario.getNivel());
+            consulta.setInt(8, usuario.getIdOficina().getIdOficinaSolicitante());
+            consulta.setString(9, usuario.getProfesion());
+            consulta.setString(10, usuario.getTipoBT());
+            consulta.setBoolean(11, usuario.getEstatus());
+            consulta.setInt(12, usuario.getIdUsuario());
+            consulta.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("Error en UsuarioDAO -> modificarUsuario "+ex);
+        }finally{
+            this.Cerrar();
         }
-      
-    }  
+    }
 }

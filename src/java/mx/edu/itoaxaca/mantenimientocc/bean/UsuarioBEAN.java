@@ -26,6 +26,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import org.primefaces.context.RequestContext;
 import javax.mail.Session;
 import java.util.Properties;
+import javax.faces.context.FacesContext;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -46,12 +47,14 @@ public class UsuarioBEAN {
     private String confirmacionContraseña;
     private String mensajeClaseUsuario = "vacio";
     private List<SelectItem> listaOficinaUsuario;
+    private List<Usuario> listaUsuariosDeUnDepartamento;
+    private List<Usuario> listaParaFiltro;
     static String usuarioCorreo;
     static String contraseñaCorreo;
     static Properties propiedades;
     static Session sesion;
     private String recuperaCorreo;
-
+    private String accionDeBotonUsuario;
 
     public void registrarUsuario() throws Exception {
         UsuarioDAO usuarioDao;
@@ -75,7 +78,7 @@ public class UsuarioBEAN {
             if (confirmacionContraseña.equals(registroUsuarioNuevo.getClave())) {
                 usuarioDao.registrarUsuario(registroUsuarioNuevo);
                 setMensajeClaseUsuario("Usuario Registrado");
-                enviarMensaje(registroUsuarioNuevo.getCorreo(),registroUsuarioNuevo.getClave());
+                enviarMensaje(registroUsuarioNuevo.getCorreo(), registroUsuarioNuevo.getClave());
                 System.out.println(mensajeClaseUsuario);
             } else {
                 setMensajeClaseUsuario("Las Contraseñas no Coinciden");
@@ -90,26 +93,27 @@ public class UsuarioBEAN {
         }
     }
 
-     public void recuperarCuenta() throws Exception{
-     UsuarioDAO usuarioDao;
-     Usuario usuariodeCuenta = new Usuario();
-     try{
-         usuarioDao = new UsuarioDAO();
-         usuariodeCuenta = usuarioDao.consultarUsuario(recuperaCorreo);
-         
-         if(usuariodeCuenta.getCorreo().isEmpty()){
-             mensajeClaseUsuario = "El Correo no Existe Proporcione el correo con el que se registro.";
-         }else{
-             mensajeClaseUsuario = "La informacion a sido enviada a su Correo.";
-             enviarMensajeRecuperacion(usuariodeCuenta.getCorreo(),usuariodeCuenta.getClave());
-         }
-         FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensajeClaseUsuario);
-         RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
-     }catch(Exception ex){
-         System.out.println("Error en UsuarioBEAN ->recuperarCuenta "+ex);
-         throw ex;
-     }
+    public void recuperarCuenta() throws Exception {
+        UsuarioDAO usuarioDao;
+        Usuario usuariodeCuenta = new Usuario();
+        try {
+            usuarioDao = new UsuarioDAO();
+            usuariodeCuenta = usuarioDao.consultarUsuario(recuperaCorreo);
+
+            if (usuariodeCuenta.getCorreo().isEmpty()) {
+                mensajeClaseUsuario = "El Correo no Existe Proporcione el correo con el que se registro.";
+            } else {
+                mensajeClaseUsuario = "La informacion a sido enviada a su Correo.";
+                enviarMensajeRecuperacion(usuariodeCuenta.getCorreo(), usuariodeCuenta.getClave());
+            }
+            FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensajeClaseUsuario);
+            RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+        } catch (Exception ex) {
+            System.out.println("Error en UsuarioBEAN ->recuperarCuenta " + ex);
+            throw ex;
+        }
     }
+
     @PostConstruct
     public void llenaListaOficinaUsuario() {
         listaOficinaUsuario = new ArrayList<SelectItem>();
@@ -166,7 +170,7 @@ public class UsuarioBEAN {
 
         }
     }
-    
+
     public Usuario getRegistroUsuarioNuevo() {
         return registroUsuarioNuevo;
     }
@@ -206,24 +210,50 @@ public class UsuarioBEAN {
     public void setMensajeClaseUsuario(String mensajeClaseUsuario) {
         this.mensajeClaseUsuario = mensajeClaseUsuario;
     }
-    
-     public String getRecuperaCorreo() {
+
+    public String getRecuperaCorreo() {
         return recuperaCorreo;
     }
 
     public void setRecuperaCorreo(String recuperaCorreo) {
         this.recuperaCorreo = recuperaCorreo;
     }
+
+    public List<Usuario> getListaUsuariosDeUnDepartamento() {
+        return listaUsuariosDeUnDepartamento;
+    }
+
+    public void setListaUsuariosDeUnDepartamento(List<Usuario> listaUsuariosDeUnDepartamento) {
+        this.listaUsuariosDeUnDepartamento = listaUsuariosDeUnDepartamento;
+    }
+
+    public List<Usuario> getListaParaFiltro() {
+        return listaParaFiltro;
+    }
+
+    public void setListaParaFiltro(List<Usuario> listaParaFiltro) {
+        this.listaParaFiltro = listaParaFiltro;
+    }
+
+    public String getAccionDeBotonUsuario() {
+        return accionDeBotonUsuario;
+    }
+
+    public void setAccionDeBotonUsuario(String accionDeBotonUsuario) {
+        this.limpiaUsuario();
+        this.accionDeBotonUsuario = accionDeBotonUsuario;
+    }
+
     /* creacion de metodos para envio de mensajeria por correo*/
-    private void enviarMensaje(String correo,String clave) {
+    private void enviarMensaje(String correo, String clave) {
         try {
             setup();
-            String asunto="Registro en el Sistema SIMAPRECO del TEC-OAX";
-            String mensaje="Gracias por registrarse\n"+"Su Cuenta a sido creada de manera satisfactoria a con los siguentes datos:\n"
-                    +"DATOS PARA ACCEDER A SU CUENTA\n"+
-                    "Su cuenta de Acceso: "+correo+"\n"+
-                    "Su clave de acceso: "+clave+"\n"+
-                    "Con esta informacion podra acceder a su cuenta en el sistema";
+            String asunto = "Registro en el Sistema SIMAPRECO del TEC-OAX";
+            String mensaje = "Gracias por registrarse\n" + "Su Cuenta a sido creada de manera satisfactoria a con los siguentes datos:\n"
+                    + "DATOS PARA ACCEDER A SU CUENTA\n"
+                    + "Su cuenta de Acceso: " + correo + "\n"
+                    + "Su clave de acceso: " + clave + "\n"
+                    + "Con esta informacion podra acceder a su cuenta en el sistema";
 
             Message crearCorreo = new MimeMessage(sesion);
             crearCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(correo));
@@ -232,19 +262,19 @@ public class UsuarioBEAN {
 //Enviamos el Mensaje
             Transport.send(crearCorreo);
         } catch (Exception ex) {
-            System.out.println("Error en UsuarioBEAN -> enviarMensaje "+ex);
+            System.out.println("Error en UsuarioBEAN -> enviarMensaje " + ex);
         }
     }
-    
-    private void enviarMensajeRecuperacion(String correo,String clave) {
+
+    private void enviarMensajeRecuperacion(String correo, String clave) {
         try {
             setup();
-            String asunto="Recuperacion de Cuenta del Sistema SIMAPRECO del TEC-OAX";
-            String mensaje="Datos pertenecientes a la cuenta del Sistema SIMAPRECO del INSTITUTO TECNOLÓGICO DE OAXACA\n"
-                    +"DATOS DE SU CUENTA\n"+
-                    "Su cuenta de Acceso: "+correo+"\n"+
-                    "Su clave de acceso: "+clave+"\n"+
-                    "Con esta informacion podra acceder a su cuenta en el sistema";
+            String asunto = "Recuperacion de Cuenta del Sistema SIMAPRECO del TEC-OAX";
+            String mensaje = "Datos pertenecientes a la cuenta del Sistema SIMAPRECO del INSTITUTO TECNOLÓGICO DE OAXACA\n"
+                    + "DATOS DE SU CUENTA\n"
+                    + "Su cuenta de Acceso: " + correo + "\n"
+                    + "Su clave de acceso: " + clave + "\n"
+                    + "Con esta informacion podra acceder a su cuenta en el sistema";
 
             Message crearCorreo = new MimeMessage(sesion);
             crearCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(correo));
@@ -253,10 +283,10 @@ public class UsuarioBEAN {
 //Enviamos el Mensaje
             Transport.send(crearCorreo);
         } catch (Exception ex) {
-            System.out.println("Error en UsuarioBEAN -> enviarMensaje "+ex);
+            System.out.println("Error en UsuarioBEAN -> enviarMensaje " + ex);
         }
     }
-    
+
     private static void setup() throws MessagingException {
         //datos de conexion
         usuarioCorreo = "10161024@itoaxaca.edu.mx";
@@ -281,5 +311,72 @@ public class UsuarioBEAN {
             }
         });
         return session;
+    }
+
+    public void listaUsuarioDepartameto() throws Exception {
+        UsuarioDAO usuariodao;
+        try {
+            usuariodao = new UsuarioDAO();
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");
+            listaUsuariosDeUnDepartamento = usuariodao.listaUsuarioDepartamento(usuarioVive);
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    public void modificarUsuario() {
+        UsuarioDAO usuariodao;
+        try {
+            usuariodao = new UsuarioDAO();
+            usuariodao.modificarUsuario(objetoUsuario);
+            this.listaUsuarioDepartameto();
+        } catch (Exception ex) {
+
+        }
+    }
+
+    public void limpiaUsuario() {
+        this.objetoUsuario.setNombre("");
+        this.objetoUsuario.setApellidoPaterno("");
+        this.objetoUsuario.setApellidoMaterno("");
+        this.objetoUsuario.setClave("");
+        this.objetoUsuario.setCorreo("");
+        this.objetoUsuario.setRfc("");
+        this.objetoUsuario.setEstatus(Boolean.TRUE);
+        this.objetoUsuario.setTipoBT("");
+        this.objetoUsuario.setIdOficina(null);
+        this.objetoUsuario.setNivel(0);
+        this.objetoUsuario.setProfesion("");
+    }
+
+    public void establecerAccionDeBoton() throws Exception {
+
+        switch (accionDeBotonUsuario) {
+            case "Registrar":
+                this.registrarUsuario();
+                this.limpiaUsuario();
+                break;
+            case "Modificar":
+                this.modificarUsuario();
+                this.limpiaUsuario();
+                break;
+        }
+    }
+
+    public void elegirDatoUsuario(Usuario usuarioElegido) {
+        UsuarioDAO usuariodao;
+        Usuario usuarioParcial;
+        try {
+            usuariodao = new UsuarioDAO();
+            usuarioParcial = new Usuario();
+            usuarioParcial = usuariodao.consultarUsuarioPorId(usuarioElegido);
+            if(usuarioParcial!=null){
+                this.objetoUsuario = usuarioParcial;
+                this.accionDeBotonUsuario = "Modificar";
+            }
+        } catch (Exception ex) {
+            System.out.println("Error en UsuarioBEAN -> elegirDatoUsuario " + ex);
+        }
     }
 }

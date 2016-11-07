@@ -1,84 +1,116 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>SIMAPRECO - Registro Usuario</title>
-        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
-        <h:outputStylesheet library="css" name="bootstrap-theme.min.css"/>
-        <h:outputScript library="js" name="bootstrap.min.js"/>
-        <h:outputScript library="js" name="jquery-3.1.0.min.js"/>
-    </h:head>
-    <h:body>
-        <div class="container" Style=" background-color:#e5e5e5; height: 8em">
-            <div class="col-md-3" id="left">
-                <h:graphicImage library="images" name="gobmx.png" width="180 em" height="70 em" style="margin-top: 1em"/>
-            </div>
-            <div class="col-md-6">
-                <p:outputLabel class="text-capitalize text-center container" style=" font-size:1.7em; margin-top: 0.8em" value="Tecnologico Nacional de Mexico"/>
-                <p:outputLabel class="text-capitalize text-center container"  style=" font-size:1.4em; margin-top: 0.5em" value="Sistema de Mantenimiento"/>
-            </div>
-            <div class="col-md-3 text-right" style="margin-top: 1em">
-                <h:graphicImage library="images" name="ito.png"/>
-            </div>
-        </div>
 
-        <div class="container" style="margin-top: 6em">
-            <p:growl id="mensaje" autoUpdate="true"/>
-            <h:form>
-                <p:panel header="Datos Personales" class="container">
-                    <h:panelGrid columns="4" cellpadding="5" style="margin: 1em">
+    <body>
 
-                        <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}"/>
-                        <p:inputText class="form-control" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.objetoUsuario.nombre}"/>
-                        <p:inputText class="form-control" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.objetoUsuario.apellidoPaterno}"/>
-                        <p:inputText class="form-control" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.objetoUsuario.apellidoMaterno}"/>
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
-                    </h:panelGrid>
-                </p:panel>
-                <p:panel header="Sobre el Trabajo" style="margin: 2em">
-                    <h:panelGrid columns="2" cellpadding="5" >
-                        <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="slider" converter="omnifaces.SelectItemsConverter">
-                            <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
-                        </p:multiSelectListbox>
+            <ui:define name="content">
+                <h:form id="formTabla">
+                    <p:commandButton value="Nuevo" oncomplete="PF('DatosUsuario').show();" actionListener="#{usuarioBEAN.setAccionDeBotonUsuario('Registrar')}" update=":dialogoUsuario"/>
+                    <p:commandButton value="Listar" actionListener="#{usuarioBEAN.listaUsuarioDepartameto()}" update="tablaU"/>
+                    <p:separator />
+                    <p:dataTable id="tablaU" value="#{usuarioBEAN.listaUsuariosDeUnDepartamento}" var="usuario" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
 
-                        <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.objetoUsuario.profesion}"/>
-                    </h:panelGrid>
-                </p:panel>
-                <p:panel header="Datos de Cuenta" style="margin: 2em">
-                    <h:panelGrid columns="3">
-                        <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.objetoUsuario.correo}"/>
-                        <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.objetoUsuario.clave}" type="password"/>
-                        <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" type="password"/>
-                    </h:panelGrid>
-                </p:panel>
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                    <p:outputLabel for="estatusUsuario" value="Activar Cuenta:" />
-                    <p:selectOneRadio id="estatusUsuario" value="#{usuarioBEAN.objetoUsuario.estatus}">
-                        <f:selectItem itemLabel="Activar" itemValue="true" />
-                    </p:selectOneRadio>
-                    <p:inputText class="form-control" placeholder="Nivel" id="nivelUsuario" value="#{usuarioBEAN.objetoUsuario.nivel}"/>
-                    <p:inputText class="form-control" placeholder="TipoBT" id="tipoBTUsuario" value="#{usuarioBEAN.objetoUsuario.tipoBT}"/>
-                </h:panelGrid>
-                <br/>
-                <p:commandButton value="Registrar"  action="#{usuarioBEAN.registrarUsuario()}"/>
-                
-            </h:form>
+                        <p:column headerText="RFC">
+                            <p:outputLabel value="#{usuario.rfc}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{usuario.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Apellido Paterno">
+                            <p:outputLabel value="#{usuario.apellidoPaterno}"/>
+                        </p:column>
+                        <p:column headerText="Apellido Materno">
+                            <p:outputLabel value="#{usuario.apellidoMaterno}"/>
+                        </p:column>
+                        <p:column headerText="Oficina">
+                            <p:outputLabel value="#{usuario.idOficina.nombreOficina}"/>
+                        </p:column>
+                        <p:column headerText="Profesion">
+                            <p:outputLabel value="#{usuario.profesion}"/>
+                        </p:column>
+                        <p:column headerText="Correo">
+                            <p:outputLabel value="#{usuario.correo}"/>
+                        </p:column>
+                        <p:column headerText="Nivel">
+                            <p:outputLabel value="#{usuario.nivel}"/>
+                        </p:column>
+                        <p:column headerText="Estatus">
+                            <p:outputLabel value="#{usuario.estatus}"/>
+                        </p:column>
+                        <p:column headerText="Tipo">
+                            <p:outputLabel value="#{usuario.tipoBT}"/>
+                        </p:column>
+                        <p:column headerText="Modificar">
+                            <p:commandLink value="modificar" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
+                        </p:column>
+                        <p:column headerText="Eliminar">
+                            <p:commandLink value="Eliminar" action="#"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
 
-        </div>
+                <p:dialog header="Datos Usuario" widgetVar="DatosUsuario" id="dialogoUsuario" class="container-fluid">
+                    <h:form id="formDialogo">
+                        
+                        <p:panel header="Datos Personales" class="text-center container-fluid">
+                            <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
+                                <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}" />
+                                <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.objetoUsuario.nombre}" required="true" requiredMessage="Nombre Requerido"/>
+                                <p:inputText class="" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.objetoUsuario.apellidoPaterno}" required="true" requiredMessage="Apellido Paterno Requerido"/>
+                                <p:inputText class="" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.objetoUsuario.apellidoMaterno}" required="true" requiredMessage="Apellido Materno Requerido"/>
+                            </h:panelGrid>
+                        </p:panel>
+                        <p/>
+                        <p:panel header="Sobre su Trabajo" class="text-center container " style="width: 70%" >
+                            <h:panelGrid columns="2" cellpadding="5" cellspacing="10">
+                                <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
+                                    <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
+                                </p:multiSelectListbox>
+                                <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.objetoUsuario.profesion}" required="true" requiredMessage="Profesion Requerida"/>
+                                
+                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.tipoBT}" required="true" requiredMessage="Tipo Empleado Requerido" styleClass="selectMenu">
+                                    <f:selectItem itemLabel="Tipo Empleado" itemValue="#{null}"/>
+                                    <f:selectItem itemLabel="Base" itemValue="Base"/>
+                                    <f:selectItem itemLabel="Temporal" itemValue="Temporal"/>
+                                </p:selectOneMenu>
+                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.estatus}" required="true" requiredMessage="Estatus Requerido" styleClass="selectMenu">
+                                    <f:selectItem itemLabel="Estatus" itemValue="#{null}"/>
+                                    <f:selectItem itemLabel="Activo" itemValue="true"/>
+                                    <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </p:panel>
+                        <p/>
+                        <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container">
+                            <h:panelGrid columns="3" class="container-fluid">
+                                <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.objetoUsuario.correo}" required="true" requiredMessage="Cuenta de Correo Requerido"/>
+                                <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.objetoUsuario.clave}" type="password" required="true" requiredMessage="Contraseña Requerido"/>
+                                <p:inputText class="form-control" placeholder="nivel de acceso" id="nivelUsuario" value="#{usuarioBEAN.objetoUsuario.nivel}" required="true" requiredMessage="Nivel requerido"/>
+                            </h:panelGrid>
+                        </p:panel>
+                        <p/>
+                        <center>
+                        <p:commandButton value="#{usuarioBEAN.accionDeBotonUsuario}" actionListener="#{usuarioBEAN.establecerAccionDeBoton()}" oncomplete="PF('DatosUsuario').hide();" update=":formTabla:tablaU"/>
 
-        <div class="container">
-            <footer class="col-md-12" Style=" background-color:#e5e5e5; position: relative; bottom: -1em; height: 3em">
-                <div class="text-center">
-                  
+                        <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosUsuario').hide();" />
+                        </center>
+                    </h:form>
+                </p:dialog>
 
-                </div>
-            </footer>
-        </div>
-    </h:body>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
 </html>
-
