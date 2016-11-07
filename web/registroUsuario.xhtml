@@ -36,7 +36,7 @@
                     <p:panel header="Datos Personales" class="text-center container" style=" width: 70%">
                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
                             <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" >
-                              <!--  <f:validator validatorId="validadoresRFC"/>-->
+                            <f:validator validatorId="validadoresRFC"/> 
                             </p:inputText>
                             <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido">
                                 <f:validator validatorId="validadoresLetras"/>
@@ -62,17 +62,23 @@
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden"/>
-                    <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container">
+                    <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container" id="Datos">
                         <h:panelGrid columns="3" class="container-fluid">
-                            <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.correo}" required="true" requiredMessage="Cuenta de Correo Requerido"/>
-                            <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido"/>
-                            <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" type="password" required="true" requiredMessage="Confirme su Contraseña"/>
+                            <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.correo}" required="true" requiredMessage="Cuenta de Correo Requerido">
+                                <f:validator validatorId="validadoresEmail"/>
+                            </p:inputText>
+                            <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido">
+                                <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
+                            </p:inputText>
+                            <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" type="password" required="true" requiredMessage="Confirme su Contraseña">
+                                <f:validator validatorId="validadoresContrasenia"/>
+                            </p:inputText>
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden"/>
                     <div class="container text-center">
                         <p:commandButton value="Cancelar" action="index.xhtml"/>
-                        <p:commandButton value="Registrar" actionListener="#{usuarioBEAN.registrarNuevoUsuario}"/>
+                        <p:commandButton value="Registrar" actionListener="#{usuarioBEAN.registrarNuevoUsuario}" update="Datos" />
                     </div>
                 </h:form>
                 

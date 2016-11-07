@@ -80,6 +80,7 @@ public class UsuarioBEAN {
                 setMensajeClaseUsuario("Usuario Registrado");
                 enviarMensaje(registroUsuarioNuevo.getCorreo(), registroUsuarioNuevo.getClave());
                 System.out.println(mensajeClaseUsuario);
+                 
             } else {
                 setMensajeClaseUsuario("Las Contraseñas no Coinciden");
 
