@@ -70,7 +70,7 @@
                             </h:panelGrid>
                         </p:panel>
                         <p/>
-                        <p:panel header="Sobre su Trabajo" class="text-center container " style="width: 70%" >
+                        <p:panel header="Sobre su Trabajo" class="text-center container ">
                             <h:panelGrid columns="2" cellpadding="5" cellspacing="10">
                                 <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                     <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
@@ -82,7 +82,7 @@
                                     <f:selectItem itemLabel="Base" itemValue="Base"/>
                                     <f:selectItem itemLabel="Temporal" itemValue="Temporal"/>
                                 </p:selectOneMenu>
-                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.estatus}" required="true" requiredMessage="Estatus Requerido" styleClass="selectMenu">
+                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.estatus}" required="true" requiredMessage="Estatus Requerido" styleClass="selectMenu" >
                                     <f:selectItem itemLabel="Estatus" itemValue="#{null}"/>
                                     <f:selectItem itemLabel="Activo" itemValue="true"/>
                                     <f:selectItem itemLabel="Inactivo" itemValue="false"/>

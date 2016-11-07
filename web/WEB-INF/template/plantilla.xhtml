@@ -51,11 +51,11 @@
                             <p:menuitem value="Oficinas" action="oficina_solicitante.xhtml" icon="fa fa-paperclip"/>
                             <p:menuitem value="Servicios Solicitados" action="catalogo_servicio_solicitado.xhtml" icon="fa fa-wrench"/>
                         </p:submenu>
-                        <p:submenu label="Non-Ajax Menuitem">
-                            <p:menuitem value="Delete" actionListener="#{menuView.delete}"  ajax="false"/>
+                      <p:submenu label="Otro Menu">
+                           <p:menuitem value="Delete" actionListener="#{menuView.delete}"  ajax="false"/>
                         </p:submenu>
                         <p:separator />
-                        <p:submenu label="Navigations" >
+                        <p:submenu label="Otro menu" >
                             <p:submenu label="Links" icon="ui-icon-extlink">
                                 <p:submenu label="PrimeFaces" icon="ui-icon-heart">
                                     <p:menuitem value="Home" url="http://www.primefaces.org"/>
@@ -64,7 +64,6 @@
                                     <p:menuitem value="Support" url="http://www.primefaces.org/support" />
                                 </p:submenu>
                             </p:submenu>
-                            <p:menuitem/>
                         </p:submenu>
                         <p:separator />
                         
@@ -76,13 +75,13 @@
                 <ui:insert name="content">Content</ui:insert>
             </div>
         </div>
-        <div class="container">
+        <!--<div class="container">
         <footer class="col-md-12" Style=" background-color:#e5e5e5; position: relative; bottom: 0; height: 3em;">
             <div class="text-center">
             <ui:insert name="bottom">Bottom</ui:insert>
         </div>
         </footer>
-        </div>
+        </div>-->
     </h:body>
     
 </html>
