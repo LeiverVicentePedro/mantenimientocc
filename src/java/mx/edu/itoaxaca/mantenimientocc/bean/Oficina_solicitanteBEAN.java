@@ -59,6 +59,7 @@ public class Oficina_solicitanteBEAN {
             try{
                 oficinaDao= new Oficina_solicitanteDAO();
                 oficinaDao.registrarDepartamento(oficina);
+                this.listarOficina();
             }
             catch(Exception e)
             {

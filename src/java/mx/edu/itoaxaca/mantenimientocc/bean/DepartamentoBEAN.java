@@ -66,18 +66,7 @@ public class DepartamentoBEAN {
         this.listadepartamento = listadepartamento;
     }
     
-   //Metodo ´para listar 
-    
-    public void listarDepartamento() throws Exception{
-        DepartamentoDAO departamentodao;
-        try{
-            departamentodao=new DepartamentoDAO();
-            listadepartamento = departamentodao.listarDepartamento();
-        }
-        catch(Exception e){
-            System.out.println("error en Departamento BEAN -->ListarDepartamentoBEAN"+e);
-        }
-    }
+   
     
     //metodo elegir dato de departamento 
     public void elegirDatoDepartamento(Departamento departamentoElegirDato) throws Exception{
@@ -146,6 +135,19 @@ public class DepartamentoBEAN {
         this.departamento.setNombre_departamento("");
         this.departamento.setArea(null);
         this.departamento.setEstatus(Boolean.TRUE);
+    }
+     
+      //Metodo ´para listar 
+    
+    public void listarDepartamento() throws Exception{
+        DepartamentoDAO departamentodao;
+        try{
+            departamentodao=new DepartamentoDAO();
+            listadepartamento = departamentodao.listarDepartamento();
+        }
+        catch(Exception e){
+            System.out.println("error en Departamento BEAN -->ListarDepartamentoBEAN"+e);
+        }
     }
     
 }

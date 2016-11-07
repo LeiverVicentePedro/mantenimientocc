@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Objects;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 import mx.edu.itoaxaca.mantenimientocc.dao.AreaDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Area;
 
@@ -141,5 +144,7 @@ public class AreaBEAN {
             {
                 throw e;
             }
-    } 
+    }
+    
+   
 }

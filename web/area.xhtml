@@ -53,7 +53,9 @@
             <h:form>
                 <p/>
                  <p:outputLabel for="txtNombre" value="Nombre de Area"/>
-                 <p:inputText id="txtNombre" value="#{areaBEAN.area.nombre_area}" required="true" requiredMessage="Nombre De Area Requerido"/>
+                 <p:inputText id="txtNombre" value="#{areaBEAN.area.nombre_area}" required="true" requiredMessage="Se requiere nombre de Area">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
                  
             <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
             <style type="text/css">                                      

@@ -54,7 +54,9 @@
                      <f:event type="preRenderView" listener="#{departamentoBEAN.listarDepartamento()}"/>
                      
                     <p:outputLabel value="Nombre de Oficina"/>
-                    <p:inputText value="#{oficina_solicitanteBEAN.oficina.nombreOficina}" required="true" requiredMessage="Se requiere Nombre de Oficina"/>
+                    <p:inputText value="#{oficina_solicitanteBEAN.oficina.nombreOficina}" required="true" requiredMessage="Se requiere Nombre de Oficina">
+                        <f:validator validatorId="validadoresLetrasNumEspacioPuntoGuion"/>
+                    </p:inputText>
                     
                     <!-- el style es para poder alinear correctamente el selectOneMenu -->
                     <style type="text/css">                                      
@@ -69,7 +71,9 @@
                     
                     <center>
                     <p:outputLabel value="Extencion"/>
-                    <p:inputText value="#{oficina_solicitanteBEAN.oficina.extencion}" required="true" requiredMessage="Se necesita un numero de Extención"/>
+                    <p:inputText value="#{oficina_solicitanteBEAN.oficina.extencion}" required="true" requiredMessage="Se necesita un numero de Extención">
+                        <f:validator validatorId="validadoresNumeros"/>
+                    </p:inputText>
                    
                     <p:outputLabel value="Estatus"/>
                     <p:selectOneMenu value="#{oficina_solicitanteBEAN.oficina.estatus}" required="true" requiredMessage=" Se necesita un Estatus" styleClass="selectMenu">
@@ -78,7 +82,7 @@
                     </p:selectOneMenu>
                      <p/>
                     
-                    <p:commandButton value="#{oficina_solicitanteBEAN.accion}" actionListener="#{oficina_solicitanteBEAN.operarOficina()}" oncomplete="PF('Datos').hide();" update="lista"/>
+                    <p:commandButton value="#{oficina_solicitanteBEAN.accion}" actionListener="#{oficina_solicitanteBEAN.operarOficina()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data"/>
                     
                     <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                     </center>

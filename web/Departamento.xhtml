@@ -62,13 +62,15 @@
                     
                     <p:outputLabel value="&nbsp;Clave Departamento&nbsp;&nbsp;"  />
                     <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}" required="true" requiredMessage="Se requiere Clave Departamento" >
-                        
+                        <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>    
                     </p:inputText>
                    
                     <p/>
                     <p align="left">
                     <p:outputLabel value="&nbsp;Nombre de Departamento &nbsp;"/>
-                    <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}" required="true" requiredMessage="Se requiere Nombre de Departamento"  />
+                    <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}" required="true" requiredMessage="Se requiere Nombre de Departamento"  >
+                        <f:validator validatorId="validadoresLetrasNumEspacioPuntoGuion"/>
+                    </p:inputText>
                     </p>
                    
                    <p/>
@@ -90,7 +92,7 @@
                     </p:selectOneMenu>
                     <p/>
                     <center>
-                    <p:commandButton value="#{departamentoBEAN.accion}" actionListener="#{departamentoBEAN.operarDepartamento()}" oncomplete="PF('Datos').hide();" update="lista"/>
+                    <p:commandButton value="#{departamentoBEAN.accion}" actionListener="#{departamentoBEAN.operarDepartamento()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data"/>
                     
                     <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                     </center>

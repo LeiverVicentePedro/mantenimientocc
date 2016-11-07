@@ -35,10 +35,19 @@
                     <p:separator style="visibility: hidden"/>
                     <p:panel header="Datos Personales" class="text-center container" style=" width: 70%">
                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
-                            <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" />
-                            <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido"/>
-                            <p:inputText class="" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoPaterno}" required="true" requiredMessage="Apellido Paterno Requerido"/>
-                            <p:inputText class="" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoMaterno}" required="true" requiredMessage="Apellido Materno Requerido"/>
+                            <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" >
+                              <!--  <f:validator validatorId="validadoresRFC"/>-->
+                            </p:inputText>
+                            <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido">
+                                <f:validator validatorId="validadoresLetras"/>
+                            </p:inputText>
+                            <p:inputText class="" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoPaterno}" required="true" requiredMessage="Apellido Paterno Requerido">
+                                <f:validator validatorId="validadoresLetras"/>
+                            </p:inputText>
+                            <p:inputText class="" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoMaterno}" required="true" requiredMessage="Apellido Materno Requerido">
+                                <f:validator validatorId="validadoresLetras"/>
+                            </p:inputText>
+                           
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden"/>
@@ -47,7 +56,9 @@
                             <p:multiSelectListbox value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                 <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                             </p:multiSelectListbox>
-                            <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.profesion}" required="true" requiredMessage="Profesion Requerida"/>
+                            <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.profesion}" required="true" requiredMessage="Profesion Requerida">
+                                <f:validator validatorId="validadoresLetras"/>
+                            </p:inputText>
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden"/>

@@ -40,7 +40,9 @@
         <p:dialog header="Datos De Servicio" widgetVar="Datos" id="dialogoDatos">
             <h:form>
                  <p:outputLabel for="txtNombre" value="Nombre de Servicio"/>
-                 <p:inputText id="txtNombre" value="#{catalogo_servicio_solicitadoBEAN.catalogo.servicio_solicitado}" required="true" requiredMessage="Se requiere Nombre de Servicio"/>
+                 <p:inputText id="txtNombre" value="#{catalogo_servicio_solicitadoBEAN.catalogo.servicio_solicitado}" required="true" requiredMessage="Se requiere Nombre de Servicio">
+                     <f:validator validatorId="validadoresCatalogo"/>
+                 </p:inputText>
             
             
                  <p:commandButton value="#{catalogo_servicio_solicitadoBEAN.accion}" actionListener="#{catalogo_servicio_solicitadoBEAN.operarCatalogo()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
