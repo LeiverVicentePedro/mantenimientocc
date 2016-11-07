@@ -76,15 +76,14 @@
                                     <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                                 </p:multiSelectListbox>
                                 <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.objetoUsuario.profesion}" required="true" requiredMessage="Profesion Requerida"/>
-                                
                                 <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.tipoBT}" required="true" requiredMessage="Tipo Empleado Requerido" styleClass="selectMenu">
                                     <f:selectItem itemLabel="Tipo Empleado" itemValue="#{null}"/>
                                     <f:selectItem itemLabel="Base" itemValue="Base"/>
                                     <f:selectItem itemLabel="Temporal" itemValue="Temporal"/>
                                 </p:selectOneMenu>
-                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.estatus}" required="true" requiredMessage="Estatus Requerido" styleClass="selectMenu" >
+                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.estatus}" required="true" requiredMessage="Estatus Requerido" styleClass="selectMenu">
                                     <f:selectItem itemLabel="Estatus" itemValue="#{null}"/>
-                                    <f:selectItem itemLabel="Activo" itemValue="true"/>
+                                    <f:selectItem itemLabel="Activo" itemValue="true" />
                                     <f:selectItem itemLabel="Inactivo" itemValue="false"/>
                                 </p:selectOneMenu>
                             </h:panelGrid>
@@ -105,12 +104,7 @@
                         </center>
                     </h:form>
                 </p:dialog>
-
-
-
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>
