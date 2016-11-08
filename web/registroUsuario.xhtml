@@ -62,11 +62,12 @@
                             <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.correo}" required="true" requiredMessage="Cuenta de Correo Requerido">
                                 <f:validator validatorId="validadoresEmail"/>
                             </p:inputText>
-                            <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido">
+                            <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido" >
                                 <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
                             </p:inputText>
                             <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" type="password" required="true" requiredMessage="Confirme su Contraseña">
                                 <f:validator validatorId="validadoresContrasenia"/>
+                                
                             </p:inputText>
                         </h:panelGrid>
                     </p:panel>
