@@ -13,8 +13,8 @@
         <h:outputScript library="js" name="bootstrap.min.js"/>
 
     </h:head>
-    <h:body>
-        <div class="container" Style=" background-color:#fffff; height: 8em">
+    <h:body style="background-color: #FAFAFA;">
+        <div class="container" Style="height: 8em">
             <div class="">
                 <p:graphicImage library="images" name="header_federal_ito.png" width="99%" height="120px" style="background-repeat: no-repeat; background-size: 980px 120px; position: relative;"/>
             </div>
@@ -51,7 +51,7 @@
                             <p:multiSelectListbox value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                 <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                             </p:multiSelectListbox>
-                            <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.profesion}" required="true" requiredMessage="Profesion Requerida">
+                            <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" required="true" requiredMessage="Profesion Requerida">
                                 <f:validator validatorId="validadoresLetras"/>
                             </p:inputText>
                         </h:panelGrid>
@@ -66,17 +66,31 @@
                     </p:panel>
                     <p:separator style="visibility: hidden"/>
                     <div class="container text-center">
-                        <p:commandButton value="Cancelar" action="index.xhtml"/>
+                        <p:commandButton value="Cancelar" action="index.xhtml" immediate="true"/>
                         <p:commandButton value="Registrar" actionListener="#{usuarioBEAN.registrarNuevoUsuario}"/>
                     </div>
+                    <p:separator style="visibility: hidden"/>
                 </h:form>
                 
             </div>
-        <div class="container">
-            <footer class="col-md-12" Style=" background-color:#ffffff; position: relative; bottom: -1em; height: 3em">
-                <div class="text-center">
-                </div>
-            </footer>
+        <div id="footer" class="container" style=" font-size: 12px; text-align: center;">
+            <br/>
+            <div style="webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; vertical-align: baseline; margin-bottom: 30px; position: relative;">
+                <br/>
+                <p:graphicImage library="images" name="line-01.gif" style="left: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="4px" width="373px" />
+                <p:graphicImage library="images" name="gobmx.png" width="220px" height="70px" style="background-repeat: no-repeat; background-size: 220px 70px; display: block; text-indent: -9999px; margin: -10px auto 0;"/>
+                <p:graphicImage library="images" name="line-01.gif" style="right: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="4px" width="373px"/>
+            </div>
+            <b>
+            <p id="pie" style="margin: 0 0 20px; text-align: center; font: 14px/17px 'soberana_sansregular',serif; margin-bottom: 20px;">
+                <b>Tecnológico Nacional de México / Instituto Tecnológico de Oaxaca 
+                    <br/>Avenida Ing. Víctor Bravo Ahuja No. 125 Esquina Calzada Tecnológico, C.P. 68030 <br/>
+                    Tels. (951) 501 50 16, Correo electrónico: tec_oax@itoaxaca.edu.mx<br/>
+                    <br/>
+                    © Derechos Reservados 2016
+                </b>
+            </p>
+            </b>
         </div>
     </h:body>
 </html>

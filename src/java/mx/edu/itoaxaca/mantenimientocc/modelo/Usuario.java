@@ -20,7 +20,7 @@ public class Usuario {
     private int nivel;
     private Oficina_solicitante idOficina;
     private String rfc;
-    private String profesion;
+    private Profesion id_profesion;
     private String tipoBT;
     private Boolean estatus;
 
@@ -96,12 +96,12 @@ public class Usuario {
         this.rfc = rfc;
     }
 
-    public String getProfesion() {
-        return profesion;
+    public Profesion getId_profesion() {
+        return id_profesion;
     }
 
-    public void setProfesion(String profesion) {
-        this.profesion = profesion;
+    public void setId_profesion(Profesion id_profesion) {
+        this.id_profesion = id_profesion;
     }
 
     public String getTipoBT() {

@@ -18,7 +18,9 @@
                     <p:dataTable id="tablaU" value="#{usuarioBEAN.listaUsuariosDeUnDepartamento}" var="usuario" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15">
-
+                        <f:facet name="cabecera">
+                            Tabla de Usuarios
+                        </f:facet>
                         <p:column headerText="RFC">
                             <p:outputLabel value="#{usuario.rfc}"/>
                         </p:column>
@@ -35,7 +37,7 @@
                             <p:outputLabel value="#{usuario.idOficina.nombreOficina}"/>
                         </p:column>
                         <p:column headerText="Profesion">
-                            <p:outputLabel value="#{usuario.profesion}"/>
+                            <p:outputLabel value="#{usuario.id_profesion}"/>
                         </p:column>
                         <p:column headerText="Correo">
                             <p:outputLabel value="#{usuario.correo}"/>
@@ -50,7 +52,8 @@
                             <p:outputLabel value="#{usuario.tipoBT}"/>
                         </p:column>
                         <p:column headerText="Modificar">
-                            <p:commandLink value="modificar" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
+                            <!--<p:commandLink value="modificar" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>-->
+                            <p:rowEditor/>
                         </p:column>
                         <p:column headerText="Eliminar">
                             <p:commandLink value="Eliminar" action="#"/>
@@ -75,7 +78,7 @@
                                 <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                     <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                                 </p:multiSelectListbox>
-                                <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.objetoUsuario.profesion}" required="true" requiredMessage="Profesion Requerida"/>
+                                <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.objetoUsuarid_profesionion}" required="true" requiredMessage="Profesion Requerida"/>
                                 <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.tipoBT}" required="true" requiredMessage="Tipo Empleado Requerido" styleClass="selectMenu">
                                     <f:selectItem itemLabel="Tipo Empleado" itemValue="#{null}"/>
                                     <f:selectItem itemLabel="Base" itemValue="Base"/>

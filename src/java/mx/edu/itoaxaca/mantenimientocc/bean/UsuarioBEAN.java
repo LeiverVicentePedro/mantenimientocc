@@ -347,7 +347,7 @@ public class UsuarioBEAN {
         this.objetoUsuario.setTipoBT("");
         this.objetoUsuario.setIdOficina(null);
         this.objetoUsuario.setNivel(0);
-        this.objetoUsuario.setProfesion("");
+        this.objetoUsuario.setId_profesion("");
     }
 
     public void establecerAccionDeBoton() throws Exception {
