@@ -19,7 +19,7 @@ import javax.faces.validator.ValidatorException;
 
 @FacesValidator("validadoresLetrasNumEspacioPunto")
 public class ValidacionMantenimiento implements Validator {
-    private static final String Validador="[A-Za-z0-9.]+"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z0-9.]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z-0-9.]*";
+    private static final String Validador="[A-Za-z0-9.]+"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z0-9.]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z-0-9.]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z0-9.]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z0-9.]*";
     
     //representacion compilada de una expresion regular
     private Pattern patron;

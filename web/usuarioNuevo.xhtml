@@ -37,7 +37,7 @@
                             <p:outputLabel value="#{usuario.idOficina.nombreOficina}"/>
                         </p:column>
                         <p:column headerText="Profesion">
-                            <p:outputLabel value="#{usuario.id_profesion}"/>
+                            <p:outputLabel value="#{usuario.id_profesion.nombre_profesion}"/>
                         </p:column>
                         <p:column headerText="Correo">
                             <p:outputLabel value="#{usuario.correo}"/>
@@ -46,7 +46,10 @@
                             <p:outputLabel value="#{usuario.nivel}"/>
                         </p:column>
                         <p:column headerText="Estatus">
-                            <p:outputLabel value="#{usuario.estatus}"/>
+                            <p:outputLabel value="#{usuario.estatus}">
+                                <f:converter converterId="conversionEstatus"/>
+                            </p:outputLabel>
+                            
                         </p:column>
                         <p:column headerText="Tipo">
                             <p:outputLabel value="#{usuario.tipoBT}"/>
@@ -63,7 +66,7 @@
 
                 <p:dialog header="Datos Usuario" widgetVar="DatosUsuario" id="dialogoUsuario" class="container-fluid">
                     <h:form id="formDialogo">
-                        
+                        <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
                         <p:panel header="Datos Personales" class="text-center container-fluid">
                             <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
                                 <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}" />
@@ -78,7 +81,9 @@
                                 <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                     <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                                 </p:multiSelectListbox>
-                                <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.objetoUsuarid_profesionion}" required="true" requiredMessage="Profesion Requerida"/>
+                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.id_profesion}" label="-- Opcion --" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Profesion requerida">
+                                    <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesionNuevo" itemLabel="#{profesionNuevo.nombre_profesion}" itemValue="#{profesionNuevo}"/>
+                                </p:selectOneMenu>
                                 <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.tipoBT}" required="true" requiredMessage="Tipo Empleado Requerido" styleClass="selectMenu">
                                     <f:selectItem itemLabel="Tipo Empleado" itemValue="#{null}"/>
                                     <f:selectItem itemLabel="Base" itemValue="Base"/>
@@ -101,9 +106,9 @@
                         </p:panel>
                         <p/>
                         <center>
-                        <p:commandButton value="#{usuarioBEAN.accionDeBotonUsuario}" actionListener="#{usuarioBEAN.establecerAccionDeBoton()}" oncomplete="PF('DatosUsuario').hide();" update=":formTabla:tablaU"/>
+                            <p:commandButton value="#{usuarioBEAN.accionDeBotonUsuario}" actionListener="#{usuarioBEAN.establecerAccionDeBoton()}" oncomplete="PF('DatosUsuario').hide();" update=":formTabla:tablaU"/>
 
-                        <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosUsuario').hide();" />
+                            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosUsuario').hide();" />
                         </center>
                     </h:form>
                 </p:dialog>

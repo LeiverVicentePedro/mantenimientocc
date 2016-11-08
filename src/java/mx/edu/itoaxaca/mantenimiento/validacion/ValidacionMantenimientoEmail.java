@@ -5,6 +5,10 @@
  */
 package mx.edu.itoaxaca.mantenimiento.validacion;
 
+/**
+ *
+ * @author Jerusalen
+ */
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
@@ -17,16 +21,17 @@ import javax.faces.validator.ValidatorException;
 
 
 
-@FacesValidator("validadoresLetrasNumEspacioPuntoGuion")
-public class ValidacionMantenimientoDos implements Validator {
-    private static final String Validador="[A-Za-z0-9.-]+"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z0-9.-]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z-0-9.-]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z-0-9.-]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z-0-9.-]*";
+@FacesValidator("validadoresEmail")
+public class ValidacionMantenimientoEmail implements Validator {
+    private static final String Validador=
+"^[_A-Za-z0-9-]+(\\."+"[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*"+"(\\.[A-Za-z]{2,})$";
     
     //representacion compilada de una expresion regular
     private Pattern patron;
     //objeto que se crea apartir de un patron
     private Matcher objetoPatron;
     
-    public ValidacionMantenimientoDos (){
+    public ValidacionMantenimientoEmail (){
         patron=Pattern.compile(Validador); 
    }
 
@@ -35,7 +40,7 @@ public class ValidacionMantenimientoDos implements Validator {
         objetoPatron=patron.matcher(value.toString());
         if(!objetoPatron.matches())
         {
-            FacesMessage mensaje=new FacesMessage("Valor Invalido");
+            FacesMessage mensaje=new FacesMessage("Valor Invalido en Correo");
             mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(mensaje);
         }

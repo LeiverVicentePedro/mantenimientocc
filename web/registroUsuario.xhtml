@@ -26,12 +26,14 @@
             <p:growl id="mensaje" autoUpdate="true"/>
             
                 <h:form>
+                    <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
+                    
                     <p:outputLabel value="REGISTRO NUEVO USUARIO" class="text-capitalize"/>
                     <p:separator style="visibility: hidden"/>
                     <p:panel header="Datos Personales" class="text-center container" style=" width: 70%">
                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
                             <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" >
-                              <!--  <f:validator validatorId="validadoresRFC"/>-->
+                            <f:validator validatorId="validadoresRFC"/> 
                             </p:inputText>
                             <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido">
                                 <f:validator validatorId="validadoresLetras"/>
@@ -51,17 +53,24 @@
                             <p:multiSelectListbox value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                 <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                             </p:multiSelectListbox>
-                            <p:inputText class="form-control" placeholder="Profesión" id="profesionUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" required="true" requiredMessage="Profesion Requerida">
-                                <f:validator validatorId="validadoresLetras"/>
-                            </p:inputText>
+                            <p:selectOneMenu value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" label="-- Opcion --" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Profesion requerida">
+                                <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesion" itemLabel="#{profesion.nombre_profesion}" itemValue="#{profesion}"/>
+                            </p:selectOneMenu>
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden"/>
-                    <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container">
+                    <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container" id="Datos">
                         <h:panelGrid columns="3" class="container-fluid">
-                            <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.correo}" required="true" requiredMessage="Cuenta de Correo Requerido"/>
-                            <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido"/>
-                            <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" type="password" required="true" requiredMessage="Confirme su Contraseña"/>
+                            <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.correo}" required="true" requiredMessage="Cuenta de Correo Requerido">
+                                <f:validator validatorId="validadoresEmail"/>
+                            </p:inputText>
+                            <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido" >
+                                <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
+                            </p:inputText>
+                            <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" type="password" required="true" requiredMessage="Confirme su Contraseña">
+                                <f:validator validatorId="validadoresContrasenia"/>
+                                
+                            </p:inputText>
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden"/>

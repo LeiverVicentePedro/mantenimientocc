@@ -80,6 +80,7 @@ public class UsuarioBEAN {
                 setMensajeClaseUsuario("Usuario Registrado");
                 enviarMensaje(registroUsuarioNuevo.getCorreo(), registroUsuarioNuevo.getClave());
                 System.out.println(mensajeClaseUsuario);
+                 
             } else {
                 setMensajeClaseUsuario("Las Contraseñas no Coinciden");
 
@@ -347,7 +348,7 @@ public class UsuarioBEAN {
         this.objetoUsuario.setTipoBT("");
         this.objetoUsuario.setIdOficina(null);
         this.objetoUsuario.setNivel(0);
-        this.objetoUsuario.setId_profesion("");
+        this.objetoUsuario.setId_profesion(null);
     }
 
     public void establecerAccionDeBoton() throws Exception {

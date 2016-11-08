@@ -5,6 +5,10 @@
  */
 package mx.edu.itoaxaca.mantenimiento.validacion;
 
+/**
+ *
+ * @author Jerusalen
+ */
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
@@ -17,16 +21,16 @@ import javax.faces.validator.ValidatorException;
 
 
 
-@FacesValidator("validadoresLetrasNumEspacioPuntoGuion")
-public class ValidacionMantenimientoDos implements Validator {
-    private static final String Validador="[A-Za-z0-9.-]+"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z0-9.-]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z-0-9.-]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z-0-9.-]*"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z-0-9.-]*";
+@FacesValidator("validadoresContrasenia")
+public class ValidarContrasenia implements Validator {
+    private static final String Validador="[A-Za-z0-9]{6,15}";
     
     //representacion compilada de una expresion regular
     private Pattern patron;
     //objeto que se crea apartir de un patron
     private Matcher objetoPatron;
     
-    public ValidacionMantenimientoDos (){
+    public ValidarContrasenia (){
         patron=Pattern.compile(Validador); 
    }
 

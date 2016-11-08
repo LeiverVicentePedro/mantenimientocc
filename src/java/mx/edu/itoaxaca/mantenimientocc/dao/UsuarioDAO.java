@@ -33,7 +33,7 @@ public class UsuarioDAO extends Conexion{
             inserta.setInt(6, usuarioRegistrar.getNivel());
             inserta.setInt(7, usuarioRegistrar.getIdOficina().getIdOficinaSolicitante());
             inserta.setString(8, usuarioRegistrar.getRfc());
-            inserta.setString(9, usuarioRegistrar.getId_profesion().getIdprofesion());
+            inserta.setInt(9, usuarioRegistrar.getId_profesion().getIdprofesion());
             inserta.setString(10, usuarioRegistrar.getTipoBT());
             inserta.setBoolean(11, usuarioRegistrar.getEstatus());
             
@@ -65,7 +65,7 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setNivel(resultado.getInt("nivel"));
             usuarioUnico.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
             usuarioUnico.setRfc(resultado.getString("rfc"));
-            usuarioUnico.setId_profesion(new ProfesionDAO()resultado.getString("profesion"));
+            usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
             }
@@ -97,7 +97,7 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setNivel(resultado.getInt("nivel"));
             usuarioUnico.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
             usuarioUnico.setRfc(resultado.getString("rfc"));
-            usuarioUnico.setId_profesion(resultado.getString("profesion"));
+            usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
             
@@ -135,7 +135,7 @@ public class UsuarioDAO extends Conexion{
             usuarioParaLista.setNivel(resultado.getInt("nivel"));
             usuarioParaLista.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
             usuarioParaLista.setRfc(resultado.getString("rfc"));
-            usuarioParaLista.setId_profesion(resultado.getString("profesion"));
+            usuarioParaLista.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioParaLista.setTipoBT(resultado.getString("tipo_bt"));
             usuarioParaLista.setEstatus(resultado.getBoolean("estatus"));
             
@@ -165,7 +165,7 @@ public class UsuarioDAO extends Conexion{
             consulta.setString(6, usuario.getClave());
             consulta.setInt(7, usuario.getNivel());
             consulta.setInt(8, usuario.getIdOficina().getIdOficinaSolicitante());
-            consulta.setString(9, usuario.getId_profesion());
+            consulta.setInt(9, usuario.getId_profesion().getIdprofesion());
             consulta.setString(10, usuario.getTipoBT());
             consulta.setBoolean(11, usuario.getEstatus());
             consulta.setInt(12, usuario.getIdUsuario());

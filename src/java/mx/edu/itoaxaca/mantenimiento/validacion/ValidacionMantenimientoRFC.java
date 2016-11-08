@@ -23,8 +23,8 @@ import javax.faces.validator.ValidatorException;
 
 @FacesValidator("validadoresRFC")
 public class ValidacionMantenimientoRFC implements Validator {
-    private static final String Validador=" [A-Z,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Z,0-9]?[A-Z,0-9]?[0-9,A-Z]?";
-    
+    private static final String Validador="[A-Z,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Z,0-9]?[A-Z,0-9]?[0-9,A-Z]?";
+            
     //representacion compilada de una expresion regular
     private Pattern patron;
     //objeto que se crea apartir de un patron

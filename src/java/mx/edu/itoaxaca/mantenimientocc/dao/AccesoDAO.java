@@ -31,7 +31,7 @@ public class AccesoDAO extends Conexion {
                 usuario.setNombre(resultado.getString("nombre"));
                 usuario.setApellidoPaterno(resultado.getString("apellido_paterno"));
                 usuario.setApellidoMaterno(resultado.getString("apellido_materno"));
-                usuario.setId_profesion(resultado.getString("profesion"));
+                usuario.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
                 usuario.setRfc(resultado.getString("rfc"));
                 usuario.setTipoBT(resultado.getString("tipo_bt"));
                 usuario.setNivel(resultado.getInt("nivel"));
