@@ -27,32 +27,44 @@
             
                 <h:form>
                     <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
-                    
+                    <p/><p/>
                     <p:outputLabel value="REGISTRO NUEVO USUARIO" class="text-capitalize"/>
                     <p:separator style="visibility: hidden"/>
                     <p:panel header="Datos Personales" class="text-center container" style=" width: 70%">
-                        <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
-                            <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" >
+                        <h:panelGrid columns="6" cellspacing="10" cellpadding="5">
+                            
+                            <p:outputLabel value="RFC&nbsp;"/>
+                            <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" style="text-transform: uppercase">
                             <f:validator validatorId="validadoresRFC"/> 
                             </p:inputText>
-                            <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido">
-                                <f:validator validatorId="validadoresLetras"/>
+                            <p:column/><p:column/>
+                            <p:column/><p:column/>
+                            <p:outputLabel value="Nombre&nbsp;"  />
+                            <p:inputText class="form-control" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido" style="text-transform: uppercase">
+                                <f:validator validatorId="validadoresLetrasUsuario"/>
                             </p:inputText>
-                            <p:inputText class="" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoPaterno}" required="true" requiredMessage="Apellido Paterno Requerido">
-                                <f:validator validatorId="validadoresLetras"/>
+                            <p:outputLabel value="&nbsp;Apellido&nbsp;"  />
+                            <p:inputText class="form-control" placeholder="Paterno" id="apellidoPaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoPaterno}" required="true" requiredMessage="Apellido Paterno Requerido" style="text-transform: uppercase">
+                                <f:validator validatorId="validadoresLetrasUsuario"/>
                             </p:inputText>
-                            <p:inputText class="" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoMaterno}" required="true" requiredMessage="Apellido Materno Requerido">
-                                <f:validator validatorId="validadoresLetras"/>
+                            
+                            <p:outputLabel value="&nbsp;Apellido&nbsp;"  />
+                            <p:inputText class="form-control" placeholder="Materno" id="apellidoMaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoMaterno}" required="true" requiredMessage="Apellido Materno Requerido" style="text-transform: uppercase">
+                                <f:validator validatorId="validadoresLetrasUsuario"/>
                             </p:inputText>
-                           
+                            
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden"/>
-                    <p:panel header="Sobre su Trabajo" class="text-center container " style="width: 70%" >
-                        <h:panelGrid columns="2" cellpadding="5" cellspacing="10">
+                    <p:panel header="Información Laboral" class="text-center container " style="width: 70%" >
+                        <h:panelGrid columns="6" cellpadding="5" cellspacing="10">
+                            <p:outputLabel value="Ingrese Area" style="color: #adadad"/>
+                              <p:column/>
+                              <p:column/>
                             <p:multiSelectListbox value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                 <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                             </p:multiSelectListbox>
+                            
                             <p:selectOneMenu value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" label="-- Opcion --" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Profesion requerida">
                                 <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesion" itemLabel="#{profesion.nombre_profesion}" itemValue="#{profesion}"/>
                             </p:selectOneMenu>
@@ -60,13 +72,20 @@
                     </p:panel>
                     <p:separator style="visibility: hidden"/>
                     <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container" id="Datos">
-                        <h:panelGrid columns="3" class="container-fluid">
+                        <h:panelGrid columns="6" class="container-fluid">
+                             
+                            <p:outputLabel value="&nbsp;Correo&nbsp;"  />
                             <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.correo}" required="true" requiredMessage="Cuenta de Correo Requerido">
                                 <f:validator validatorId="validadoresEmail"/>
                             </p:inputText>
+                           
+                             
+                            <p:outputLabel value="&nbsp;Contraseña&nbsp;"  />
                             <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido" >
                                 <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
                             </p:inputText>
+                              
+                            <p:outputLabel value="&nbsp;Confirma&nbsp;"  />
                             <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" type="password" required="true" requiredMessage="Confirme su Contraseña">
                                 <f:validator validatorId="validadoresContrasenia"/>
                                 

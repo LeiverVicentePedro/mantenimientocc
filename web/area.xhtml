@@ -29,13 +29,13 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15">
                 <p:column headerText="Nombre de Area">
-                    <p:outputLabel value="#{area.nombre_area}" />
+                    <p:outputLabel value="#{area.nombre_area}" style="text-transform: uppercase" />
                    
                 </p:column>
                 
                 <p:column headerText="Estatus">
-                    <p:outputLabel value="#{area.estatus}"  >
-                        <f:converter converterId="conversionEstatus"/>
+                    <p:outputLabel value="#{area.estatus}" style="text-transform: uppercase" >
+                        <f:converter converterId="conversionEstatus" />
                     </p:outputLabel>
                 </p:column>
                 
@@ -52,8 +52,10 @@
         <p:dialog header="Datos de Area" widgetVar="Datos" id="dialogoDatos">
             <h:form>
                 <p/>
-                 <p:outputLabel for="txtNombre" value="Nombre de Area"/>
-                 <p:inputText id="txtNombre" value="#{areaBEAN.area.nombre_area}" required="true" requiredMessage="Se requiere nombre de Area">
+                 <p:outputLabel for="txtNombre" value="&nbsp;Nombre de Area&nbsp;"/>
+                 <p:inputText id="txtNombre" value="#{areaBEAN.area.nombre_area}" 
+                              required="true" requiredMessage="Se requiere nombre de Area" 
+                              style="text-transform: uppercase">
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
                  
@@ -61,9 +63,10 @@
             <style type="text/css">                                      
             .selectMenu { display: inline-block; vertical-align: top; }
             </style>
-        
-            <p:outputLabel value="&nbsp; Estatus"/> <!-- &nbsp; --><!--sirve para dar espacio -->
-            <p:selectOneMenu value="#{areaBEAN.area.estatus}" styleClass="selectMenu" >
+            <p/>
+            <p:outputLabel value="&nbsp; Estatus&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+            <p:selectOneMenu value="#{areaBEAN.area.estatus}" styleClass="selectMenu" 
+                             style="text-transform: uppercase">
                 <f:selectItem itemLabel="Activo" itemValue="true"/>
                 <f:selectItem itemLabel="Inactivo" itemValue="false"/>
             </p:selectOneMenu>
@@ -72,6 +75,7 @@
             <p:commandButton value="#{areaBEAN.accion}" actionListener="#{areaBEAN.operarArea()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
             <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
             </center>
+            <p/>
             </h:form>
         </p:dialog>
             </ui:define>
