@@ -22,7 +22,7 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15">
                 <p:column headerText="Nombre de Profesión">
-                    <p:outputLabel value="#{profesion.nombre_profesion}"/>
+                    <p:outputLabel value="#{profesion.nombre_profesion}" style="text-transform: uppercase"/>
                 </p:column>
                 
                 
@@ -39,15 +39,18 @@
         
         <p:dialog header="Datos De Profesion" widgetVar="Datos" id="dialogoDatos">
             <h:form>
+                <p/>
                  <p:outputLabel for="txtNombre" value="Nombre de Profesion"/>
-                 <p:inputText id="txtNombre" value="#{profesionBEAN.profesion.nombre_profesion}" required="true" requiredMessage="Se requiere Nombre de Profesion">
+                 <p:inputText id="txtNombre" value="#{profesionBEAN.profesion.nombre_profesion}" 
+                              required="true" requiredMessage="Se requiere Nombre de Profesion"
+                              style="text-transform: uppercase">
                      <f:validator validatorId="validadoresCatalogo"/>
                  </p:inputText>
-            
-            
+                <p/>
+                <center>
                  <p:commandButton value="#{profesionBEAN.accion}" actionListener="#{profesionBEAN.operarProfesion()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
-            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
-           
+                 <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
+                </center>
             </h:form>
         </p:dialog>
                 

@@ -21,9 +21,12 @@ import javax.faces.validator.ValidatorException;
 
 
 
-@FacesValidator("validadoresLetras")
+@FacesValidator("validadoresLetrasUsuario")
 public class ValidacionMantenimientoLetras implements Validator {
-    private static final String Validador="[A-Za-z]+"+"[ \\t\\n\\x0b\\r\\f]*"+"[A-Za-z]*";
+    private static final String Validador=
+            "[A-Za-z\\u00e1\\u00e9\\u00ed\\u00f3\\u00fa\\u00c1\\u00c9\\u00cd\\u00d3\\u00da\\u00f1\\u00d1]+"+"[ \\t\\n\\x0b\\r\\f]*"+
+            "[A-Za-z\\u00e1\\u00e9\\u00ed\\u00f3\\u00fa\\u00c1\\u00c9\\u00cd\\u00d3\\u00da\\u00f1\\u00d1]*"+"[ \\t\\n\\x0b\\r\\f]*"+
+            "[A-Za-z\\u00e1\\u00e9\\u00ed\\u00f3\\u00fa\\u00c1\\u00c9\\u00cd\\u00d3\\u00da\\u00f1\\u00d1]*";
     //representacion compilada de una expresion regular
     private Pattern patron;
     //objeto que se crea apartir de un patron

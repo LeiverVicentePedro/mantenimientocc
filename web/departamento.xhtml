@@ -32,17 +32,17 @@
                          rowsPerPageTemplate="5,10,15">
 
                         <p:column headerText="Clave Departamento">
-                            <p:outputLabel value="#{departamento.clave_departamento}"/>
+                            <p:outputLabel value="#{departamento.clave_departamento}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column headerText="Nombre de Departamento">
-                            <p:outputLabel value="#{departamento.nombre_departamento}"/>
+                            <p:outputLabel value="#{departamento.nombre_departamento}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column headerText="Area">
-                            <p:outputLabel value="#{departamento.area.nombre_area}"/>
+                            <p:outputLabel value="#{departamento.area.nombre_area}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column headerText="Estatus">
-                            <p:outputLabel value="#{departamento.estatus}">
-                                 <f:converter converterId="conversionEstatus"/>
+                            <p:outputLabel value="#{departamento.estatus}" style="text-transform: uppercase">
+                                 <f:converter converterId="conversionEstatus" />
                             </p:outputLabel>
                         </p:column>
                         <p:column headerText="Modificar">
@@ -59,16 +59,19 @@
                     <h:form id="lista">
                     <f:event id="event" type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
                     
-                    
+                    <p/>
                     <p:outputLabel value="&nbsp;Clave Departamento&nbsp;&nbsp;"  />
-                    <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}" required="true" requiredMessage="Se requiere Clave Departamento" >
+                    <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}" 
+                                 required="true" requiredMessage="Se requiere Clave Departamento" 
+                                 style="text-transform: uppercase">
                         <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>    
                     </p:inputText>
-                   
                     <p/>
                     <p align="left">
                     <p:outputLabel value="&nbsp;Nombre de Departamento &nbsp;"/>
-                    <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}" required="true" requiredMessage="Se requiere Nombre de Departamento"  >
+                    <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}" 
+                                 required="true" requiredMessage="Se requiere Nombre de Departamento" 
+                                 style="text-transform: uppercase">
                         <f:validator validatorId="validadoresLetrasNumEspacioPuntoGuion"/>
                     </p:inputText>
                     </p>
@@ -80,14 +83,19 @@
                     </style>
                     
                     <p:outputLabel value="&nbsp;Nombre de area&nbsp;"/>
-                    <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter" styleClass="selectMenu" required="true" requiredMessage="Se Requiere Area">
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter" 
+                                     styleClass="selectMenu" required="true" requiredMessage="Se Requiere Area"
+                                     style="text-transform: uppercase">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                             <f:selectItems value="#{areaBEAN.listaArea}" var="areaitem" itemLabel="#{areaitem.nombre_area}" itemValue="#{areaitem}"/>
                     </p:selectOneMenu> 
-                    <p:outputLabel value="&nbsp;Estatus&nbsp;"/>
-                    <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}" styleClass="selectMenu" required="true" requiredMessage="Se Requiere un Estatus"> 
+                    <p/>
+                    <p:outputLabel value="&nbsp;Estatus&nbsp;" />
+                    <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}" styleClass="selectMenu" 
+                                     required="true" requiredMessage="Se Requiere un Estatus" 
+                                     style="text-transform: uppercase"> 
                     
-                        <f:selectItem itemLabel="Activo" itemValue="true"/>
+                        <f:selectItem itemLabel="Activo" itemValue="true" />
                         <f:selectItem itemLabel="Inactivo" itemValue="false"/>
                     </p:selectOneMenu>
                     <p/>
@@ -96,6 +104,7 @@
                     
                     <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                     </center>
+                    <p/>
                     </h:form>
                 </p:dialog>
 
