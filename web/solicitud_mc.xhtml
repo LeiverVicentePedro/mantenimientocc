@@ -12,22 +12,25 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:panel header="Solicitud de Servico">
-                    <p:panelGrid columns="2">
+                    <f:event type="preRenderView" listener="#{departamentoBEAN.listaDepartamentoServicio()}"/>
+                    <f:event type="preRenderView" listener="#{catalogo_servicio_solicitadoBEAN.listarCatalogo()}"/>
+                    <p:panel header="Solicitud de Servico" >
+                    <h:panelGrid columns="2" cellspacing="10" cellpadding="5">
                         <p:outputLabel value="Departamento Dirigido: "/>
-                        <p:selectOneMenu value="#" label="-- Seleccione uno --">
-                            <p:menuitem value="" />
+                        <p:selectOneMenu value="#{solicitud_MCBEAN.solicitudmc.id_departamento}" converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-- Seleccione uno --" />
+                            <f:selectItems value="#{departamentoBEAN.listadepartamentoServicio}" var="deptoServicio" itemLabel="#{deptoServicio.nombre_departamento}" itemValue="#{deptoServicio}" />
                         </p:selectOneMenu>
                         <p:outputLabel value="Problema: "/>
-                        <p:selectCheckboxMenu value="#" label="--Seleccione --">
-                            <f:selectItems value="#"/>
+                        <p:selectCheckboxMenu value="#{solicitud_MCBEAN.serviciosSeleccionados}" filter="true" filterMatchMode="startsWith" label="--Seleccione --">
+                            <f:selectItems value="#{catalogo_servicio_solicitadoBEAN.catalogoLista}" var="catalogoSolicitud" itemLabel="#{catalogoSolicitud.servicio_solicitado}" itemValue="#{catalogoSolicitud}"/>
                         </p:selectCheckboxMenu>
                         <p:outputLabel value="Otro Problema: "/>
-                        <p:inputText value="#" placeholder="Describa su problema"/> 
-                    </p:panelGrid>
+                        <p:inputText value="#{solicitud_MCBEAN.solicitudmc.otroProblema}" placeholder="Describa su problema"/>  
+                    </h:panelGrid>
                 </p:panel>
-                    <p:separator style="visibility: hidden;"/>
-                    <p:commandButton value="Registrar" action="#"/>
+                <p:separator style="visibility: hidden;"/>
+                <p:commandButton value="Registrar" action="#"/>
                 </h:form>
             </ui:define>
 

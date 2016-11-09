@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
 
 
@@ -196,5 +197,32 @@ public class DepartamentoDAO extends Conexion{
              this.Cerrar();
          }
          return listaDepartamentoDeUnArea;
+     }
+     
+     public List<Departamento> listarDepartamentoServicios() throws Exception{
+         List<Departamento> listaDepartamentoServicio=null;
+         ResultSet resultado;
+         try{
+             this.Conectar();
+             PreparedStatement consulta = this.getConexion().prepareStatement("Select * from departamento where nombre_departamento like \"%centro de computo%\" or nombre_departamento like \"%mantenimiento y equipo%\" or nombre_departamento like \"%recursos materiales y servicios%\"");
+             resultado = consulta.executeQuery();
+             listaDepartamentoServicio = new ArrayList();
+             while(resultado.next()){
+                 Departamento departamentoServicio= new Departamento();
+                 departamentoServicio.setIddepartamento(resultado.getInt("iddepartamento"));
+                 departamentoServicio.setClave_departamento(resultado.getString("clave_departamento"));
+                 departamentoServicio.setNombre_departamento(resultado.getString("nombre_departamento"));
+                 departamentoServicio.setArea(new AreaDAO().buscarIdArea(resultado.getInt("id_area")));
+                 departamentoServicio.setEstatus(resultado.getBoolean("estatus"));
+                 listaDepartamentoServicio.add(departamentoServicio);
+            }
+             
+            return listaDepartamentoServicio; 
+         }catch(Exception ex){
+             System.out.println("Error en DepartamentoDAO -> listaDepartamentoServicios "+ex);
+             throw ex;
+         }finally{
+             this.Cerrar();
+         }
      }
 }

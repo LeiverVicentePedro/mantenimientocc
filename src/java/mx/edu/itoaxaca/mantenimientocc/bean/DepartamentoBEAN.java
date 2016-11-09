@@ -20,6 +20,7 @@ public class DepartamentoBEAN {
     
   private Departamento departamento= new Departamento();
   private List<Departamento> listadepartamento;
+  private List<Departamento> listadepartamentoServicio;
   private String accion;//esta variable es para usarla en un switch y poder escoger si es opcion registrar o modificar
 
   
@@ -33,6 +34,14 @@ public class DepartamentoBEAN {
         this.accion = accion;
     }
 
+    public List<Departamento> getListadepartamentoServicio() {
+        return listadepartamentoServicio;
+    }
+
+    public void setListadepartamentoServicio(List<Departamento> listadepartamentoServicio) {
+        this.listadepartamentoServicio = listadepartamentoServicio;
+    }
+    
    //set y get de departamento
     public Departamento getDepartamento() {
         return departamento;
@@ -146,8 +155,17 @@ public class DepartamentoBEAN {
             listadepartamento = departamentodao.listarDepartamento();
         }
         catch(Exception e){
-            System.out.println("error en Departamento BEAN -->ListarDepartamentoBEAN"+e);
+            System.out.println("error en DepartamentoBEAN --> listarDepartamentoBEAN"+e);
         }
     }
     
+    public void listaDepartamentoServicio(){
+        DepartamentoDAO departamentodao;
+        try{
+            departamentodao = new DepartamentoDAO();
+            listadepartamentoServicio = departamentodao.listarDepartamentoServicios();
+        }catch(Exception e){
+            System.out.println("Error en DepartamentoBEAN -> listaDepartamentoServicio "+e);
+        }
+    }
 }

@@ -10,14 +10,6 @@
 
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
-           <!-- <ui:define name="top">
-                top
-            </ui:define>
-
-            <ui:define name="left">
-                left
-            </ui:define>
-           -->
             <ui:define name="content">
                 <p:growl id="msj" showDetail="true" sticky="true"/>
         <h:form id="formaExterior">                      
@@ -27,7 +19,7 @@
              <p/>
             <p:dataTable id="data" value="#{areaBEAN.listaArea}" var="area"  paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
+                         rowsPerPageTemplate="5,10,15"  style="text-transform: uppercase;">
                 <p:column headerText="Nombre de Area">
                     <p:outputLabel value="#{area.nombre_area}" />
                    
@@ -52,8 +44,8 @@
         <p:dialog header="Datos de Area" widgetVar="Datos" id="dialogoDatos">
             <h:form>
                 <p/>
-                 <p:outputLabel for="txtNombre" value="Nombre de Area"/>
-                 <p:inputText id="txtNombre" value="#{areaBEAN.area.nombre_area}" required="true" requiredMessage="Se requiere nombre de Area">
+                <p:outputLabel for="txtNombre" value="Nombre de Area"/>
+                 <p:inputText id="txtNombre" value="#{areaBEAN.area.nombre_area}" required="true" requiredMessage="Se requiere nombre de Area"  style="text-transform: uppercase;">
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
                  
