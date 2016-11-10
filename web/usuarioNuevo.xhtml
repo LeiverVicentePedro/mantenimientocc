@@ -55,8 +55,7 @@
                             <p:outputLabel value="#{usuario.tipoBT}"/>
                         </p:column>
                         <p:column headerText="Modificar">
-                            <!--<p:commandLink value="modificar" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>-->
-                            <p:rowEditor/>
+                            <p:commandLink value="modificar" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
                         </p:column>
                         <p:column headerText="Eliminar">
                             <p:commandLink value="Eliminar" action="#"/>
@@ -77,7 +76,7 @@
                         </p:panel>
                         <p/>
                         <p:panel header="Sobre su Trabajo" class="text-center container ">
-                            <h:panelGrid columns="2" cellpadding="5" cellspacing="10">
+                            <h:panelGrid columns="3" cellpadding="5" cellspacing="10">
                                 <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                     <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                                 </p:multiSelectListbox>
@@ -93,6 +92,8 @@
                                     <f:selectItem itemLabel="Estatus" itemValue="#{null}"/>
                                     <f:selectItem itemLabel="Activo" itemValue="true" />
                                     <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+                                </p:selectOneMenu>
+                                <p:selectOneMenu value="#">
                                 </p:selectOneMenu>
                             </h:panelGrid>
                         </p:panel>
