@@ -13,6 +13,7 @@ public class Catalogo_servicio_solicitado {
     
     private int idcatalogo_servicio_solicitado;
     private String servicio_solicitado;
+    private Departamento departamento;
 
     public int getIdcatalogo_servicio_solicitado() {
         return idcatalogo_servicio_solicitado;
@@ -29,6 +30,16 @@ public class Catalogo_servicio_solicitado {
     public void setServicio_solicitado(String servicio_solicitado) {
         this.servicio_solicitado = servicio_solicitado;
     }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+    
+    
     
     
     

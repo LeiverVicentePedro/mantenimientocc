@@ -68,6 +68,7 @@ public class Catalogo_servicio_solicitadoBEAN {
     
     public void limpiarCatolo_servicio_solicitado(){
         this.catalogo.setServicio_solicitado("");
+        this.catalogo.setDepartamento(null);
       }
      //--Metodos para Registrar y Modificar
     

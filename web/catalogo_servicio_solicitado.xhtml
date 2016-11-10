@@ -22,7 +22,10 @@
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15">
                 <p:column headerText="Nombre de Servicio Solicitado">
-                    <p:outputLabel value="#{catalogo.servicio_solicitado}" style="text-transform: uppercase"/>
+                    <p:outputLabel value="#{catalogo.servicio_solicitado}" style="text-transform: uppercase"/><!-- ES PARA MAYUSCULA style="text-transform: uppercase"  -->
+                </p:column>
+                <p:column headerText="Departamento">
+                    <p:outputLabel value="#{catalogo.departamento.nombre_departamento}" style="text-transform: uppercase"/>
                 </p:column>
                 
                 
@@ -39,12 +42,26 @@
         
         <p:dialog header="Datos De Servicio" widgetVar="Datos" id="dialogoDatos">
             <h:form>
+                <f:event type="preRenderView" listener="#{departamentoBEAN.listaDepartamentoServicio()}"/>
                 <p/>
                  <p:outputLabel for="txtNombre" value="Nombre de Servicio"/>
                  <p:inputText id="txtNombre" value="#{catalogo_servicio_solicitadoBEAN.catalogo.servicio_solicitado}" 
                               required="true" requiredMessage="Se requiere Nombre de Servicio" style="text-transform: uppercase">
                      <f:validator validatorId="validadoresCatalogo"/>
                  </p:inputText>
+                 <p/>
+                  <!-- el style es para poder alinear correctamente el selectOneMenu -->
+                    <style type="text/css">                                      
+                    .selectMenu { display: inline-block; vertical-align: top; }
+                    </style>
+                     <p:outputLabel value="&nbsp;Nombre de departamento&nbsp;"/>
+                     <p:selectOneMenu value="#{catalogo_servicio_solicitadoBEAN.catalogo.departamento}" converter="omnifaces.SelectItemsConverter" 
+                                      styleClass="selectMenu" required="true" requiredMessage="Seleccione un Departamento" 
+                                      style="text-transform: uppercase">
+                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                            <f:selectItems value="#{departamentoBEAN.listadepartamentoServicio}" var="departamentoitem" itemLabel="#{departamentoitem.nombre_departamento}" itemValue="#{departamentoitem}"/>
+                        </p:selectOneMenu> 
+                 
                 <p/>
                 <center>
                  <p:commandButton value="#{catalogo_servicio_solicitadoBEAN.accion}" actionListener="#{catalogo_servicio_solicitadoBEAN.operarCatalogo()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
