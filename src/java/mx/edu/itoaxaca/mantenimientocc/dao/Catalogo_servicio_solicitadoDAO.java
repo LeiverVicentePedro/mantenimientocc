@@ -29,7 +29,7 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
             consulta.executeUpdate();
         }
         catch(Exception e){
-        System.out.println("error en Catalogo_Servicio_Solicitado DAO -->RegistrarCatalogo"+"/n"+e);
+        System.out.println("error en Catalogo_Servicio_Solicitado DAO -->RegistrarCatalogo"+"\n"+e);
        // System.out.println("error en DAO"); 
         }
      finally{
@@ -129,5 +129,34 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
     }   
     
     
+   public List<Catalogo_servicio_solicitado> listarCatalogoPorDepartamentoServico(int idDepartamento) throws Exception{
+     List<Catalogo_servicio_solicitado> listaCatalogo;
+        ResultSet resultadosetCatalogo;
+     try{
+         this.Conectar();
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT * FROM catalogo_servicio_solicitado WHERE id_departamento=?");
+         consulta.setInt(1, idDepartamento);
+         resultadosetCatalogo= consulta.executeQuery();
+         listaCatalogo =new ArrayList();
+         while(resultadosetCatalogo.next()){
+             Catalogo_servicio_solicitado catalogo=new Catalogo_servicio_solicitado();
+             catalogo.setIdcatalogo_servicio_solicitado(resultadosetCatalogo.getInt("idcatalogo_servicio_solicitado"));
+             catalogo.setServicio_solicitado(resultadosetCatalogo.getString("servicio_solicitado"));
+             catalogo.setDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultadosetCatalogo.getInt("id_departamento")));
+             
+             listaCatalogo.add(catalogo);
+         }
+             
+     }
+     catch(Exception e){
+         System.out.println("Error en Catalogo_servicio_solicitadoDAO -> listarCatalogoPorDepartamentoServicio "+e);
+         throw e;
+         
+     }
+     finally{
+         this.Cerrar();
+     }
+     return listaCatalogo;
+    }
     
 }

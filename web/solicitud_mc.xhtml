@@ -20,17 +20,18 @@
                         <p:selectOneMenu value="#{solicitud_MCBEAN.solicitudmc.id_departamento}" converter="omnifaces.SelectItemsConverter">
                             <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-- Seleccione uno --" />
                             <f:selectItems value="#{departamentoBEAN.listadepartamentoServicio}" var="deptoServicio" itemLabel="#{deptoServicio.nombre_departamento}" itemValue="#{deptoServicio}" />
+                             <f:ajax listener="#{solicitud_MCBEAN.listaServiciosParaSolicitudPorDepartametoServicio()}" render="serviciosDepartamento"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Problema: "/>
-                        <p:selectCheckboxMenu value="#{solicitud_MCBEAN.serviciosSeleccionados}" filter="true" filterMatchMode="startsWith" label="--Seleccione --">
-                            <f:selectItems value="#{catalogo_servicio_solicitadoBEAN.catalogoLista}" var="catalogoSolicitud" itemLabel="#{catalogoSolicitud.servicio_solicitado}" itemValue="#{catalogoSolicitud}"/>
+                        <p:selectCheckboxMenu id="serviciosDepartamento" value="#{solicitud_MCBEAN.serviciosSeleccionados}" filter="true" filterMatchMode="startsWith" label="--Seleccione --" converter="omnifaces.SelectItemsConverter">
+                            <f:selectItems value="#{solicitud_MCBEAN.serviciosPorDepartamento}" var="catalogoSolicitud" itemLabel="#{catalogoSolicitud.servicio_solicitado}" itemValue="#{catalogoSolicitud}"/>
                         </p:selectCheckboxMenu>
                         <p:outputLabel value="Otro Problema: "/>
                         <p:inputText value="#{solicitud_MCBEAN.solicitudmc.otroProblema}" placeholder="Describa su problema"/>  
                     </h:panelGrid>
                 </p:panel>
                 <p:separator style="visibility: hidden;"/>
-                <p:commandButton value="Registrar" action="#"/>
+                <p:commandButton value="Registrar" action="#{solicitud_MCBEAN.generarSolicitudMC()}"/>
                 </h:form>
             </ui:define>
 

@@ -7,6 +7,7 @@ package mx.edu.itoaxaca.mantenimientocc.dao;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_MC;
 
@@ -32,6 +33,26 @@ public class Solicitud_MCDAO extends Conexion{
         }finally{
             this.Cerrar();
         }
+    }
+    
+    public int indiceDeSolicitud(int idDepartamento) throws Exception{
+        ResultSet resultado;
+        int numeroParaFolio=0;
+        try{
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT COUNT(idsolicitud_mc) AS numSolicitud FROM solicitud_mc WHERE id_departamento=?");
+            consulta.setInt(1, idDepartamento);
+            resultado = consulta.executeQuery();
+            if(resultado.next()==true){
+                numeroParaFolio = resultado.getInt("numSolicitud");
+            }
+        }catch(Exception ex){
+            System.out.println("Error en Solicitud_MCDAO -> indiceDeSolicitud "+ex);
+            throw ex;
+        }finally{
+            this.Cerrar();
+        }
+        return numeroParaFolio+1;
     }
     
 }
