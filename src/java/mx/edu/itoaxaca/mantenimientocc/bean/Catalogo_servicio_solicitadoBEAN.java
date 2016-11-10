@@ -60,6 +60,7 @@ public class Catalogo_servicio_solicitadoBEAN {
         this.limpiarCatolo_servicio_solicitado();
         this.accion = accion;
     }
+    //------
     
     public void operarCatalogo() throws Exception{
         switch(accion)
