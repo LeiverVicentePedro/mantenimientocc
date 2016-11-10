@@ -18,7 +18,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Periodo_semestral;
  */
 public class Periodo_semestralDAO extends Conexion{
     
-    public void insertarPeriodo(Periodo_semestral periodo) throws Exception{
+    public void registrarPeriodo(Periodo_semestral periodo) throws Exception{
         try{
             this.Conectar();
             PreparedStatement insertar = this.getConexion().prepareStatement("INSERT INTO periodo_semestral (periodo) VALUES(?)");
@@ -32,7 +32,7 @@ public class Periodo_semestralDAO extends Conexion{
         }
     }
     
-    public List<Periodo_semestral> listarPeriodos() throws Exception{
+    public List<Periodo_semestral> listarPeriodo() throws Exception{
         List<Periodo_semestral> listaPeriodo;
         ResultSet resultado;
         try{
@@ -55,9 +55,69 @@ public class Periodo_semestralDAO extends Conexion{
         }
     }
     
-    public void actualizarPeriodo(){
+    public Periodo_semestral elegirDatoPeriodo(Periodo_semestral periodoElegir) throws Exception{
+        Periodo_semestral periodoElegirdos=null;
+        ResultSet resultadosetElegirPeriodo;
+        
+        try{
+            this.Conectar();
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT * FROM periodo_semestral WHERE idperiodo_semestral=?");
+            consulta.setInt(1, periodoElegir.getIdperiodo_semestral());
+            resultadosetElegirPeriodo = consulta.executeQuery();
+            while(resultadosetElegirPeriodo.next())
+            {
+              periodoElegirdos= new Periodo_semestral();
+              periodoElegirdos.setIdperiodo_semestral(resultadosetElegirPeriodo.getInt("idperiodo_semestral"));
+              periodoElegirdos.setPeriodo(resultadosetElegirPeriodo.getString("periodo"));
+              
+            }
+        }
+        catch(Exception e){
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }
+        return periodoElegirdos;
+    }
+    
+    public void modificarPeriodo(Periodo_semestral periodoModificar) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE periodo_semestral SET periodo=? WHERE idperiodo_semestral=?");
+            consulta.setString(1, periodoModificar.getPeriodo());
+            consulta.setInt(2, periodoModificar.getIdperiodo_semestral());
+            consulta.executeUpdate();
+            
+        }
+        catch(Exception e){
+         throw e;
+        }
+        finally{
+            this.Cerrar();
+        }
         
     }
+    
+    public void eliminarPeriodo(Periodo_semestral periodoEliminar) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement consulta= this.getConexion().prepareStatement("DELETE FROM periodo_semestral WHERE idperiodo_semestral=?");
+            consulta.setInt(1,periodoEliminar.getIdperiodo_semestral());
+            consulta.executeUpdate();
+            
+            
+        }
+        catch(Exception e){
+            throw e;
+        }
+        finally{
+            this.Cerrar();
+        }
+        
+    }
+    
+  
     
     
 }
