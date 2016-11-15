@@ -176,4 +176,37 @@ public class UsuarioDAO extends Conexion{
             this.Cerrar();
         }
     }
+    
+    public Usuario consultarUsuarioPorIdEntero(int idUsuario) throws Exception
+    {
+        Usuario usuarioUnico = new Usuario();
+        try{
+            this.Conectar();
+            PreparedStatement consultar = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE idusuario=?");
+            consultar.setInt(1,idUsuario);
+            ResultSet resultado = consultar.executeQuery();
+            if(resultado.next()==true){
+            usuarioUnico.setIdUsuario(resultado.getInt("idusuario"));
+            usuarioUnico.setNombre(resultado.getString("nombre"));
+            usuarioUnico.setApellidoPaterno(resultado.getString("apellido_paterno"));
+            usuarioUnico.setApellidoMaterno(resultado.getString("apellido_materno"));
+            usuarioUnico.setCorreo(resultado.getString("correo"));
+            usuarioUnico.setClave(resultado.getString("clave"));
+            usuarioUnico.setNivel(resultado.getInt("nivel"));
+            usuarioUnico.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
+            usuarioUnico.setRfc(resultado.getString("rfc"));
+            usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
+            usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
+            usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
+            
+            }
+            resultado.close();
+            return usuarioUnico;
+        }catch(Exception ex){
+            System.out.println("Error en UsuarioDAO -> consultaUsuarioPorIdEntero "+ex);
+            throw ex;
+        }finally{
+           this.Cerrar();
+        } 
+    }
 }

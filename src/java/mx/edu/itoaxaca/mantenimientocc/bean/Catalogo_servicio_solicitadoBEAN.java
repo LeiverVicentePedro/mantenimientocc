@@ -21,6 +21,7 @@ public class Catalogo_servicio_solicitadoBEAN {
     
     private Catalogo_servicio_solicitado catalogo= new Catalogo_servicio_solicitado();
     private List<Catalogo_servicio_solicitado> catalogoLista;
+    private List<Catalogo_servicio_solicitado> listaSolicitudCatalogo;
     private String accion;
 
     
@@ -43,6 +44,14 @@ public class Catalogo_servicio_solicitadoBEAN {
         this.catalogoLista = catalogoLista;
     }
 
+    public List<Catalogo_servicio_solicitado> getListaSolicitudCatalogo() {
+        return listaSolicitudCatalogo;
+    }
+
+    public void setListaSolicitudCatalogo(List<Catalogo_servicio_solicitado> listaSolicitudCatalogo) {
+        this.listaSolicitudCatalogo = listaSolicitudCatalogo;
+    }
+    
     public String getAccion() {
         return accion;
     }
@@ -148,7 +157,9 @@ public class Catalogo_servicio_solicitadoBEAN {
             
     } 
     
-  
+    public void listarCatalogoPorServicio(){
+        
+    }
     
     
     
