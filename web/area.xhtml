@@ -13,15 +13,23 @@
             <ui:define name="content">
                 <p:growl id="msj" showDetail="true" sticky="true"/>
         <h:form id="formaExterior">                      
-           
-            <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{areaBEAN.setAccion('Registrar')}" update=":dialogoDatos" />         
-            <p:commandButton value="Listar" actionListener="#{areaBEAN.listarArea()}" update="data"/>
-             <p/>
-            <p:dataTable id="data" value="#{areaBEAN.listaArea}" var="area"  paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15"  style="text-transform: uppercase;">
-                <p:column headerText="Nombre de Area">
-                    <p:outputLabel value="#{area.nombre_area}" style="text-transform: uppercase" />
+             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{areaBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
+            
+                <f:ajax execute="#{areaBEAN.listarArea()}" render="data" />
+            </p:commandButton>
+            <p/>
+            <p:dataTable id="data" var="area" value="#{areaBEAN.listaArea}" 
+                          emptyMessage="No hay elementos encontrados"
+                          paginator="true" rows="5"
+                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                          rowsPerPageTemplate="1,2,3,5">
+                
+                <p:column headerText="NombreArea" 
+                          sortBy="#{area.nombre_area}" 
+                          filterBy="#{area.nombre_area}"
+                          filterMatchMode="contains">
+                    
+                    <h:outputText value="#{area.nombre_area}" />
                    
                 </p:column>
                 
