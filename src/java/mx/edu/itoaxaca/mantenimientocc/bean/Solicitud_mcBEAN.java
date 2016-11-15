@@ -15,13 +15,12 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_servicio_solicitadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Detalle_solicitudDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
-import mx.edu.itoaxaca.mantenimientocc.formatos.FormatoSolicitudMantenimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Catalogo_servicio_solicitado;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Detalle_solicitud;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
@@ -73,7 +72,6 @@ public class Solicitud_mcBEAN {
     public void registrarSolicitudMC() throws Exception{
         Solicitud_mcDAO solicitudDao;
         Detalle_solicitudDAO detalleSolicitudDao;
-        FormatoSolicitudMantenimiento formatoMantenimiento;
         try{
             FacesContext contexto = FacesContext.getCurrentInstance();
             usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");
@@ -149,7 +147,7 @@ public class Solicitud_mcBEAN {
         parametros.put("otroProblema",solicitudmc.getOtroProblema());
         
         File archivo = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/FormatoSolicitudMantenimiento.jasper"));
-        JasperPrint imprimirArchivo = JasperFillManager.fillReport(archivo.getPath(),parametros,new JRBeanCollectionDataSource(this.getServiciosSeleccionados()));
+        JasperPrint imprimirArchivo = JasperFillManager.fillReport(archivo.getPath(),parametros,new JRBeanCollectionDataSource(serviciosSeleccionados));
         
         HttpServletResponse respuesta = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         respuesta.addHeader("Content-Disposition","attachment; filename=\"Solicitud_Mantenimiento.pdf\";");
