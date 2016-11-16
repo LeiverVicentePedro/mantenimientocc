@@ -20,6 +20,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Periodo_semestral;
 public class Periodo_semestralBEAN {
     private Periodo_semestral periodo=new Periodo_semestral();
     private List<Periodo_semestral> listaPeriodo;
+    private List<Periodo_semestral> filterPeriodo;
     private String accion;
 
     public Periodo_semestral getPeriodo() {
@@ -29,6 +30,17 @@ public class Periodo_semestralBEAN {
     public void setPeriodo(Periodo_semestral periodo) {
         this.periodo = periodo;
     }
+
+    public List<Periodo_semestral> getFilterPeriodo() {
+        return filterPeriodo;
+    }
+
+    public void setFilterPeriodo(List<Periodo_semestral> filterPeriodo) {
+        this.filterPeriodo = filterPeriodo;
+    }
+    
+
+    
 
     public List<Periodo_semestral> getListaPeriodo() {
         return listaPeriodo;

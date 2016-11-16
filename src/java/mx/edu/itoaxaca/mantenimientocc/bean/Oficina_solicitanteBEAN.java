@@ -18,11 +18,20 @@ public class Oficina_solicitanteBEAN {
     
     private Oficina_solicitante oficina= new Oficina_solicitante();
     private List<Oficina_solicitante> listaOficina;
+    private List<Oficina_solicitante> filterOficina;
     private String accion;
     
     
-    
-   //------------------------------------Get,Set ----Oficina
+    public List<Oficina_solicitante> getFilterOficina() {
+        return filterOficina;
+    }
+
+    //----------------------------------
+    public void setFilterOficina(List<Oficina_solicitante> filterOficina) {
+        this.filterOficina = filterOficina;
+    }
+
+    //------------------------------------Get,Set ----Oficina
     public Oficina_solicitante getOficina() {
         return oficina;
     }

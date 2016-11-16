@@ -48,6 +48,7 @@ public class UsuarioBEAN {
     private String mensajeClaseUsuario = "vacio";
     private List<SelectItem> listaOficinaUsuario;
     private List<Usuario> listaUsuariosDeUnDepartamento;
+    private List<Usuario> filterUsuario;
     private List<Usuario> listaParaFiltro;
     static String usuarioCorreo;
     static String contraseñaCorreo;
@@ -55,6 +56,17 @@ public class UsuarioBEAN {
     static Session sesion;
     private String recuperaCorreo;
     private String accionDeBotonUsuario;
+
+    public List<Usuario> getFilterUsuario() {
+        return filterUsuario;
+    }
+
+    public void setFilterUsuario(List<Usuario> filterUsuario) {
+        this.filterUsuario = filterUsuario;
+    }
+    
+    
+    
 
     public void registrarUsuario() throws Exception {
         UsuarioDAO usuarioDao;
