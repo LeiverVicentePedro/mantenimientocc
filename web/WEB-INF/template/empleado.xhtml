@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -37,31 +37,25 @@
 
                 <p:menubar>
                     <p:menuitem value="Inicio" icon="fa fa-home" action="principal.xhtml" style="margin-right: 1em;"/>
-                    <p:submenu label="Registrar" icon="fa fa-plus" style="margin-right: 1em;">
-                        <p:menuitem value="Personal" action="usuarioNuevo.xhtml" icon="fa fa-user" />
-                        <p:menuitem value="Areas" action="area.xhtml" icon="fa fa-sitemap"/>
-                        <p:menuitem value="Departamentos" action="departamento.xhtml" icon="fa fa-institution"/>
-                        <p:menuitem value="Oficinas" action="oficina_solicitante.xhtml" icon="fa fa-paperclip"/>
-                        <p:menuitem value="Servicio Solicitado" action="catalogo_servicio_solicitado.xhtml" icon="fa fa-wrench"/>
-                    </p:submenu>
                     <p:submenu label="Solicitud" icon="fa fa-archive" style="margin-right: 1em;">
                         <p:submenu label="Mantenimiento" icon="fa fa-file-o">
                             <p:menuitem value="Registrar" icon="fa fa-plus" action="solicitud_mc.xhtml"/>
-                            <p:menuitem value="Seguimiento" icon="fa fa-compass" action="#"/>
-                        </p:submenu>
-                    </p:submenu>
-
-                    <p:submenu label="Otro menu" style="margin-right: 1em;">
-                        <p:submenu label="Links" icon="ui-icon-extlink">
-                            <p:submenu label="PrimeFaces" icon="ui-icon-heart">
-                                <p:menuitem value="Home" url="http://www.primefaces.org"/>
-                                <p:menuitem value="Docs" url="http://www.primefaces.org/documentation"/>
-                                <p:menuitem value="Download" url="http://www.primefaces.org/downloads"/>
-                                <p:menuitem value="Support" url="http://www.primefaces.org/support" />
+                            <p:submenu label="Seguimiento" icon="fa fa-compass">
+                                <p:menuitem value="Ver" icon="fa fa-eye" action="#"/>
+                                <p:menuitem value="Generar" icon="fa fa-plus" action="#"/>
+                                <p:menuitem value="Listar" icon="fa fa-list-ol" action="#"/>
                             </p:submenu>
                         </p:submenu>
                     </p:submenu>
-
+                    <p:submenu label="Asignaciones" icon="fa fa-bookmark" style="margin-right: 1em;">
+                        <p:menuitem value="Ver" icon="fa fa-eye" action="#"/>
+                        <p:menuitem value="Realizadas" icon="fa fa-check" action="#"/>
+                    </p:submenu>
+                    <p:submenu label="Mi Cuenta"  icon="fa fa-id-card" style="margin-right: 1em;">
+                        <p:menuitem value="Datos" icon="fa fa-user-circle" action="#"/>   
+                    </p:submenu>
+                    <p:menuitem value="Pagina Institucional" icon="fa fa-chain" url="http://www.itoaxaca.edu.mx/web/" style="margin-right: 1em;"/> 
+                    <p:menuitem value="Cerrar Sesión" icon="fa fa-power-off" action="#" style="margin-right: 1em;"/>
                 </p:menubar>
             </h:form>
             <p:separator style="visibility: hidden;"/>
@@ -69,6 +63,7 @@
                 <ui:insert name="content">Content</ui:insert>
             </div>
         </div>
+
         <div id="footer" class="container" style=" font-size: 12px; text-align: center;">
             <br/>
             <div style="webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; vertical-align: baseline; margin-bottom: 30px; position: relative;">
@@ -88,5 +83,7 @@
             </p>
             </b>
         </div>
+
     </h:body>
+
 </html>
