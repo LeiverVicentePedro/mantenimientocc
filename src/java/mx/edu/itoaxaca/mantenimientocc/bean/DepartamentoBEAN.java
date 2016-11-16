@@ -21,8 +21,19 @@ public class DepartamentoBEAN {
   private Departamento departamento= new Departamento();
   private List<Departamento> listadepartamento;
   private List<Departamento> listadepartamentoServicio;
+  private List<Departamento> filterDepartamento;
   private String accion;//esta variable es para usarla en un switch y poder escoger si es opcion registrar o modificar
 
+    public List<Departamento> getFilterDepartamento() {
+        return filterDepartamento;
+    }
+
+    public void setFilterDepartamento(List<Departamento> filterDepartamento) {
+        this.filterDepartamento = filterDepartamento;
+    }
+
+  
+   
   
    //metodo get y set de variable accion
     public String getAccion() {

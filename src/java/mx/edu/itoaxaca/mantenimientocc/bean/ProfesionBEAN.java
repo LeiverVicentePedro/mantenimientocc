@@ -21,6 +21,7 @@ public class ProfesionBEAN {
     
     private Profesion profesion= new Profesion();
     private List<Profesion> profesionLista;
+    private List<Profesion> filterProfesion;
     private String accion;
     
 
@@ -31,6 +32,17 @@ public class ProfesionBEAN {
     public void setProfesion(Profesion profesion) {
         this.profesion = profesion;
     }
+
+    public List<Profesion> getFilterProfesion() {
+        return filterProfesion;
+    }
+
+    public void setFilterProfesion(List<Profesion> filterProfesion) {
+        this.filterProfesion = filterProfesion;
+    }
+    
+    
+    
 
     public List<Profesion> getProfesionLista() {
         return profesionLista;

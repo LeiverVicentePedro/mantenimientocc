@@ -19,22 +19,44 @@
             </p:commandButton>
             <p/>
             <p:dataTable id="data" var="area" value="#{areaBEAN.listaArea}" 
+                         
+                         style="font-size: 14px;"
+                                 
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 
+                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                 scrollable="true"
+                                 
+                                 widgetVar="buscar"
+                                 filteredValue="#{areaBEAN.filterArea}"
                           emptyMessage="No hay elementos encontrados"
                           paginator="true" rows="5"
                           paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                          rowsPerPageTemplate="1,2,3,5">
+                          rowsPerPageTemplate="1,2,3,4,5">
+                
+                
+                          <f:facet name="header">
+                                <p:outputPanel class="text-right">
+                                   <h:outputText value="Buscar:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
+                                             
+                                             style="width:150px" />
+                                </p:outputPanel>
+                           </f:facet>
                 
                 <p:column headerText="NombreArea" 
                           sortBy="#{area.nombre_area}" 
                           filterBy="#{area.nombre_area}"
-                          filterMatchMode="contains">
+                          filterMatchMode="startsWith">
                     
                     <h:outputText value="#{area.nombre_area}" />
                    
                 </p:column>
                 
-                <p:column headerText="Estatus">
-                    <p:outputLabel value="#{area.estatus}" style="text-transform: uppercase" >
+                <p:column headerText="Estatus"
+                          sortBy="#{area.estatus}">
+                    <p:outputLabel value="#{area.estatus}"  >
                         <f:converter converterId="conversionEstatus" />
                     </p:outputLabel>
                 </p:column>

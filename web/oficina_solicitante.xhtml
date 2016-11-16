@@ -13,26 +13,65 @@
            
                 <ui:define name="content">
                     <h:form id="formaExterior">
-                        <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{oficina_solicitanteBEAN.setAccion('Registrar')}" update=":dialogoDatos" />
-                        <p:commandButton value="Listar" actionListener="#{oficina_solicitanteBEAN.listarOficina()}" update="data"/>
+                        <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{oficina_solicitanteBEAN.setAccion('Registrar')}" update=":dialogoDatos" >
+                            <f:ajax execute="#{oficina_solicitanteBEAN.listarOficina()}" render="data"/>
+                        </p:commandButton>
                         
                      <p/>
-                     <p:dataTable id="data" value="#{oficina_solicitanteBEAN.listaOficina}" var="oficina" paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
+                     <p:dataTable id="data" value="#{oficina_solicitanteBEAN.listaOficina}" 
+                                  var="oficina" 
+                                  
+                                  style="font-size: 14px;"
+                                 
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 
+                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                 scrollable="true"
+                                 
+                                 widgetVar="buscar"
+                                 filteredValue="#{oficina_solicitanteBEAN.filterOficina}"
+                                  
+                                  emptyMessage="No hay elementos encontrados"
+                                  paginator="true" rows="5"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="1,2,3,4,5">
+                         
+                                <f:facet name="header">
+                                <p:outputPanel class="text-right">
+                                   <h:outputText value="Buscar:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
+                                             
+                                             style="width:150px" />
+                                  </p:outputPanel>
+                                 </f:facet>
 
-                        <p:column headerText="Nombre de Oficina" >
-                            <p:outputLabel value="#{oficina.nombreOficina}" style="text-transform: uppercase" />
+                        <p:column headerText="Nombre de Oficina"
+                                  sortBy="#{oficina.nombreOficina}"
+                                  filterBy="#{oficina.nombreOficina}"
+                                  filterMatchMode="startsWith">
+                            
+                            <p:outputLabel value="#{oficina.nombreOficina}"  />
+                        
                         </p:column>
-                        <p:column headerText="Departamento">
-                            <p:outputLabel value="#{oficina.departamento.nombre_departamento}" style="text-transform: uppercase"/>
+                        <p:column headerText="Departamento"
+                                  sortBy="#{oficina.departamento.nombre_departamento}"
+                                  filterBy="#{oficina.departamento.nombre_departamento}"
+                                  filterMatchMode="startsWith">
+                            
+                            <p:outputLabel value="#{oficina.departamento.nombre_departamento}" />
+                            
                         </p:column>
                          
-                        <p:column headerText="Extencion">
-                            <p:outputLabel value="#{oficina.extencion}" style="text-transform: uppercase"/>
+                        <p:column headerText="Extencion"
+                                  sortBy="#{oficina.extencion}"
+                                  filterBy="#{oficina.extencion}"
+                                  filterMatchMode="startsWith">
+                            <p:outputLabel value="#{oficina.extencion}" />
                         </p:column>
-                        <p:column headerText="Estatus">
-                            <p:outputLabel value="#{oficina.estatus}" style="text-transform: uppercase">
+                        <p:column headerText="Estatus"
+                                  sortBy="#{oficina.extencion}">
+                            <p:outputLabel value="#{oficina.estatus}" >
                                  <f:converter converterId="conversionEstatus"/>
                             </p:outputLabel>
                         </p:column>

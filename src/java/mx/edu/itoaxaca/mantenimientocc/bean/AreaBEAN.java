@@ -18,6 +18,7 @@ public class AreaBEAN {
  
     private Area area = new Area();
     private List<Area> listaArea;
+    private List<Area> filterArea;
     private String accion;
 
 
@@ -28,6 +29,16 @@ public class AreaBEAN {
     public void setArea(Area area) {
         this.area = area;
     }
+
+    public List<Area> getFilterArea() {
+        return filterArea;
+    }
+
+    public void setFilterArea(List<Area> filterArea) {
+        this.filterArea = filterArea;
+    }
+    
+    
     
     public void operarArea() throws Exception{
         switch(accion)

@@ -12,52 +12,115 @@
 
             <ui:define name="content">
                 <h:form id="formTabla">
-                    <p:commandButton value="Nuevo" oncomplete="PF('DatosUsuario').show();" actionListener="#{usuarioBEAN.setAccionDeBotonUsuario('Registrar')}" update=":dialogoUsuario"/>
-                    <p:commandButton value="Listar" actionListener="#{usuarioBEAN.listaUsuarioDepartameto()}" update="tablaU"/>
+                    <p:commandButton value="Nuevo" oncomplete="PF('DatosUsuario').show();" actionListener="#{usuarioBEAN.setAccionDeBotonUsuario('Registrar')}" update=":dialogoUsuario">
+                        <f:ajax execute="#{usuarioBEAN.listaUsuarioDepartameto()}" render="tablaU"/>
+                    </p:commandButton>
+                   
                     <p:separator />
-                    <p:dataTable id="tablaU" value="#{usuarioBEAN.listaUsuariosDeUnDepartamento}" var="usuario" paginator="true"
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15">
-                        <f:facet name="cabecera">
-                            Tabla de Usuarios
-                        </f:facet>
-                        <p:column headerText="RFC">
+                    <p:dataTable id="tablaU" value="#{usuarioBEAN.listaUsuariosDeUnDepartamento}"
+                                 var="usuario" 
+                                 style="font-size: 14px;"
+                                 
+                                 resizableColumns="true"
+                                 liveResize="true"
+                                 
+                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                 scrollable="true"
+                                 
+                                 widgetVar="buscar"
+                                 filteredValue="#{usuarioBEAN.filterUsuario}"
+                                 
+                                emptyMessage="No hay elementos encontrados"
+                                 paginator="true" rows="5"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="1,2,3,4,5">
+                        
+                                <f:facet name="header">
+                                    <p:outputPanel class="text-right">
+                                   <h:outputText value="Buscar:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
+                                             
+                                             style="width:150px" />
+                                </p:outputPanel>
+                                 </f:facet>
+                           
+                        
+                        <p:column 
+                                  headerText="RFC"
+                                  sortBy="#{usuario.rfc}"
+                                  filterBy="#{usuario.rfc}"
+                                  filterMatchMode="contains"
+                                  >
                             <p:outputLabel value="#{usuario.rfc}"/>
                         </p:column>
-                        <p:column headerText="Nombre">
+                        
+                        <p:column 
+                                  headerText="Nombre"
+                                  sortBy="#{usuario.nombre}"
+                                  filterBy="#{usuario.nombre}"
+                                  filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.nombre}"/>
                         </p:column>
-                        <p:column headerText="Apellido Paterno">
+                        
+                        <p:column 
+                                  headerText="Ap.Paterno"
+                                  sortBy="#{usuario.apellidoPaterno}"
+                                  filterBy="#{usuario.apellidoPaterno}"
+                                  filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.apellidoPaterno}"/>
                         </p:column>
-                        <p:column headerText="Apellido Materno">
+                        
+                        <p:column headerText="Ap.Materno"
+                                  sortBy="#{usuario.apellidoMaterno}"
+                                  filterBy="#{usuario.apellidoMaterno}"
+                                  filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.apellidoMaterno}"/>
                         </p:column>
-                        <p:column headerText="Oficina">
+                        <p:column 
+                                  headerText="Oficina"
+                                  
+                                  sortBy="#{usuario.idOficina.nombreOficina}"
+                                  filterBy="#{usuario.idOficina.nombreOficina}"
+                                  filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.idOficina.nombreOficina}"/>
                         </p:column>
-                        <p:column headerText="Profesion">
+                        <p:column headerText="Profesion"
+                                  sortBy="#{usuario.id_profesion.nombre_profesion}"
+                                  filterBy="#{usuario.id_profesion.nombre_profesion}"
+                                  filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.id_profesion.nombre_profesion}"/>
                         </p:column>
-                        <p:column headerText="Correo">
+                        <p:column width="70"
+                            headerText="Correo">
                             <p:outputLabel value="#{usuario.correo}"/>
                         </p:column>
-                        <p:column headerText="Nivel">
+                        <p:column width="60"
+                                  headerText="Nivel"
+                                  sortBy="#{usuario.nivel}"
+                                  filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.nivel}"/>
                         </p:column>
-                        <p:column headerText="Estatus">
+                        <p:column width="70" 
+                                  headerText="Estatus"
+                                  sortBy="#{usuario.estatus}"
+                                  >
                             <p:outputLabel value="#{usuario.estatus}">
                                 <f:converter converterId="conversionEstatus"/>
                             </p:outputLabel>
                             
                         </p:column>
-                        <p:column headerText="Tipo">
+                        <p:column width="70"
+                                  headerText="Tipo"
+                                  sortBy="#{usuario.tipoBT}"
+                                  filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.tipoBT}"/>
                         </p:column>
-                        <p:column headerText="Modificar">
+                        <p:column headerText="Modificar"
+                                  width="70">
                             <p:commandLink value="modificar" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
                         </p:column>
-                        <p:column headerText="Eliminar">
+                        <p:column headerText="Eliminar"
+                                  width="70">
                             <p:commandLink value="Eliminar" action="#"/>
                         </p:column>
                     </p:dataTable>

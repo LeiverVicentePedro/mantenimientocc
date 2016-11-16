@@ -22,6 +22,7 @@ public class Catalogo_servicio_solicitadoBEAN {
     private Catalogo_servicio_solicitado catalogo= new Catalogo_servicio_solicitado();
     private List<Catalogo_servicio_solicitado> catalogoLista;
     private List<Catalogo_servicio_solicitado> listaSolicitudCatalogo;
+    private List<Catalogo_servicio_solicitado> filterCatalogo;
     private String accion;
 
     
@@ -36,6 +37,18 @@ public class Catalogo_servicio_solicitadoBEAN {
         this.catalogo = catalogo;
     }
 
+    public List<Catalogo_servicio_solicitado> getFilterCatalogo() {
+        return filterCatalogo;
+    }
+
+    public void setFilterCatalogo(List<Catalogo_servicio_solicitado> filterCatalogo) {
+        this.filterCatalogo = filterCatalogo;
+    }
+
+    
+    
+    //-------
+    
     public List<Catalogo_servicio_solicitado> getCatalogoLista() {
         return catalogoLista;
     }
