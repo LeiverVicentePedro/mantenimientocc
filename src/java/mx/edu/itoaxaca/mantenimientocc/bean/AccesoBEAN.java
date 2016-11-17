@@ -5,6 +5,7 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -19,7 +20,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name = "accesoBEAN")
 @ViewScoped
-public class AccesoBEAN {
+public class AccesoBEAN implements Serializable{
 
     private String mensajeAcceso;
     private String redireccion;
@@ -27,16 +28,7 @@ public class AccesoBEAN {
     private String clave;
     private Usuario usuarioBean = new Usuario();
     private String nombreCompleto;
-    private String plantillaAcceso;
-
-    public String getPlantillaAcceso() {
-        return plantillaAcceso;
-    }
-
-    public void setPlantillaAcceso(String plantillaAcceso) {
-        this.plantillaAcceso = plantillaAcceso;
-    }
-
+    
     public String getRedireccion() {
         return redireccion;
     }
@@ -90,29 +82,6 @@ public class AccesoBEAN {
             if (accesodao.accesoUsuario(correo, clave) != null) {
                 usuarioBean = accesodao.accesoUsuario(correo, clave);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioBean);
-                if (usuarioBean.getNivel() == 1) {
-                    setPlantillaAcceso("./WEB-INF/template/solicitante.xhtml");
-                    System.out.println("ruta " + plantillaAcceso);
-                }
-                if (usuarioBean.getNivel() == 2) {
-                    if (usuarioBean.getIdOficina().getDepartamento().getClave_departamento().equalsIgnoreCase("cc")) {
-                        setPlantillaAcceso("./WEB-INF/template/empleadocc.xhtml");
-                        System.out.println("ruta " + plantillaAcceso);
-                    } else {
-                        setPlantillaAcceso("./WEB-INF/template/empleado.xhtml");
-                        System.out.println("ruta " + plantillaAcceso);
-                    }
-                }
-                if (usuarioBean.getNivel() == 3) {
-                    if (usuarioBean.getIdOficina().getDepartamento().getClave_departamento().equalsIgnoreCase("cc")) {
-                        setPlantillaAcceso("./WEB-INF/template/administradorcc.xhtml");
-                        System.out.println("ruta " + plantillaAcceso);
-                    } else {
-                        setPlantillaAcceso("./WEB-INF/template/administrador.xhtml");
-                        System.out.println("ruta " + plantillaAcceso);
-                    }
-                }
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("plantilla", plantillaAcceso);
                 setMensajeAcceso("Bienvenido");
                 setRedireccion("principal.xhtml");
             } else {
@@ -152,9 +121,5 @@ public class AccesoBEAN {
         }
     }
 
-    public String plantilla() {
-        FacesContext contexto = FacesContext.getCurrentInstance();
-        String plantilla = (String) contexto.getExternalContext().getSessionMap().get("plantilla");
-        return plantilla;
-    }
+    
 }

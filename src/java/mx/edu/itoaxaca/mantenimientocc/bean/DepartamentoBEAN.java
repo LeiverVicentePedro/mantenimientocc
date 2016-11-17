@@ -11,12 +11,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.DepartamentoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
-
+import java.io.Serializable;
 
 
 @ManagedBean
 @ViewScoped
-public class DepartamentoBEAN {
+public class DepartamentoBEAN implements Serializable{
     
   private Departamento departamento= new Departamento();
   private List<Departamento> listadepartamento;

@@ -5,6 +5,7 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -17,7 +18,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Periodo_semestral;
  */
 @ManagedBean
 @ViewScoped
-public class Periodo_semestralBEAN {
+public class Periodo_semestralBEAN implements Serializable{
     private Periodo_semestral periodo=new Periodo_semestral();
     private List<Periodo_semestral> listaPeriodo;
     private List<Periodo_semestral> filterPeriodo;

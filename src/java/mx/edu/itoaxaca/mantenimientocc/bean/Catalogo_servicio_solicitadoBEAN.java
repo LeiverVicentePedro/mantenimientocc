@@ -10,14 +10,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_servicio_solicitadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Catalogo_servicio_solicitado;
-
+import java.io.Serializable;
 /**
  *
  * @author Jerusalen
  */
 @ManagedBean
 @ViewScoped
-public class Catalogo_servicio_solicitadoBEAN {
+public class Catalogo_servicio_solicitadoBEAN  implements Serializable{
     
     private Catalogo_servicio_solicitado catalogo= new Catalogo_servicio_solicitado();
     private List<Catalogo_servicio_solicitado> catalogoLista;
