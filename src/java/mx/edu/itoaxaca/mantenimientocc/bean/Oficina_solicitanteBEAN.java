@@ -10,11 +10,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.Oficina_solicitanteDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Oficina_solicitante;
-
+import java.io.Serializable;
 
 @ManagedBean
 @ViewScoped
-public class Oficina_solicitanteBEAN {
+public class Oficina_solicitanteBEAN implements Serializable{
     
     private Oficina_solicitante oficina= new Oficina_solicitante();
     private List<Oficina_solicitante> listaOficina;

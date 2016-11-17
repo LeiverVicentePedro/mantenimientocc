@@ -2,6 +2,7 @@
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.faces.bean.ManagedBean;
@@ -14,7 +15,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Area;
 
 @ManagedBean
 @ViewScoped
-public class AreaBEAN {
+public class AreaBEAN implements Serializable{
  
     private Area area = new Area();
     private List<Area> listaArea;

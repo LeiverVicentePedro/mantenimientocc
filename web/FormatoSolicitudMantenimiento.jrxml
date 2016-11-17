@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="528" leftMargin="42" rightMargin="42" topMargin="70" bottomMargin="70" uuid="b7f27d63-0ae4-4418-aa15-0814a9dbe3e4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="279"/>
+	<property name="ireport.y" value="278"/>
 	<parameter name="recursosMaterialesServicio" class="java.lang.String"/>
 	<parameter name="centroComputo" class="java.lang.String"/>
 	<parameter name="mantenimientoEquipo" class="java.lang.String"/>
@@ -11,9 +11,7 @@
 	<parameter name="nombreSolicitante" class="java.lang.String"/>
 	<parameter name="fechaElaboracion" class="java.lang.String"/>
 	<parameter name="otroProblema" class="java.lang.String"/>
-	<field name="servicio_solicitado" class="java.lang.String"/>
-	<field name="idcatalogo_servicio_solicitado" class="java.lang.String"/>
-	<field name="departamento" class="java.lang.String"/>
+	<parameter name="servicioSolicitado" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -209,8 +207,11 @@
 				<textFieldExpression><![CDATA[$P{otroProblema}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="14" y="190" width="144" height="20" uuid="5b5fbb9f-5b87-473b-8272-29e983f620d2"/>
-				<textFieldExpression><![CDATA[$F{servicio_solicitado}]]></textFieldExpression>
+				<reportElement x="8" y="181" width="497" height="139" uuid="dbb47fdf-fd36-4daf-8dfa-a9c8674812e3"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{servicioSolicitado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

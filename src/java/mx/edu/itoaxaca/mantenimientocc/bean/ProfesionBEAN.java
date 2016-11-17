@@ -5,6 +5,7 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -17,7 +18,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Profesion;
  */
 @ManagedBean
 @ViewScoped
-public class ProfesionBEAN {
+public class ProfesionBEAN implements Serializable{
     
     private Profesion profesion= new Profesion();
     private List<Profesion> profesionLista;

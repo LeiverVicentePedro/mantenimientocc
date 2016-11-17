@@ -17,7 +17,8 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
  */
 public class Solicitud_mcDAO extends Conexion{
     
-    public void registrarSolicitudMC(Solicitud_mc solicitudmc) throws Exception{
+    public boolean registrarSolicitudMC(Solicitud_mc solicitudmc) throws Exception{
+        
         try{
             this.Conectar();
             PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO solicitud_mc(id_usuario, folio, fecha, id_departamento, otro_problema) VALUES(?,?,?,?,?)");
@@ -27,6 +28,7 @@ public class Solicitud_mcDAO extends Conexion{
             inserta.setInt(4,solicitudmc.getId_departamento().getIddepartamento());
             inserta.setString(5, solicitudmc.getOtroProblema());
             inserta.executeUpdate();
+            return true;
         }catch(Exception ex){
             System.out.println("Error en Solicitud_MCDAO -> generarSolicitudMC "+ex);
             throw ex;

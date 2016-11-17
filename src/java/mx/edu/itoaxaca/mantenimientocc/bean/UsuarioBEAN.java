@@ -33,14 +33,14 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
+import java.io.Serializable;
 /**
  *
  * @author leiver
  */
 @ManagedBean(name = "usuarioBEAN")
 @ViewScoped
-public class UsuarioBEAN {
+public class UsuarioBEAN implements Serializable{
 
     private Usuario objetoUsuario = new Usuario();
     private Usuario registroUsuarioNuevo = new Usuario();
