@@ -17,7 +17,7 @@
             
                 <f:ajax execute="#{areaBEAN.listarArea()}" render="data" />
             </p:commandButton>
-            <p/>
+            <p:separator/>
             <p:dataTable id="data" var="area" value="#{areaBEAN.listaArea}" 
                          
                          style="font-size: 14px;"
@@ -55,17 +55,33 @@
                 </p:column>
                 
                 <p:column headerText="Estatus"
-                          sortBy="#{area.estatus}">
+                          sortBy="#{area.estatus}"
+                          filterBy="#{area.estatus}"
+                          filterMatchMode="equals">
+                    
+                    <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 12px ">
+                                  <f:converter converterId="javax.faces.Boolean" />
+                                      <f:selectItem itemLabel="Todos" itemValue="" />
+                                      <f:selectItem itemLabel="Act." itemValue="true" />
+                                      <f:selectItem itemLabel="Inac." itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                    
+                    
+                    
                     <p:outputLabel value="#{area.estatus}"  >
                         <f:converter converterId="conversionEstatus" />
                     </p:outputLabel>
                 </p:column>
                 
-                <p:column headerText="Editar">
+                <p:column headerText="Editar"
+                          width="60">
                     <p:commandLink class="fa fa-pencil" actionListener="#{areaBEAN.elegirDatoArea(area)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                 </p:column>
                 
-                <p:column headerText="Eliminar">
+                <p:column headerText="Eliminar"
+                          width="70">
                     <p:commandLink class="fa fa-trash" actionListener="#{areaBEAN.eliminarArea(area)}" update="data"/>
                 </p:column>
             </p:dataTable>

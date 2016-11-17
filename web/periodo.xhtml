@@ -18,7 +18,7 @@
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();"  actionListener="#{periodo_semestralBEAN.setAccion('Registrar')}" update=":dialogoDatos">
                 <f:ajax execute="#{periodo_semestralBEAN.listarPeriodo()}" render="data"/>
             </p:commandButton>
-            <p/>
+            <p:separator/>
             <p:dataTable id="data" value="#{periodo_semestralBEAN.listaPeriodo}"
                          var="periodo" 
                          
@@ -54,12 +54,14 @@
                           filterMatchMode="startsWith">
                     <p:outputLabel value="#{periodo.periodo}" style="text-transform: uppercase"/><!-- ES PARA MAYUSCULA style="text-transform: uppercase"  -->
                 </p:column>
-               <p:column headerText="Modificar">
-                    <p:commandLink value="Modificar" actionListener="#{periodo_semestralBEAN.elegirDatoPeriodo(periodo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+               <p:column headerText="Editar"
+                         width="60">
+                   <p:commandLink class="fa fa-pencil" actionListener="#{periodo_semestralBEAN.elegirDatoPeriodo(periodo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                 </p:column>
                 
-                <p:column headerText="Eliminar">
-                    <p:commandLink value="Eliminar" actionListener="#{periodo_semestralBEAN.eliminarPeriodo(periodo)}" update="data"/>
+                <p:column headerText="Eliminar"
+                          width="70">
+                    <p:commandLink class="fa fa-trash" actionListener="#{periodo_semestralBEAN.eliminarPeriodo(periodo)}" update="data"/>
                 </p:column>
             </p:dataTable>
         </h:form>

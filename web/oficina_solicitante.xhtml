@@ -17,7 +17,7 @@
                             <f:ajax execute="#{oficina_solicitanteBEAN.listarOficina()}" render="data"/>
                         </p:commandButton>
                         
-                     <p/>
+                        <p:separator/>
                      <p:dataTable id="data" value="#{oficina_solicitanteBEAN.listaOficina}" 
                                   var="oficina" 
                                   
@@ -70,16 +70,31 @@
                             <p:outputLabel value="#{oficina.extencion}" />
                         </p:column>
                         <p:column headerText="Estatus"
-                                  sortBy="#{oficina.extencion}">
+                                  sortBy="#{oficina.estatus}"
+                                  filterBy="#{oficina.estatus}"
+                                  filterMatchMode="equals">
+                            
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 12px ">
+                                  <f:converter converterId="javax.faces.Boolean" />
+                                      <f:selectItem itemLabel="Todos" itemValue="" />
+                                      <f:selectItem itemLabel="Act." itemValue="true" />
+                                      <f:selectItem itemLabel="Inac." itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            
+                                                        
                             <p:outputLabel value="#{oficina.estatus}" >
                                  <f:converter converterId="conversionEstatus"/>
                             </p:outputLabel>
                         </p:column>
-                        <p:column headerText="Modificar">
-                            <p:commandLink value="Modificar" actionListener="#{oficina_solicitanteBEAN.elegirDatoOficina(oficina)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                        <p:column headerText="Editar"
+                                  width="60">
+                            <p:commandLink class="fa fa-pencil" actionListener="#{oficina_solicitanteBEAN.elegirDatoOficina(oficina)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                          </p:column>
-                         <p:column headerText="Eliminar">
-                             <p:commandLink value="Eliminar" actionListener="#{oficina_solicitanteBEAN.eliminarOficina(oficina)}" update="data"/>
+                         <p:column headerText="Eliminar"
+                                   width="70">
+                             <p:commandLink class="fa fa-trash" actionListener="#{oficina_solicitanteBEAN.eliminarOficina(oficina)}" update="data"/>
                         
                          </p:column>
                     </p:dataTable>
