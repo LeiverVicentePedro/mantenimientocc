@@ -9,15 +9,16 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
             <ui:define name="content">
                 <div class="text-center">
-                <p:separator style="visibility: hidden"/>
-                <p:outputLabel value="Bienvenido" class="text-capitalize"/>
-                <p:separator style="visibility: hidden"/>
-                <p:outputLabel value="Sistema de Mantenimiento Preventivo y Correctivo" class="text-justify"/>
-                <br/>
-                <p:outputLabel value="(SIMAPRECO)" class="text-capitalize"/>
-                <p:separator style="visibility: hidden"/>
-                <!--<p:outputLabel value="Usted entro como:" class="text-capitalize"/>
-                <p:outputLabel value="#{accesoBEAN.nombreCompleto}" class="text-capitalize"/> -->
+                    <p:separator style="visibility: hidden"/>
+                    <p:outputLabel value="Bienvenido" class="text-capitalize" style="font-size:1.8em; color: #ffab2d"/>
+                    <p:separator style="visibility: hidden"/>
+                    <p:outputLabel value="#{accesoBEAN.nombreCompleto}" class="text-capitalize" style="font-size: 1.4em;"/> 
+                    <p:separator style="visibility: hidden"/>
+                    <p:outputLabel value="Sistema de Mantenimiento Preventivo y Correctivo" class="text-justify" style="font-size: 1.3em;"/>
+                    <br/>
+                    <p:outputLabel value="(SIMAPRECO)" class="text-capitalize" style="font-size: 1.7em;"/>
+
+
                 </div>
             </ui:define>
 

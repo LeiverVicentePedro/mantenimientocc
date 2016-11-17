@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -14,11 +14,11 @@
         <h:outputStylesheet library="css" name="cssLayout.css"/>
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <h:outputStylesheet library="css" name="bootstrap-theme.min.css"/>
+        <h:outputStylesheet library="awesome" name="css/font-awesome.css"/>
         <h:outputScript library="js" name="bootstrap.min.js"/>
-        
         <title>SIMAPRECO</title>
 
-        
+        <f:event type="preRenderView" listener="#{accesoBEAN.exite()}"/>
     </h:head>
 
     <h:body style=" height: 100%; background-color: #fafafa;">
@@ -36,28 +36,51 @@
                 <p:growl autoUpdate="true"/>
 
                 <p:menubar>
-                    <p:submenu label="Registrar" icon="ui-icon-pin-w">
-                        <p:menuitem value="Personal" action="usuarioNuevo.xhtml" icon="fa fa-user"/>
-                        <p:menuitem value="Areas" action="area.xhtml" icon="fa fa-instution"  />
-                        <p:menuitem value="Departamentos" action="departamento.xhtml" icon="fa fa-bank"/>
+                    <p:menuitem value="Inicio" icon="fa fa-home" action="principal.xhtml" style="margin-right: 1em;"/>
+                    <p:submenu label="Registros" icon="fa fa-plus" style="margin-right: 1em;">
+                        <p:menuitem value="Personal" action="usuarioNuevo.xhtml" icon="fa fa-user" />
+                        <p:menuitem value="Areas" action="area.xhtml" icon="fa fa-sitemap"/>
+                        <p:menuitem value="Departamentos" action="departamento.xhtml" icon="fa fa-institution"/>
                         <p:menuitem value="Oficinas" action="oficina_solicitante.xhtml" icon="fa fa-paperclip"/>
-                        <p:menuitem value="Servicios Solicitados" action="catalogo_servicio_solicitado.xhtml" icon="fa fa-wrench"/>
+                        <p:menuitem value="Servicio Solicitado" action="catalogo_servicio_solicitado.xhtml" icon="fa fa-wrench"/>
+                        <p:menuitem value="periodo" action="periodo.xhtml" icon="fa fa-calendar"/>
+                        <p:menuitem value="Profesion" action="profesion.xhtml" icon="fa fa-graduation-cap"/>
                     </p:submenu>
-                    <p:submenu label="Formatos">
-                        <p:menuitem value="Solicitud de Mantenimiento" action="solicitud_mc.xhtml"/>
-                    </p:submenu>
-
-                    <p:submenu label="Otro menu" >
-                        <p:submenu label="Links" icon="ui-icon-extlink">
-                            <p:submenu label="PrimeFaces" icon="ui-icon-heart">
-                                <p:menuitem value="Home" url="http://www.primefaces.org"/>
-                                <p:menuitem value="Docs" url="http://www.primefaces.org/documentation"/>
-                                <p:menuitem value="Download" url="http://www.primefaces.org/downloads"/>
-                                <p:menuitem value="Support" url="http://www.primefaces.org/support" />
+                    <p:submenu label="Solicitud" icon="fa fa-archive" style="margin-right: 1em;">
+                        <p:submenu label="Mantenimiento" icon="fa fa-file-o">
+                            <p:submenu label="Correctivo" icon="fa fa-pencil-square">
+                                 <p:menuitem value="Registrar" icon="fa fa-plus" action="solicitud_mc.xhtml"/>
+                                 <p:menuitem value="Listar" icon="fa fa-list-ol" action="#"/>
+                                 <p:submenu label="Asignación" icon="fa fa-thumb-tack">
+                                     <p:menuitem value="Generar" icon="fa fa-plus" action="#"/>
+                                     <p:menuitem value="Ver" icon="fa fa-eye" action="#"/>
+                                 </p:submenu>
+                            </p:submenu>
+                            <p:submenu label="Preventivo" icon="fa fa-exclamation-triangle">
+                                <p:menuitem value="Generar" icon="fa fa-plus" action="#"/>
+                                <p:menuitem value="listar" icon="fa fa-list-ol" action="#"/>
+                            </p:submenu>
+                            <p:submenu label="Seguimiento" icon="fa fa-compass">
+                                <p:menuitem value="Ver" icon="fa fa-eye" action="#"/>
+                                <p:menuitem value="Generar" icon="fa fa-plus" action="#"/>
+                                <p:submenu label="Orden Interna" icon="fa fa-file-text">
+                                    <p:menuitem value="Generar" icon="fa fa-plus" action="#"/>
+                                </p:submenu>
+                                <p:menuitem value="Listar" icon="fa fa-list-ol" action="#"/>
                             </p:submenu>
                         </p:submenu>
+                        <p:submenu label="Orden de Trabajo" icon="fa fa-leaf" style="margin-right: 1em;">
+                            <p:menuitem value="Generar" icon="fa fa-plus" action="#"/>
+                            <p:menuitem value="Listar" icon="fa fa-list-ol" action="#"/>
+                        </p:submenu>    
                     </p:submenu>
-
+                    <p:submenu label="Servicio Social" icon="fa fa-bookmark" style="margin-right: 1em;">
+                        <p:menuitem value="Ver Horas" icon="fa fa-eye" action="#"/>
+                    </p:submenu>
+                    <p:submenu label="Mi Cuenta"  icon="fa fa-folder" style="margin-right: 1em;">
+                        <p:menuitem value="Datos" icon="fa fa-user" action="#"/>   
+                    </p:submenu>
+                    <p:menuitem value="Cerrar Sesión" icon="fa fa-power-off" action="#" style="margin-right: 1em;"/>
                 </p:menubar>
             </h:form>
             <p:separator style="visibility: hidden;"/>
@@ -65,6 +88,7 @@
                 <ui:insert name="content">Content</ui:insert>
             </div>
         </div>
+
         <div id="footer" class="container" style=" font-size: 12px; text-align: center;">
             <br/>
             <div style="webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; vertical-align: baseline; margin-bottom: 30px; position: relative;">
@@ -84,5 +108,7 @@
             </p>
             </b>
         </div>
+
     </h:body>
+
 </html>

@@ -5,7 +5,6 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,13 +20,23 @@ import org.primefaces.context.RequestContext;
 @ManagedBean(name = "accesoBEAN")
 @ViewScoped
 public class AccesoBEAN {
+
     private String mensajeAcceso;
     private String redireccion;
     private String correo;
     private String clave;
     private Usuario usuarioBean = new Usuario();
     private String nombreCompleto;
-    
+    private String plantillaAcceso;
+
+    public String getPlantillaAcceso() {
+        return plantillaAcceso;
+    }
+
+    public void setPlantillaAcceso(String plantillaAcceso) {
+        this.plantillaAcceso = plantillaAcceso;
+    }
+
     public String getRedireccion() {
         return redireccion;
     }
@@ -35,11 +44,11 @@ public class AccesoBEAN {
     public void setRedireccion(String redireccion) {
         this.redireccion = redireccion;
     }
-    
-    public String URL(){
+
+    public String URL() {
         return redireccion;
     }
-    
+
     public String getCorreo() {
         return correo;
     }
@@ -71,53 +80,81 @@ public class AccesoBEAN {
     public void setUsuarioBean(Usuario usuarioBean) {
         this.usuarioBean = usuarioBean;
     }
-    
-    public void accederSistema() throws Exception{
+
+    public void accederSistema() throws Exception {
         AccesoDAO accesodao;
-        try{
+        try {
             accesodao = new AccesoDAO();
-            System.out.println("valores de correo="+correo+" valore de clave="+clave);
-            System.out.println("objeto de recepcion " + accesodao.accesoUsuario(correo, clave)+"");
-            if(accesodao.accesoUsuario(correo, clave) != null){
-                usuarioBean=accesodao.accesoUsuario(correo, clave);
+            System.out.println("valores de correo=" + correo + " valore de clave=" + clave);
+            System.out.println("objeto de recepcion " + accesodao.accesoUsuario(correo, clave) + "");
+            if (accesodao.accesoUsuario(correo, clave) != null) {
+                usuarioBean = accesodao.accesoUsuario(correo, clave);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioBean);
+                if (usuarioBean.getNivel() == 1) {
+                    setPlantillaAcceso("./WEB-INF/template/solicitante.xhtml");
+                    System.out.println("ruta " + plantillaAcceso);
+                }
+                if (usuarioBean.getNivel() == 2) {
+                    if (usuarioBean.getIdOficina().getDepartamento().getClave_departamento().equalsIgnoreCase("cc")) {
+                        setPlantillaAcceso("./WEB-INF/template/empleadocc.xhtml");
+                        System.out.println("ruta " + plantillaAcceso);
+                    } else {
+                        setPlantillaAcceso("./WEB-INF/template/empleado.xhtml");
+                        System.out.println("ruta " + plantillaAcceso);
+                    }
+                }
+                if (usuarioBean.getNivel() == 3) {
+                    if (usuarioBean.getIdOficina().getDepartamento().getClave_departamento().equalsIgnoreCase("cc")) {
+                        setPlantillaAcceso("./WEB-INF/template/administradorcc.xhtml");
+                        System.out.println("ruta " + plantillaAcceso);
+                    } else {
+                        setPlantillaAcceso("./WEB-INF/template/administrador.xhtml");
+                        System.out.println("ruta " + plantillaAcceso);
+                    }
+                }
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("plantilla", plantillaAcceso);
                 setMensajeAcceso("Bienvenido");
                 setRedireccion("principal.xhtml");
-            }
-            else{
+            } else {
                 setMensajeAcceso("Credenciales incorrectos");
                 FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", mensajeAcceso);
                 RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
                 setRedireccion("index.xhtml");
-                
+
             }
-        }catch(Exception ex){
-            System.out.println("Error en AccesoBEAN -> accederSistema "+ex);
+        } catch (Exception ex) {
+            System.out.println("Error en AccesoBEAN -> accederSistema " + ex);
             throw ex;
         }
-        
+
     }
-   
-    public void  setNombreCompleto(){
-        nombreCompleto = usuarioBean.getNombre()+" "+usuarioBean.getApellidoPaterno()+" "+usuarioBean.getApellidoMaterno();
+
+    public void setNombreCompleto() {
+        nombreCompleto = usuarioBean.getNombre() + " " + usuarioBean.getApellidoPaterno() + " " + usuarioBean.getApellidoMaterno();
         System.out.println(nombreCompleto);
     }
-    public String getNombreCompleto(){
+
+    public String getNombreCompleto() {
         return nombreCompleto;
     }
-    
-    public void exite(){
-        try{
+
+    public void exite() {
+        try {
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");
+            if (usuarioVive == null) {
+                contexto.getExternalContext().redirect("index.xhtml");
+            } else {
+                nombreCompleto = usuarioVive.getNombre() + " " + usuarioVive.getApellidoPaterno() + " " + usuarioVive.getApellidoMaterno();
+            }
+        } catch (Exception ex) {
+
+        }
+    }
+
+    public String plantilla() {
         FacesContext contexto = FacesContext.getCurrentInstance();
-        Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");
-        if(usuarioVive == null){
-            contexto.getExternalContext().redirect("index.xhtml");
-        }
-        else{
-            nombreCompleto= usuarioVive.getNombre()+" "+usuarioVive.getApellidoPaterno()+" "+usuarioVive.getApellidoMaterno();
-        }
-        }catch(Exception ex){
-            
-        }
+        String plantilla = (String) contexto.getExternalContext().getSessionMap().get("plantilla");
+        return plantilla;
     }
 }

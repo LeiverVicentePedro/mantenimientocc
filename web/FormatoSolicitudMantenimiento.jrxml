@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="528" leftMargin="42" rightMargin="42" topMargin="70" bottomMargin="70" uuid="b7f27d63-0ae4-4418-aa15-0814a9dbe3e4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="138"/>
+	<property name="ireport.y" value="279"/>
 	<parameter name="recursosMaterialesServicio" class="java.lang.String"/>
 	<parameter name="centroComputo" class="java.lang.String"/>
 	<parameter name="mantenimientoEquipo" class="java.lang.String"/>
@@ -209,13 +209,9 @@
 				<textFieldExpression><![CDATA[$P{otroProblema}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="26" y="233" width="144" height="20" uuid="5b5fbb9f-5b87-473b-8272-29e983f620d2"/>
+				<reportElement x="14" y="190" width="144" height="20" uuid="5b5fbb9f-5b87-473b-8272-29e983f620d2"/>
 				<textFieldExpression><![CDATA[$F{servicio_solicitado}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="26" y="190" width="100" height="20" uuid="ac911db6-9999-4088-b733-06357a5bcee3"/>
-				<text><![CDATA[servicio_solicitado]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
@@ -237,21 +233,24 @@
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="39" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="40">
 			<staticText>
-				<reportElement x="3" y="40" width="100" height="14" uuid="630977f9-e892-412e-b407-ac49fb818f5b"/>
+				<reportElement x="4" y="26" width="100" height="14" uuid="630977f9-e892-412e-b407-ac49fb818f5b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[ITO-AD-PO-001-02]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="427" y="40" width="100" height="14" uuid="d462adf4-743a-4ba0-b80a-7d3da165dced"/>
+				<reportElement x="418" y="26" width="100" height="14" uuid="d462adf4-743a-4ba0-b80a-7d3da165dced"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[Rev. 3]]></text>
 			</staticText>
 		</band>
-	</pageFooter>
+	</lastPageFooter>
 </jasperReport>
