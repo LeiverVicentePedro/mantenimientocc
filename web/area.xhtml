@@ -61,12 +61,12 @@
                     </p:outputLabel>
                 </p:column>
                 
-                <p:column headerText="Modificar">
-                    <p:commandLink value="Modificar" actionListener="#{areaBEAN.elegirDatoArea(area)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                <p:column headerText="Editar">
+                    <p:commandLink class="fa fa-pencil" actionListener="#{areaBEAN.elegirDatoArea(area)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                 </p:column>
                 
                 <p:column headerText="Eliminar">
-                    <p:commandLink value="Eliminar" actionListener="#{areaBEAN.eliminarArea(area)}" update="data"/>
+                    <p:commandLink class="fa fa-trash" actionListener="#{areaBEAN.eliminarArea(area)}" update="data"/>
                 </p:column>
             </p:dataTable>
         </h:form>
