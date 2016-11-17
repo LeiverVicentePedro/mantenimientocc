@@ -100,23 +100,34 @@
                                   filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.nivel}"/>
                         </p:column>
-                        <p:column width="70" 
+                        <p:column width="130"
+                            filterBy="#{usuario.estatus}" 
                                   headerText="Estatus"
-                                  sortBy="#{usuario.estatus}"
+                                  filterMatchMode="equals"
+                                  
                                   >
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 8px ">
+                    <f:converter converterId="javax.faces.Boolean" />
+                    <f:selectItem itemLabel="Todos" itemValue="" />
+                    <f:selectItem itemLabel="Act." itemValue="true" />
+                    <f:selectItem itemLabel="Inac." itemValue="false" />
+                </p:selectOneButton>
+            </f:facet>
                             <p:outputLabel value="#{usuario.estatus}">
                                 <f:converter converterId="conversionEstatus"/>
                             </p:outputLabel>
                             
                         </p:column>
-                        <p:column width="70"
+                        
+                        <p:column width="60"
                                   headerText="Tipo"
                                   sortBy="#{usuario.tipoBT}"
                                   filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.tipoBT}"/>
                         </p:column>
-                        <p:column headerText="Modificar"
-                                  width="70">
+                        <p:column headerText="Editar"
+                                  width="50">
                             <p:commandLink value="modificar" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
                         </p:column>
                         <p:column headerText="Eliminar"
