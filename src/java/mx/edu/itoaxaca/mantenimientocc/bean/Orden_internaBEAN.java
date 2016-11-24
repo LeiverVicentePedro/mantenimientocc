@@ -104,7 +104,7 @@ public class Orden_internaBEAN implements Serializable{
             orden_interna.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
             ordenInternaDao.registrarOrdenInterna(orden_interna);
             
-            //System.out.println("Lista de Equipo "+listaEquipo.size()+1);
+            System.out.println("Lista de Equipo "+listaEquipo.size());
             
             Orden_interna ordenEquipoTemporal = ordenInternaDao.identificadorDeOrden(orden_interna.getIdsolicitud());
             for (int i = 0; i < listaEquipo.size(); i++) {

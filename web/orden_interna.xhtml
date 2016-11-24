@@ -111,69 +111,16 @@
                 
                  
             </p:dataTable>
-        </h:form>
-        <p:separator/>
-        <p:dialog header="Datos de Equipo" widgetVar="DatosUno" id="dialogoDatosUno">
-            <h:form>
         
-                <p/>
-                 <p:outputLabel  value="&nbsp;Tipo&nbsp;"/>
-                 <p:inputText  value="#{equipoBEAN.equipo.tipo}" 
-                              required="true" requiredMessage="Se requiere Tipo" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Marca&nbsp;"/>
-                 <p:inputText  value="#{equipoBEAN.equipo.marca}" 
-                              required="true" requiredMessage="Se requiere Marca" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Modelo&nbsp;"/>
-                 <p:inputText  value="#{equipoBEAN.equipo.modelo}" 
-                              required="true" requiredMessage="Se requiere Modelo" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel value="&nbsp;Num.Serie&nbsp;"/>
-                 <p:inputText  value="#{equipoBEAN.equipo.numero_serie}" 
-                              required="true" requiredMessage="Se requiere Num.Serie" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 <p/>
-                 <p:outputLabel value="&nbsp;Folio Inventario&nbsp;" />
-                 <p:inputText value="#{equipoBEAN.equipo.folio_inventario}" required="true" 
-                                 requiredMessage="Se necesita un Folio de Inventario"
-                                 style="text-transform: uppercase">
-                        <f:validator validatorId="validadoresNumeros"/>
-                    </p:inputText>
-                   <p/>
-                   
-                 
-                    <p/>
-                 
-           
-            <center>
-                <p:commandButton value="#{equipoBEAN.accion}" actionListener="#{equipoBEAN.operarEquipo()}" oncomplete="PF('DatosUno').hide();" update=":formaExteriorUno:dataUno" />
-                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosUno').hide();" actionListener="#{equipoBEAN.limpiarEquipo()}" />
-            </center>
-            <p/>
-            </h:form>
-        </p:dialog>
+        <p:separator/>
+        
         
         <!--//////////////////////////////////////Apartir de Aqui Termina la parte de Equipo ///////////////////////////  -->
         
         <!--//////////////////////////////////////Apartir de aqui Comienza Refaccion////////////////////////////////////-->
         
            <p:growl id="msj" showDetail="true" sticky="true"/>
-        <h:form id="formaExterior">                      
+                             
             <p:commandButton value="Nueva Refaccion" oncomplete="PF('Datos').show();" actionListener="#{refaccion_empleadaBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
             
                 <f:ajax execute="#{refaccion_empleadaBEAN.listarRefaccion()}" render="data" />
@@ -256,65 +203,17 @@
                     <p:commandLink class="fa fa-trash" actionListener="#{refaccion_empleadaBEAN.eliminarRefaccion(refaccion)}" update="data"/>
                 </p:column>
             </p:dataTable>
-        </h:form>
+       
         
-        <p:dialog header="Datos de Equipo" widgetVar="Datos" id="dialogoDatos">
-            <h:form>
-               
-                <p/>
-                 <p:outputLabel  value="&nbsp;Descripcion&nbsp;"/>
-                 <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.descripcion}" 
-                              required="true" requiredMessage="Se requiere Descripcion" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Num.Serie&nbsp;"/>
-                 <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.numero_serie}" 
-                              required="true" requiredMessage="Se requiere Num.Serie" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Precio&nbsp;"/>
-                 <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.precio}" 
-                              required="true" requiredMessage="Se requiere Precio" 
-                              style="text-transform: uppercase">
-                 </p:inputText>
-                 
-                 
-                 <p/>
-                 <p:outputLabel value="&nbsp;Cantidad&nbsp;" />
-                 <p:inputText value="#{refaccion_empleadaBEAN.refaccion.cantidad}" required="true" 
-                                 requiredMessage="Se necesita un Cantidad"
-                                 style="text-transform: uppercase">
-                        <f:validator validatorId="validadoresNumeros"/>
-                    </p:inputText>
-                   <p/>
-                   
-                  
-                    
-                   
-           
-            <center>
-                <p:commandButton value="#{refaccion_empleadaBEAN.accion}" actionListener="#{refaccion_empleadaBEAN.operarRefaccion()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
-                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" actionListener="#{refaccion_empleadaBEAN.limpiarRefaccion()}" />
-            </center>
-            <p/>
-            </h:form>
-        </p:dialog>
-        <p:separator/>       
-                
+             
         
-        <!--/////////////////////////////////////////// Apartir de Aqui Termina la parte de Termina  /////////////////////////////////////////////-->
+        <!--/////////////////////////////////////////// Apartir de Aqui Termina la parte de Refaccion  /////////////////////////////////////////////-->
         
         
         
                 <!-- ////////////////////////////////////Aqui se llenan los campos de Orden interna  //////////////////////////////////////////////--> 
                  
-                  <h:form>
+                  <!--<h:form>-->
                     <f:event type="preRenderView" listener="#{equipoBEAN.listarEquipo()}"/>
                     <f:event type="preRenderView" listener="#{refaccion_empleadaBEAN.listarRefaccion()}"/>
                     <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listarSolicituMC()}"/>
@@ -360,13 +259,114 @@
                     </h:panelGrid>
                 </p:panel>
                 <p:separator style="visibility: hidden;"/>
-                <p:commandButton process=":formaExteriorUno:dataUno"
-                    value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" />
+                <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" />
 
                 </h:form>
-                
-                
-                
+                 
+            <!-- Dialogo del equipo para registrar equipo nuevo-->    
+            <p:dialog header="Datos de Equipo" widgetVar="DatosUno" id="dialogoDatosUno">
+            <h:form>
+        
+                <p/>
+                 <p:outputLabel  value="&nbsp;Tipo&nbsp;"/>
+                 <p:inputText  value="#{equipoBEAN.equipo.tipo}" 
+                              required="true" requiredMessage="Se requiere Tipo" 
+                              style="text-transform: uppercase">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 
+                 <p/>
+                 <p:outputLabel  value="&nbsp;Marca&nbsp;"/>
+                 <p:inputText  value="#{equipoBEAN.equipo.marca}" 
+                              required="true" requiredMessage="Se requiere Marca" 
+                              style="text-transform: uppercase">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 
+                 <p/>
+                 <p:outputLabel  value="&nbsp;Modelo&nbsp;"/>
+                 <p:inputText  value="#{equipoBEAN.equipo.modelo}" 
+                              required="true" requiredMessage="Se requiere Modelo" 
+                              style="text-transform: uppercase">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 
+                 <p/>
+                 <p:outputLabel value="&nbsp;Num.Serie&nbsp;"/>
+                 <p:inputText  value="#{equipoBEAN.equipo.numero_serie}" 
+                              required="true" requiredMessage="Se requiere Num.Serie" 
+                              style="text-transform: uppercase">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 <p/>
+                 <p:outputLabel value="&nbsp;Folio Inventario&nbsp;" />
+                 <p:inputText value="#{equipoBEAN.equipo.folio_inventario}" required="true" 
+                                 requiredMessage="Se necesita un Folio de Inventario"
+                                 style="text-transform: uppercase">
+                        <f:validator validatorId="validadoresNumeros"/>
+                    </p:inputText>
+                   <p/>
+                   
+                 
+                    <p/>
+                 
+           
+            <center>
+                <p:commandButton value="#{equipoBEAN.accion}" actionListener="#{equipoBEAN.operarEquipo()}" oncomplete="PF('DatosUno').hide();" update=":formaExteriorUno:dataUno" />
+                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosUno').hide();" actionListener="#{equipoBEAN.limpiarEquipo()}" />
+            </center>
+            <p/>
+            </h:form>
+        </p:dialog>
+        
+         <!--Dialog para la refaccion usada cuando se presiona el boton de nueva refaccion-->   
+        <p:dialog header="Datos de Equipo" widgetVar="Datos" id="dialogoDatos">
+            <h:form>
+               
+                <p/>
+                 <p:outputLabel  value="&nbsp;Descripcion&nbsp;"/>
+                 <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.descripcion}" 
+                              required="true" requiredMessage="Se requiere Descripcion" 
+                              style="text-transform: uppercase">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 
+                 <p/>
+                 <p:outputLabel  value="&nbsp;Num.Serie&nbsp;"/>
+                 <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.numero_serie}" 
+                              required="true" requiredMessage="Se requiere Num.Serie" 
+                              style="text-transform: uppercase">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 
+                 <p/>
+                 <p:outputLabel  value="&nbsp;Precio&nbsp;"/>
+                 <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.precio}" 
+                              required="true" requiredMessage="Se requiere Precio" 
+                              style="text-transform: uppercase">
+                 </p:inputText>
+                 
+                 
+                 <p/>
+                 <p:outputLabel value="&nbsp;Cantidad&nbsp;" />
+                 <p:inputText value="#{refaccion_empleadaBEAN.refaccion.cantidad}" required="true" 
+                                 requiredMessage="Se necesita un Cantidad"
+                                 style="text-transform: uppercase">
+                        <f:validator validatorId="validadoresNumeros"/>
+                    </p:inputText>
+                   <p/>
+                   
+                  
+                    
+                   
+           
+            <center>
+                <p:commandButton value="#{refaccion_empleadaBEAN.accion}" actionListener="#{refaccion_empleadaBEAN.operarRefaccion()}" oncomplete="PF('Datos').hide();" update=":formaExteriorUno:data" />
+                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" actionListener="#{refaccion_empleadaBEAN.limpiarRefaccion()}" />
+            </center>
+            <p/>
+            </h:form>
+        </p:dialog>    
             </ui:define>
 
         </ui:composition>
