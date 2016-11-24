@@ -19,7 +19,7 @@
                 <f:ajax execute="#{profesionBEAN.listarProfesion()}" render="data"/>
             </p:commandButton>         
          
-            <p/>   
+            <p:separator/>   
             <p:dataTable id="data" value="#{profesionBEAN.profesionLista}" 
                          var="profesion" 
                         
@@ -52,6 +52,7 @@
                 <p:column headerText="Nombre de Profesión"
                           sortBy="#{profesion.nombre_profesion}"
                           filterBy="#{profesion.nombre_profesion}"
+                          
                           filterMatchMode="startsWith">
                     
                     <p:outputLabel value="#{profesion.nombre_profesion}" />
@@ -59,12 +60,14 @@
                 
                 
                 
-                <p:column headerText="Modificar">
-                    <p:commandLink value="Modificar" actionListener="#{profesionBEAN.elegirDatoProfesion(profesion)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                <p:column headerText="Editar"
+                          width="60">
+                    <p:commandLink class="fa fa-pencil" actionListener="#{profesionBEAN.elegirDatoProfesion(profesion)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                 </p:column>
                 
-                <p:column headerText="Eliminar">
-                    <p:commandLink value="Eliminar" actionListener="#{profesionBEAN.eliminarProfesion(profesion)}" update="data"/>
+                <p:column headerText="Eliminar"
+                          width="70">
+                    <p:commandLink class="fa fa-trash" actionListener="#{profesionBEAN.eliminarProfesion(profesion)}" update="data"/>
                 </p:column>
             </p:dataTable>
         </h:form>

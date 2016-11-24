@@ -46,6 +46,7 @@
                            
                         
                         <p:column 
+                                 style=" font-size: 12px "
                                   headerText="RFC"
                                   sortBy="#{usuario.rfc}"
                                   filterBy="#{usuario.rfc}"
@@ -54,7 +55,7 @@
                             <p:outputLabel value="#{usuario.rfc}"/>
                         </p:column>
                         
-                        <p:column 
+                        <p:column style=" font-size: 12px "
                                   headerText="Nombre"
                                   sortBy="#{usuario.nombre}"
                                   filterBy="#{usuario.nombre}"
@@ -63,6 +64,7 @@
                         </p:column>
                         
                         <p:column 
+                                  style=" font-size: 12px "
                                   headerText="Ap.Paterno"
                                   sortBy="#{usuario.apellidoPaterno}"
                                   filterBy="#{usuario.apellidoPaterno}"
@@ -70,13 +72,14 @@
                             <p:outputLabel value="#{usuario.apellidoPaterno}"/>
                         </p:column>
                         
-                        <p:column headerText="Ap.Materno"
+                        <p:column style=" font-size: 12px "
+                                  headerText="Ap.Materno"
                                   sortBy="#{usuario.apellidoMaterno}"
                                   filterBy="#{usuario.apellidoMaterno}"
                                   filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.apellidoMaterno}"/>
                         </p:column>
-                        <p:column 
+                        <p:column style=" font-size: 12px "
                                   headerText="Oficina"
                                   
                                   sortBy="#{usuario.idOficina.nombreOficina}"
@@ -84,44 +87,65 @@
                                   filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.idOficina.nombreOficina}"/>
                         </p:column>
-                        <p:column headerText="Profesion"
+                        <p:column style=" font-size: 12px "
+                                  headerText="Profesion"
                                   sortBy="#{usuario.id_profesion.nombre_profesion}"
                                   filterBy="#{usuario.id_profesion.nombre_profesion}"
                                   filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.id_profesion.nombre_profesion}"/>
                         </p:column>
-                        <p:column width="70"
+                        <p:column 
+                            style=" font-size: 12px "
+                            width="70"
                             headerText="Correo">
                             <p:outputLabel value="#{usuario.correo}"/>
                         </p:column>
-                        <p:column width="60"
+                        <p:column style=" font-size: 12px " 
+                                  width="60"
                                   headerText="Nivel"
                                   sortBy="#{usuario.nivel}"
                                   filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.nivel}"/>
                         </p:column>
-                        <p:column width="70" 
+                        <p:column style=" font-size: 12px "
+                            width="130"
+                            filterBy="#{usuario.estatus}" 
                                   headerText="Estatus"
-                                  sortBy="#{usuario.estatus}"
+                                  filterMatchMode="equals"
+                                  
                                   >
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 8px ">
+                                  <f:converter converterId="javax.faces.Boolean" />
+                                      <f:selectItem itemLabel="Todos" itemValue="" />
+                                      <f:selectItem itemLabel="Act." itemValue="true" />
+                                      <f:selectItem itemLabel="Inac." itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            
                             <p:outputLabel value="#{usuario.estatus}">
                                 <f:converter converterId="conversionEstatus"/>
                             </p:outputLabel>
                             
                         </p:column>
-                        <p:column width="70"
+                        
+                        <p:column style=" font-size: 12px "
+                                  width="60"
                                   headerText="Tipo"
                                   sortBy="#{usuario.tipoBT}"
                                   filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.tipoBT}"/>
                         </p:column>
-                        <p:column headerText="Modificar"
-                                  width="70">
-                            <p:commandLink value="modificar" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
+                        <p:column
+                                  style=" font-size: 12px "
+                                  headerText="Editar"
+                                  width="50">
+                            <p:commandLink class="fa fa-pencil" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
                         </p:column>
-                        <p:column headerText="Eliminar"
+                        <p:column style=" font-size: 12px "
+                                  headerText="Eliminar"
                                   width="70">
-                            <p:commandLink value="Eliminar" action="#"/>
+                            <p:commandLink class="fa fa-trash" action="#"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

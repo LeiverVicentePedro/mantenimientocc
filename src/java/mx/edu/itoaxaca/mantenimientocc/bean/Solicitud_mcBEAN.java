@@ -46,7 +46,37 @@ public class Solicitud_mcBEAN implements Serializable{
     List<Catalogo_servicio_solicitado> serviciosPorDepartamento;
     private String folioSolicitud;
     Usuario usuarioVive;
+   
+    private List<Solicitud_mc> listaSolicitud;
 
+    
+    
+    public String getFolioSolicitud() {
+        return folioSolicitud;
+    }
+
+    public void setFolioSolicitud(String folioSolicitud) {
+        this.folioSolicitud = folioSolicitud;
+    }
+
+    public Usuario getUsuarioVive() {
+        return usuarioVive;
+    }
+
+    public void setUsuarioVive(Usuario usuarioVive) {
+        this.usuarioVive = usuarioVive;
+    }
+
+    public List<Solicitud_mc> getListaSolicitud() {
+        return listaSolicitud;
+    }
+
+    public void setListaSolicitud(List<Solicitud_mc> listaSolicitud) {
+        this.listaSolicitud = listaSolicitud;
+    }
+    
+    
+    
     public Solicitud_mc getSolicitudmc() {
         return solicitudmc;
     }
@@ -55,6 +85,8 @@ public class Solicitud_mcBEAN implements Serializable{
         this.solicitudmc = solicitudmc;
     }
 
+    
+    
     public List<Catalogo_servicio_solicitado> getServiciosSeleccionados() {
         return serviciosSeleccionados;
     }
@@ -75,16 +107,19 @@ public class Solicitud_mcBEAN implements Serializable{
         Solicitud_mcDAO solicitudDao;
         Detalle_solicitudDAO detalleSolicitudDao;
         try {
-            FacesContext contexto = FacesContext.getCurrentInstance();
-            usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");
+            FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+            //existir dentro del navegador
             solicitudDao = new Solicitud_mcDAO();
             detalleSolicitudDao = new Detalle_solicitudDAO();
             generaFolioSolicitud();
-            solicitudmc.setFecha(new java.sql.Date(new java.util.Date().getTime()));
+            solicitudmc.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
             solicitudmc.setId_usuario(usuarioVive);
             solicitudmc.setFolio(folioSolicitud);
             solicitudDao.registrarSolicitudMC(solicitudmc);
+            
             Solicitud_mc solicitudTemporal = solicitudDao.identificadorDeSolicitud(folioSolicitud);
+            
             for (int i = 0; i < serviciosSeleccionados.size(); i++) {
                 Detalle_solicitud detalleSolicitud = new Detalle_solicitud();
 
@@ -179,10 +214,21 @@ public class Solicitud_mcBEAN implements Serializable{
 
         FacesContext.getCurrentInstance().responseComplete();
     }
-
+//-----------------------------------------------------------------------------------------------------------------------------
     public void limpiarSolicitud() {
         solicitudmc.setId_departamento(null);
         solicitudmc.setOtroProblema("");
         serviciosSeleccionados.clear();
+    }
+    
+    public void listarSolicituMC() throws Exception{
+       Solicitud_mcDAO solicitudMCdao;
+        try{
+            solicitudMCdao=new Solicitud_mcDAO();
+            listaSolicitud = solicitudMCdao.listarSolicitudMC();
+        }
+        catch(Exception e){
+            System.out.println("error en Solicitud BEAN --> listarSolicitud BEAN"+e);
+        }
     }
 }

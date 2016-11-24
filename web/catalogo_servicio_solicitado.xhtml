@@ -18,7 +18,7 @@
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();"  actionListener="#{catalogo_servicio_solicitadoBEAN.setAccion('Registrar')}" update=":dialogoDatos">
                 <f:ajax execute="#{catalogo_servicio_solicitadoBEAN.listarCatalogo()}" render="data"/>
             </p:commandButton>
-            <p/>
+            <p:separator/>
             <p:dataTable id="data" value="#{catalogo_servicio_solicitadoBEAN.catalogoLista}"
                          var="catalogo"
                          
@@ -67,12 +67,14 @@
                 
                 
                 
-                <p:column headerText="Modificar">
-                    <p:commandLink value="Modificar" actionListener="#{catalogo_servicio_solicitadoBEAN.elegirDatoCatalogo(catalogo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                <p:column headerText="Editar"
+                          width="60">
+                    <p:commandLink class="fa fa-pencil" actionListener="#{catalogo_servicio_solicitadoBEAN.elegirDatoCatalogo(catalogo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                 </p:column>
                 
-                <p:column headerText="Eliminar">
-                    <p:commandLink value="Eliminar" actionListener="#{catalogo_servicio_solicitadoBEAN.eliminarCatalogo(catalogo)}" update="data"/>
+                <p:column headerText="Eliminar"
+                          width="70">
+                    <p:commandLink class="fa fa-trash" actionListener="#{catalogo_servicio_solicitadoBEAN.eliminarCatalogo(catalogo)}" update="data"/>
                 </p:column>
             </p:dataTable>
         </h:form>

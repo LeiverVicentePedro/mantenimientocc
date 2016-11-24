@@ -19,9 +19,9 @@ import java.io.Serializable;
 public class DepartamentoBEAN implements Serializable{
     
   private Departamento departamento= new Departamento();
-  private List<Departamento> listadepartamento;
-  private List<Departamento> listadepartamentoServicio;
-  private List<Departamento> filterDepartamento;
+  private List<Departamento> listadepartamento;//departamentos en  general
+  private List<Departamento> listadepartamentoServicio;//esta lista es para clasificar los departamentos prestadores de servicio de mantenimiento
+  private List<Departamento> filterDepartamento;//esta lista es para una busqueda general es una lista vacia
   private String accion;//esta variable es para usarla en un switch y poder escoger si es opcion registrar o modificar
 
     public List<Departamento> getFilterDepartamento() {

@@ -8,6 +8,8 @@ package mx.edu.itoaxaca.mantenimientocc.dao;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 
@@ -37,7 +39,7 @@ public class Solicitud_mcDAO extends Conexion{
         }
     }
     
-    public int indiceDeSolicitud(int idDepartamento) throws Exception{
+    public int indiceDeSolicitud(int idDepartamento) throws Exception{//para saber que numero de solicitud que se usa para sacar el folio
         ResultSet resultado;
         int numeroParaFolio=0;
         try{
@@ -57,7 +59,7 @@ public class Solicitud_mcDAO extends Conexion{
         return numeroParaFolio+1;
     }
     
-    public Solicitud_mc identificadorDeSolicitud(String folio) throws Exception{
+    public Solicitud_mc identificadorDeSolicitud(String folio) throws Exception{//me manda a traer un objeto de solicitud que te regresa la solicitud del folio pedido
         ResultSet resultado;
         Solicitud_mc solicitud =null;
         try{
@@ -80,5 +82,64 @@ public class Solicitud_mcDAO extends Conexion{
         }finally{
             this.Cerrar();
         }
+    }
+    
+    
+    public Solicitud_mc buscarDeSolicitudEntero(int idSolicitud_mc) throws Exception{
+        ResultSet resultado;
+        Solicitud_mc solicitud =null;
+        try{
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM solicitud_mc WHERE idsolicitud_mc=?");
+            consulta.setInt(1,idSolicitud_mc );
+            resultado = consulta.executeQuery();
+            if(resultado.next()==true){
+                solicitud = new Solicitud_mc();
+                solicitud.setIdsolicitud_mc(resultado.getInt("idsolicitud_mc"));
+                solicitud.setFolio(resultado.getString("folio"));
+                solicitud.setFecha(resultado.getDate("fecha"));
+                solicitud.setOtroProblema(resultado.getString("otro_problema"));
+                solicitud.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario")));
+                solicitud.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultado.getInt("id_departamento")));
+            }
+            return solicitud;
+        }catch(Exception ex){
+            throw ex;
+        }finally{
+            this.Cerrar();
+        }
+    }
+    
+        public List<Solicitud_mc> listarSolicitudMC() throws Exception{
+     List<Solicitud_mc> lista;
+        ResultSet resultadoList;
+     try{
+         this.Conectar();
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT * FROM solicitud_mc");
+         resultadoList= consulta.executeQuery();
+         lista =new ArrayList();
+         while(resultadoList.next()){
+             Solicitud_mc solicitudMC=new Solicitud_mc();
+             
+             solicitudMC.setIdsolicitud_mc(resultadoList.getInt("idsolicitud_mc"));
+             solicitudMC.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoList.getInt("id_usuario")));
+             solicitudMC.setFolio(resultadoList.getString("folio"));
+             solicitudMC.setFecha(resultadoList.getDate("fecha"));
+             solicitudMC.setOtroProblema(resultadoList.getString("otro_problema"));
+             solicitudMC.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoList.getInt("id_departamento")));
+             
+             lista.add(solicitudMC);
+         }
+             
+     }
+     catch(Exception e){
+         System.out.println("error en SolicitudMC  Dao metodo Listar"+e);
+         throw e;
+         
+     }
+     finally{
+         this.Cerrar();
+     }
+     return lista;
     }
 }
