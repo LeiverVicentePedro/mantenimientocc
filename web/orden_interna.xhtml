@@ -48,7 +48,7 @@
                                 </p:outputPanel>
                            </f:facet>
                 
-                 <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+                <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
                 <p:column headerText="Tipo" 
                           sortBy="#{equipo.tipo}" 
                           filterBy="#{equipo.tipo}"
@@ -360,7 +360,7 @@
                     </h:panelGrid>
                 </p:panel>
                 <p:separator style="visibility: hidden;"/>
-                <p:commandButton process=":formaExteriorUno:dataUno"
+                <p:commandButton 
                     value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" />
 
                 </h:form>

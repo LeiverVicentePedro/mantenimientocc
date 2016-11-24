@@ -7,10 +7,11 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.faces.application.FacesMessage;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_internaDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Relacion_orden_equipoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Relacion_orden_refaccionDAO;
@@ -21,8 +22,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_equipo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_refaccion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
+
 
 /**
  *
@@ -137,23 +137,7 @@ public class Orden_internaBEAN implements Serializable{
     
     //-----
     
-    /////////Eventos para poder usar CheckBox en la Tabla para Equipo
-      public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage("Selected", ((Equipo) event.getObject()).getTipo());
-        FacesContext.getCurrentInstance().addMessage(null, msg); 
-        
-    }
- 
-    public void onRowUnselect(UnselectEvent event) {
-        FacesMessage msg = new FacesMessage("Unselected", ((Equipo) event.getObject()).getTipo());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-    
-    ///////////////////////////////////////////////////////////
-    
- 
-    
-    //Metodo ´para listar 
+//Metodo ´para listar 
     
     public void listarOrden_interna() throws Exception{
        Orden_internaDAO orden_internadao;
