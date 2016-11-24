@@ -147,6 +147,8 @@ public class ProfesionDAO extends Conexion {
         finally{
            this.Cerrar();
         }
-    }    
+    }
+
+    
     
 }

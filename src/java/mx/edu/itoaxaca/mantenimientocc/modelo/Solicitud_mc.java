@@ -5,13 +5,14 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author leiver
  */
-public class Solicitud_mc {
+public class Solicitud_mc implements Serializable{
  
     private int idsolicitud_mc;
     private Usuario id_usuario;
@@ -67,6 +68,33 @@ public class Solicitud_mc {
     public void setId_departamento(Departamento id_departamento) {
         this.id_departamento = id_departamento;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + this.idsolicitud_mc;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Solicitud_mc other = (Solicitud_mc) obj;
+        if (this.idsolicitud_mc != other.idsolicitud_mc) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     
     
