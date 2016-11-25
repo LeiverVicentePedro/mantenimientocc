@@ -128,7 +128,7 @@ public class Solicitud_mcBEAN implements Serializable{
                 detalleSolicitudDao.registrarDetalleSolicitud(detalleSolicitud);
 
             }
-            exportarPDF();
+            exportarPDFSolicitud();
             System.out.println("fecha del sistema " + solicitudmc.getFecha());
             limpiarSolicitud();
 
@@ -167,7 +167,7 @@ public class Solicitud_mcBEAN implements Serializable{
     /*
     *metodo que genera el pdf para la solicitud 
     ***************************************************************************/
-    public void exportarPDF() throws JRException, IOException {
+    public void exportarPDFSolicitud() throws JRException, IOException {
         Map<String, Object> parametros = new HashMap<String, Object>();
         String servicioSolicitado = "";
 

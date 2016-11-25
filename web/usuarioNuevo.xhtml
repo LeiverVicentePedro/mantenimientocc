@@ -15,46 +15,46 @@
                     <p:commandButton value="Nuevo" oncomplete="PF('DatosUsuario').show();" actionListener="#{usuarioBEAN.setAccionDeBotonUsuario('Registrar')}" update=":dialogoUsuario">
                         <f:ajax execute="#{usuarioBEAN.listaUsuarioDepartameto()}" render="tablaU"/>
                     </p:commandButton>
-                   
+
                     <p:separator />
                     <p:dataTable id="tablaU" value="#{usuarioBEAN.listaUsuariosDeUnDepartamento}"
                                  var="usuario" 
                                  style="font-size: 14px;"
-                                 
+
                                  resizableColumns="true"
                                  liveResize="true"
-                                 
+
                                  liveScroll="true" scrollRows="15" scrollWidth="100%"
                                  scrollable="true"
-                                 
+
                                  widgetVar="buscar"
                                  filteredValue="#{usuarioBEAN.filterUsuario}"
-                                 
-                                emptyMessage="No hay elementos encontrados"
+
+                                 emptyMessage="No hay elementos encontrados"
                                  paginator="true" rows="5"
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                  rowsPerPageTemplate="1,2,3,4,5">
-                        
-                                <f:facet name="header">
-                                    <p:outputPanel class="text-right">
-                                   <h:outputText value="Buscar:" />
+
+                        <f:facet name="header">
+                            <p:outputPanel class="text-right">
+                                <h:outputText value="Buscar:" />
                                 <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
-                                             
+
                                              style="width:150px" />
-                                </p:outputPanel>
-                                 </f:facet>
-                           
-                        
+                            </p:outputPanel>
+                        </f:facet>
+
+
                         <p:column 
-                                 style=" font-size: 12px "
-                                  headerText="RFC"
-                                  sortBy="#{usuario.rfc}"
-                                  filterBy="#{usuario.rfc}"
-                                  filterMatchMode="contains"
-                                  >
+                            style=" font-size: 12px "
+                            headerText="RFC"
+                            sortBy="#{usuario.rfc}"
+                            filterBy="#{usuario.rfc}"
+                            filterMatchMode="contains"
+                            >
                             <p:outputLabel value="#{usuario.rfc}"/>
                         </p:column>
-                        
+
                         <p:column style=" font-size: 12px "
                                   headerText="Nombre"
                                   sortBy="#{usuario.nombre}"
@@ -62,16 +62,16 @@
                                   filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.nombre}"/>
                         </p:column>
-                        
+
                         <p:column 
-                                  style=" font-size: 12px "
-                                  headerText="Ap.Paterno"
-                                  sortBy="#{usuario.apellidoPaterno}"
-                                  filterBy="#{usuario.apellidoPaterno}"
-                                  filterMatchMode="startsWith">
+                            style=" font-size: 12px "
+                            headerText="Ap.Paterno"
+                            sortBy="#{usuario.apellidoPaterno}"
+                            filterBy="#{usuario.apellidoPaterno}"
+                            filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.apellidoPaterno}"/>
                         </p:column>
-                        
+
                         <p:column style=" font-size: 12px "
                                   headerText="Ap.Materno"
                                   sortBy="#{usuario.apellidoMaterno}"
@@ -81,7 +81,7 @@
                         </p:column>
                         <p:column style=" font-size: 12px "
                                   headerText="Oficina"
-                                  
+
                                   sortBy="#{usuario.idOficina.nombreOficina}"
                                   filterBy="#{usuario.idOficina.nombreOficina}"
                                   filterMatchMode="startsWith">
@@ -108,27 +108,27 @@
                             <p:outputLabel value="#{usuario.nivel}"/>
                         </p:column>
                         <p:column style=" font-size: 12px "
-                            width="130"
-                            filterBy="#{usuario.estatus}" 
+                                  width="130"
+                                  filterBy="#{usuario.estatus}" 
                                   headerText="Estatus"
                                   filterMatchMode="equals"
-                                  
+
                                   >
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 8px ">
-                                  <f:converter converterId="javax.faces.Boolean" />
-                                      <f:selectItem itemLabel="Todos" itemValue="" />
-                                      <f:selectItem itemLabel="Act." itemValue="true" />
-                                      <f:selectItem itemLabel="Inac." itemValue="false" />
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Todos" itemValue="" />
+                                    <f:selectItem itemLabel="Act." itemValue="true" />
+                                    <f:selectItem itemLabel="Inac." itemValue="false" />
                                 </p:selectOneButton>
                             </f:facet>
-                            
+
                             <p:outputLabel value="#{usuario.estatus}">
                                 <f:converter converterId="conversionEstatus"/>
                             </p:outputLabel>
-                            
+
                         </p:column>
-                        
+
                         <p:column style=" font-size: 12px "
                                   width="60"
                                   headerText="Tipo"
@@ -137,9 +137,9 @@
                             <p:outputLabel value="#{usuario.tipoBT}"/>
                         </p:column>
                         <p:column
-                                  style=" font-size: 12px "
-                                  headerText="Editar"
-                                  width="50">
+                            style=" font-size: 12px "
+                            headerText="Editar"
+                            width="50">
                             <p:commandLink class="fa fa-pencil" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
                         </p:column>
                         <p:column style=" font-size: 12px "
@@ -163,46 +163,65 @@
                                 <h:column/><h:column/>
                                 <p:outputLabel value="Nombre&nbsp;"/>
                                 <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.objetoUsuario.nombre}" required="true" requiredMessage="Nombre Requerido">
-                                <f:validator validatorId="validadoresLetrasUsuario"/>
+                                    <f:validator validatorId="validadoresLetrasUsuario"/>
                                 </p:inputText>
-                                
+
                                 <p:outputLabel value="&nbsp;Apellido&nbsp;"/>
                                 <p:inputText class="" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.objetoUsuario.apellidoPaterno}" required="true" requiredMessage="Apellido Paterno Requerido">
-                                <f:validator validatorId="validadoresLetrasUsuario"/>
+                                    <f:validator validatorId="validadoresLetrasUsuario"/>
                                 </p:inputText>
                                 <p:outputLabel value="&nbsp;Apellido&nbsp;"/>
                                 <p:inputText class="" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.objetoUsuario.apellidoMaterno}" required="true" requiredMessage="Apellido Materno Requerido">
-                                <f:validator validatorId="validadoresLetrasUsuario"/>
+                                    <f:validator validatorId="validadoresLetrasUsuario"/>
                                 </p:inputText>
                             </h:panelGrid>
                         </p:panel>
                         <p/>
                         <p:panel header="Sobre su Trabajo" class="text-center container ">
                             <h:panelGrid columns="6" cellpadding="5" cellspacing="10">
+                                <p:column/>
+                                <p:outputLabel value="Ingrese Area" style="color: #adadad"/>
                                 <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                     <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                                 </p:multiSelectListbox>
+                                <p:outputLabel value="profesion&nbsp;"/>
                                 <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.id_profesion}" label="-- Opcion --" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Profesion requerida">
                                     <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesionNuevo" itemLabel="#{profesionNuevo.nombre_profesion}" itemValue="#{profesionNuevo}"/>
                                 </p:selectOneMenu>
+                                <p:column/>
+                                
+                                <p:outputLabel value="Tipo Empleado&nbsp;"/>
                                 <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.tipoBT}" required="true" requiredMessage="Tipo Empleado Requerido" styleClass="selectMenu">
-                                    <f:selectItem itemLabel="Tipo Empleado" itemValue="#{null}"/>
                                     <f:selectItem itemLabel="Base" itemValue="Base"/>
                                     <f:selectItem itemLabel="Temporal" itemValue="Temporal"/>
                                 </p:selectOneMenu>
+                                <p:column/><p:column/>
+                                <p:column/><p:column/>
+                                
+                                <p:outputLabel value="Estatus&nbsp;"/>
                                 <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.estatus}" required="true" requiredMessage="Estatus Requerido" styleClass="selectMenu">
-                                    <f:selectItem itemLabel="Estatus" itemValue="#{null}"/>
                                     <f:selectItem itemLabel="Activo" itemValue="true" />
                                     <f:selectItem itemLabel="Inactivo" itemValue="false"/>
                                 </p:selectOneMenu>
+                                <p:column/><p:column/>
+                                <p:column/><p:column/>
                             </h:panelGrid>
                         </p:panel>
                         <p/>
                         <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container">
-                            <h:panelGrid columns="3" class="container-fluid">
-                                <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.objetoUsuario.correo}" required="true" requiredMessage="Cuenta de Correo Requerido"/>
-                                <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.objetoUsuario.clave}" type="password" required="true" requiredMessage="Contraseña Requerido"/>
-                                <p:inputText class="form-control" placeholder="nivel de acceso" id="nivelUsuario" value="#{usuarioBEAN.objetoUsuario.nivel}" required="true" requiredMessage="Nivel requerido"/>
+                            <h:panelGrid columns="6" class="container-fluid">
+                                <p:outputLabel value="Correo Electronico&nbsp;"/>
+                                <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.objetoUsuario.correo}" required="true" requiredMessage="Cuenta de Correo Requerido">
+                                <f:validator validatorId="validadoresEmail"/>
+                                </p:inputText>
+                                <p:outputLabel value="Contraseña&nbsp;"/>
+                                <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.objetoUsuario.clave}" type="password" required="true" requiredMessage="Contraseña Requerido">
+                                 <f:validator validatorId="validadoresContrasenia"/>
+                                </p:inputText>
+                                <p:outputLabel value="Nivel Acceso&nbsp;"/>
+                                <p:inputText class="form-control" placeholder="entre 1-3" id="nivelUsuario" value="#{usuarioBEAN.objetoUsuario.nivel}" required="true" requiredMessage="Nivel requerido" title="El valor de acceso es 1 si es usuario basico o 3 si es administrador">
+                                
+                                </p:inputText>    
                             </h:panelGrid>
                         </p:panel>
                         <p/>

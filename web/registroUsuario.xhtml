@@ -64,7 +64,6 @@
                             <p:multiSelectListbox value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                 <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                             </p:multiSelectListbox>
-                            
                             <p:selectOneMenu value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" label="-- Opcion --" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Profesion requerida">
                                 <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesion" itemLabel="#{profesion.nombre_profesion}" itemValue="#{profesion}"/>
                             </p:selectOneMenu>
