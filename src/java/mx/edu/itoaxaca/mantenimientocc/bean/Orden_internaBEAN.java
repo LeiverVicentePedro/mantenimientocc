@@ -22,6 +22,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_equipo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_refaccion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
+import org.primefaces.event.SelectEvent;
 
 
 /**
@@ -104,26 +105,29 @@ public class Orden_internaBEAN implements Serializable{
             orden_interna.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
             ordenInternaDao.registrarOrdenInterna(orden_interna);
             
-            //System.out.println("Lista de Equipo "+listaEquipo.size()+1);
+            System.out.println("Lista de Equipo "+listaEquipo.size());
             
-            Orden_interna ordenEquipoTemporal = ordenInternaDao.identificadorDeOrden(orden_interna.getIdsolicitud());
+            Orden_interna ordenTemporal = ordenInternaDao.identificadorDeOrden(orden_interna.getIdsolicitud());
+            
             for (int i = 0; i < listaEquipo.size(); i++) {
                 Relacion_orden_equipo detalleOrdenEquipo = new Relacion_orden_equipo();
 
-                detalleOrdenEquipo.setIdOrden_interna(ordenEquipoTemporal);
+                detalleOrdenEquipo.setIdOrden_interna(ordenTemporal);
                 detalleOrdenEquipo.setIdEquipo(listaEquipo.get(i));
                 relacion_orden_equipoDAO.registrarDetalleOrdenEquipo(detalleOrdenEquipo);
 
-            }/*
-             Orden_interna ordenRefaccionTemporal= ordenInternaDao.identificadorDeOrden(orden_interna.getIdsolicitud());
+            }
+            
+            
+                System.out.println("Lista de Refaccion "+listaRefaccion.size());                      
             for (int i = 0; i < listaRefaccion.size(); i++) {
                 Relacion_orden_refaccion detalleOrdenRefaccion = new Relacion_orden_refaccion();
 
-                detalleOrdenRefaccion.setIdOrdenRefaccion(ordenRefaccionTemporal);
+                detalleOrdenRefaccion.setIdOrdenRefaccion(ordenTemporal);
                 detalleOrdenRefaccion.setIdRefaccion(listaRefaccion.get(i));
                 relacion_orden_refaccionDAO.registrarDetalleOrdenRefaccion(detalleOrdenRefaccion);
 
-            }*/
+            }
             
             System.out.println("fecha del sistema " + orden_interna.getFecha());
            
@@ -133,6 +137,14 @@ public class Orden_internaBEAN implements Serializable{
             throw ex;
         }
     }
+    
+    //---------para checkBox TABLA
+    public void check(SelectEvent event) {
+            System.out.println("in check-Equipo");
+        }
+    public void checkDos(SelectEvent event) {
+            System.out.println("in check-Refaccion");
+        }
     
     
     //-----
