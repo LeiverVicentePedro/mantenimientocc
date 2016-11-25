@@ -22,18 +22,21 @@
         <f:event type="preRenderView" listener="#{accesoBEAN.exite()}"/>
     </h:head>
 
-    <h:body style=" height: 100%; background-color: #fafafa;">
+    <h:body style=" height: 100%; background-color: #fafafa;" class="container">
 
-        <div class="container" Style=" height: 8em">
-            <div class="">
+        <div  Style="margin-top: 2em;">
+            
+            <div class="col-md-12">
                 <p:graphicImage library="images" name="header_federal_ito.png" width="99%" height="120px" style="background-repeat: no-repeat; background-size: 980px 120px; position: relative;"/>
             </div>
+            <div class="col-md-1"></div>
             <p:outputLabel class="text-capitalize text-center container"  style=" font-size:1.4em; margin-top: 0.5em" value="Sistema de Mantenimiento"/>
 
         </div>
 
-        <div  class="container" style=" margin-top: 4em; min-height: 100%">
-            <div>
+        <div  style=" margin-top: 2em; min-height: 100%">
+            
+            <div class="col-md-12">
                 <ui:insert name="top">
                     <h:form>
                         <p:menubar model="#{menuBEAN.menuPrincipal}">
@@ -44,26 +47,27 @@
                     </h:form>
                 </ui:insert>
             </div>
-
-            <p:separator style="visibility: hidden;"/>
-
-            <div  id="content">
+            
+            
+            
+            <div  id="content" class="col-md-12">
                 <ui:insert name="content">Content</ui:insert>
             </div>
-
+            
         </div>
 
-        <div id="footer" class="container" style=" font-size: 12px; text-align: center;">
+        
+        <div id="footer" class="col-md-12" style=" font-size: 12px; text-align: center;">
             <br/>
             <div style="webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; vertical-align: baseline; margin-bottom: 30px; position: relative;">
                 <br/>
-                <p:graphicImage library="images" name="line-01.gif" style="left: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="4px" width="373px" />
-                <p:graphicImage library="images" name="gobmx.png" width="220px" height="70px" style="background-repeat: no-repeat; background-size: 220px 70px; display: block; text-indent: -9999px; margin: -10px auto 0;"/>
-                <p:graphicImage library="images" name="line-01.gif" style="right: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="4px" width="373px"/>
+                <p:graphicImage library="images" name="line-01.gif" style="left: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="3px" width="320px" />
+                <p:graphicImage library="images" name="gobmx.png" width="210px" height="65px" style="background-repeat: no-repeat; background-size: 210px 65px; display: block; text-indent: -9999px; margin: -10px auto 0;"/>
+                <p:graphicImage library="images" name="line-01.gif" style="right: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="3px" width="320px"/>
             </div>
             <b>
-                <p id="pie" style="margin: 0 0 20px; text-align: center; font: 14px/17px 'soberana_sansregular',serif; margin-bottom: 20px;">
-                    <b>Tecnológico Nacional de México / Instituto Tecnológico de Oaxaca 
+                <p id="pie" style="margin: 0 0 20px; text-align: center; font: 14px/17px 'soberana_sansregular',serif; margin-bottom: 20px; white-space: normal; border: 0; outline: 0;">
+                    <b style="font-family: inherit; font-style: inherit;">Tecnológico Nacional de México / Instituto Tecnológico de Oaxaca 
                         <br/>Avenida Ing. Víctor Bravo Ahuja No. 125 Esquina Calzada Tecnológico, C.P. 68030 <br/>
                         Tels. (951) 501 50 16, Correo electrónico: tec_oax@itoaxaca.edu.mx<br/>
                         <br/>
@@ -72,6 +76,7 @@
                 </p>
             </b>
         </div>
+        
 
     </h:body>
 

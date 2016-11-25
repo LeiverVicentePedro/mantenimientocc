@@ -154,16 +154,31 @@
                     <h:form id="formDialogo">
                         <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
                         <p:panel header="Datos Personales" class="text-center container-fluid">
-                            <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
-                                <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}" />
-                                <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.objetoUsuario.nombre}" required="true" requiredMessage="Nombre Requerido"/>
-                                <p:inputText class="" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.objetoUsuario.apellidoPaterno}" required="true" requiredMessage="Apellido Paterno Requerido"/>
-                                <p:inputText class="" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.objetoUsuario.apellidoMaterno}" required="true" requiredMessage="Apellido Materno Requerido"/>
+                            <h:panelGrid columns="6" cellspacing="10" cellpadding="5">
+                                <p:outputLabel value="RFC&nbsp;"/>
+                                <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}" style="text-transform: uppercase" >
+                                    <f:validator validatorId="validadoresRFC"/>
+                                </p:inputText>
+                                <h:column/><h:column/>
+                                <h:column/><h:column/>
+                                <p:outputLabel value="Nombre&nbsp;"/>
+                                <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.objetoUsuario.nombre}" required="true" requiredMessage="Nombre Requerido">
+                                <f:validator validatorId="validadoresLetrasUsuario"/>
+                                </p:inputText>
+                                
+                                <p:outputLabel value="&nbsp;Apellido&nbsp;"/>
+                                <p:inputText class="" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.objetoUsuario.apellidoPaterno}" required="true" requiredMessage="Apellido Paterno Requerido">
+                                <f:validator validatorId="validadoresLetrasUsuario"/>
+                                </p:inputText>
+                                <p:outputLabel value="&nbsp;Apellido&nbsp;"/>
+                                <p:inputText class="" placeholder="Apellido Materno" id="apellidoMaterno" value="#{usuarioBEAN.objetoUsuario.apellidoMaterno}" required="true" requiredMessage="Apellido Materno Requerido">
+                                <f:validator validatorId="validadoresLetrasUsuario"/>
+                                </p:inputText>
                             </h:panelGrid>
                         </p:panel>
                         <p/>
                         <p:panel header="Sobre su Trabajo" class="text-center container ">
-                            <h:panelGrid columns="3" cellpadding="5" cellspacing="10">
+                            <h:panelGrid columns="6" cellpadding="5" cellspacing="10">
                                 <p:multiSelectListbox value="#{usuarioBEAN.objetoUsuario.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
                                     <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
                                 </p:multiSelectListbox>
@@ -179,8 +194,6 @@
                                     <f:selectItem itemLabel="Estatus" itemValue="#{null}"/>
                                     <f:selectItem itemLabel="Activo" itemValue="true" />
                                     <f:selectItem itemLabel="Inactivo" itemValue="false"/>
-                                </p:selectOneMenu>
-                                <p:selectOneMenu value="#">
                                 </p:selectOneMenu>
                             </h:panelGrid>
                         </p:panel>
