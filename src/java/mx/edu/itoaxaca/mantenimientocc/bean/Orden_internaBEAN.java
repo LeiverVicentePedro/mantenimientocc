@@ -5,13 +5,19 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_internaDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Relacion_orden_equipoDAO;
@@ -21,8 +27,12 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_interna;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Refaccion_empleada;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_equipo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_refaccion;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.event.SelectEvent;
 
 
@@ -42,17 +52,7 @@ public class Orden_internaBEAN implements Serializable{
     
     
     
-    Usuario usuarioVive;
     
-    public Usuario getUsuarioVive() {
-        return usuarioVive;
-    }
-
-    public void setUsuarioVive(Usuario usuarioVive) {
-        this.usuarioVive = usuarioVive;
-    }
-
- 
     public Orden_interna getOrden_interna() {
         return orden_interna;
     }
@@ -96,7 +96,7 @@ public class Orden_internaBEAN implements Serializable{
         Relacion_orden_refaccionDAO relacion_orden_refaccionDAO;
         try {
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
-            usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+            Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
             //existir dentro del navegador
             ordenInternaDao = new Orden_internaDAO();
             relacion_orden_equipoDAO = new Relacion_orden_equipoDAO();
@@ -132,8 +132,8 @@ public class Orden_internaBEAN implements Serializable{
 
             }
             
-            System.out.println("fecha del sistema " + orden_interna.getFecha());
-            
+           // System.out.println("fecha del sistema " + orden_interna.getFecha());
+          //  exportarPDFOrdenInterna(usuarioVive);
 
         } catch (Exception ex) {
             System.out.println("Error en Orden-BEAN -> generarOrden " + ex);

@@ -15,12 +15,14 @@
         <h:outputStylesheet library="awesome" name="css/font-awesome.css"/>
       
     </h:head>
-    <h:body style="background-color: #FAFAFA;">
+    <h:body style="background-color: #FAFAFA;" class="container">
         <p:growl autoUpdate="true"/>
-        <div class="container" Style="height: 8em">
-            <div class="">
-                <p:graphicImage library="images" name="header_federal_ito.png" width="99%" height="120px" style="background-repeat: no-repeat; background-size: 980px 120px; position: relative;"/>
+        <div  Style="margin-top: 2em;">
+           
+            <div class="col-md-12">
+                <p:graphicImage library="images" name="header_federal_ito.png" width="99%" height="125px" style="background-repeat: no-repeat; background-size: 980px 125px; position: relative;"/>
             </div>
+            
             <p:outputLabel class="text-capitalize text-center container"  style=" font-size:1.4em; margin-top: 0.5em" value="Sistema de Mantenimiento"/>
 
         </div>
@@ -53,13 +55,14 @@
 
         </div>
         <p:separator style="visibility: hidden"/>
-        <div id="footer" class="container" style=" font-size: 12px; text-align: center;">
+        
+        <div id="footer" class="col-md-12" style=" font-size: 12px; text-align: center;">
             <br/>
             <div style="webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; vertical-align: baseline; margin-bottom: 30px; position: relative;">
                 <br/>
-                <p:graphicImage library="images" name="line-01.gif" style="left: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="4px" width="373px" />
-                <p:graphicImage library="images" name="gobmx.png" width="220px" height="70px" style="background-repeat: no-repeat; background-size: 220px 70px; display: block; text-indent: -9999px; margin: -10px auto 0;"/>
-                <p:graphicImage library="images" name="line-01.gif" style="right: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="4px" width="373px"/>
+                <p:graphicImage library="images" name="line-01.gif" style="left: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="3px" width="320px" />
+                <p:graphicImage library="images" name="gobmx.png" width="210px" height="65px" style="background-repeat: no-repeat; background-size: 210px 65px; display: block; text-indent: -9999px; margin: -10px auto 0;"/>
+                <p:graphicImage library="images" name="line-01.gif" style="right: 0; background: 0 100% repeat-x; display: block; position: absolute; bottom: 33px;" height="3px" width="320px"/>
             </div>
             <b>
                 <p id="pie" style="margin: 0 0 20px; text-align: center; font: 14px/17px 'soberana_sansregular',serif; margin-bottom: 20px; white-space: normal; border: 0; outline: 0;">
@@ -72,6 +75,7 @@
                 </p>
             </b>
         </div>
+        
     </h:body>
 </html>
 

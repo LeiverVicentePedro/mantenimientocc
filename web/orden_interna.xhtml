@@ -269,9 +269,7 @@
                 <p:separator style="visibility: hidden;"/>
                 <p:commandButton value="Refaccion" oncomplete="PF('DatosRefaccion').show();" update=":dialogoDatosRefaccion" /> 
                 
-                <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" />
-                    
-                
+                <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" ajax="false" />
 
                 </h:form>
              <!--////////////////////////////////////////////////Aqui termina Orden Interna///////////////////////////////-->
