@@ -129,7 +129,7 @@ public class Orden_internaBEAN implements Serializable{
 
             }
             
-           // System.out.println("fecha del sistema " + orden_interna.getFecha());
+            System.out.println("fecha del sistema " + orden_interna.getFecha());
             exportarPDFOrdenInterna(usuarioVive);
 
         } catch (Exception ex) {
