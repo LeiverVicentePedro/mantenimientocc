@@ -6,6 +6,7 @@
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -35,9 +36,11 @@ public class Orden_internaBEAN implements Serializable{
     
     private Orden_interna orden_interna=new Orden_interna();
     
-    private List<Equipo> listaEquipo;
-    private List<Refaccion_empleada> listaRefaccion;
+    private List<Equipo> listaEquipo = new ArrayList();
+    private List<Refaccion_empleada> listaRefaccion= new ArrayList();
     private List<Orden_interna> listaOrden_interna;
+    
+    
     
     Usuario usuarioVive;
     
@@ -84,10 +87,10 @@ public class Orden_internaBEAN implements Serializable{
     
     
     
-    
     ////-----REGISTRAR----
     public void registrarOrden() throws Exception {
         Orden_internaDAO ordenInternaDao;
+        
         
         Relacion_orden_equipoDAO relacion_orden_equipoDAO;
         Relacion_orden_refaccionDAO relacion_orden_refaccionDAO;
@@ -130,7 +133,7 @@ public class Orden_internaBEAN implements Serializable{
             }
             
             System.out.println("fecha del sistema " + orden_interna.getFecha());
-           
+            
 
         } catch (Exception ex) {
             System.out.println("Error en Orden-BEAN -> generarOrden " + ex);
@@ -161,6 +164,16 @@ public class Orden_internaBEAN implements Serializable{
             System.out.println("error en orden_internaBEAN --> listarordenInternaBEAN"+e);
         }
     }
+    
+     public void limpiarOrdenInterna() {
+        orden_interna.setIdsolicitud(null);
+        orden_interna.setNombre_orden("");
+        orden_interna.setReporte_fallo("");
+        orden_interna.setReporte_tecnico("");
+        orden_interna.setPosible_causa("");
+    }
+    
+    
     
     
     

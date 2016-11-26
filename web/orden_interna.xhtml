@@ -223,21 +223,14 @@
         </p:dialog>
         <!--/////////////////////////////////////////// Apartir de Aqui Termina la parte de Refaccion  /////////////////////////////////////////////-->
         
-        
-        
-        
-        
-        
-        
-        
-        
-                <!-- ////////////////////////////////////Aqui se llenan los campos de Orden interna  //////////////////////////////////////////////--> 
+        <!-- ////////////////////////////////////Aqui se llenan los campos de Orden interna  //////////////////////////////////////////////--> 
                  
                 <h:form>
                     <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listarSolicituMC()}"/>
-                    <p:panel>
+                    <p:panel id="panelOrden">
                         <f:facet name="header" class="text-center">
                             <h:outputText value="Orden Interna" />
+                            
                        </f:facet> 
                         
                     <h:panelGrid columns="2" cellspacing="10" cellpadding="5">
@@ -276,7 +269,9 @@
                 <p:separator style="visibility: hidden;"/>
                 <p:commandButton value="Refaccion" oncomplete="PF('DatosRefaccion').show();" update=":dialogoDatosRefaccion" /> 
                 
-                <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}"  />
+                <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" />
+                    
+                
 
                 </h:form>
              <!--////////////////////////////////////////////////Aqui termina Orden Interna///////////////////////////////-->
