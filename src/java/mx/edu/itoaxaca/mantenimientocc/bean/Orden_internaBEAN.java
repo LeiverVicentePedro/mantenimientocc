@@ -51,8 +51,6 @@ public class Orden_internaBEAN implements Serializable{
     private List<Orden_interna> listaOrden_interna;
     
     
-    
-    
     public Orden_interna getOrden_interna() {
         return orden_interna;
     }
@@ -133,7 +131,7 @@ public class Orden_internaBEAN implements Serializable{
             }
             
            // System.out.println("fecha del sistema " + orden_interna.getFecha());
-          //  exportarPDFOrdenInterna(usuarioVive);
+//            exportarPDFOrdenInterna(usuarioVive);
 
         } catch (Exception ex) {
             System.out.println("Error en Orden-BEAN -> generarOrden " + ex);
@@ -165,13 +163,7 @@ public class Orden_internaBEAN implements Serializable{
         }
     }
     
-     public void limpiarOrdenInterna() {
-        orden_interna.setIdsolicitud(null);
-        orden_interna.setNombre_orden("");
-        orden_interna.setReporte_fallo("");
-        orden_interna.setReporte_tecnico("");
-        orden_interna.setPosible_causa("");
-    }
+    
     
     
     
