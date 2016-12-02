@@ -23,7 +23,18 @@ public class Usuario {
     private Profesion id_profesion;
     private String tipoBT;
     private Boolean estatus;
+    private String concatenar;
 
+    
+    public String getConcatenar() {
+        return concatenar;
+    }
+
+    public void setConcatenar() {
+        
+        this.concatenar = getNombre()+" "+getApellidoPaterno()+" "+getApellidoMaterno();
+    }
+    
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -147,9 +158,6 @@ public class Usuario {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s[idUsuario=%d]",getClass().getSimpleName(),getIdUsuario());
-    }
+   
      
 }

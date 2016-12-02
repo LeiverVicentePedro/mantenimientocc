@@ -50,6 +50,9 @@ public class UsuarioBEAN implements Serializable{
     private List<Usuario> listaUsuariosDeUnDepartamento;
     private List<Usuario> filterUsuario;
     private List<Usuario> listaParaFiltro;
+    
+    private List<Usuario> listarTodosLosUsuarios;
+    
     static String usuarioCorreo;
     static String contraseñaCorreo;
     static Properties propiedades;
@@ -57,6 +60,15 @@ public class UsuarioBEAN implements Serializable{
     private String recuperaCorreo;
     private String accionDeBotonUsuario;
 
+    public List<Usuario> getListarTodosLosUsuarios() {
+        return listarTodosLosUsuarios;
+    }
+
+    public void setListarTodosLosUsuarios(List<Usuario> listarTodosLosUsuarios) {
+        this.listarTodosLosUsuarios = listarTodosLosUsuarios;
+    }
+
+    
     public List<Usuario> getFilterUsuario() {
         return filterUsuario;
     }
@@ -390,6 +402,18 @@ public class UsuarioBEAN implements Serializable{
             }
         } catch (Exception ex) {
             System.out.println("Error en UsuarioBEAN -> elegirDatoUsuario " + ex);
+        }
+    }
+    
+    public void listarUsuario() throws Exception{
+       UsuarioDAO usuariodao;
+        try{
+            usuariodao=new UsuarioDAO();
+            listarTodosLosUsuarios = usuariodao.listaUsuario();
+            System.out.println(listarTodosLosUsuarios.get(0).getConcatenar());
+        }
+        catch(Exception e){
+            System.out.println("error en orden_internaBEAN --> listarordenInternaBEAN"+e);
         }
     }
 }

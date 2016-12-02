@@ -49,6 +49,27 @@ public class Orden_internaBEAN implements Serializable{
     private List<Equipo> listaEquipo = new ArrayList();
     private List<Refaccion_empleada> listaRefaccion= new ArrayList();
     private List<Orden_interna> listaOrden_interna;
+    private List<Orden_interna> filterOrden;
+    private List<Orden_interna> selecEquipoRefaccion;
+
+    public List<Orden_interna> getSelecEquipoRefaccion() {
+        return selecEquipoRefaccion;
+    }
+
+    public void setSelecEquipoRefaccion(List<Orden_interna> selecEquipoRefaccion) {
+        this.selecEquipoRefaccion = selecEquipoRefaccion;
+    }
+    
+    
+
+    public List<Orden_interna> getFilterOrden() {
+        return filterOrden;
+    }
+
+    public void setFilterOrden(List<Orden_interna> filterOrden) {
+        this.filterOrden = filterOrden;
+    }
+    
     
     
     public Orden_interna getOrden_interna() {
@@ -127,11 +148,12 @@ public class Orden_internaBEAN implements Serializable{
                 detalleOrdenRefaccion.setIdOrdenRefaccion(ordenTemporal);
                 detalleOrdenRefaccion.setIdRefaccion(listaRefaccion.get(i));
                 relacion_orden_refaccionDAO.registrarDetalleOrdenRefaccion(detalleOrdenRefaccion);
-
+               
             }
             
             System.out.println("fecha del sistema " + orden_interna.getFecha());
-         //   exportarPDFOrdenInterna(usuarioVive);
+            exportarPDFOrdenInterna(usuarioVive);
+            this.limpiarOrdenInterna();
 
         } catch (Exception ex) {
             System.out.println("Error en Orden-BEAN -> generarOrden " + ex);
@@ -163,10 +185,92 @@ public class Orden_internaBEAN implements Serializable{
         }
     }
     
+    //--------------------------------------------------------------------------------------
+    //----------------metodo que nos genera el pdf para la Orden Interna--------------------
+    public void exportarPDFOrdenInterna(Usuario usuarioActivo) throws JRException, IOException{
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        
+        String nombreUsuario = orden_interna.getIdsolicitud().getId_usuario().getId_profesion().getNombre_profesion()+". "+
+                orden_interna.getIdsolicitud().getId_usuario().getNombre()+" "+
+                orden_interna.getIdsolicitud().getId_usuario().getApellidoPaterno()+" "+
+                orden_interna.getIdsolicitud().getId_usuario().getApellidoMaterno();
+        
+        String fecha = String.valueOf(orden_interna.getFecha());
+        String fechaOrden = String.valueOf(orden_interna.getIdsolicitud().getFecha());
+        
+        String tipo = "";
+        String marca = "";
+        String modelo = "";
+        String numeroSerie = "";
+        String folioInventario = "";
+        
+        String cantidad = "";
+        String numeroPartes = "";
+        String descripcion = "";
+        String precio = "";
+        
+        parametros.put("folio", orden_interna.getIdsolicitud().getFolio());
+        if(orden_interna.getNombre_orden().equalsIgnoreCase("orden de mantenimiento")){
+            parametros.put("cordinacion","COORDINACIÓN DE MANTENIMIENTO DE EQUIPO DE CÓMPUTO");
+        }else{
+            parametros.put("cordinacion","COORDINACIÓN DE TELECOMUNICACIONES");
+        }
+        parametros.put("orden", orden_interna.getNombre_orden());
+        parametros.put("nombreUsiario",nombreUsuario);
+        parametros.put("area",orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getDepartamento().getNombre_departamento());
+        parametros.put("departamento",orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getNombreOficina());
+        parametros.put("extencion",orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getExtencion());
+        parametros.put("fecha",fechaOrden);
+        
+        for(Equipo elementoEquipo : listaEquipo){
+          tipo += elementoEquipo.getTipo()+"\n";
+          marca+= elementoEquipo.getMarca()+"\n";
+          modelo += elementoEquipo.getModelo()+"\n";
+          numeroSerie += elementoEquipo.getNumero_serie()+"\n";
+          folioInventario += elementoEquipo.getFolio_inventario()+"\n";
+        }
+        System.out.println("ahora si");
+        parametros.put("tipo", tipo);
+        parametros.put("marca", marca);
+        parametros.put("modelo", modelo);
+        parametros.put("numSerie", numeroSerie);
+        parametros.put("folioInventario",folioInventario);
+        parametros.put("reporteFalla",orden_interna.getReporte_fallo());
+        parametros.put("reporteTecnico",orden_interna.getReporte_tecnico());
+        parametros.put("causaFalla", orden_interna.getPosible_causa());
+        parametros.put("realizo",usuarioActivo.getNombre()+" "+usuarioActivo.getApellidoPaterno()+" "+usuarioActivo.getApellidoMaterno());
+        parametros.put("fechaRealizo",fecha);
+        
+        for(Refaccion_empleada refaccion : listaRefaccion){
+         cantidad += refaccion.getCantidad()+"\n";
+         numeroPartes += refaccion.getNumero_serie()+"\n";
+         descripcion += refaccion.getDescripcion()+"\n";
+         precio += refaccion.getPrecio()+"\n";
+        }
+        
+        parametros.put("cantidad", cantidad);
+        parametros.put("numParte", numeroPartes);
+        parametros.put("descripcion", descripcion);
+        parametros.put("precio", precio);
+        
+        File archivo = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/FormatoOrdenInterna.jasper"));
+        JasperPrint imprimirArchivo = JasperFillManager.fillReport(archivo.getPath(), parametros, new JREmptyDataSource());
+
+        HttpServletResponse respuesta = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        respuesta.addHeader("Content-Disposition", "attachment; filename=\"Orden_interna.pdf\";");
+        ServletOutputStream stream = respuesta.getOutputStream();
+
+        JasperExportManager.exportReportToPdfStream(imprimirArchivo, stream);
+
+        FacesContext.getCurrentInstance().responseComplete();
     
+}
     
-    
-    
-    
-    
+    public void limpiarOrdenInterna(){
+        this.orden_interna.setIdsolicitud(null);
+        this.orden_interna.setNombre_orden("ORDEN DE MANTENIMIENTO");
+        this.orden_interna.setReporte_fallo("");
+        this.orden_interna.setReporte_tecnico("");
+        this.orden_interna.setPosible_causa("");
+    }
 }

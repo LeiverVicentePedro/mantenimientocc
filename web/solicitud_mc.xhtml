@@ -11,7 +11,7 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                <h:form>
+                <h:form id="formSolicitud">
                     <f:event type="preRenderView" listener="#{departamentoBEAN.listaDepartamentoServicio()}"/>
                     <f:event type="preRenderView" listener="#{catalogo_servicio_solicitadoBEAN.listarCatalogo()}"/>
                     <p:panel header="Solicitud de Servico" >
@@ -31,7 +31,7 @@
                     </h:panelGrid>
                 </p:panel>
                 <p:separator style="visibility: hidden;"/>
-                <p:commandButton value="Registrar" action="#{solicitud_mcBEAN.registrarSolicitudMC()}" ajax="false"/>
+                <p:commandButton value="Registrar" action="#{solicitud_mcBEAN.registrarSolicitudMC()}" update="formSolicitud" ajax="false"/>
 
                 </h:form>
             </ui:define>

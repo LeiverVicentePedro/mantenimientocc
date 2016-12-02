@@ -102,7 +102,7 @@
                      
                  </h:form>
                    
-                   <p:dialog header="Datos Oficina" widgetVar="Datos" id="dialogoDatos" class="container-fluid">  
+                   <p:dialog header="Datos Oficina" widgetVar="Datos" id="dialogoDatos" class="container-fluid"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">  
                    
                     <h:form id="lista">
                      <f:event type="preRenderView" listener="#{departamentoBEAN.listarDepartamento()}"/>

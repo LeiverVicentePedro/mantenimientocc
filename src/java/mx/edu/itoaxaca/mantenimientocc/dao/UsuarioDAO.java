@@ -209,4 +209,41 @@ public class UsuarioDAO extends Conexion{
            this.Cerrar();
         } 
     }
+    
+    public List<Usuario> listaUsuario() throws Exception
+    {
+        List<Usuario> listaUsuario;
+        ResultSet resultado;
+       try{
+           this.Conectar();
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario" );
+           resultado = consulta.executeQuery();
+           listaUsuario = new ArrayList();
+           while(resultado.next()){
+               Usuario usuarioParaLista = new Usuario();
+            usuarioParaLista.setIdUsuario(resultado.getInt("idusuario"));
+            usuarioParaLista.setNombre(resultado.getString("nombre"));
+            usuarioParaLista.setApellidoPaterno(resultado.getString("apellido_paterno"));
+            usuarioParaLista.setApellidoMaterno(resultado.getString("apellido_materno"));
+            usuarioParaLista.setCorreo(resultado.getString("correo"));
+            usuarioParaLista.setClave(resultado.getString("clave"));
+            usuarioParaLista.setNivel(resultado.getInt("nivel"));
+            usuarioParaLista.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
+            usuarioParaLista.setRfc(resultado.getString("rfc"));
+            usuarioParaLista.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
+            usuarioParaLista.setTipoBT(resultado.getString("tipo_bt"));
+            usuarioParaLista.setEstatus(resultado.getBoolean("estatus"));
+            usuarioParaLista.setConcatenar();
+            listaUsuario.add(usuarioParaLista);
+            
+           }
+   
+       }catch(Exception ex){
+           System.out.println("Eror en UsuarioDAO -> listaUsuarioDepartamento "+ex);
+           throw ex;
+       }finally{
+           this.Cerrar();
+       }
+       return listaUsuario;
+    }
 }
