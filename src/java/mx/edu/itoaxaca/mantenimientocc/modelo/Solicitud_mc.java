@@ -20,6 +20,7 @@ public class Solicitud_mc implements Serializable{
     private Date fecha;
     private String otroProblema;
     private Departamento id_departamento;
+    private String asignacion;
     
     public int getIdsolicitud_mc() {
         return idsolicitud_mc;
@@ -69,6 +70,14 @@ public class Solicitud_mc implements Serializable{
         this.id_departamento = id_departamento;
     }
 
+    public String getAsignacion() {
+        return asignacion;
+    }
+
+    public void setAsignacion(String asignacion) {
+        this.asignacion = asignacion;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

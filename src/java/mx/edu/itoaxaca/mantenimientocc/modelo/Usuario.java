@@ -23,7 +23,8 @@ public class Usuario {
     private Profesion id_profesion;
     private String tipoBT;
     private Boolean estatus;
-
+    
+    
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -119,7 +120,6 @@ public class Usuario {
     public void setEstatus(Boolean estatus) {
         this.estatus = estatus;
     }
-
    
 
     @Override
@@ -149,7 +149,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return String.format("%s[idUsuario=%d]",getClass().getSimpleName(),getIdUsuario());
+        return nombre+" "+apellidoPaterno+" "+apellidoMaterno;
     }
      
 }

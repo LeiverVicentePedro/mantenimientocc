@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Oficina_solicitante;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
 /**
@@ -100,6 +99,7 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
+            
             
             }
             resultado.close();

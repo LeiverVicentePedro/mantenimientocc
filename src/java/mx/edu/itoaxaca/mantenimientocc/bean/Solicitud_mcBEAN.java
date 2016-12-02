@@ -8,6 +8,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -21,9 +22,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_servicio_solicitadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Detalle_solicitudDAO;
+import mx.edu.itoaxaca.mantenimientocc.dao.Orden_internaDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Catalogo_servicio_solicitado;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Detalle_solicitud;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_interna;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -31,7 +34,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  *
@@ -48,7 +50,25 @@ public class Solicitud_mcBEAN implements Serializable{
     Usuario usuarioVive;
    
     private List<Solicitud_mc> listaSolicitud;
+    private List<Solicitud_mc> listaSolicitudPorDepartamento;
+    private List<Solicitud_mc> listaFiltroSolicitud;
+    private List<Orden_interna> listaOrdenInterna;
 
+    public List<Solicitud_mc> getListaFiltroSolicitud() {
+        return listaFiltroSolicitud;
+    }
+
+    public void setListaFiltroSolicitud(List<Solicitud_mc> listaFiltroSolicitud) {
+        this.listaFiltroSolicitud = listaFiltroSolicitud;
+    }
+    
+    public List<Solicitud_mc> getListaSolicitudPorDepartamento() {
+        return listaSolicitudPorDepartamento;
+    }
+
+    public void setListaSolicitudPorDepartamento(List<Solicitud_mc> listaSolicitudePorDepartamento) {
+        this.listaSolicitudPorDepartamento = listaSolicitudePorDepartamento;
+    }
     
     
     public String getFolioSolicitud() {
@@ -103,6 +123,7 @@ public class Solicitud_mcBEAN implements Serializable{
         this.serviciosPorDepartamento = serviciosPorDepartamento;
     }
 
+    
     public void registrarSolicitudMC() throws Exception {
         Solicitud_mcDAO solicitudDao;
         Detalle_solicitudDAO detalleSolicitudDao;
@@ -229,6 +250,30 @@ public class Solicitud_mcBEAN implements Serializable{
         }
         catch(Exception e){
             System.out.println("error en Solicitud BEAN --> listarSolicitud BEAN"+e);
+        }
+    }
+    
+    public void listarSolicitudPorDepartamento(){
+        Solicitud_mcDAO solicitud;
+        
+        try{
+            solicitud = new Solicitud_mcDAO();
+            Orden_internaDAO ordenInterna = new Orden_internaDAO();
+            FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+            listaSolicitudPorDepartamento =solicitud.listarSoicitudPorDepartamentoUsuario(usuarioVive);
+            listaOrdenInterna = ordenInterna.listarOrden_interna();
+            for(int i=0; i<listaSolicitudPorDepartamento.size();i++){
+                listaSolicitudPorDepartamento.get(i).setAsignacion("No Asignada");
+                for(int j=0;j<listaOrdenInterna.size();j++){
+                    if(listaSolicitudPorDepartamento.get(i).getIdsolicitud_mc()==listaOrdenInterna.get(j).getIdsolicitud().getIdsolicitud_mc()){
+                        listaSolicitudPorDepartamento.get(i).setAsignacion("Asignada");
+                    }
+                }
+                
+            }
+        }catch(Exception ex){
+            System.out.println("Error en Solicitud_mc -> listarSolicitudPorDepartamento "+ex);
         }
     }
 }

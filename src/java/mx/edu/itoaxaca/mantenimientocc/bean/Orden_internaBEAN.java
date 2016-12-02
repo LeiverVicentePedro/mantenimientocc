@@ -206,7 +206,7 @@ public class Orden_internaBEAN implements Serializable{
           numeroSerie += elementoEquipo.getNumero_serie()+"\n";
           folioInventario += elementoEquipo.getFolio_inventario()+"\n";
         }
-        System.out.println("ahora si");
+        
         parametros.put("tipo", tipo);
         parametros.put("marca", marca);
         parametros.put("modelo", modelo);
