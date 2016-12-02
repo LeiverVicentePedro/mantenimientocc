@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" >
+      <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                <p:growl id="msj" showDetail="true" sticky="true"/>
+                <p/>
+                <h:form id="formAsignar">
+                    <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudesCentroComputo()}"/>
+                    <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuario()}"/>
+                    <center>
+                    <p:panel id="panelAsignarSolicitud">
+                        <f:facet name="header" class="text-center">
+                            <h:outputText value="Asignar Solicitud" />
+                        </f:facet> 
+                        <h:panelGrid columns="7" cellspacing="10" cellpadding="5">
+                            <p/>
+                            <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
+                            <p:selectOneMenu value="#{aasigna_solicitudBEAN.asigna_Solicitud.id_solicitud}" converter="omnifaces.SelectItemsConverter" 
+                                             styleClass="selectMenu" required="true" requiredMessage="Se Requiere Folio De Solicitud"
+                                             style="text-transform: uppercase">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                <f:selectItems value="#{solicitud_mcBEAN.listaSolicitudesCentroComputo}" var="solicituditem" itemLabel="#{solicituditem.folio}" itemValue="#{solicituditem}"/>
+                            </p:selectOneMenu>
+                            <p/>
+                            <p:column>
+                                <p:outputLabel value="&nbsp;&nbsp;&nbsp;&nbsp;"/>
+                            </p:column>
+                             <p:outputLabel value="&nbsp;Persona Asignada&nbsp;"/>
+                             <p:selectOneMenu value="#{aasigna_solicitudBEAN.asigna_Solicitud.id_usuario_personal}" converter="omnifaces.SelectItemsConverter" 
+                                             styleClass="selectMenu" required="true" requiredMessage="Se Requiere Personal"
+                                             style="text-transform: uppercase">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                <f:selectItems value="#{usuarioBEAN.listarTodosLosUsuarios}" var="asignaSolicituditem" itemLabel="#{asignaSolicituditem.concatenar}" itemValue="#{asignaSolicituditem}"/>
+                            </p:selectOneMenu>
+                            <p/>
+                        </h:panelGrid>
+                       
+                    </p:panel>
+                    </center>
+                    <p:separator style="visibility: hidden;"/>
+                   
+
+                    <p:commandButton value="Asignar Solicitud" action="#{aasigna_solicitudBEAN.registrarAsignaSolicitu()}" />
+                    
+                    
+                   
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
