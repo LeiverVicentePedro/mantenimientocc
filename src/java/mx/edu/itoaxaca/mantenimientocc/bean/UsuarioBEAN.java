@@ -58,6 +58,7 @@ public class UsuarioBEAN implements Serializable{
     private String recuperaCorreo;
     private String accionDeBotonUsuario;
     private String mensajeContraseña;
+    
     public List<Usuario> getFilterUsuario() {
         return filterUsuario;
     }

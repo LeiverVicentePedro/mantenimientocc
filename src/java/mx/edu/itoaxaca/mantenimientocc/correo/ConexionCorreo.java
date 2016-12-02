@@ -23,8 +23,8 @@ public class ConexionCorreo {
     
     public  void setup() throws MessagingException {
         //datos de conexion
-        usuarioCorreo = "10161024@itoaxaca.edu.mx";
-        contraseñaCorreo = "Pequekrn";
+        usuarioCorreo = "soprte.mantenimiento@itoaxaca.edu.mx";
+        contraseñaCorreo = "tecdeoaxaca";
         //propiedades de la conexion
         propiedades = new Properties();
         propiedades.put("mail.smtp.auth", "true");
