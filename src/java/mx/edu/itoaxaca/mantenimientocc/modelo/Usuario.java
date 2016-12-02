@@ -130,7 +130,6 @@ public class Usuario {
     public void setEstatus(Boolean estatus) {
         this.estatus = estatus;
     }
-
    
 
     @Override
