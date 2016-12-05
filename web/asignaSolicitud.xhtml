@@ -10,22 +10,24 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                <p:growl id="msj" showDetail="true" sticky="true"/>
+                
                 <p/>
                 <h:form id="formAsignar">
+                    <p:growl id="msj" showDetail="true" sticky="true"/>
                     <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudesCentroComputo()}"/>
                     <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuario()}"/>
                     <center>
-                    <p:panel id="panelAsignarSolicitud">
+                        <p:panel id="panelAsignarSolicitud" style="width: 800px">
                         <f:facet name="header" class="text-center">
                             <h:outputText value="Asignar Solicitud" />
                         </f:facet> 
                         <h:panelGrid columns="7" cellspacing="10" cellpadding="5">
                             <p/>
+                            <p/>
                             <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
                             <p:selectOneMenu value="#{asigna_solicitudBEAN.asigna_Solicitud.id_solicitud}" converter="omnifaces.SelectItemsConverter" 
-                                             styleClass="selectMenu" required="true" requiredMessage="Se Requiere Folio De Solicitud"
-                                             style="text-transform: uppercase">
+                                             styleClass="selectMenu"
+                                             style="text-transform: uppercase" required="true" requiredMessage="Se Requiere Folio De Solicitud">
                                 <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                                 <f:selectItems value="#{solicitud_mcBEAN.listaSolicitudesCentroComputo}" var="solicituditem" itemLabel="#{solicituditem.folio}" itemValue="#{solicituditem}"/>
                             </p:selectOneMenu>
@@ -35,7 +37,7 @@
                             </p:column>
                              <p:outputLabel value="&nbsp;Persona Asignada&nbsp;"/>
                              <p:selectOneMenu value="#{asigna_solicitudBEAN.asigna_Solicitud.id_usuario_personal}" converter="omnifaces.SelectItemsConverter" 
-                                             styleClass="selectMenu" required="true" requiredMessage="Se Requiere Personal"
+                                              styleClass="selectMenu" required="true" requiredMessage="Se Requiere Persona Asignada"
                                              style="text-transform: uppercase">
                                 <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                                 <f:selectItems value="#{usuarioBEAN.listarTodosLosUsuarios}" var="asignaSolicituditem" itemLabel="#{asignaSolicituditem.concatenar}" itemValue="#{asignaSolicituditem}"/>
@@ -45,13 +47,15 @@
                        
                     </p:panel>
                     </center>
-                    <p:separator style="visibility: hidden;"/>
-                   
-
-                    <p:commandButton value="Asignar Solicitud" action="#{asigna_solicitudBEAN.registrarAsignaSolicitu()}" />
+                    <p/><p/>
+                    <center>
+                    <p:commandButton value="Asignar Solicitud" action="#{asigna_solicitudBEAN.registrarAsignaSolicitu()}" update="formAsignar" />
+                    </center>
                     
-                    
-                   
+                   <p/>
+                   <p/>
+                   <p/>
+                   <p/>
 
                 </h:form>
             </ui:define>

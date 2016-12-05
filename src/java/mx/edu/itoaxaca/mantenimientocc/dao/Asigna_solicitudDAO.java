@@ -67,4 +67,35 @@ public class Asigna_solicitudDAO extends Conexion{
         return lista;
     }
     
+         public List<Asigna_solicitud> buscarAsignacionPorIdUsuario(int idUsuario) throws Exception{
+         
+         List<Asigna_solicitud> listaAsignasionDeUsuario = null;
+         ResultSet resultadoConsulta;
+         try{
+             this.Conectar();
+             PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM asigna_solicitud where id_usuario_personal=?");
+             consulta.setInt(1, idUsuario);
+             resultadoConsulta = consulta.executeQuery();
+             listaAsignasionDeUsuario = new ArrayList();
+             while(resultadoConsulta.next()){
+             Asigna_solicitud asignaSolicitud = new Asigna_solicitud();
+             asignaSolicitud.setIdasigna_solicitud(resultadoConsulta.getInt("idasigna_solicitud"));
+             asignaSolicitud.setId_usuario_personal(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoConsulta.getInt("id_usuario_personal")));
+             asignaSolicitud.setId_solicitud(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultadoConsulta.getInt("id_solicitud")));
+             asignaSolicitud.setId_usuario_personal_jefe(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoConsulta.getInt("id_usuario_personal_jefe")));
+             asignaSolicitud.setFecha(resultadoConsulta.getDate("fecha_asignada"));
+             
+             listaAsignasionDeUsuario.add(asignaSolicitud);
+              }
+              resultadoConsulta.close();
+              
+         }catch(Exception ex){
+             System.out.println("Error en Lista Asignacion por UsuarioDAO -> buscar Asignacion por Usuario "+ex);
+             throw ex;
+         }finally{
+             this.Cerrar();
+         }
+         return listaAsignasionDeUsuario;
+     }
+    
 }
