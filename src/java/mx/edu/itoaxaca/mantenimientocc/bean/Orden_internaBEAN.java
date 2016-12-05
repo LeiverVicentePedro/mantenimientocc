@@ -8,6 +8,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,9 +46,30 @@ public class Orden_internaBEAN implements Serializable{
     
     private Orden_interna orden_interna=new Orden_interna();
     
-    private List<Equipo> listaEquipo;
-    private List<Refaccion_empleada> listaRefaccion;
+    private List<Equipo> listaEquipo = new ArrayList();
+    private List<Refaccion_empleada> listaRefaccion= new ArrayList();
     private List<Orden_interna> listaOrden_interna;
+    private List<Orden_interna> filterOrden;
+    private List<Orden_interna> selecEquipoRefaccion;
+
+    public List<Orden_interna> getSelecEquipoRefaccion() {
+        return selecEquipoRefaccion;
+    }
+
+    public void setSelecEquipoRefaccion(List<Orden_interna> selecEquipoRefaccion) {
+        this.selecEquipoRefaccion = selecEquipoRefaccion;
+    }
+    
+    
+
+    public List<Orden_interna> getFilterOrden() {
+        return filterOrden;
+    }
+
+    public void setFilterOrden(List<Orden_interna> filterOrden) {
+        this.filterOrden = filterOrden;
+    }
+    
     
     
     public Orden_interna getOrden_interna() {
@@ -84,10 +106,10 @@ public class Orden_internaBEAN implements Serializable{
     
     
     
-    
     ////-----REGISTRAR----
     public void registrarOrden() throws Exception {
         Orden_internaDAO ordenInternaDao;
+        
         
         Relacion_orden_equipoDAO relacion_orden_equipoDAO;
         Relacion_orden_refaccionDAO relacion_orden_refaccionDAO;
@@ -126,11 +148,12 @@ public class Orden_internaBEAN implements Serializable{
                 detalleOrdenRefaccion.setIdOrdenRefaccion(ordenTemporal);
                 detalleOrdenRefaccion.setIdRefaccion(listaRefaccion.get(i));
                 relacion_orden_refaccionDAO.registrarDetalleOrdenRefaccion(detalleOrdenRefaccion);
-
+               
             }
             
             System.out.println("fecha del sistema " + orden_interna.getFecha());
             exportarPDFOrdenInterna(usuarioVive);
+            this.limpiarOrdenInterna();
 
         } catch (Exception ex) {
             System.out.println("Error en Orden-BEAN -> generarOrden " + ex);
@@ -242,4 +265,12 @@ public class Orden_internaBEAN implements Serializable{
         FacesContext.getCurrentInstance().responseComplete();
     
 }
+    
+    public void limpiarOrdenInterna(){
+        this.orden_interna.setIdsolicitud(null);
+        this.orden_interna.setNombre_orden("ORDEN DE MANTENIMIENTO");
+        this.orden_interna.setReporte_fallo("");
+        this.orden_interna.setReporte_tecnico("");
+        this.orden_interna.setPosible_causa("");
+    }
 }

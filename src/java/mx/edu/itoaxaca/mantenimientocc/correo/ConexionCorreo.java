@@ -16,15 +16,13 @@ import javax.mail.Session;
  * @author leiver
  */
 public class ConexionCorreo {
-    private String usuarioCorreo;
-    private String contraseñaCorreo;
-    private Properties propiedades;
-    private Session sesion;
+    //private Properties propiedades;
+    //private Session sesion;
     
-    public  void setup() throws MessagingException {
+    public  Properties setup() throws MessagingException {
         //datos de conexion
-        usuarioCorreo = "soprte.mantenimiento@itoaxaca.edu.mx";
-        contraseñaCorreo = "tecdeoaxaca";
+        Properties propiedades;
+        
         //propiedades de la conexion
         propiedades = new Properties();
         propiedades.put("mail.smtp.auth", "true");
@@ -33,10 +31,13 @@ public class ConexionCorreo {
         propiedades.put("mail.smtp.port", "587");
 
         //creamos la sesion
-        sesion = crearSesion();
+        //sesion = crearSesion();
+        return propiedades;
     }
 
-    public  Session crearSesion() {
+    public  Session crearSesion(Properties propiedades) {
+        String usuarioCorreo = "soporte.mantenimiento@itoaxaca.edu.mx";
+        String contraseñaCorreo = "tecdeoaxaca";
         Session session = Session.getInstance(propiedades,
                 new javax.mail.Authenticator() {
             @Override

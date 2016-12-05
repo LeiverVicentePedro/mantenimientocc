@@ -5,392 +5,388 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+    
+    
     <body>
 
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">              
                 <!-- ////////////////////////////////////// Apartir de Aqui empieza la parte de Equipo //////////////////////////////////////  -->
-                 <p:growl id="msjUno" showDetail="true" sticky="true"/>
-              
-                 <p:dialog header="Datos de Equipo" widgetVar="DatosEquipo" id="dialogoDatosEquipo" closable="false">        
-           <h:form id="formaExteriorUno"> 
-               
-                 <p:commandButton value="Nuevo Equipo" oncomplete="PF('DatosUno').show();" actionListener="#{equipoBEAN.setAccion('Registrar')}" update=":dialogoDatosUno" >         
-                      <f:ajax execute="#{equipoBEAN.listarEquipo()}" render="dataUno" />
-                 </p:commandButton>
-            
-                 <p:dataTable id="dataUno" var="equipo" value="#{equipoBEAN.listaEquipo}"  selection="#{orden_internaBEAN.listaEquipo}" rowKey="#{equipo.idequipo}"
-                         
-                         style="font-size: 14px;"
-                                 
-                                 resizableColumns="true"
-                                 liveResize="true"
-                                 
-                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
-                                 scrollable="true"
-                                 
-                                 widgetVar="buscar"
-                                 filteredValue="#{equipoBEAN.filterEquipo}"
-                          emptyMessage="No hay elementos encontrados"
-                          paginator="true" rows="5"
-                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                          rowsPerPageTemplate="1,2,3,4,5">
-                          
-                
-                          <f:facet name="header">
-                              <h:outputText value="Equipos" style="font-size: 15px"/> 
+                <p:growl id="msjUno" showDetail="true" sticky="true"/>
+
+                <p:dialog header="Datos de Equipo" widgetVar="DatosEquipo" id="dialogoDatosEquipo" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
+                    <h:form id="formaExteriorUno"> 
+
+                        <p:commandButton value="Nuevo Equipo" oncomplete="PF('DatosUno').show();" actionListener="#{equipoBEAN.setAccion('Registrar')}" update=":dialogoDatosUno" >         
+                            <f:ajax execute="#{equipoBEAN.listarEquipo()}" render="dataUno" />
+                        </p:commandButton>
+
+                        <p:dataTable id="dataUno" var="equipo" value="#{equipoBEAN.listaEquipo}"  selection="#{orden_internaBEAN.listaEquipo}" rowKey="#{equipo.idequipo}"
+
+                                     style="font-size: 14px;"
+
+                                     resizableColumns="true"
+                                     liveResize="true"
+
+                                     liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                     scrollable="true"
+
+                                     widgetVar="buscar"
+                                     filteredValue="#{equipoBEAN.filterEquipo}"
+                                     emptyMessage="No hay elementos encontrados"
+                                     paginator="true" rows="5"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="1,2,3,4,5">
+
+
+                            <f:facet name="header">
+                                <h:outputText value="Equipos" style="font-size: 15px"/> 
                                 <p:outputPanel class="text-right">
-                                   <h:outputText value="Buscar:" />
-                                <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
-                                             
-                                             style="width:150px" />
+                                    <h:outputText value="Buscar:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
+
+                                                 style="width:150px" />
                                 </p:outputPanel>
-                           </f:facet>
-                
-                 <p:ajax event="rowSelectCheckbox" listener="#{orden_internaBEAN.check}"   />
-                <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
-                <p:column headerText="Tipo" 
-                          sortBy="#{equipo.tipo}" 
-                          filterBy="#{equipo.tipo}"
-                          filterMatchMode="startsWith"
-                          width="170">
-                    
-                    <h:outputText value="#{equipo.tipo}" />
-                   
-                </p:column>
-                <p:column headerText="Marca" 
-                          sortBy="#{equipo.marca}" 
-                          filterBy="#{equipo.marca}"
-                          filterMatchMode="startsWith"
-                          width="170">
-                    
-                    <h:outputText value="#{equipo.marca}" />
-                   
-                </p:column>
-                
-                <p:column headerText="Modelo" 
-                          sortBy="#{equipo.modelo}" 
-                          filterBy="#{equipo.modelo}"
-                          filterMatchMode="startsWith"
-                          width="170">
-                    
-                    <h:outputText value="#{equipo.modelo}" />
-                   
-                </p:column>
-                
-                <p:column headerText="#Serie" 
-                          sortBy="#{equipo.numero_serie}" 
-                          filterBy="#{equipo.numero_serie}"
-                          filterMatchMode="startsWith"
-                          width="150" >
-                    
-                    <h:outputText value="#{equipo.numero_serie}" />
-                   
-                </p:column>
-                
-                <p:column headerText="FolioInventario" 
-                          sortBy="#{equipo.folio_inventario}" 
-                          filterBy="#{equipo.folio_inventario}"
-                          filterMatchMode="startsWith"
-                         width="170">
-                    
-                    <h:outputText value="#{equipo.folio_inventario}" />
-                   
-                </p:column>
-                
-               
-                <p:column headerText="Editar"
-                          width="60">
-                    <p:commandLink class="fa fa-pencil" actionListener="#{equipoBEAN.elegirDatoEquipo(equipo)}" oncomplete="PF('DatosUno').show();" update=":dialogoDatosUno"/>
-                </p:column>
-                
-                <p:column headerText="Eliminar"
-                          width="70">
-                    <p:commandLink class="fa fa-trash" actionListener="#{equipoBEAN.eliminarEquipo(equipo)}" update="dataUno"/>
-                </p:column>
-                
-                <f:facet name="footer">
-                    <p:commandButton process="dataUno" value="Cerrar" oncomplete="PF('DatosEquipo').hide();"  >
-                       
-                    </p:commandButton>
-                </f:facet>
-            </p:dataTable>
-        </h:form>
-          </p:dialog>
-        <p:separator/>
-        
-        
-        <!--//////////////////////////////////////Apartir de Aqui Termina la parte de Equipo ///////////////////////////  -->
-        
-       
-        <!--//////////////////////////////////////Apartir de aqui Comienza Refaccion////////////////////////////////////-->
-        
-        <p:dialog header="Datos de Refaccion" widgetVar="DatosRefaccion" id="dialogoDatosRefaccion" closable="false">        
-   
-           <h:form id="formaExterior" >                
-            <p:commandButton value="Nueva Refaccion" oncomplete="PF('Datos').show();" actionListener="#{refaccion_empleadaBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
-            
-                <f:ajax execute="#{refaccion_empleadaBEAN.listarRefaccion()}" render="data" />
-            </p:commandButton>
-            
-               <p:dataTable id="data" var="refaccion" value="#{refaccion_empleadaBEAN.listaRefaccion}" selection="#{orden_internaBEAN.listaRefaccion}" rowKey="#{refaccion.id_refaccion_empleada}"
-                         
-                         style="font-size: 14px;"
-                                 
-                                 resizableColumns="true"
-                                 liveResize="true"
-                                 
-                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
-                                 scrollable="true"
-                                 
-                                 widgetVar="buscar"
-                                 filteredValue="#{refaccion_empleadaBEAN.filterRefaccion}"
-                          emptyMessage="No hay elementos encontrados"
-                          paginator="true" rows="5"
-                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                          rowsPerPageTemplate="1,2,3,4,5">
-                
-                
-                          <f:facet name="header">
-                              <h:outputText value="Refacción" style="font-size: 15px"/>
+                            </f:facet>
+
+                            <p:ajax event="rowSelectCheckbox" listener="#{orden_internaBEAN.check}"   />
+                            <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
+                            <p:column headerText="Tipo" 
+                                      sortBy="#{equipo.tipo}" 
+                                      filterBy="#{equipo.tipo}"
+                                      filterMatchMode="startsWith"
+                                      width="170">
+
+                                <h:outputText value="#{equipo.tipo}" />
+
+                            </p:column>
+                            <p:column headerText="Marca" 
+                                      sortBy="#{equipo.marca}" 
+                                      filterBy="#{equipo.marca}"
+                                      filterMatchMode="startsWith"
+                                      width="170">
+
+                                <h:outputText value="#{equipo.marca}" />
+
+                            </p:column>
+
+                            <p:column headerText="Modelo" 
+                                      sortBy="#{equipo.modelo}" 
+                                      filterBy="#{equipo.modelo}"
+                                      filterMatchMode="startsWith"
+                                      width="170">
+
+                                <h:outputText value="#{equipo.modelo}" />
+
+                            </p:column>
+
+                            <p:column headerText="#Serie" 
+                                      sortBy="#{equipo.numero_serie}" 
+                                      filterBy="#{equipo.numero_serie}"
+                                      filterMatchMode="startsWith"
+                                      width="150" >
+
+                                <h:outputText value="#{equipo.numero_serie}" />
+
+                            </p:column>
+
+                            <p:column headerText="FolioInventario" 
+                                      sortBy="#{equipo.folio_inventario}" 
+                                      filterBy="#{equipo.folio_inventario}"
+                                      filterMatchMode="startsWith"
+                                      width="170">
+
+                                <h:outputText value="#{equipo.folio_inventario}" />
+
+                            </p:column>
+
+
+                            <p:column headerText="Editar"
+                                      width="60">
+                                <p:commandLink class="fa fa-pencil" actionListener="#{equipoBEAN.elegirDatoEquipo(equipo)}" oncomplete="PF('DatosUno').show();" update=":dialogoDatosUno"/>
+                            </p:column>
+
+                            <p:column headerText="Eliminar"
+                                      width="70">
+                                <p:commandLink class="fa fa-trash" actionListener="#{equipoBEAN.eliminarEquipo(equipo)}" update="dataUno"/>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton process="dataUno" value="Cerrar" oncomplete="PF('DatosEquipo').hide();"  >
+
+                                </p:commandButton>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </p:dialog>
+                <p:separator/>
+
+
+                <!--//////////////////////////////////////Apartir de Aqui Termina la parte de Equipo ///////////////////////////  -->
+
+
+                <!--//////////////////////////////////////Apartir de aqui Comienza Refaccion////////////////////////////////////-->
+
+                <p:dialog header="Datos de Refaccion" widgetVar="DatosRefaccion" id="dialogoDatosRefaccion" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
+
+                    <h:form id="formaExterior" >                
+                        <p:commandButton value="Nueva Refaccion" oncomplete="PF('Datos').show();" actionListener="#{refaccion_empleadaBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
+
+                            <f:ajax execute="#{refaccion_empleadaBEAN.listarRefaccion()}" render="data" />
+                        </p:commandButton>
+
+                        <p:dataTable id="data" var="refaccion" value="#{refaccion_empleadaBEAN.listaRefaccion}" selection="#{orden_internaBEAN.listaRefaccion}" rowKey="#{refaccion.id_refaccion_empleada}"
+
+                                     style="font-size: 14px;"
+
+                                     resizableColumns="true"
+                                     liveResize="true"
+
+                                     liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                     scrollable="true"
+
+                                     widgetVar="buscar"
+                                     filteredValue="#{refaccion_empleadaBEAN.filterRefaccion}"
+                                     emptyMessage="No hay elementos encontrados"
+                                     paginator="true" rows="5"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="1,2,3,4,5">
+
+
+                            <f:facet name="header">
+                                <h:outputText value="Refacción" style="font-size: 15px"/>
                                 <p:outputPanel class="text-right">
-                                   <h:outputText value="Buscar:" />
-                                <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
-                                             
-                                             style="width:150px" />
+                                    <h:outputText value="Buscar:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
+
+                                                 style="width:150px" />
                                 </p:outputPanel>
-                          </f:facet>        
-                <p:ajax event="rowSelectCheckbox" listener="#{orden_internaBEAN.checkDos}"   />
-                <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
-                
-                <p:column headerText="Descripcion" 
-                          sortBy="#{refaccion.descripcion}" 
-                          filterBy="#{refaccion.descripcion}"
-                          filterMatchMode="startsWith">
-                    
-                    <h:outputText value="#{refaccion.descripcion}" />
-                   
-                </p:column>
-                <p:column headerText="Numero_Serie" 
-                          sortBy="#{refaccion.numero_serie}" 
-                          filterBy="#{refaccion.numero_serie}"
-                          filterMatchMode="startsWith">
-                    
-                    <h:outputText value="#{refaccion.numero_serie}" />
-                   
-                </p:column>
-                
-                <p:column headerText="Precio" 
-                          sortBy="#{refaccion.precio}" 
-                          filterBy="#{refaccion.precio}"
-                          filterMatchMode="startsWith">
-                    
-                    <h:outputText value="#{refaccion.precio}" />
-                   
-                </p:column>
-                
-                <p:column headerText="Cantidad" 
-                          sortBy="#{refaccion.cantidad}" 
-                          filterBy="#{refaccion.cantidad}"
-                          filterMatchMode="startsWith">
-                    
-                    <h:outputText value="#{refaccion.cantidad}" />
-                   
-                </p:column>
-              
-                <p:column headerText="Editar"
-                          width="60">
-                    <p:commandLink class="fa fa-pencil" actionListener="#{refaccion_empleadaBEAN.elegirDatoRefaccion(refaccion)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
-                </p:column>
-                
-                <p:column headerText="Eliminar"
-                          width="70">
-                    <p:commandLink class="fa fa-trash" actionListener="#{refaccion_empleadaBEAN.eliminarRefaccion(refaccion)}" update="data"/>
-                </p:column>
-                  
-                 <f:facet name="footer">
-                     <p:commandButton   value="Cerrar" oncomplete="PF('DatosRefaccion').hide();"  >
-                         
-                  
-                     </p:commandButton>
-                </f:facet>
-            </p:dataTable>
-       
-           </h:form>
-             
-        </p:dialog>
-        <!--/////////////////////////////////////////// Apartir de Aqui Termina la parte de Refaccion  /////////////////////////////////////////////-->
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                            </f:facet>        
+                            <p:ajax event="rowSelectCheckbox" listener="#{orden_internaBEAN.checkDos}"   />
+                            <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
+
+                            <p:column headerText="Descripcion" 
+                                      sortBy="#{refaccion.descripcion}" 
+                                      filterBy="#{refaccion.descripcion}"
+                                      filterMatchMode="startsWith">
+
+                                <h:outputText value="#{refaccion.descripcion}" />
+
+                            </p:column>
+                            <p:column headerText="Numero_Serie" 
+                                      sortBy="#{refaccion.numero_serie}" 
+                                      filterBy="#{refaccion.numero_serie}"
+                                      filterMatchMode="startsWith">
+
+                                <h:outputText value="#{refaccion.numero_serie}" />
+
+                            </p:column>
+
+                            <p:column headerText="Precio" 
+                                      sortBy="#{refaccion.precio}" 
+                                      filterBy="#{refaccion.precio}"
+                                      filterMatchMode="startsWith">
+
+                                <h:outputText value="#{refaccion.precio}" />
+
+                            </p:column>
+
+                            <p:column headerText="Cantidad" 
+                                      sortBy="#{refaccion.cantidad}" 
+                                      filterBy="#{refaccion.cantidad}"
+                                      filterMatchMode="startsWith">
+
+                                <h:outputText value="#{refaccion.cantidad}" />
+
+                            </p:column>
+
+                            <p:column headerText="Editar"
+                                      width="60">
+                                <p:commandLink class="fa fa-pencil" actionListener="#{refaccion_empleadaBEAN.elegirDatoRefaccion(refaccion)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                            </p:column>
+
+                            <p:column headerText="Eliminar"
+                                      width="70">
+                                <p:commandLink class="fa fa-trash" actionListener="#{refaccion_empleadaBEAN.eliminarRefaccion(refaccion)}" update="data"/>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton   value="Cerrar" oncomplete="PF('DatosRefaccion').hide();"  >
+
+
+                                </p:commandButton>
+                            </f:facet>
+                        </p:dataTable>
+
+                    </h:form>
+
+                </p:dialog>
+                <!--/////////////////////////////////////////// Apartir de Aqui Termina la parte de Refaccion  /////////////////////////////////////////////-->
+
                 <!-- ////////////////////////////////////Aqui se llenan los campos de Orden interna  //////////////////////////////////////////////--> 
-                 
-                <h:form>
-                    <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listarSolicituMC()}"/>
-                    <p:panel>
+
+                <h:form id="formOrden">
+                    <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudesCentroComputo()}"/>
+                    <p:panel id="panelOrden">
                         <f:facet name="header" class="text-center">
                             <h:outputText value="Orden Interna" />
-                       </f:facet> 
-                        
-                    <h:panelGrid columns="2" cellspacing="10" cellpadding="5">
-                         <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
-                         <p:selectOneMenu value="#{orden_internaBEAN.orden_interna.idsolicitud}" converter="omnifaces.SelectItemsConverter" 
-                                     styleClass="selectMenu" required="true" requiredMessage="Se Requiere Folio De Solicitud"
-                                     style="text-transform: uppercase">
-                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                            <f:selectItems value="#{solicitud_mcBEAN.listaSolicitud}" var="solicituditem" itemLabel="#{solicituditem.folio}" itemValue="#{solicituditem}"/>
-                         </p:selectOneMenu>
-                        <p/>
-                        <p:column/>
-                        <p:outputLabel value="Nombre de Orden Interna: "/>
-                       <p:selectOneMenu value="#{orden_internaBEAN.orden_interna.nombre_orden}" styleClass="selectMenu" 
-                                     required="true" requiredMessage="Se Requiere Nombre de Orden" 
-                                     style="text-transform: uppercase"> 
-                    
-                        <f:selectItem itemLabel="ORDEN DE MANTENIMIENTO" itemValue="orden de mantenimiento" />
-                        <f:selectItem itemLabel="ORDEN DE SERVICIOS DE RED, INTERNET Y TELEFONÍA" itemValue="orden de servicios de red, internet y telefonía"/>
-                    </p:selectOneMenu>
-                       
-                        <p:outputLabel value="Reporte Fallo: "/>
-                        <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo"/>  
-                        <p:outputLabel value="Reporte Técnico: "/>
-                        <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_tecnico}" placeholder="Describa Reporte Técnico"/>  
-                        <p:outputLabel value="Posible Causa: "/>
-                        <p:inputText value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa"/>  
-                        <h:column/>
-                        <h:column/>
-                        
-                        
-                           
-                  <p:commandButton value="Equipo" oncomplete="PF('DatosEquipo').show();" update=":dialogoDatosEquipo" />                   
-                    </h:panelGrid>
-                </p:panel>
-                <p:separator style="visibility: hidden;"/>
-                <p:commandButton value="Refaccion" oncomplete="PF('DatosRefaccion').show();" update=":dialogoDatosRefaccion" /> 
-                
-                <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" ajax="false" />
+
+                        </f:facet> 
+
+                        <h:panelGrid columns="2" cellspacing="10" cellpadding="5">
+                            <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
+                            <p:selectOneMenu value="#{orden_internaBEAN.orden_interna.idsolicitud}" converter="omnifaces.SelectItemsConverter" 
+                                             styleClass="selectMenu" required="true" requiredMessage="Se Requiere Folio De Solicitud"
+                                             style="text-transform: uppercase">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                <f:selectItems value="#{solicitud_mcBEAN.listaSolicitudesCentroComputo}" var="solicituditem" itemLabel="#{solicituditem.folio}" itemValue="#{solicituditem}"/>
+                            </p:selectOneMenu>
+                            <p/>
+                            <p:column/>
+                            <p:outputLabel value="Nombre de Orden Interna: "/>
+                            <p:selectOneMenu value="#{orden_internaBEAN.orden_interna.nombre_orden}" styleClass="selectMenu" 
+                                             required="true" requiredMessage="Se Requiere Nombre de Orden" 
+                                             style="text-transform: uppercase"> 
+
+                                <f:selectItem itemLabel="ORDEN DE MANTENIMIENTO" itemValue="orden de mantenimiento" />
+                                <f:selectItem itemLabel="ORDEN DE SERVICIOS DE RED, INTERNET Y TELEFONÍA" itemValue="orden de servicios de red, internet y telefonía"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Reporte Fallo: "/>
+                            <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo"/>  
+                            <p:outputLabel value="Reporte Técnico: "/>
+                            <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_tecnico}" placeholder="Describa Reporte Técnico"/>  
+                            <p:outputLabel value="Posible Causa: "/>
+                            <p:inputText value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa"/>  
+                            <h:column/>
+                            <h:column/>
+
+
+                            <p:outputLabel value="Seleccione Equipo en servicio: "/>
+                            <p:commandButton value="Equipo" oncomplete="PF('DatosEquipo').show();" update=":dialogoDatosEquipo" />  
+                            <p:outputLabel value="Seleccione Refaccion usada: "/>
+                            <p:commandButton value="Refaccion" oncomplete="PF('DatosRefaccion').show();" update=":dialogoDatosRefaccion" /> 
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:separator style="visibility: hidden;"/>
+                   
+
+                    <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" update="formOrden" ajax="false" />
 
                 </h:form>
-             <!--////////////////////////////////////////////////Aqui termina Orden Interna///////////////////////////////-->
-             
-             
-             
-            <!-- Dialogo del equipo para registrar equipo nuevo-->    
-            <p:dialog header="Datos de Equipo" widgetVar="DatosUno" id="dialogoDatosUno">
-            <h:form>
-        
-                <p/>
-                 <p:outputLabel  value="&nbsp;Tipo&nbsp;"/>
-                 <p:inputText  value="#{equipoBEAN.equipo.tipo}" 
-                              required="true" requiredMessage="Se requiere Tipo" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Marca&nbsp;"/>
-                 <p:inputText  value="#{equipoBEAN.equipo.marca}" 
-                              required="true" requiredMessage="Se requiere Marca" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Modelo&nbsp;"/>
-                 <p:inputText  value="#{equipoBEAN.equipo.modelo}" 
-                              required="true" requiredMessage="Se requiere Modelo" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel value="&nbsp;Num.Serie&nbsp;"/>
-                 <p:inputText  value="#{equipoBEAN.equipo.numero_serie}" 
-                              required="true" requiredMessage="Se requiere Num.Serie" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 <p/>
-                 <p:outputLabel value="&nbsp;Folio Inventario&nbsp;" />
-                 <p:inputText value="#{equipoBEAN.equipo.folio_inventario}" required="true" 
-                                 requiredMessage="Se necesita un Folio de Inventario"
-                                 style="text-transform: uppercase">
-                        <f:validator validatorId="validadoresNumeros"/>
-                    </p:inputText>
-                   <p/>
-                   
-                 
-                    <p/>
-                 
-           
-            <center>
-                <p:commandButton value="#{equipoBEAN.accion}" actionListener="#{equipoBEAN.operarEquipo()}" oncomplete="PF('DatosUno').hide();" update=":formaExteriorUno:dataUno" />
-                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosUno').hide();" actionListener="#{equipoBEAN.limpiarEquipo()}" />
-            </center>
-            <p/>
-            </h:form>
-        </p:dialog>
-            
-            
-        <!--   Dialogo Refaccion -->
+                <!--////////////////////////////////////////////////Aqui termina Orden Interna///////////////////////////////-->
 
-       <p:dialog header="Datos de Refaccion" widgetVar="Datos" id="dialogoDatos">
-            <h:form>
-               
-                <p/>
-                 <p:outputLabel  value="&nbsp;Descripcion&nbsp;"/>
-                 <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.descripcion}" 
-                              required="true" requiredMessage="Se requiere Descripcion" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Num.Serie&nbsp;"/>
-                 <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.numero_serie}" 
-                              required="true" requiredMessage="Se requiere Num.Serie" 
-                              style="text-transform: uppercase">
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Precio&nbsp;"/>
-                 <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.precio}" 
-                              required="true" requiredMessage="Se requiere Precio" 
-                              style="text-transform: uppercase">
-                 </p:inputText>
-                 
-                 
-                 <p/>
-                 <p:outputLabel value="&nbsp;Cantidad&nbsp;" />
-                 <p:inputText value="#{refaccion_empleadaBEAN.refaccion.cantidad}" required="true" 
-                                 requiredMessage="Se necesita un Cantidad"
-                                 style="text-transform: uppercase">
-                        <f:validator validatorId="validadoresNumeros"/>
-                    </p:inputText>
-                   <p/>
-                   
-                  
-                    
-                   
-           
-            <center>
-                <p:commandButton value="#{refaccion_empleadaBEAN.accion}" actionListener="#{refaccion_empleadaBEAN.operarRefaccion()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
-            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
-            </center>
-            <p/>
-            </h:form>
-        </p:dialog>
-        
-            
+
+
+                <!-- Dialogo del equipo para registrar equipo nuevo-->    
+                <p:dialog header="Datos de Equipo" widgetVar="DatosUno" id="dialogoDatosUno"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form>
+
+                        <p/>
+                        <p:outputLabel  value="&nbsp;Tipo&nbsp;"/>
+                        <p:inputText  value="#{equipoBEAN.equipo.tipo}" 
+                                      required="true" requiredMessage="Se requiere Tipo" 
+                                      style="text-transform: uppercase">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+
+                        <p/>
+                        <p:outputLabel  value="&nbsp;Marca&nbsp;"/>
+                        <p:inputText  value="#{equipoBEAN.equipo.marca}" 
+                                      required="true" requiredMessage="Se requiere Marca" 
+                                      style="text-transform: uppercase">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+
+                        <p/>
+                        <p:outputLabel  value="&nbsp;Modelo&nbsp;"/>
+                        <p:inputText  value="#{equipoBEAN.equipo.modelo}" 
+                                      required="true" requiredMessage="Se requiere Modelo" 
+                                      style="text-transform: uppercase">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+
+                        <p/>
+                        <p:outputLabel value="&nbsp;Num.Serie&nbsp;"/>
+                        <p:inputText  value="#{equipoBEAN.equipo.numero_serie}" 
+                                      required="true" requiredMessage="Se requiere Num.Serie" 
+                                      style="text-transform: uppercase">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+                        <p/>
+                        <p:outputLabel value="&nbsp;Folio Inventario&nbsp;" />
+                        <p:inputText value="#{equipoBEAN.equipo.folio_inventario}" required="true" 
+                                     requiredMessage="Se necesita un Folio de Inventario"
+                                     style="text-transform: uppercase">
+                            <f:validator validatorId="validadoresNumeros"/>
+                        </p:inputText>
+                        <p/>
+
+
+                        <p/>
+
+
+                        <center>
+                            <p:commandButton value="#{equipoBEAN.accion}" actionListener="#{equipoBEAN.operarEquipo()}" oncomplete="PF('DatosUno').hide();" update=":formaExteriorUno:dataUno" />
+                            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosUno').hide();" actionListener="#{equipoBEAN.limpiarEquipo()}" />
+                        </center>
+                        <p/>
+                    </h:form>
+                </p:dialog>
+
+
+                <!--   Dialogo Refaccion -->
+
+                <p:dialog header="Datos de Refaccion" widgetVar="Datos" id="dialogoDatos"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form>
+
+                        <p/>
+                        <p:outputLabel  value="&nbsp;Descripcion&nbsp;"/>
+                        <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.descripcion}" 
+                                      required="true" requiredMessage="Se requiere Descripcion" 
+                                      style="text-transform: uppercase">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+
+                        <p/>
+                        <p:outputLabel  value="&nbsp;Num.Serie&nbsp;"/>
+                        <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.numero_serie}" 
+                                      required="true" requiredMessage="Se requiere Num.Serie" 
+                                      style="text-transform: uppercase">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+
+                        <p/>
+                        <p:outputLabel  value="&nbsp;Precio&nbsp;"/>
+                        <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.precio}" 
+                                      required="true" requiredMessage="Se requiere Precio" 
+                                      style="text-transform: uppercase">
+                        </p:inputText>
+
+
+                        <p/>
+                        <p:outputLabel value="&nbsp;Cantidad&nbsp;" />
+                        <p:inputText value="#{refaccion_empleadaBEAN.refaccion.cantidad}" required="true" 
+                                     requiredMessage="Se necesita un Cantidad"
+                                     style="text-transform: uppercase">
+                            <f:validator validatorId="validadoresNumeros"/>
+                        </p:inputText>
+                        <p/>
+
+
+
+
+
+                        <center>
+                            <p:commandButton value="#{refaccion_empleadaBEAN.accion}" actionListener="#{refaccion_empleadaBEAN.operarRefaccion()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
+                            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
+                        </center>
+                        <p/>
+                    </h:form>
+                </p:dialog>
+
+
             </ui:define>
 
         </ui:composition>

@@ -171,4 +171,33 @@ public class Solicitud_mcDAO extends Conexion {
         }
         return lista;
     }
+     //Esto es para hacer la seleccion de solicitud que sea solo por centro de computo   
+    public List<Solicitud_mc> listarSolicitudesCentroComputo() throws Exception{
+         List<Solicitud_mc> listaSolicitudesCC=null;
+         ResultSet resultado;
+         try{
+             this.Conectar();
+             PreparedStatement consulta = this.getConexion().prepareStatement("Select * from solicitud_mc where id_departamento=2 ");
+             resultado = consulta.executeQuery();
+             listaSolicitudesCC = new ArrayList();
+             while(resultado.next()){
+                 Solicitud_mc solicitudesCC= new Solicitud_mc();
+                 solicitudesCC.setIdsolicitud_mc(resultado.getInt("idsolicitud_mc"));
+             solicitudesCC.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario")));
+             solicitudesCC  .setFolio(resultado.getString("folio"));
+             solicitudesCC.setFecha(resultado.getDate("fecha"));
+             solicitudesCC.setOtroProblema(resultado.getString("otro_problema"));
+             solicitudesCC.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultado.getInt("id_departamento")));
+                 listaSolicitudesCC.add(solicitudesCC);
+            }
+             
+            return listaSolicitudesCC; 
+         }catch(Exception ex){
+             System.out.println("Error en SolicitudDAO -> lista SOLICITUD "+ex);
+             throw ex;
+         }finally{
+             this.Cerrar();
+         }
+     }
+        
 }

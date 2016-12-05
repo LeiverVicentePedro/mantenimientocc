@@ -5,11 +5,15 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.io.Serializable;
+
+
+
 /**
  *
  * @author leiver
  */
-public class Usuario {
+public class Usuario implements Serializable{
     
     private int idUsuario;
     private String nombre;
@@ -23,7 +27,17 @@ public class Usuario {
     private Profesion id_profesion;
     private String tipoBT;
     private Boolean estatus;
+    private String concatenar;
+
     
+    public String getConcatenar() {
+        return concatenar;
+    }
+
+    public void setConcatenar() {
+        
+        this.concatenar = getNombre()+" "+getApellidoPaterno()+" "+getApellidoMaterno();
+    }
     
     public int getIdUsuario() {
         return idUsuario;
@@ -120,8 +134,7 @@ public class Usuario {
     public void setEstatus(Boolean estatus) {
         this.estatus = estatus;
     }
-   
-
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -146,10 +159,9 @@ public class Usuario {
         }
         return true;
     }
+   
 
-    @Override
-    public String toString() {
-        return nombre+" "+apellidoPaterno+" "+apellidoMaterno;
-    }
+   
+   
      
 }

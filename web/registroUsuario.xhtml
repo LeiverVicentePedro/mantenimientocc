@@ -36,6 +36,7 @@
                         <p:outputLabel value="RFC&nbsp;"/>
                         <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" style="text-transform: uppercase">
                             <f:validator validatorId="validadoresRFC"/> 
+                           
                         </p:inputText>
                         <p:column/><p:column/>
                         <p:column/><p:column/>
@@ -85,13 +86,13 @@
                         <p:outputLabel value="&nbsp;Contraseña&nbsp;"  />
                         <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido" >
                             <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
-<!--                            <p:ajax event="blur" />-->
+                           <p:ajax event="blur" />
                         </p:inputText>
 
                         <p:outputLabel value="&nbsp;Confirma&nbsp;"  />
                         <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" type="password" required="true" requiredMessage="Confirme su Contraseña">
                             <f:validator validatorId="validadoresContrasenia"/>
-<!--                            <p:ajax event="keyup" update="validaContraseña" listener=""/>-->
+                            <p:ajax event="keyup" update="validaContraseña" listener="#{usuarioBEAN.validaContraseña()}"/>
                         </p:inputText>
                         <p:outputLabel id="validaContraseña" value="#{usuarioBEAN.mensajeContraseña}" style="font-size: 10px; color: #ff6600"/>
                     </h:panelGrid>
@@ -99,7 +100,7 @@
                 <p:separator style="visibility: hidden"/>
                 <div class="container text-center">
                     <p:commandButton value="Cancelar" action="index.xhtml" immediate="true"/>
-                    <p:commandButton value="Registrar" actionListener="#{usuarioBEAN.registrarNuevoUsuario}"/>
+                    <p:commandButton value="Registrar" action="index.html" actionListener="#{usuarioBEAN.registrarNuevoUsuario}"/>
                 </div>
                 <p:separator style="visibility: hidden"/>
             </h:form>

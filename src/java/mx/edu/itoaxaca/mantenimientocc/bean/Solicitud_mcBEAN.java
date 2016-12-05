@@ -46,6 +46,7 @@ public class Solicitud_mcBEAN implements Serializable{
     Solicitud_mc solicitudmc = new Solicitud_mc();
     List<Catalogo_servicio_solicitado> serviciosSeleccionados;
     List<Catalogo_servicio_solicitado> serviciosPorDepartamento;
+    List<Solicitud_mc> listaSolicitudesCentroComputo;
     private String folioSolicitud;
     Usuario usuarioVive;
    
@@ -122,6 +123,18 @@ public class Solicitud_mcBEAN implements Serializable{
     public void setServiciosPorDepartamento(List<Catalogo_servicio_solicitado> serviciosPorDepartamento) {
         this.serviciosPorDepartamento = serviciosPorDepartamento;
     }
+    
+    ///////////////////////////
+
+    public List<Solicitud_mc> getListaSolicitudesCentroComputo() {
+        return listaSolicitudesCentroComputo;
+    }
+
+    public void setListaSolicitudesCentroComputo(List<Solicitud_mc> listaSolicitudesCentroComputo) {
+        this.listaSolicitudesCentroComputo = listaSolicitudesCentroComputo;
+    }
+    
+    //////////////////////////
 
     
     public void registrarSolicitudMC() throws Exception {
@@ -149,9 +162,9 @@ public class Solicitud_mcBEAN implements Serializable{
                 detalleSolicitudDao.registrarDetalleSolicitud(detalleSolicitud);
 
             }
-            exportarPDFSolicitud();
+           exportarPDFSolicitud();
             System.out.println("fecha del sistema " + solicitudmc.getFecha());
-            limpiarSolicitud();
+            this.limpiarSolicitud();
 
         } catch (Exception ex) {
             System.out.println("Error en SolicitudMCBEAN -> generarSolicitudMC " + ex);
@@ -276,4 +289,16 @@ public class Solicitud_mcBEAN implements Serializable{
             System.out.println("Error en Solicitud_mc -> listarSolicitudPorDepartamento "+ex);
         }
     }
+     public void listaSolicitudesCentroComputo() {
+        Solicitud_mcDAO solicitudesdao;
+        try{
+            solicitudesdao = new Solicitud_mcDAO();
+            listaSolicitudesCentroComputo = solicitudesdao.listarSolicitudesCentroComputo();
+        }catch(Exception e){
+            System.out.println("Error en SolicitudesCC BEAN -> listaSolicitudesCC "+e);
+        }
+    }
+     
+    
+    
 }

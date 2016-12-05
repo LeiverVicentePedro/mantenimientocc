@@ -79,7 +79,7 @@
             </p:dataTable>
         </h:form>
         
-        <p:dialog header="Datos De Servicio" widgetVar="Datos" id="dialogoDatos">
+        <p:dialog header="Datos De Servicio" widgetVar="Datos" id="dialogoDatos"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             <h:form>
                 <f:event type="preRenderView" listener="#{departamentoBEAN.listaDepartamentoServicio()}"/>
                 <p/>

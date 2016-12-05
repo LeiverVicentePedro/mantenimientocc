@@ -18,22 +18,24 @@ public class CorreoRegistroUsuario extends ConexionCorreo{
     
         public void enviarMensaje(String correo, String clave) {
         try {
-            this.setup();
-            String asunto = "Registro en el Sistema SIMAPRECO del TEC-OAX";
+            
+            
+            String asunto = "Registro SIMAPRECO del TEC-OAX";
             String mensaje = "Gracias por registrarse\n" + "Su Cuenta a sido creada de manera satisfactoria con los siguentes datos:\n"
                     + "DATOS PARA ACCEDER A SU CUENTA\n"
-                    + "Su cuenta de Acceso: " + correo + "\n"
-                    + "Su clave de acceso: " + clave + "\n"
+                    + "cuenta de Acceso: " + correo + "\n"
+                    + "clave de acceso: " + clave + "\n"
                     + "Con esta informacion podra acceder a su cuenta en el sistema";
 
-            Message crearCorreo = new MimeMessage(this.crearSesion());
+            Message crearCorreo = new MimeMessage(this.crearSesion(this.setup()));
             crearCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(correo));
             crearCorreo.setSubject(asunto);
             crearCorreo.setText(mensaje);
+            
 //Enviamos el Mensaje
             Transport.send(crearCorreo);
         } catch (Exception ex) {
-            System.out.println("Error en UsuarioBEAN -> enviarMensaje " + ex);
+            System.out.println("Error en CorreoRegistroUsuario -> enviarMensaje " + ex);
         }
     }
 
@@ -47,14 +49,14 @@ public class CorreoRegistroUsuario extends ConexionCorreo{
                     + "Su clave de acceso: " + clave + "\n"
                     + "Con esta informacion podra acceder a su cuenta en el sistema";
 
-            Message crearCorreo = new MimeMessage(this.crearSesion());
+            Message crearCorreo = new MimeMessage(this.crearSesion(this.setup()));
             crearCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(correo));
             crearCorreo.setSubject(asunto);
             crearCorreo.setText(mensaje);
 //Enviamos el Mensaje
             Transport.send(crearCorreo);
         } catch (Exception ex) {
-            System.out.println("Error en UsuarioBEAN -> enviarMensaje " + ex);
+            System.out.println("Error en CorreoRegistroUsuario -> enviarMensajeRecuperacion " + ex);
         }
     }
 }

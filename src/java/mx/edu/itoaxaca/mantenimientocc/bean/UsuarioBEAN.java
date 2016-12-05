@@ -51,6 +51,9 @@ public class UsuarioBEAN implements Serializable{
     private List<Usuario> listaUsuariosDeUnDepartamento;
     private List<Usuario> filterUsuario;
     private List<Usuario> listaParaFiltro;
+    
+    private List<Usuario> listarTodosLosUsuarios;
+    
     static String usuarioCorreo;
     static String contraseñaCorreo;
     static Properties propiedades;
@@ -58,6 +61,15 @@ public class UsuarioBEAN implements Serializable{
     private String recuperaCorreo;
     private String accionDeBotonUsuario;
     private String mensajeContraseña;
+
+    public List<Usuario> getListarTodosLosUsuarios() {
+        return listarTodosLosUsuarios;
+    }
+
+    public void setListarTodosLosUsuarios(List<Usuario> listarTodosLosUsuarios) {
+        this.listarTodosLosUsuarios = listarTodosLosUsuarios;
+    }
+
     
     public List<Usuario> getFilterUsuario() {
         return filterUsuario;
@@ -266,74 +278,6 @@ public class UsuarioBEAN implements Serializable{
     }
      
     
-//    /* creacion de metodos para envio de mensajeria por correo*/
-//    private void enviarMensaje(String correo, String clave) {
-//        try {
-//            setup();
-//            String asunto = "Registro en el Sistema SIMAPRECO del TEC-OAX";
-//            String mensaje = "Gracias por registrarse\n" + "Su Cuenta a sido creada de manera satisfactoria con los siguentes datos:\n"
-//                    + "DATOS PARA ACCEDER A SU CUENTA\n"
-//                    + "Su cuenta de Acceso: " + correo + "\n"
-//                    + "Su clave de acceso: " + clave + "\n"
-//                    + "Con esta informacion podra acceder a su cuenta en el sistema";
-//
-//            Message crearCorreo = new MimeMessage(sesion);
-//            crearCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(correo));
-//            crearCorreo.setSubject(asunto);
-//            crearCorreo.setText(mensaje);
-////Enviamos el Mensaje
-//            Transport.send(crearCorreo);
-//        } catch (Exception ex) {
-//            System.out.println("Error en UsuarioBEAN -> enviarMensaje " + ex);
-//        }
-//    }
-//
-//    private void enviarMensajeRecuperacion(String correo, String clave) {
-//        try {
-//            setup();
-//            String asunto = "Recuperacion de Cuenta del Sistema SIMAPRECO del TEC-OAX";
-//            String mensaje = "Datos pertenecientes a la cuenta del Sistema SIMAPRECO del INSTITUTO TECNOLÓGICO DE OAXACA\n"
-//                    + "DATOS DE SU CUENTA\n"
-//                    + "Su cuenta de Acceso: " + correo + "\n"
-//                    + "Su clave de acceso: " + clave + "\n"
-//                    + "Con esta informacion podra acceder a su cuenta en el sistema";
-//
-//            Message crearCorreo = new MimeMessage(sesion);
-//            crearCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(correo));
-//            crearCorreo.setSubject(asunto);
-//            crearCorreo.setText(mensaje);
-////Enviamos el Mensaje
-//            Transport.send(crearCorreo);
-//        } catch (Exception ex) {
-//            System.out.println("Error en UsuarioBEAN -> enviarMensaje " + ex);
-//        }
-//    }
-//
-//    private static void setup() throws MessagingException {
-//        //datos de conexion
-//        usuarioCorreo = "10161024@itoaxaca.edu.mx";
-//        contraseñaCorreo = "Pequekrn";
-//        //propiedades de la conexion
-//        propiedades = new Properties();
-//        propiedades.put("mail.smtp.auth", "true");
-//        propiedades.put("mail.smtp.starttls.enable", "true");
-//        propiedades.put("mail.smtp.host", "smtp.gmail.com");
-//        propiedades.put("mail.smtp.port", "587");
-//
-//        //creamos la sesion
-//        sesion = crearSesion();
-//    }
-//
-//    private static Session crearSesion() {
-//        Session session = Session.getInstance(propiedades,
-//                new javax.mail.Authenticator() {
-//            @Override
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication(usuarioCorreo, contraseñaCorreo);
-//            }
-//        });
-//        return session;
-//    }
 
     public void listaUsuarioDepartameto() throws Exception {
         UsuarioDAO usuariodao;
@@ -407,6 +351,33 @@ public class UsuarioBEAN implements Serializable{
             mensajeContraseña = " ";
         }else{
             mensajeContraseña = "clave incorrecto";
+        }
+    }
+    public void listarUsuario() throws Exception{
+       UsuarioDAO usuariodao;
+        try{
+            usuariodao=new UsuarioDAO();
+            listarTodosLosUsuarios = usuariodao.listaUsuario();
+            System.out.println(listarTodosLosUsuarios.get(0).getConcatenar());
+        }
+        catch(Exception e){
+            System.out.println("error en orden_internaBEAN --> listarordenInternaBEAN"+e);
+        }
+    }
+    
+    public void existeRFC(){
+        UsuarioDAO usuarioDao;
+        Usuario usuarioExistente = new Usuario();
+        try{
+            usuarioDao = new UsuarioDAO();
+            usuarioExistente = usuarioDao.consultarUsuarioPorRFC(registroUsuarioNuevo.getRfc());
+            
+            if(usuarioExistente.getRfc().isEmpty()){
+                FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "El RFC ya se Encuentra Registrado.");
+                RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+            }
+        }catch(Exception ex){
+            System.out.println("Error en orden_internaBEAN -> existeRFC "+ex);
         }
     }
 }
