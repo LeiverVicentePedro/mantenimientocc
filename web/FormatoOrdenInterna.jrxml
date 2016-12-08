@@ -50,11 +50,11 @@
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="424" y="6" width="56" height="59" uuid="62c01f51-2ee7-4a17-8b40-8f35eeda07ea"/>
-				<imageExpression><![CDATA["C:\\Users\\leiver\\Documents\\NetBeansProjects\\mantenimientocc\\web\\resources\\images\\LogoITO.png"]]></imageExpression>
+				<imageExpression><![CDATA["resources\\images\\LogoITO.png"]]></imageExpression>
 			</image>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="4" y="3" width="119" height="63" uuid="65580bfd-7cbe-425b-a84b-610192a3c013"/>
-				<imageExpression><![CDATA["C:\\Users\\leiver\\Documents\\NetBeansProjects\\mantenimientocc\\web\\resources\\images\\gobmx.png"]]></imageExpression>
+				<imageExpression><![CDATA["resources\\images\\gobmx.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="414" y="70" width="28" height="10" uuid="76be38e1-df73-4e0e-beda-4b5eef4f5376"/>
@@ -359,7 +359,7 @@
 				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="427" y="59" width="88" height="12" uuid="346be52d-3a5d-4046-9dcc-155cd9bf3fc6"/>
+				<reportElement x="425" y="58" width="86" height="11" uuid="346be52d-3a5d-4046-9dcc-155cd9bf3fc6"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
