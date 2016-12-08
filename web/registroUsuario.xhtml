@@ -27,19 +27,19 @@
 
             <h:form>
                 <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
-                <p/><p/>
+                <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
+                <f:event type="preRenderView" listener="#{usuarioBEAN.llenaListaServicoCorreo()}"/>
+                <p:separator style="visibility: hidden"/>
                 <p:outputLabel value="REGISTRO NUEVO USUARIO" class="text-capitalize"/>
                 <p:separator style="visibility: hidden"/>
-                <p:panel header="Datos Personales" class="text-center container" style=" width: 70%">
-                    <h:panelGrid columns="6" cellspacing="10" cellpadding="5">
+                <p:panel header="Datos Personales" class="text-center container" style=" width: 95%">
+                    <h:panelGrid columns="8" cellspacing="10" cellpadding="5">
 
                         <p:outputLabel value="RFC&nbsp;"/>
                         <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" style="text-transform: uppercase">
                             <f:validator validatorId="validadoresRFC"/> 
                            
                         </p:inputText>
-                        <p:column/><p:column/>
-                        <p:column/><p:column/>
                         <p:outputLabel value="Nombre&nbsp;"  />
                         <p:inputText class="form-control" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido" style="text-transform: uppercase">
                             <f:validator validatorId="validadoresLetrasUsuario"/>
@@ -57,32 +57,45 @@
                     </h:panelGrid>
                 </p:panel>
                 <p:separator style="visibility: hidden"/>
-                <p:panel header="Sobre su Trabajo" class="text-center container " style="width: 70%">
+                <p:panel header="Sobre su Trabajo" class="text-center container " style="width: 95%">
                             <h:panelGrid columns="6" cellpadding="5" cellspacing="10">
-                                <p:column/>
-                                <p:outputLabel value="Ingrese Area" style="color: #adadad"/>
-                                <p:multiSelectListbox value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" effect="explode" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Lugar de Trabajo Requerido">
-                                    <f:selectItems value="#{usuarioBEAN.listaOficinaUsuario}"/>
-                                </p:multiSelectListbox>
-                                <p:outputLabel value="profesion&nbsp;"/>
-                                <p:selectOneMenu value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" label="-- Opcion --" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Profesion requerida">
+                                <p:outputLabel value="Area:&nbsp;"/>
+                                <p:selectOneMenu value="#{usuarioBEAN.idArea}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="-- Area --" itemValue="#{null}"/>
+                                    <f:selectItems value="#{usuarioBEAN.listaAreas}" var="area" itemLabel="#{area.nombre_area}" itemValue="#{area.idarea}"/>
+                                    <p:ajax listener="#{usuarioBEAN.departamentoDeUnArea()}" update="departamento"/>
+                                    <p:ajax update="oficina"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="&nbsp;Departamento:&nbsp;"/>
+                                <p:selectOneMenu id="departamento" value="#{usuarioBEAN.idDepartamento}" converter="omnifaces.SelectItemsConverter">
+                                    <f:selectItem noSelectionOption="true" itemLabel="-- Departamento --" itemValue="#{null}"/>
+                                    <f:selectItems value="#{usuarioBEAN.listaTemporalDepartamento}" var="departamento" itemLabel="#{departamento.nombre_departamento}" itemValue="#{departamento.iddepartamento}"/>
+                                    <p:ajax listener="#{usuarioBEAN.oficinaDeUnDepartamento()}" update="oficina"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="&nbsp;Oficina:&nbsp;"/> 
+                                <p:selectOneMenu id="oficina" value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Sleccione Su Oficina">
+                                    <f:selectItem noSelectionOption="true" itemLabel="-- Oficina --" itemValue="#{null}"/>
+                                    <f:selectItems value="#{usuarioBEAN.listaTemporalOficina}" var="oficina" itemLabel="#{oficina.nombreOficina}" itemValue="#{oficina}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Profesion&nbsp;"/>
+                                <p:selectOneMenu value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Profesion requerida">
                                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                                     <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesionN" itemLabel="#{profesionN.nombre_profesion}" itemValue="#{profesionN}"/>
                                 </p:selectOneMenu>
-                                <p:column/>
-                                
                             </h:panelGrid>
                         </p:panel>
                 <p:separator style="visibility: hidden"/>
-                <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container" id="Datos">
-                    <h:panelGrid columns="7" class="container-fluid">
+                <p:panel header="Datos de Cuenta" style="width: 95% " class="text-center container" id="Datos">
+                    <h:panelGrid columns="8" class="container-fluid">
 
                         <p:outputLabel value="&nbsp;Correo&nbsp;"  />
-                        <p:inputText class="form-control" placeholder="@Correo" id="correoUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.correo}" required="true" requiredMessage="Cuenta de Correo Requerido">
-                            <f:validator validatorId="validadoresEmail"/>
+                        <p:inputText class="form-control" placeholder="algun nombre" id="correoUsuario" value="#{usuarioBEAN.usuarioCorreoNombre}" required="true" requiredMessage="Nombre de Correo Requerido">
+<!--                            <f:validator validatorId="validadoresEmail"/>-->
                         </p:inputText>
-
-
+                        <p:selectOneMenu id="servicioCorreo" value="#{usuarioBEAN.usuarioCorreoServicio}" required="true" requiredMessage="Seleccione su Servicio de Correo" editable="true">
+                            <f:selectItems value="#{usuarioBEAN.listaServicioCorreo}"/>  
+                        </p:selectOneMenu>
+                        <p:watermark for="servicioCorreo" value="@Selecciona.com.mx" id="watermark"/> <!--marca de agua para los textos entre los campos-->
                         <p:outputLabel value="&nbsp;Contraseña&nbsp;"  />
                         <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" type="password" required="true" requiredMessage="Contraseña Requerido" >
                             <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
@@ -100,7 +113,7 @@
                 <p:separator style="visibility: hidden"/>
                 <div class="container text-center">
                     <p:commandButton value="Cancelar" action="index.xhtml" immediate="true"/>
-                    <p:commandButton value="Registrar" action="index.html" actionListener="#{usuarioBEAN.registrarNuevoUsuario}"/>
+                    <p:commandButton value="Registrar" action="index.xhtml" actionListener="#{usuarioBEAN.registrarNuevoUsuario}"/>
                 </div>
                 <p:separator style="visibility: hidden"/>
             </h:form>

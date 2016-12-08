@@ -27,12 +27,6 @@ import org.primefaces.context.RequestContext;
 import javax.mail.Session;
 import java.util.Properties;
 import javax.faces.context.FacesContext;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.io.Serializable;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 /**
@@ -54,14 +48,75 @@ public class UsuarioBEAN implements Serializable{
     
     private List<Usuario> listarTodosLosUsuarios;
     
-    static String usuarioCorreo;
-    static String contraseñaCorreo;
-    static Properties propiedades;
-    static Session sesion;
+    private List<String> listaServicioCorreo;
+    
+    private String usuarioCorreoNombre;
+    private String usuarioCorreoServicio;
+
+    
     private String recuperaCorreo;
     private String accionDeBotonUsuario;
     private String mensajeContraseña;
+    
+    private List<Area> listaAreas;
+    private List<Departamento> listaDepartamento;
+    private List<Oficina_solicitante> listaOficinas;
+    
+    private List<Departamento> listaTemporalDepartamento;
+    private List<Oficina_solicitante> listaTemporalOficina;
+    private int idArea;
+    private int idDepartamento;
+    private int idOficina;
 
+    public int getIdArea() {
+        return idArea;
+    }
+
+    public void setIdArea(int idArea) {
+        this.idArea = idArea;
+    }
+
+    public int getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(int idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    public int getIdOficina() {
+        return idOficina;
+    }
+
+    public void setIdOficina(int idOficina) {
+        this.idOficina = idOficina;
+    }
+
+    public List<Area> getListaAreas() {
+        return listaAreas;
+    }
+
+    public void setListaAreas(List<Area> listaAreas) {
+        this.listaAreas = listaAreas;
+    }
+
+    public List<Departamento> getListaTemporalDepartamento() {
+        return listaTemporalDepartamento;
+    }
+
+    public void setListaTemporalDepartamento(List<Departamento> listaTemporalDepartamento) {
+        this.listaTemporalDepartamento = listaTemporalDepartamento;
+    }
+
+    public List<Oficina_solicitante> getListaTemporalOficina() {
+        return listaTemporalOficina;
+    }
+
+    public void setListaTemporalOficina(List<Oficina_solicitante> listaTemporalOficina) {
+        this.listaTemporalOficina = listaTemporalOficina;
+    }
+
+    
     public List<Usuario> getListarTodosLosUsuarios() {
         return listarTodosLosUsuarios;
     }
@@ -78,6 +133,14 @@ public class UsuarioBEAN implements Serializable{
     public void setFilterUsuario(List<Usuario> filterUsuario) {
         this.filterUsuario = filterUsuario;
     }
+
+    public List<String> getListaServicioCorreo() {
+        return listaServicioCorreo;
+    }
+
+    public void setListaServicioCorreo(List<String> listaServicioCorreo) {
+        this.listaServicioCorreo = listaServicioCorreo;
+    }
     
 
 
@@ -85,6 +148,7 @@ public class UsuarioBEAN implements Serializable{
         UsuarioDAO usuarioDao;
         try {
             usuarioDao = new UsuarioDAO();
+            objetoUsuario.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             usuarioDao.registrarUsuario(objetoUsuario);
         } catch (Exception e) {
             System.out.println("=========Error en UsuarioBEAN -> registrarUsuario" + e + "============");
@@ -99,7 +163,7 @@ public class UsuarioBEAN implements Serializable{
             registroUsuarioNuevo.setEstatus(true);
             registroUsuarioNuevo.setNivel(1);
             registroUsuarioNuevo.setTipoBT("Base");
-
+            registroUsuarioNuevo.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             if (confirmacionContraseña.equals(registroUsuarioNuevo.getClave())) {
                 usuarioDao.registrarUsuario(registroUsuarioNuevo);
                 setMensajeClaseUsuario("Usuario Registrado");
@@ -265,8 +329,8 @@ public class UsuarioBEAN implements Serializable{
     }
 
     public void setAccionDeBotonUsuario(String accionDeBotonUsuario) {
-        this.limpiaUsuario();
         this.accionDeBotonUsuario = accionDeBotonUsuario;
+        this.limpiaUsuario();
     }
 
     public String getMensajeContraseña() {
@@ -277,6 +341,21 @@ public class UsuarioBEAN implements Serializable{
         this.mensajeContraseña = mensajeContraseña;
     }
      
+    public String getUsuarioCorreoNombre() {
+        return usuarioCorreoNombre;
+    }
+
+    public void setUsuarioCorreoNombre(String usuarioCorreoNombre) {
+        this.usuarioCorreoNombre = usuarioCorreoNombre;
+    }
+
+    public String getUsuarioCorreoServicio() {
+        return usuarioCorreoServicio;
+    }
+
+    public void setUsuarioCorreoServicio(String usuarioCorreoServicio) {
+        this.usuarioCorreoServicio = usuarioCorreoServicio;
+    }
     
 
     public void listaUsuarioDepartameto() throws Exception {
@@ -314,6 +393,13 @@ public class UsuarioBEAN implements Serializable{
         this.objetoUsuario.setIdOficina(null);
         this.objetoUsuario.setNivel(0);
         this.objetoUsuario.setId_profesion(null);
+        setIdArea(0);
+        setIdDepartamento(0);
+        listaTemporalDepartamento.clear();
+        listaTemporalOficina.clear();
+        setUsuarioCorreoNombre("");
+        setUsuarioCorreoServicio("");
+        
     }
 
     public void establecerAccionDeBoton() throws Exception {
@@ -339,6 +425,10 @@ public class UsuarioBEAN implements Serializable{
             usuarioParcial = usuariodao.consultarUsuarioPorId(usuarioElegido);
             if(usuarioParcial!=null){
                 this.objetoUsuario = usuarioParcial;
+                setIdArea(objetoUsuario.getIdOficina().getDepartamento().getArea().getIdarea());
+                setIdDepartamento(objetoUsuario.getIdOficina().getDepartamento().getIddepartamento());
+                departamentoDeUnArea();
+                oficinaDeUnDepartamento();
                 this.accionDeBotonUsuario = "Modificar";
             }
         } catch (Exception ex) {
@@ -379,5 +469,57 @@ public class UsuarioBEAN implements Serializable{
         }catch(Exception ex){
             System.out.println("Error en orden_internaBEAN -> existeRFC "+ex);
         }
+    }
+    
+    public void llenarListasAreaDepartamentoOficina(){
+        AreaDAO areaDao = new AreaDAO();
+        DepartamentoDAO departamentoDao = new DepartamentoDAO();
+        Oficina_solicitanteDAO oficinaDao = new Oficina_solicitanteDAO();
+        try{
+        listaAreas = areaDao.listarArea();
+        listaDepartamento = departamentoDao.listarDepartamento();
+        listaOficinas = oficinaDao.listarOficina();
+        }catch(Exception ex){
+            System.out.println("Error en UsuarioBEAN -> lenarListasAreaDepartamentoOficina "+ex);
+        } 
+    }
+    
+    public void departamentoDeUnArea(){
+        listaTemporalDepartamento = new ArrayList();
+        if(idArea !=0){
+        for(Departamento departamento : listaDepartamento){
+            if(departamento.getArea().getIdarea() == idArea){
+                listaTemporalDepartamento.add(departamento);
+            }
+        }
+        }else{
+            listaTemporalDepartamento.clear();
+            listaTemporalOficina.clear();
+            setIdDepartamento(0);
+        }
+    }
+    
+    public void oficinaDeUnDepartamento(){
+        listaTemporalOficina = new ArrayList();
+        if(idDepartamento != 0){
+            for(Oficina_solicitante oficina : listaOficinas){
+                if(oficina.getDepartamento().getIddepartamento()==idDepartamento){
+                    listaTemporalOficina.add(oficina);
+                }
+            }
+        }else{
+            listaTemporalOficina.clear();
+        }
+    }
+    
+    public void llenaListaServicoCorreo(){
+        listaServicioCorreo = new ArrayList();
+        listaServicioCorreo.add("@hotmail.com");
+        listaServicioCorreo.add("@gmail.com");
+        listaServicioCorreo.add("@gmail.com.mx");
+        listaServicioCorreo.add("@yahoo.com.mx");
+        listaServicioCorreo.add("@yahoo.com");
+        listaServicioCorreo.add("@itoaxaca.edu.mx");
+        listaServicioCorreo.add("@outlook.com");
     }
 }

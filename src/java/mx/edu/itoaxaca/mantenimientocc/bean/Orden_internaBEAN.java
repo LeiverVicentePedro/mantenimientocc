@@ -215,6 +215,7 @@ public class Orden_internaBEAN implements Serializable{
         }else{
             parametros.put("cordinacion","COORDINACIÓN DE TELECOMUNICACIONES");
         }
+        System.out.println("Extencon "+orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getExtencion());
         parametros.put("orden", orden_interna.getNombre_orden());
         parametros.put("nombreUsiario",nombreUsuario);
         parametros.put("area",orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getDepartamento().getNombre_departamento());
