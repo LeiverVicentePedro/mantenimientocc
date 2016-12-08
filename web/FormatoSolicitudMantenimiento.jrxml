@@ -73,22 +73,22 @@
 				<reportElement x="505" y="32" width="22" height="15" uuid="7d5e0487-3d8a-43e7-ae01-3772241c4ee7"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="321" y="2" width="155" height="15" uuid="7d021301-4eaa-4910-90ef-c4bc6851d7a8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="321" y="2" width="184" height="15" uuid="7d021301-4eaa-4910-90ef-c4bc6851d7a8"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Recursos Materiales y Servicios]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="321" y="17" width="95" height="15" uuid="223c975c-c00c-43ea-aac0-603b852bb61f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="321" y="17" width="184" height="15" uuid="223c975c-c00c-43ea-aac0-603b852bb61f"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Centro de Computo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="321" y="32" width="115" height="15" uuid="582c3980-14d8-46a8-9bda-c9bb80b8de3a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="321" y="32" width="184" height="15" uuid="582c3980-14d8-46a8-9bda-c9bb80b8de3a"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mantenimiento y equipo]]></text>
