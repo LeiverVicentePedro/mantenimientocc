@@ -199,5 +199,37 @@ public class Solicitud_mcDAO extends Conexion {
              this.Cerrar();
          }
      }
+    
+    public List<Solicitud_mc> buscarSolucitudPorIdUsuario(int idUsuario) throws Exception{
+         
+         List<Solicitud_mc> listaSolicitudDeUsuario = null;
+         ResultSet resultadoConsulta;
+         try{
+             this.Conectar();
+             PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM solicitud_mc where id_usuario=?");
+             consulta.setInt(1, idUsuario);
+             resultadoConsulta = consulta.executeQuery();
+             listaSolicitudDeUsuario = new ArrayList();
+             while(resultadoConsulta.next()){
+             Solicitud_mc misolicitud = new Solicitud_mc();
+            misolicitud.setIdsolicitud_mc(resultadoConsulta.getInt("idsolicitud_mc"));
+            misolicitud.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoConsulta.getInt("id_usuario")));
+            misolicitud.setFolio(resultadoConsulta.getString("folio"));
+            misolicitud.setFecha(resultadoConsulta.getDate("fecha"));
+            misolicitud.setOtroProblema(resultadoConsulta.getString("otro_problema"));
+            misolicitud.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoConsulta.getInt("id_departamento")));
+             
+             listaSolicitudDeUsuario.add(misolicitud);
+              }
+              resultadoConsulta.close();
+              
+         }catch(Exception ex){
+             System.out.println("Error en Lista Solicitudes por UsuarioDAO -> buscar Solicitud por Usuario "+ex);
+             throw ex;
+         }finally{
+             this.Cerrar();
+         }
+         return listaSolicitudDeUsuario;
+     }
         
 }

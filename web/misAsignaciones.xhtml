@@ -56,22 +56,7 @@
                    
                 </p:column>
                 
-                <p:column headerText="Persona Asignada" 
-                          sortBy="#{asigna_solicitud.id_usuario_personal.nombre}" 
-                          filterBy="#{asigna_solicitud.id_usuario_personal.nombre}"
-                          filterMatchMode="startsWith">
-                    
-                    <h:outputText value="#{asigna_solicitud.id_usuario_personal.nombre}" />
-                    <h:outputText value="&nbsp;"/>
-                    <h:outputText value="#{asigna_solicitud.id_usuario_personal.apellidoPaterno}"/>
-                    <h:outputText value="&nbsp;"/>
-                    <h:outputText value="#{asigna_solicitud.id_usuario_personal.apellidoMaterno}"/>
-                   
-                </p:column>
-                
-                           
-              
-                <p:column headerText="Fecha de Asignación" 
+               <p:column headerText="Fecha de Asignación" 
                           sortBy="#{asigna_solicitud.fecha}" 
                           filterBy="#{asigna_solicitud.fecha}"
                           filterMatchMode="startsWith">
@@ -93,6 +78,14 @@
                    
                 </p:column>
                 
+                <p:column headerText="Realizar Orden Interna" style=" width: 90px">
+                    <p:commandLink class=" fa fa-pencil" action="orden_interna.xhtml"  />    
+                    
+                </p:column>
+                <p:column headerText="Realizar Orden de Trabajo" width="10px">
+                    <p:commandLink class="fa fa-pencil" action="#"  />    
+                    
+                </p:column>
         
             </p:dataTable>
            

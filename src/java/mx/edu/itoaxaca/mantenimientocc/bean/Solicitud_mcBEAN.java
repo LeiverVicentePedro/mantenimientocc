@@ -54,7 +54,29 @@ public class Solicitud_mcBEAN implements Serializable{
     private List<Solicitud_mc> listaSolicitudPorDepartamento;
     private List<Solicitud_mc> listaFiltroSolicitud;
     private List<Orden_interna> listaOrdenInterna;
+    private List<Solicitud_mc> listaSolicitudDeUsuarios;
+    private List<Solicitud_mc> filtrarSolicitudIdUsuario;
 
+    public List<Solicitud_mc> getListaSolicitudDeUsuarios() {
+        return listaSolicitudDeUsuarios;
+    }
+
+    public void setListaSolicitudDeUsuarios(List<Solicitud_mc> listaSolicitudDeUsuarios) {
+        this.listaSolicitudDeUsuarios = listaSolicitudDeUsuarios;
+    }
+    
+    
+    
+
+    public List<Solicitud_mc> getFiltrarSolicitudIdUsuario() {
+        return filtrarSolicitudIdUsuario;
+    }
+
+    public void setFiltrarSolicitudIdUsuario(List<Solicitud_mc> filtrarSolicitudIdUsuario) {
+        this.filtrarSolicitudIdUsuario = filtrarSolicitudIdUsuario;
+    }
+    
+    
     public List<Solicitud_mc> getListaFiltroSolicitud() {
         return listaFiltroSolicitud;
     }
@@ -296,6 +318,21 @@ public class Solicitud_mcBEAN implements Serializable{
             listaSolicitudesCentroComputo = solicitudesdao.listarSolicitudesCentroComputo();
         }catch(Exception e){
             System.out.println("Error en SolicitudesCC BEAN -> listaSolicitudesCC "+e);
+        }
+    }
+     
+     public void listaSolicitudDeUsuarios() {
+        Solicitud_mcDAO miSolicituddao;
+        
+        try{
+                miSolicituddao = new Solicitud_mcDAO();
+               FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+           
+                
+            listaSolicitudDeUsuarios = miSolicituddao.buscarSolucitudPorIdUsuario(usuarioVive.getIdUsuario());
+        }catch(Exception e){
+            System.out.println("Error en MisSolicitudes BEAN -> listaMisSolicitudes "+e);
         }
     }
      

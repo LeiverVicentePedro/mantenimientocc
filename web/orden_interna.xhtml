@@ -113,7 +113,7 @@
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton process="dataUno" value="Cerrar" oncomplete="PF('DatosEquipo').hide();"  >
+                                <p:commandButton process="dataUno" value="Seleccionar" oncomplete="PF('DatosEquipo').hide();" update=":formOrden:display" >
 
                                 </p:commandButton>
                             </f:facet>
@@ -212,7 +212,7 @@
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton   value="Cerrar" oncomplete="PF('DatosRefaccion').hide();"  >
+                                <p:commandButton   value="Seleccionar" oncomplete="PF('DatosRefaccion').hide();" update=":formOrden:displayRefaccion" >
 
 
                                 </p:commandButton>
@@ -234,11 +234,11 @@
 
                         </f:facet> 
 
-                        <h:panelGrid columns="2" cellspacing="10" cellpadding="5">
+                        <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
                             <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
                             <p:selectOneMenu value="#{orden_internaBEAN.orden_interna.idsolicitud}" converter="omnifaces.SelectItemsConverter" 
                                              styleClass="selectMenu" required="true" requiredMessage="Se Requiere Folio De Solicitud"
-                                             style="text-transform: uppercase">
+                                             style="width:220px">
                                 <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                                 <f:selectItems value="#{solicitud_mcBEAN.listaSolicitudesCentroComputo}" var="solicituditem" itemLabel="#{solicituditem.folio}" itemValue="#{solicituditem}"/>
                             </p:selectOneMenu>
@@ -247,26 +247,45 @@
                             <p:outputLabel value="Nombre de Orden Interna: "/>
                             <p:selectOneMenu value="#{orden_internaBEAN.orden_interna.nombre_orden}" styleClass="selectMenu" 
                                              required="true" requiredMessage="Se Requiere Nombre de Orden" 
-                                             style="text-transform: uppercase"> 
+                                             style="width:220px"> 
 
-                                <f:selectItem itemLabel="ORDEN DE MANTENIMIENTO" itemValue="orden de mantenimiento" />
-                                <f:selectItem itemLabel="ORDEN DE SERVICIOS DE RED, INTERNET Y TELEFONÍA" itemValue="orden de servicios de red, internet y telefonía"/>
+                                <f:selectItem itemLabel="Orden de Mantenimiento" itemValue="orden de mantenimiento" />
+                                <f:selectItem itemLabel="Orden De Servicios De Red, Internet Y Telefonía" itemValue="orden de servicios de red, internet y telefonía"/>
                             </p:selectOneMenu>
-
+                            <p/>
+                            <p:column/>
                             <p:outputLabel value="Reporte Fallo: "/>
-                            <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo"/>  
+                            <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo" style="width:220px"/>  
+                            <p/><p/>
+                            <p:column/>
                             <p:outputLabel value="Reporte Técnico: "/>
-                            <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_tecnico}" placeholder="Describa Reporte Técnico"/>  
+                            <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_tecnico}" placeholder="Describa Reporte Técnico" style="width:220px"/>  
+                            <p/><p/>
+                            <p:column/>
                             <p:outputLabel value="Posible Causa: "/>
-                            <p:inputText value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa"/>  
+                            <p:inputText value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa" style="width:220px"/>  
                             <h:column/>
-                            <h:column/>
-
-
+                            <p/>
                             <p:outputLabel value="Seleccione Equipo en servicio: "/>
+                            
                             <p:commandButton value="Equipo" oncomplete="PF('DatosEquipo').show();" update=":dialogoDatosEquipo" />  
+                            
+                            <p:outputLabel value="Equipo seleccionado: "/>
+                            <p:outputPanel id="display" style="width:240px;padding-left:5px;margin-top:10px" >
+                                <p:dataList value="#{orden_internaBEAN.listaEquipo}" var="problemasEquipo" emptyMessage="No hay Equipos seleccionados" >
+                                    #{problemasEquipo.tipo}
+                                </p:dataList>
+                            </p:outputPanel>
                             <p:outputLabel value="Seleccione Refaccion usada: "/>
-                            <p:commandButton value="Refaccion" oncomplete="PF('DatosRefaccion').show();" update=":dialogoDatosRefaccion" /> 
+                            
+                            <p:commandButton value="Refacción" oncomplete="PF('DatosRefaccion').show();" update=":dialogoDatosRefaccion" /> 
+                            
+                            <p:outputLabel value="Refacción utilizada: "/>
+                            <p:outputPanel id="displayRefaccion" style="width:240px;padding-left:5px;margin-top:10px" >
+                                <p:dataList value="#{orden_internaBEAN.listaRefaccion}" var="problemas" emptyMessage="No hay Refacción seleccionada" >
+                                    #{problemas.descripcion}
+                                </p:dataList>
+                            </p:outputPanel>
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden;"/>
