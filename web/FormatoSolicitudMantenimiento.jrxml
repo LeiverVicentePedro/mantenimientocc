@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="528" leftMargin="42" rightMargin="42" topMargin="70" bottomMargin="70" uuid="b7f27d63-0ae4-4418-aa15-0814a9dbe3e4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="278"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="recursosMaterialesServicio" class="java.lang.String"/>
 	<parameter name="centroComputo" class="java.lang.String"/>
 	<parameter name="mantenimientoEquipo" class="java.lang.String"/>
@@ -19,11 +19,11 @@
 		<band height="65">
 			<image>
 				<reportElement x="451" y="0" width="77" height="54" uuid="0fae1f16-3b5b-48bb-b9cc-0066f457df29"/>
-				<imageExpression><![CDATA["C:\\Users\\leiver\\Documents\\NetBeansProjects\\mantenimientocc\\web\\resources\\images\\LogoITO.png"]]></imageExpression>
+				<imageExpression><![CDATA["resources\\images\\LogoITO.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="3" y="1" width="155" height="64" uuid="9b8403e0-fc56-46ba-a407-e4d98ef1121c"/>
-				<imageExpression><![CDATA["C:\\Users\\leiver\\Documents\\NetBeansProjects\\mantenimientocc\\web\\resources\\images\\gobmx.png"]]></imageExpression>
+				<imageExpression><![CDATA["resources\\images\\gobmx.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

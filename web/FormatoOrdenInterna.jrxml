@@ -9,7 +9,6 @@
 	<parameter name="area" class="java.lang.String"/>
 	<parameter name="departamento" class="java.lang.String"/>
 	<parameter name="fecha" class="java.lang.String"/>
-	<parameter name="extencion" class="java.lang.String"/>
 	<parameter name="tipo" class="java.lang.String"/>
 	<parameter name="marca" class="java.lang.String"/>
 	<parameter name="modelo" class="java.lang.String"/>
@@ -26,6 +25,7 @@
 	<parameter name="numParte" class="java.lang.String"/>
 	<parameter name="descripcion" class="java.lang.String"/>
 	<parameter name="precio" class="java.lang.String"/>
+	<parameter name="extension" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -359,13 +359,6 @@
 				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="425" y="58" width="86" height="11" uuid="346be52d-3a5d-4046-9dcc-155cd9bf3fc6"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{extencion}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="6" y="100" width="93" height="40" uuid="891b3517-2036-4cfc-b445-0237b60c6d5d"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
@@ -461,6 +454,13 @@
 				<reportElement x="425" y="480" width="55" height="98" uuid="132e796c-4490-47af-9363-ae6cf7aa4008"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="58" width="88" height="11" uuid="f911fc8c-ec5b-4ee4-883b-1afdb75e932c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{extension}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
