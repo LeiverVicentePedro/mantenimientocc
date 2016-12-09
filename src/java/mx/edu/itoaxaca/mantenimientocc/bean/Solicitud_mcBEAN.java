@@ -44,12 +44,16 @@ import net.sf.jasperreports.engine.JasperPrint;
 public class Solicitud_mcBEAN implements Serializable{
 
     Solicitud_mc solicitudmc = new Solicitud_mc();
+    
     List<Catalogo_servicio_solicitado> serviciosSeleccionados;
     List<Catalogo_servicio_solicitado> serviciosPorDepartamento;
-    List<Solicitud_mc> listaSolicitudesCentroComputo;
+    List<Catalogo_servicio_solicitado> catalogoServicio;
+    
+    
     private String folioSolicitud;
     Usuario usuarioVive;
-   
+    
+    private List<Solicitud_mc> listaSolicitudesCentroComputo;
     private List<Solicitud_mc> listaSolicitud;
     private List<Solicitud_mc> listaSolicitudPorDepartamento;
     private List<Solicitud_mc> listaFiltroSolicitud;
@@ -194,16 +198,17 @@ public class Solicitud_mcBEAN implements Serializable{
         }
     }
 
-    public void listaServiciosParaSolicitudPorDepartametoServicio() throws Exception {
-        Catalogo_servicio_solicitadoDAO catalogoServicio;
-
-        try {
-            catalogoServicio = new Catalogo_servicio_solicitadoDAO();
-            serviciosPorDepartamento = catalogoServicio.listarCatalogoPorDepartamentoServico(solicitudmc.getId_departamento().getIddepartamento());
-        } catch (Exception ex) {
-            System.out.println("Error en Solicitud_MCBEAN -> listaServiciosParaSolicitudPorDepartamentoServicio " + ex);
-            throw ex;
-        }
+    public void listaServiciosParaSolicitudPorDepartametoServicio(){
+       serviciosPorDepartamento = new ArrayList();
+        if(solicitudmc.getId_departamento()!=null){
+           for(Catalogo_servicio_solicitado servicio : catalogoServicio){
+              if(servicio.getDepartamento().getIddepartamento()==solicitudmc.getId_departamento().getIddepartamento()){
+                  serviciosPorDepartamento.add(servicio);
+              } 
+           }
+       }else{
+           serviciosSeleccionados.clear();
+       }
     }
 
     public void generaFolioSolicitud() throws Exception {
@@ -336,6 +341,15 @@ public class Solicitud_mcBEAN implements Serializable{
         }
     }
      
-    
-    
+     public void listaServicioSolicitado(){
+         Catalogo_servicio_solicitadoDAO servicioSolicitado = new Catalogo_servicio_solicitadoDAO();
+         try{
+            catalogoServicio = new ArrayList();
+            catalogoServicio = servicioSolicitado.listarCatalogo();
+         }catch(Exception ex){
+           System.out.println("Error en Solicitud_mcBEAN -> listaServicioSolicitado "+ex);  
+         }
+         
+     }
+     
 }

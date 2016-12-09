@@ -24,8 +24,6 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Oficina_solicitante;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import org.primefaces.context.RequestContext;
-import javax.mail.Session;
-import java.util.Properties;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;

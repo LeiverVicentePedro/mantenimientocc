@@ -39,7 +39,7 @@
             <div class="col-md-12">
                 <ui:insert name="top">
                     <h:form>
-                        <p:menubar model="#{menuBEAN.menuPrincipal}">
+                        <p:menubar model="#{menuBEAN.menuPrincipal}" style="border: hidden;">
                             <f:facet name="options">
                                 <p:commandButton value="Cerrar Sesion" icon="fa fa-power-off" actionListener="#{menuBEAN.cerrarSesion()}" action="index.xhtml"/>
                             </f:facet>
