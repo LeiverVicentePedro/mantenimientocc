@@ -27,6 +27,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_interna;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Refaccion_empleada;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_equipo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_refaccion;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -51,7 +52,22 @@ public class Orden_internaBEAN implements Serializable{
     private List<Orden_interna> listaOrden_interna;
     private List<Orden_interna> filterOrden;
     private List<Orden_interna> selecEquipoRefaccion;
+     Solicitud_mc folioDesdeAsignacion;
+     
+            
 
+    public Solicitud_mc getFolioDesdeAsignacion() {
+        return folioDesdeAsignacion;
+    }
+
+    public void setFolioDesdeAsignacion(Solicitud_mc solicitud_mc) {
+       this.folioDesdeAsignacion = solicitud_mc;
+    }
+     public void existeSolicitud(){
+        folioDesdeAsignacion = (Solicitud_mc) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("solicitudAsignada");
+    }
+     
+    
     public List<Orden_interna> getSelecEquipoRefaccion() {
         return selecEquipoRefaccion;
     }
@@ -117,6 +133,8 @@ public class Orden_internaBEAN implements Serializable{
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
             Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
             //existir dentro del navegador
+            
+            ///
             ordenInternaDao = new Orden_internaDAO();
             relacion_orden_equipoDAO = new Relacion_orden_equipoDAO();
             relacion_orden_refaccionDAO =new Relacion_orden_refaccionDAO();
@@ -125,6 +143,7 @@ public class Orden_internaBEAN implements Serializable{
             
             orden_interna.setId_usuario_personal(usuarioVive);
             orden_interna.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
+            orden_interna.setIdsolicitud(folioDesdeAsignacion);
             ordenInternaDao.registrarOrdenInterna(orden_interna);
             
             System.out.println("Lista de Equipo "+listaEquipo.size());
@@ -223,6 +242,7 @@ public class Orden_internaBEAN implements Serializable{
         parametros.put("extension",String.valueOf(orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getExtencion()));
         parametros.put("fecha",fechaOrden);
         
+        
         for(Equipo elementoEquipo : listaEquipo){
           tipo += elementoEquipo.getTipo()+"\n";
           marca+= elementoEquipo.getMarca()+"\n";
@@ -241,6 +261,7 @@ public class Orden_internaBEAN implements Serializable{
         parametros.put("causaFalla", orden_interna.getPosible_causa());
         parametros.put("realizo",usuarioActivo.getNombre()+" "+usuarioActivo.getApellidoPaterno()+" "+usuarioActivo.getApellidoMaterno());
         parametros.put("fechaRealizo",fecha);
+        parametros.put("seRecibe",orden_interna.getSe_recibe());
         
         for(Refaccion_empleada refaccion : listaRefaccion){
          cantidad += refaccion.getCantidad()+"\n";
@@ -273,5 +294,6 @@ public class Orden_internaBEAN implements Serializable{
         this.orden_interna.setReporte_fallo("");
         this.orden_interna.setReporte_tecnico("");
         this.orden_interna.setPosible_causa("");
+        this.orden_interna.setSe_recibe("");
     }
 }

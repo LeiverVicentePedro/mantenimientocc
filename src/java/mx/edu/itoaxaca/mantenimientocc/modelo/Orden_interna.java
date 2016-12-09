@@ -22,7 +22,17 @@ public class Orden_interna {
     private String reporte_fallo;
     private String reporte_tecnico;
     private String posible_causa;
+    private String se_recibe;
 
+    public String getSe_recibe() {
+        return se_recibe;
+    }
+
+    public void setSe_recibe(String se_recibe) {
+        this.se_recibe = se_recibe;
+    }
+    
+    
     public int getIdorden_interna() {
         return idorden_interna;
     }
