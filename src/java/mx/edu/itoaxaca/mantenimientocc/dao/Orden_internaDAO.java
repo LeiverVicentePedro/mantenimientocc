@@ -24,7 +24,7 @@ public class Orden_internaDAO extends Conexion {
     public void registrarOrdenInterna(Orden_interna ordenInternaregistra) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareStatement("INSERT INTO orden_interna (nombre_orden,id_usuario_personal,fecha_entrada,reporte_fallo,reporte_tecnico,posible_causa,id_solicitudmc) values(?,?,?,?,?,?,?)");
+            PreparedStatement consulta = this.getConexion().prepareStatement("INSERT INTO orden_interna (nombre_orden,id_usuario_personal,fecha_entrada,reporte_fallo,reporte_tecnico,posible_causa,id_solicitudmc,se_recibe) values(?,?,?,?,?,?,?,?)");
             consulta.setString(1, ordenInternaregistra.getNombre_orden());
 
             consulta.setInt(2, ordenInternaregistra.getId_usuario_personal().getIdUsuario());
@@ -33,6 +33,7 @@ public class Orden_internaDAO extends Conexion {
             consulta.setString(5, ordenInternaregistra.getReporte_tecnico());
             consulta.setString(6, ordenInternaregistra.getPosible_causa());
             consulta.setInt(7, ordenInternaregistra.getIdsolicitud().getIdsolicitud_mc());
+            consulta.setString(8,ordenInternaregistra.getSe_recibe());
             consulta.executeUpdate();
         } catch (Exception e) {
             System.out.println("error en OrdenInterna DAO -->RegistrarOrdenInterna" + "/n" + e);
@@ -60,6 +61,7 @@ public class Orden_internaDAO extends Conexion {
                 orden.setReporte_tecnico(resultado.getString("reporte_tecnico"));
                 orden.setPosible_causa(resultado.getString("posible_causa"));
                 orden.setIdsolicitud(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultado.getInt("id_solicitudmc")));
+                orden.setSe_recibe(resultado.getString("se_recibe"));
             }
             return orden;
         } catch (Exception ex) {
@@ -88,6 +90,7 @@ public class Orden_internaDAO extends Conexion {
                 orden_interna.setReporte_tecnico(resultadoList.getString("reporte_tecnico"));
                 orden_interna.setPosible_causa(resultadoList.getString("posible_causa"));
                 orden_interna.setIdsolicitud(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultadoList.getInt("id_solicitudmc")));
+                orden_interna.setSe_recibe(resultadoList.getString("se_recibe"));
 
                 lista.add(orden_interna);
             }
@@ -119,6 +122,7 @@ public class Orden_internaDAO extends Conexion {
                 orden_interna.setReporte_tecnico(resultadoConsulta.getString("reporte_tecnico"));
                 orden_interna.setPosible_causa(resultadoConsulta.getString("posible_causa"));
                 orden_interna.setIdsolicitud(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultadoConsulta.getInt("id_solicitudmc")));
+                orden_interna.setSe_recibe(resultadoConsulta.getString("se_recibe"));
 
             }
             resultadoConsulta.close();

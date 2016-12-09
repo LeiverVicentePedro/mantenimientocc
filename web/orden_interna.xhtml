@@ -228,6 +228,8 @@
 
                 <h:form id="formOrden">
                     <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudesCentroComputo()}"/>
+                    <f:event type="preRenderView" listener="#{orden_internaBEAN.existeSolicitud()}"/>
+                    
                     <p:panel id="panelOrden">
                         <f:facet name="header" class="text-center">
                             <h:outputText value="Orden Interna" />
@@ -236,12 +238,7 @@
 
                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
                             <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
-                            <p:selectOneMenu value="#{orden_internaBEAN.orden_interna.idsolicitud}" converter="omnifaces.SelectItemsConverter" 
-                                             styleClass="selectMenu" required="true" requiredMessage="Se Requiere Folio De Solicitud"
-                                             style="width:220px">
-                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                                <f:selectItems value="#{solicitud_mcBEAN.listaSolicitudesCentroComputo}" var="solicituditem" itemLabel="#{solicituditem.folio}" itemValue="#{solicituditem}"/>
-                            </p:selectOneMenu>
+                            <p:outputLabel value="#{orden_internaBEAN.folioDesdeAsignacion.folio}"/>
                             <p/>
                             <p:column/>
                             <p:outputLabel value="Nombre de Orden Interna: "/>
@@ -264,6 +261,10 @@
                             <p:column/>
                             <p:outputLabel value="Posible Causa: "/>
                             <p:inputText value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa" style="width:220px"/>  
+                            <h:column/>
+                            <p/>
+                             <p:outputLabel value="Se recibe con: "/>
+                             <p:inputText value="#{orden_internaBEAN.orden_interna.se_recibe}" placeholder="Detalles de Recepción" style="width:220px"/>  
                             <h:column/>
                             <p/>
                             <p:outputLabel value="Seleccione Equipo en servicio: "/>
@@ -292,7 +293,7 @@
                    
 
                     <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" update="formOrden" ajax="false" />
-
+                    <p:commandButton value="Volver" action="misAsignaciones.xhtml" immediate="true"/>
                 </h:form>
                 <!--////////////////////////////////////////////////Aqui termina Orden Interna///////////////////////////////-->
 

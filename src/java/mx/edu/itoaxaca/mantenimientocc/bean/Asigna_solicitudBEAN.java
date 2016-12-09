@@ -12,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.dao.Asigna_solicitudDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Asigna_solicitud;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
 /**
@@ -27,8 +28,10 @@ public class Asigna_solicitudBEAN implements Serializable{
     private List<Asigna_solicitud> listarAsignacionSolicitudes;
     private List<Asigna_solicitud> filterAsignar;
     private List<Asigna_solicitud> listaAsinacionesDeUsuarios;
-    
+   
 
+   
+    
     public List<Asigna_solicitud> getListaAsinacionesDeUsuarios() {
         return listaAsinacionesDeUsuarios;
     }
@@ -129,5 +132,14 @@ public class Asigna_solicitudBEAN implements Serializable{
             System.out.println("Error en SolicitudesCC BEAN -> listaSolicitudesCC "+e);
         }
     }
+     
+   public void eligeIdAsignaSolicitud(Asigna_solicitud asignaSolicitud){
+       
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignada",asignaSolicitud.getId_solicitud());
+               System.out.println(asignaSolicitud.getId_solicitud().getFolio());
+               
+    
+    }
+     
     
 }
