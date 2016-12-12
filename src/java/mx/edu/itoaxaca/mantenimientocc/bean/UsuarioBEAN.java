@@ -67,7 +67,16 @@ public class UsuarioBEAN implements Serializable{
     private int idArea;
     private int idDepartamento;
     private int idOficina;
+    private List<Usuario> listarUsuariosNivelTresParaOrdenTrabajo;
 
+    public List<Usuario> getListarUsuariosNivelTresParaOrdenTrabajo() {
+        return listarUsuariosNivelTresParaOrdenTrabajo;
+    }
+
+    public void setListarUsuariosNivelTresParaOrdenTrabajo(List<Usuario> listarUsuariosNivelTresParaOrdenTrabajo) {
+        this.listarUsuariosNivelTresParaOrdenTrabajo = listarUsuariosNivelTresParaOrdenTrabajo;
+    }
+     
     public int getIdArea() {
         return idArea;
     }
@@ -521,5 +530,18 @@ public class UsuarioBEAN implements Serializable{
         listaServicioCorreo.add("@yahoo.com");
         listaServicioCorreo.add("@itoaxaca.edu.mx");
         listaServicioCorreo.add("@outlook.com");
+    }
+    
+    public void listarUsuarioNivelTres() throws Exception{
+       UsuarioDAO usuariodao;
+        try{
+            usuariodao=new UsuarioDAO();
+            Usuario usuarioVive = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            listarUsuariosNivelTresParaOrdenTrabajo = usuariodao.listaUsuarioNivelTres(usuarioVive);
+            
+        }
+        catch(Exception e){
+            System.out.println("error en UsuarioNivelTresBEAN --> listarNivelTresUusuariosBEAN"+e);
+        }
     }
 }

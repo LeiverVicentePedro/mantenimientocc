@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                 <p:separator style="visibility: hidden;"/>
+                <h:form id="formOrdenTrabajo">
+                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                   
+                     <f:event type="preRenderView" listener="#{orden_internaBEAN.existeSolicitud()}"/>
+                     <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuarioNivelTres()}"/>
+                    
+                    <p:panel id="panelOrden">
+                        <f:facet name="header" class="text-center">
+                            <h:outputText value="Orden Interna" />
+
+                        </f:facet> 
+
+                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
+                            <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
+                            <p:outputLabel value="#{orden_internaBEAN.folioDesdeAsignacion.folio}"/>
+                            <p/>
+                            <p:column/>
+                            <p:outputLabel value="Tipo de Mantenimiento: "/>
+                            <p:selectOneMenu value="#{orden_trabajoBEAN.orden_trabajo.mantenimiento_tipo}" styleClass="selectMenu" 
+                                             required="true" requiredMessage="Se Requiere tipo de mantenimiento" 
+                                             style="width:220px"> 
+
+                                <f:selectItem itemLabel="Interno" itemValue="Interno" />
+                                <f:selectItem itemLabel="Externo" itemValue="Externo"/>
+                            </p:selectOneMenu>
+                            <p/>
+                            <p:column/>
+                            <p:outputLabel value="Tipo de Servicios: "/>
+                            <p:inputText value="#{orden_trabajoBEAN.orden_trabajo.tipo_servicio}" placeholder="Clase de mantenimiento a realizar" style="width:220px"/>  
+                            <p/><p/>
+                            <p:column/>
+                            <p:outputLabel value="Trabajo Realizado: "/>
+                            <p:inputText value="#{orden_trabajoBEAN.orden_trabajo.trabajo_descripcion}" placeholder="Descripción del trabajo desarrollado" style="width:220px"/>  
+                            <p/><p/>
+                            <p:column/>
+                            <p:outputLabel value="Aprovado por: "/>
+                            <p:selectOneMenu value="#{orden_trabajoBEAN.orden_trabajo.id_usuario_personal_jefe}" converter="omnifaces.SelectItemsConverter" 
+                                     styleClass="selectMenu" required="true" requiredMessage="Se Solicita Nombre"
+                                     style="text-transform: uppercase">
+                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                            <f:selectItems value="#{usuarioBEAN.listarUsuariosNivelTresParaOrdenTrabajo}" var="ordenTrabajoitem" itemLabel="#{ordenTrabajoitem.nombre}" itemValue="#{ordenTrabajoitem}"/>
+                            </p:selectOneMenu> 
+                         
+                        </h:panelGrid>
+                    </p:panel>
+
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

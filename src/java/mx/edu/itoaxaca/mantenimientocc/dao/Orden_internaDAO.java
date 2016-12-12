@@ -42,7 +42,7 @@ public class Orden_internaDAO extends Conexion {
             this.Cerrar();
         }
     }
-
+    //para buscar el id de solicitud en ordenInterna
     public Orden_interna identificadorDeOrden(Solicitud_mc idSolicitud) throws Exception {//me manda a traer un objeto de solicitud que te regresa la solicitud del folio pedido
         ResultSet resultado;
         Orden_interna orden = null;

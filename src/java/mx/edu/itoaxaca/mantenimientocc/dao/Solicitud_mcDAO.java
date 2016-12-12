@@ -85,7 +85,7 @@ public class Solicitud_mcDAO extends Conexion {
         }
     }
 
-    public Solicitud_mc buscarDeSolicitudEntero(int idSolicitud_mc) throws Exception {
+    public Solicitud_mc buscarDeSolicitudEntero(int idSolicitud_mc) throws Exception {//esto es para que en orden interna se listen en un combo todos los folios pero ya no se ocupo al final por lo que se toma ahora de mis aignaciones
         ResultSet resultado;
         Solicitud_mc solicitud = null;
         try {

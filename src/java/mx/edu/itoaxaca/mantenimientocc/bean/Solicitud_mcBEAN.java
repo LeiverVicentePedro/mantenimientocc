@@ -243,21 +243,21 @@ public class Solicitud_mcBEAN implements Serializable{
             parametros.put("mantenimientoEquipo", " ");
         }
 
-        parametros.put("folio", solicitudmc.getFolio());
-        parametros.put("areaSolicitante", solicitudmc.getId_usuario().getIdOficina().getNombreOficina());
-        parametros.put("nombreSolicitante", solicitudmc.getId_usuario().getId_profesion().getNombre_profesion() + ". " + solicitudmc.getId_usuario().getNombre() + " " + solicitudmc.getId_usuario().getApellidoPaterno() + " " + solicitudmc.getId_usuario().getApellidoMaterno());
+        parametros.put("folio", solicitudmc.getFolio().toUpperCase());
+        parametros.put("areaSolicitante", solicitudmc.getId_usuario().getIdOficina().getNombreOficina().toUpperCase());
+        parametros.put("nombreSolicitante", solicitudmc.getId_usuario().getId_profesion().getNombre_profesion().toUpperCase() + ". " + solicitudmc.getId_usuario().getNombre().toUpperCase() + " " + solicitudmc.getId_usuario().getApellidoPaterno().toUpperCase() + " " + solicitudmc.getId_usuario().getApellidoMaterno().toUpperCase());
         String fecha = String.valueOf(solicitudmc.getFecha());
         parametros.put("fechaElaboracion", fecha);
         if (solicitudmc.getOtroProblema().equals(null)) {
             parametros.put("otroProblema", " ");
         } else {
-            parametros.put("otroProblema", solicitudmc.getOtroProblema());
+            parametros.put("otroProblema", solicitudmc.getOtroProblema().toUpperCase());
         }
         //parametro para los problemas encontrados, servicioSolicitado
         for (Catalogo_servicio_solicitado servicio : serviciosSeleccionados) {
             servicioSolicitado += servicio.getServicio_solicitado() + "\n";
         }
-        parametros.put("servicioSolicitado", servicioSolicitado);
+        parametros.put("servicioSolicitado", servicioSolicitado.toUpperCase());
 
         File archivo = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/FormatoSolicitudMantenimiento.jasper"));
         JasperPrint imprimirArchivo = JasperFillManager.fillReport(archivo.getPath(), parametros, new JREmptyDataSource());

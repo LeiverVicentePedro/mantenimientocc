@@ -228,17 +228,17 @@ public class Orden_internaBEAN implements Serializable{
         String descripcion = "";
         String precio = "";
         
-        parametros.put("folio", orden_interna.getIdsolicitud().getFolio());
+        parametros.put("folio", orden_interna.getIdsolicitud().getFolio().toUpperCase());
         if(orden_interna.getNombre_orden().equalsIgnoreCase("orden de mantenimiento")){
             parametros.put("cordinacion","COORDINACIÓN DE MANTENIMIENTO DE EQUIPO DE CÓMPUTO");
         }else{
             parametros.put("cordinacion","COORDINACIÓN DE TELECOMUNICACIONES");
         }
          
-        parametros.put("orden", orden_interna.getNombre_orden());
-        parametros.put("nombreUsiario",nombreUsuario);
-        parametros.put("area",orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getDepartamento().getNombre_departamento());
-        parametros.put("departamento",orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getNombreOficina());
+        parametros.put("orden", orden_interna.getNombre_orden().toUpperCase());
+        parametros.put("nombreUsiario",nombreUsuario.toUpperCase());
+        parametros.put("area",orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getDepartamento().getNombre_departamento().toUpperCase());
+        parametros.put("departamento",orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getNombreOficina().toUpperCase());
         parametros.put("extension",String.valueOf(orden_interna.getIdsolicitud().getId_usuario().getIdOficina().getExtencion()));
         parametros.put("fecha",fechaOrden);
         
@@ -251,17 +251,17 @@ public class Orden_internaBEAN implements Serializable{
           folioInventario += elementoEquipo.getFolio_inventario()+"\n";
         }
         
-        parametros.put("tipo", tipo);
-        parametros.put("marca", marca);
-        parametros.put("modelo", modelo);
-        parametros.put("numSerie", numeroSerie);
+        parametros.put("tipo", tipo.toUpperCase());
+        parametros.put("marca", marca.toUpperCase());
+        parametros.put("modelo", modelo.toUpperCase());
+        parametros.put("numSerie", numeroSerie.toUpperCase());
         parametros.put("folioInventario",folioInventario);
-        parametros.put("reporteFalla",orden_interna.getReporte_fallo());
-        parametros.put("reporteTecnico",orden_interna.getReporte_tecnico());
-        parametros.put("causaFalla", orden_interna.getPosible_causa());
-        parametros.put("realizo",usuarioActivo.getNombre()+" "+usuarioActivo.getApellidoPaterno()+" "+usuarioActivo.getApellidoMaterno());
+        parametros.put("reporteFalla",orden_interna.getReporte_fallo().toUpperCase());
+        parametros.put("reporteTecnico",orden_interna.getReporte_tecnico().toUpperCase());
+        parametros.put("causaFalla", orden_interna.getPosible_causa().toUpperCase());
+        parametros.put("realizo",usuarioActivo.getNombre().toUpperCase()+" "+usuarioActivo.getApellidoPaterno().toUpperCase()+" "+usuarioActivo.getApellidoMaterno().toUpperCase());
         parametros.put("fechaRealizo",fecha);
-        parametros.put("seRecibe",orden_interna.getSe_recibe());
+        parametros.put("seRecibe",orden_interna.getSe_recibe().toUpperCase());
         
         for(Refaccion_empleada refaccion : listaRefaccion){
          cantidad += refaccion.getCantidad()+"\n";
@@ -271,8 +271,8 @@ public class Orden_internaBEAN implements Serializable{
         }
         
         parametros.put("cantidad", cantidad);
-        parametros.put("numParte", numeroPartes);
-        parametros.put("descripcion", descripcion);
+        parametros.put("numParte", numeroPartes.toUpperCase());
+        parametros.put("descripcion", descripcion.toUpperCase());
         parametros.put("precio", precio);
         
         File archivo = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/FormatoOrdenInterna.jasper"));
