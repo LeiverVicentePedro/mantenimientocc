@@ -5,7 +5,7 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -16,9 +16,9 @@ public class Preventivo {
     private Periodo_semestral id_periodo;
     private String año;
     private Date fecha_elaboracion;
-    private Date fecha_aprobacion;
     private Usuario id_usuario_personal;
     private String aprobo;
+    private String folio;
 
     public int getIdPreventivo() {
         return idPreventivo;
@@ -52,14 +52,6 @@ public class Preventivo {
         this.fecha_elaboracion = fecha_elaboracion;
     }
 
-    public Date getFecha_aprobacion() {
-        return fecha_aprobacion;
-    }
-
-    public void setFecha_aprobacion(Date fecha_aprobacion) {
-        this.fecha_aprobacion = fecha_aprobacion;
-    }
-
     public Usuario getId_usuario_personal() {
         return id_usuario_personal;
     }
@@ -74,6 +66,14 @@ public class Preventivo {
 
     public void setAprobo(String aprobo) {
         this.aprobo = aprobo;
+    }
+
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
     }
     
     

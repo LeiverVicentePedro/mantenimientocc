@@ -16,7 +16,7 @@
                     <p:growl id="msj" showDetail="true" sticky="true"/>
 
                     <f:event type="preRenderView" listener="#{departamentoBEAN.listaDepartamentoServicio()}"/>
-                    <f:event type="preRenderView" listener="#{catalogo_servicio_solicitadoBEAN.listarCatalogo()}"/>
+                    <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaServicioSolicitado()}"/>
                     <p:panel header="Solicitud de Servico" >
                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
                             <p:outputLabel value="Departamento Dirigido: "/>
@@ -24,31 +24,18 @@
                                              required="true" requiredMessage="Se Requiere Departamento">
                                 <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-- Seleccione uno --" />
                                 <f:selectItems value="#{departamentoBEAN.listadepartamentoServicio}" var="deptoServicio" itemLabel="#{deptoServicio.nombre_departamento}" itemValue="#{deptoServicio}" />
-                                
-                                <f:ajax listener="#{solicitud_mcBEAN.listaServiciosParaSolicitudPorDepartametoServicio()}" render="serviciosDepartamento"/>
+
+                                <p:ajax listener="#{solicitud_mcBEAN.listaServiciosParaSolicitudPorDepartametoServicio()}" update=":formProblemas:tablaProblemas"/>
                             </p:selectOneMenu>
                             <p:column/> <p:column/>
-                            <p:outputLabel value="Problema: "/>
-                            <p:selectCheckboxMenu id="serviciosDepartamento" value="#{solicitud_mcBEAN.serviciosSeleccionados}" 
-                                                  filter="true" filterMatchMode="startsWith" label="--Seleccione --" converter="omnifaces.SelectItemsConverter"
-                                                  required="true" requiredMessage="Seleccione algún problema">
-                                
-                                <f:selectItems value="#{solicitud_mcBEAN.serviciosPorDepartamento}" var="catalogoSolicitud" itemLabel="#{catalogoSolicitud.servicio_solicitado}" itemValue="#{catalogoSolicitud}" />    
-                                 
-                            </p:selectCheckboxMenu>
-                            
-                                <p:commandButton icon="fa fa-eye" value="Mostrar Seleccionados" update="display">
-      
-                                </p:commandButton>
-                            
+                            <p:outputLabel value="Seleccione: "/>
+                            <p:commandButton value="Problemas" icon="fa fa-exclamation-triangle" oncomplete="PF('dialogProblemas').show();" />
                             <p:outputPanel id="display" style="width:250px;padding-left:5px;margin-top:10px" >
                                 <p:dataList value="#{solicitud_mcBEAN.serviciosSeleccionados}" var="problemas" emptyMessage="No hay problemas seleccionados" >
                                     #{problemas.servicio_solicitado}
                                 </p:dataList>
                             </p:outputPanel>
-                            
-                           
-
+                            <p:column/>
                             <p:outputLabel value="Otro Problema: "/>
                             <p:inputText value="#{solicitud_mcBEAN.solicitudmc.otroProblema}" placeholder="Describa su problema"> 
 
@@ -63,7 +50,6 @@
                 </h:form>
                 <p:separator style="visibility: hidden;"/>
                 <h:form id="formaExterior"> 
-
                     <f:event id="event" type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudDeUsuarios()}"/>
                     <center>
                         <p:outputLabel value="MIS SOLICITUDES " style=" font-size: 20px;"/> 
@@ -142,6 +128,28 @@
 
 
                 </h:form>
+                <p:dialog id='dialogProblema' header="Problemas" widgetVar="dialogProblemas" closable="false" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="30%">
+                    <h:form id='formProblemas'>
+                        <p:dataTable id="tablaProblemas" var='problemas' value="#{solicitud_mcBEAN.serviciosPorDepartamento}" selection="#{solicitud_mcBEAN.serviciosSeleccionados}" rowKey="#{problemas.idcatalogo_servicio_solicitado}"
+                                     emptyMessage="No hay elementos encontrados"
+                                 paginator="true" rows="10"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 >
+                             <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
+                            <p:column headerText="Nombre Problema"
+                                      sortBy="#{problemas.servicio_solicitado}"
+                                      filterBy="#{problemas.servicio_solicitado}"
+                                      filterMatchMode="startsWith">
+                                <h:outputText value="#{problemas.servicio_solicitado}"/>
+                            </p:column>
+                             <f:facet name='footer'>
+                                 <p:commandButton value="Seleccionar" oncomplete="PF('dialogProblemas').hide();" update=":formSolicitud:display"/>
+                                    
+                                 
+                             </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </p:dialog>
 
             </ui:define>
 
