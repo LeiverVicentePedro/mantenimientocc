@@ -45,22 +45,22 @@ public class Solicitud_mcBEAN implements Serializable{
 
     Solicitud_mc solicitudmc = new Solicitud_mc();
     
-    List<Catalogo_servicio_solicitado> serviciosSeleccionados;
+    List<Catalogo_servicio_solicitado> serviciosSeleccionados;//usado por el cheboxl
     List<Catalogo_servicio_solicitado> serviciosPorDepartamento;
     List<Catalogo_servicio_solicitado> catalogoServicio;
-    
+
     
     private String folioSolicitud;
     Usuario usuarioVive;
     
-    private List<Solicitud_mc> listaSolicitudesCentroComputo;
     private List<Solicitud_mc> listaSolicitud;
     private List<Solicitud_mc> listaSolicitudPorDepartamento;
     private List<Solicitud_mc> listaFiltroSolicitud;
-    private List<Orden_interna> listaOrdenInterna;
     private List<Solicitud_mc> listaSolicitudDeUsuarios;
     private List<Solicitud_mc> filtrarSolicitudIdUsuario;
 
+    private List<Orden_interna> listaOrdenInterna;
+    
     public List<Solicitud_mc> getListaSolicitudDeUsuarios() {
         return listaSolicitudDeUsuarios;
     }
@@ -68,9 +68,6 @@ public class Solicitud_mcBEAN implements Serializable{
     public void setListaSolicitudDeUsuarios(List<Solicitud_mc> listaSolicitudDeUsuarios) {
         this.listaSolicitudDeUsuarios = listaSolicitudDeUsuarios;
     }
-    
-    
-    
 
     public List<Solicitud_mc> getFiltrarSolicitudIdUsuario() {
         return filtrarSolicitudIdUsuario;
@@ -132,8 +129,6 @@ public class Solicitud_mcBEAN implements Serializable{
         this.solicitudmc = solicitudmc;
     }
 
-    
-    
     public List<Catalogo_servicio_solicitado> getServiciosSeleccionados() {
         return serviciosSeleccionados;
     }
@@ -149,18 +144,16 @@ public class Solicitud_mcBEAN implements Serializable{
     public void setServiciosPorDepartamento(List<Catalogo_servicio_solicitado> serviciosPorDepartamento) {
         this.serviciosPorDepartamento = serviciosPorDepartamento;
     }
-    
-    ///////////////////////////
 
-    public List<Solicitud_mc> getListaSolicitudesCentroComputo() {
-        return listaSolicitudesCentroComputo;
-    }
-
-    public void setListaSolicitudesCentroComputo(List<Solicitud_mc> listaSolicitudesCentroComputo) {
-        this.listaSolicitudesCentroComputo = listaSolicitudesCentroComputo;
-    }
+//    public List<Catalogo_servicio_solicitado> getListaMuestraSeleccionados() {
+//        return listaMuestraSeleccionados;
+//    }
+//
+//    public void setListaMuestraSeleccionados(List<Catalogo_servicio_solicitado> listaMuestraSeleccionados) {
+//        this.listaMuestraSeleccionados = listaMuestraSeleccionados;
+//    }
     
-    //////////////////////////
+   
 
     
     public void registrarSolicitudMC() throws Exception {
@@ -316,15 +309,6 @@ public class Solicitud_mcBEAN implements Serializable{
             System.out.println("Error en Solicitud_mc -> listarSolicitudPorDepartamento "+ex);
         }
     }
-     public void listaSolicitudesCentroComputo() {
-        Solicitud_mcDAO solicitudesdao;
-        try{
-            solicitudesdao = new Solicitud_mcDAO();
-            listaSolicitudesCentroComputo = solicitudesdao.listarSolicitudesCentroComputo();
-        }catch(Exception e){
-            System.out.println("Error en SolicitudesCC BEAN -> listaSolicitudesCC "+e);
-        }
-    }
      
      public void listaSolicitudDeUsuarios() {
         Solicitud_mcDAO miSolicituddao;
@@ -351,5 +335,7 @@ public class Solicitud_mcBEAN implements Serializable{
          }
          
      }
+     
+    
      
 }

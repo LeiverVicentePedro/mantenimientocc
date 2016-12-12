@@ -81,6 +81,32 @@ public class Periodo_semestralDAO extends Conexion{
         return periodoElegirdos;
     }
     
+    public Periodo_semestral elegirDatoPeriodoPorId(int idperiodo) throws Exception{
+        Periodo_semestral periodoElegirdos=null;
+        ResultSet resultadosetElegirPeriodo;
+        
+        try{
+            this.Conectar();
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT * FROM periodo_semestral WHERE idperiodo_semestral=?");
+            consulta.setInt(1, idperiodo);
+            resultadosetElegirPeriodo = consulta.executeQuery();
+            while(resultadosetElegirPeriodo.next())
+            {
+              periodoElegirdos= new Periodo_semestral();
+              periodoElegirdos.setIdperiodo_semestral(resultadosetElegirPeriodo.getInt("idperiodo_semestral"));
+              periodoElegirdos.setPeriodo(resultadosetElegirPeriodo.getString("periodo"));
+              
+            }
+        }
+        catch(Exception e){
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }
+        return periodoElegirdos;
+    }
+    
     public void modificarPeriodo(Periodo_semestral periodoModificar) throws Exception{
         try{
             this.Conectar();
