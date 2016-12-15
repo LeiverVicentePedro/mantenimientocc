@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{preventivoBEAN.listarPreventivo()}"/>
+                <h:form id="formTablaPreventivo">
+                    <p:separator style="visibility: hidden"/>
+                    <center>
+                    <h:outputLabel value="Mantenimiento Preventivo" style="font-family: sans-serif; font-size: 18"/>
+                    </center>
+                    <p:separator style="visibility: hidden"/>
+                    <p:dataTable id="tablaPreventivo" var="preventivo" value="#{preventivoBEAN.listaPreventivo}" resizableColumns="true"
+                                 liveResize="true"
+                                 selectionMode="single" selection="#{preventivoBEAN.preventivo}" rowKey="#{preventivo.idPreventivo}"
+                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                 scrollable="true"
+                                 style="font-size: 14px;"
+                                 emptyMessage="No hay elementos encontrados"
+                                 paginator="true" rows="5"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+                        <f:facet name="header">
+                            Programa de Mantenimiento Preventivo
+                        </f:facet>
+                        <p:ajax event="rowSelect" listener="#{preventivoBEAN.listarDetallePreventivo()}" update=":formTablaPreventivo:tablaDetalles" />
+                        <p:column headerText="folio" width="100">
+                            <h:outputLabel value="#{preventivo.folio}"/>
+                        </p:column>
+                        <p:column headerText="Periodo">
+                            <h:outputLabel value="#{preventivo.id_periodo.periodo}"/>
+                        </p:column>
+                        <p:column headerText="Año">
+                            <h:outputLabel value="#{preventivo.año}"/>
+                        </p:column>
+                        <p:column headerText="Fecha Elaboracion">
+                            <h:outputLabel value="#{preventivo.fecha_elaboracion}"/>
+                        </p:column>
+                        <p:column headerText="Realizado Por">
+                            <h:outputLabel value="#{preventivo.id_usuario_personal.concatenar}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:separator style="visibility: hidden"/>
+
+                    <p:dataTable id="tablaDetalles" var="detalle" value="#{preventivoBEAN.listaDetalle}" resizableColumns="true"
+                                 liveResize="true"
+                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                 scrollable="true"
+                                 style="font-size: 14px;"
+                                 emptyMessage="No hay elementos encontrados"
+                                 paginator="true" rows="5"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+                        <f:facet name="header">
+                            Detalles de Programa de Mantenimiento Preventivo
+                        </f:facet>
+                        <p:column headerText="Número Servicio">
+                            <h:outputLabel value="#{detalle.numero_servicio}"/>
+                        </p:column>
+                        <p:column headerText="Servicio">
+                            <h:outputLabel value="#{detalle.servicio}"/>
+                        </p:column>
+                        <p:column headerText="Fecha Programada">
+                            <h:outputLabel value="#{detalle.fecha_programada}"/>
+                        </p:column>
+                        <p:column headerText="Fecha Realizada">
+                            <h:outputLabel value="#{detalle.fecha_realizada}"/>
+                        </p:column>
+                        <p:column headerText="Fecha Reprogramada">
+                            <h:outputLabel value="#{detalle.fecha_reprogramada}"/>
+                        </p:column>
+                        <p:column headerText="Actualizar" class="text-center" width="85">
+                            <p:commandButton  icon="fa fa-refresh" action="#"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

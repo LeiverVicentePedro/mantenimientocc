@@ -6,16 +6,15 @@
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
 import java.util.Date;
-
+import java.io.Serializable;
 /**
  *
  * @author leiver
  */
-public class DetallePreventivo {
+public class DetallePreventivo implements Serializable{
     private int idDetalle_preventivo;
     private int numero_servicio;
     private String servicio;
-    private String tipo_servicio;
     private Date fecha_programada;
     private Date fecha_realizada;
     private Date fecha_reprogramada;
@@ -43,14 +42,6 @@ public class DetallePreventivo {
 
     public void setServicio(String servicio) {
         this.servicio = servicio;
-    }
-
-    public String getTipo_servicio() {
-        return tipo_servicio;
-    }
-
-    public void setTipo_servicio(String tipo_servicio) {
-        this.tipo_servicio = tipo_servicio;
     }
 
     public Date getFecha_programada() {
@@ -84,4 +75,30 @@ public class DetallePreventivo {
     public void setId_preventivo(Preventivo id_preventivo) {
         this.id_preventivo = id_preventivo;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + this.idDetalle_preventivo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DetallePreventivo other = (DetallePreventivo) obj;
+        if (this.idDetalle_preventivo != other.idDetalle_preventivo) {
+            return false;
+        }
+        return true;
+    }
+    
 }

@@ -6,6 +6,7 @@
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -14,7 +15,8 @@ import mx.edu.itoaxaca.mantenimientocc.dao.PreventivoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.DetallePreventivo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Preventivo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
-
+import java.util.List;
+import mx.edu.itoaxaca.mantenimientocc.dao.DetallePreventivoDAO;
 /**
  *
  * @author leiver
@@ -30,68 +32,15 @@ public class PreventivoBEAN implements Serializable{
     DetallePreventivo detalle5 = new DetallePreventivo();
     DetallePreventivo detalle6 = new DetallePreventivo();
     
+    private List<Preventivo> listaPreventivo;
+    private List<DetallePreventivo> listaDetalle; 
     private Date fecha1;
     private Date fecha2;
     private Date fecha3;
     private Date fecha4;
     private Date fecha5;
     private Date fecha6;
-    
-    private String tipoServicio1;
-    private String tipoServicio2;
-    private String tipoServicio3;
-    private String tipoServicio4;
-    private String tipoServicio5;
-    private String tipoServicio6;
-
-    public String getTipoServicio1() {
-        return tipoServicio1;
-    }
-
-    public void setTipoServicio1(String tipoServicio1) {
-        this.tipoServicio1 = tipoServicio1;
-    }
-
-    public String getTipoServicio2() {
-        return tipoServicio2;
-    }
-
-    public void setTipoServicio2(String tipoServicio2) {
-        this.tipoServicio2 = tipoServicio2;
-    }
-
-    public String getTipoServicio3() {
-        return tipoServicio3;
-    }
-
-    public void setTipoServicio3(String tipoServicio3) {
-        this.tipoServicio3 = tipoServicio3;
-    }
-
-    public String getTipoServicio4() {
-        return tipoServicio4;
-    }
-
-    public void setTipoServicio4(String tipoServicio4) {
-        this.tipoServicio4 = tipoServicio4;
-    }
-
-    public String getTipoServicio5() {
-        return tipoServicio5;
-    }
-
-    public void setTipoServicio5(String tipoServicio5) {
-        this.tipoServicio5 = tipoServicio5;
-    }
-
-    public String getTipoServicio6() {
-        return tipoServicio6;
-    }
-
-    public void setTipoServicio6(String tipoServicio6) {
-        this.tipoServicio6 = tipoServicio6;
-    }
-            
+                
     public Date getFecha1() {
         return fecha1;
     }
@@ -195,6 +144,22 @@ public class PreventivoBEAN implements Serializable{
     public void setDetalle6(DetallePreventivo detalle6) {
         this.detalle6 = detalle6;
     }
+
+    public List<Preventivo> getListaPreventivo() {
+        return listaPreventivo;
+    }
+
+    public void setListaPreventivo(List<Preventivo> listaPreventivo) {
+        this.listaPreventivo = listaPreventivo;
+    }
+
+    public List<DetallePreventivo> getListaDetalle() {
+        return listaDetalle;
+    }
+
+    public void setListaDetalle(List<DetallePreventivo> listaDetalle) {
+        this.listaDetalle = listaDetalle;
+    }
     
     public void registrarPreventivo(){
         PreventivoDAO preventivoDao = new PreventivoDAO();
@@ -210,7 +175,6 @@ public class PreventivoBEAN implements Serializable{
             preventivo = new PreventivoDAO().buscarPreventivo(preventivo);//busca al objeto de preventivo y lo asigna al mismo objeto
             
             if(!detalle1.getServicio().isEmpty()){
-                detalle1.setTipo_servicio(tipoServicio1);
                 detalle1.setNumero_servicio(1);
                 detalle1.setFecha_programada(fecha1);
                 detalle1.setFecha_realizada(new java.util.Date(0001, 01, 01));
@@ -219,7 +183,6 @@ public class PreventivoBEAN implements Serializable{
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle1);
             }
              if(!detalle2.getServicio().isEmpty()){
-                detalle2.setTipo_servicio(tipoServicio2);
                  detalle1.setNumero_servicio(2);
                 detalle2.setFecha_programada(fecha2);
                 detalle2.setFecha_realizada(new java.util.Date(0001, 01, 01));
@@ -228,28 +191,24 @@ public class PreventivoBEAN implements Serializable{
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle2);
             }
              if(!detalle3.getServicio().isEmpty()){
-                detalle3.setTipo_servicio(tipoServicio3);
                  detalle1.setNumero_servicio(3);
                 detalle3.setFecha_programada(fecha3);
                 detalle3.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle3);
             }
              if(!detalle4.getServicio().isEmpty()){
-                detalle4.setTipo_servicio(tipoServicio4);
                  detalle1.setNumero_servicio(4);
                 detalle4.setFecha_programada(fecha4);
                 detalle4.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle4);
             }
              if(!detalle5.getServicio().isEmpty()){
-                detalle5.setTipo_servicio(tipoServicio5);
                  detalle1.setNumero_servicio(5);
                 detalle5.setFecha_programada(fecha5);
                 detalle5.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle5);
             }
              if(!detalle6.getServicio().isEmpty()){
-                detalle6.setTipo_servicio(tipoServicio6);
                  detalle1.setNumero_servicio(6);
                 detalle6.setFecha_programada(fecha6);
                 detalle6.setId_preventivo(preventivo);
@@ -261,4 +220,27 @@ public class PreventivoBEAN implements Serializable{
         }
     }
     
+    public void listarPreventivo() throws Exception{
+        try{
+            PreventivoDAO preventivoDao = new PreventivoDAO();
+            listaPreventivo = new ArrayList();
+            Usuario usuario  = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            listaPreventivo = preventivoDao.listarPreventivo(usuario);
+            
+        }catch(Exception ex){
+            System.out.println("Error en PreventivoBEAN -> listarPReventivo "+ex);
+            throw ex;
+        }
+    }
+    
+    
+    public void listarDetallePreventivo(){
+        listaDetalle = new ArrayList();
+        try{
+        listaDetalle = new DetallePreventivoDAO().listarDetallePreventivo(preventivo);    
+        }catch(Exception ex){
+            System.out.println("Error en PreventivoBEAN -> listarDetallePreventivo "+ex);
+        }
+        
+    }
 }

@@ -6,18 +6,17 @@
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
 import java.util.Date;
-
+import java.io.Serializable;
 /**
  *
  * @author leiver
  */
-public class Preventivo {
+public class Preventivo implements Serializable{
     private int idPreventivo;
     private Periodo_semestral id_periodo;
     private String año;
     private Date fecha_elaboracion;
     private Usuario id_usuario_personal;
-    private String aprobo;
     private String folio;
 
     public int getIdPreventivo() {
@@ -60,20 +59,37 @@ public class Preventivo {
         this.id_usuario_personal = id_usuario_personal;
     }
 
-    public String getAprobo() {
-        return aprobo;
-    }
-
-    public void setAprobo(String aprobo) {
-        this.aprobo = aprobo;
-    }
-
     public String getFolio() {
         return folio;
     }
 
     public void setFolio(String folio) {
         this.folio = folio;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + this.idPreventivo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Preventivo other = (Preventivo) obj;
+        if (this.idPreventivo != other.idPreventivo) {
+            return false;
+        }
+        return true;
     }
     
     
