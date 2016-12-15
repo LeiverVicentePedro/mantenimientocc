@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="702" leftMargin="45" rightMargin="45" topMargin="42" bottomMargin="42" uuid="112c7786-2df2-4048-8c78-70a02529f619">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="19"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="4e717948-bdd7-411b-8bdb-187ebd071310"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75" splitType="Stretch">
+			<image vAlign="Middle">
+				<reportElement x="627" y="0" width="75" height="75" uuid="7f59ab24-06d7-462a-aa09-6a086d4cebe6"/>
+				<imageExpression><![CDATA["C:\\Users\\leiver\\Documents\\NetBeansProjects\\mantenimientocc\\web\\resources\\images\\LogoITO.png"]]></imageExpression>
+			</image>
+			<image vAlign="Middle">
+				<reportElement x="0" y="0" width="154" height="75" uuid="99e474ce-631e-4493-b6e4-87c186d94789"/>
+				<imageExpression><![CDATA["C:\\Users\\leiver\\Documents\\NetBeansProjects\\mantenimientocc\\web\\resources\\images\\gobmx.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="237" y="0" width="228" height="14" uuid="d197e9d3-4020-469c-b3bf-8ad2e4bc733c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TECNOLOGICO NACIONAL DE MEXICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="16" width="232" height="14" uuid="4cfe026b-bcca-479e-9453-ed0f162d3ea4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO TECNOLOGICO DE OAXACA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="34" width="283" height="20" uuid="737d305a-0b55-4d7e-8c75-1410e021aba0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Programa de Mantenimiento Preventivo]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="258">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="40" width="702" height="218" uuid="c3eb5278-a848-49ae-879e-d2775dacf858"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="333e850b-fc9e-428c-8591-e6e8f18e1b67">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="9edebb40-c18e-4d95-b33d-70451991f71c">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="30" height="30" uuid="3580728f-19c9-4430-b8cc-4f67b95fdc12"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[NO.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="181" uuid="aedce645-0e52-403b-90cf-f1b23cc280e1">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="181" height="30" uuid="991f33e4-8d12-4318-923b-4e43a244c0ed"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[SERVICIO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:columnGroup width="71" uuid="a1688641-d937-48ab-b26a-3226c781677e">
+						<jr:columnGroup width="71" uuid="eb00fb58-4a12-4570-b459-40c4459ece47">
+							<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="71" height="30" uuid="d0c9fcb3-461e-4373-9b65-67321e01b1eb"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial" size="11" isBold="true"/>
+									</textElement>
+									<text><![CDATA[TIPO]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:column width="44" uuid="3964da6f-d32c-49e9-a4f8-4420866a0a35">
+								<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+								<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+								<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+							</jr:column>
+							<jr:column width="27" uuid="93809a4c-1fe1-4f24-a1b8-be6d7008d85c">
+								<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+								<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+								<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+							</jr:column>
+						</jr:columnGroup>
+					</jr:columnGroup>
+					<jr:column width="38" uuid="d8f313c3-ba96-4c79-b6ac-5209e4b15851">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="38" height="30" uuid="7c132c96-98ed-434b-8b8e-1b86ff4fa76e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[E]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="23" uuid="28cb56c4-d8af-4a76-9c3e-6fa6b46c3f7e">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="23" height="30" uuid="6a13a250-387d-427d-b662-0652eb38c01c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ENE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="22" uuid="1915d5fd-134b-45c6-b9aa-f52866cd3bf3">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="22" height="30" uuid="5b090b2f-6b92-4f6e-9e00-c6436da38aee"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[FEB]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="26" uuid="37fe3ef2-4c8b-4c4a-b11b-884caad26d89">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="26" height="30" uuid="340144ac-4fab-428a-b0d7-f0a3c64a0ff9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[MAR]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="25" uuid="ccd1e32c-3b15-4ef7-b8b2-a45940e77618">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="24" height="30" uuid="e263362a-c25b-49f4-aa89-fdfee03b0482"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ABR]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="25" uuid="326f77d7-44b2-4ec7-9173-d0d52832256f">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="25" height="30" uuid="7e52ce66-9224-49f3-9890-8f5800b00221"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[MAY]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="24" uuid="83998ad2-6473-4eea-8965-d906e6092f02">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="24" height="30" uuid="5cabc513-ef2e-4150-9cc5-f14bb165c1f8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[JUN]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="24" uuid="ccf42d9a-071b-4edb-b900-26ccae7c8c06">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="24" height="30" uuid="2ed5d57c-fcfb-443c-8439-6c769e728f0d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[JUL]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="26" uuid="d83830e4-eff6-4e49-9da2-f46d95b0bb89">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="26" height="30" uuid="aa2d4275-fcca-45ab-9293-1c496d656543"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[AGO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="23" uuid="b3fcec56-2500-4d86-aaa6-51ac2f5a3bda">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="23" height="30" uuid="7eebc62c-f20d-4571-9754-f5e4507255dc"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[SEP]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="25" uuid="9d922a38-23d4-435e-a439-15e9ac1b4767">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="25" height="30" uuid="642a05b3-4844-4abf-8f22-3296a2a34eeb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[OCT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="25" uuid="6c913088-af93-41b7-92a7-aed9830d0432">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="25" height="30" uuid="1788c100-6142-40ee-91a2-94178361da16"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[NOV]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="23" uuid="e146abf2-5105-4ebd-bc8b-251a8ab42468">
+						<jr:tableFooter style="table_TD" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="23" height="30" uuid="19ad414d-d7bb-4287-a134-9603b4e39e25"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DIC]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_TD" height="26" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50"/>
+	</lastPageFooter>
+</jasperReport>

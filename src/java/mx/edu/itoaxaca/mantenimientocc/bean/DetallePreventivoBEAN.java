@@ -5,11 +5,13 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.DetallePreventivoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.DetallePreventivo;
-
+import java.util.List;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Preventivo;
 /**
  *
  * @author leiver
@@ -17,7 +19,15 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.DetallePreventivo;
 @ManagedBean
 @ViewScoped
 public class DetallePreventivoBEAN {
-    //DetallePreventivo detalle = new DetallePreventivo();
+    DetallePreventivo detalle = new DetallePreventivo();
+
+    public DetallePreventivo getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(DetallePreventivo detalle) {
+        this.detalle = detalle;
+    }
     
     public void registrarDetallePreventivo(DetallePreventivo detalle){
         try{
@@ -27,4 +37,5 @@ public class DetallePreventivoBEAN {
             System.out.println("Error en DetallePreventivoBEAN -> registrarDetallePreventivo "+ex);
         }
     }
+    
 }

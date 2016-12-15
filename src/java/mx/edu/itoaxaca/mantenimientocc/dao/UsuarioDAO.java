@@ -67,6 +67,7 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
+            usuarioUnico.setConcatenar();
             }
             resultado.close();
             return usuarioUnico;
@@ -99,6 +100,7 @@ public class UsuarioDAO extends Conexion{
             usuario.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuario.setTipoBT(resultado.getString("tipo_bt"));
             usuario.setEstatus(resultado.getBoolean("estatus"));
+            usuario.setConcatenar();
             }
             
         }catch(Exception ex){
@@ -129,7 +131,7 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
-            
+            usuarioUnico.setConcatenar();
             
             }
             resultado.close();
@@ -228,7 +230,7 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
-            
+            usuarioUnico.setConcatenar();
             }
             resultado.close();
             return usuarioUnico;
