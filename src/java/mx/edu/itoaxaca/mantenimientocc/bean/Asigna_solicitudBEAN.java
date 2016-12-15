@@ -133,7 +133,7 @@ public class Asigna_solicitudBEAN implements Serializable{
         }
     }
      
-   public void eligeIdAsignaSolicitud(Asigna_solicitud asignaSolicitud){
+   public void eligeIdAsignaSolicitud(Asigna_solicitud asignaSolicitud){//
        
                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignada",asignaSolicitud.getId_solicitud());
                System.out.println(asignaSolicitud.getId_solicitud().getFolio());
@@ -141,5 +141,12 @@ public class Asigna_solicitudBEAN implements Serializable{
     
     }
      
+   public void eligeIdAsignaSolicitudOTrabajo(Solicitud_mc asignaSolicitud){//
+       
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignadaOR",asignaSolicitud.getIdsolicitud_mc());
+               System.out.println(asignaSolicitud.getFolio());
+               
+    
+    }
     
 }

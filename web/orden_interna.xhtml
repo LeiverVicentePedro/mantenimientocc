@@ -227,7 +227,6 @@
                 <!-- ////////////////////////////////////Aqui se llenan los campos de Orden interna  //////////////////////////////////////////////--> 
 
                 <h:form id="formOrden">
-                    <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudesCentroComputo()}"/>
                     <f:event type="preRenderView" listener="#{orden_internaBEAN.existeSolicitud()}"/>
                     
                     <p:panel id="panelOrden">

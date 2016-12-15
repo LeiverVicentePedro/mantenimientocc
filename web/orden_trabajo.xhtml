@@ -48,7 +48,7 @@
                             <p:inputText value="#{orden_trabajoBEAN.orden_trabajo.trabajo_descripcion}" placeholder="Descripción del trabajo desarrollado" style="width:220px"/>  
                             <p/><p/>
                             <p:column/>
-                            <p:outputLabel value="Aprovado por: "/>
+                            <p:outputLabel value="Aprobado por: "/>
                             <p:selectOneMenu value="#{orden_trabajoBEAN.orden_trabajo.id_usuario_personal_jefe}" converter="omnifaces.SelectItemsConverter" 
                                      styleClass="selectMenu" required="true" requiredMessage="Se Solicita Nombre"
                                      style="text-transform: uppercase">
@@ -57,6 +57,9 @@
                             </p:selectOneMenu> 
                          
                         </h:panelGrid>
+                           <p:separator style="visibility: hidden;"/>
+                           <p:commandButton value="Registrar" action="#{orden_trabajoBEAN.registrarOrden()}" update="formOrdenTrabajo" />
+                   
                     </p:panel>
 
                 </h:form>
