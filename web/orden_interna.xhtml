@@ -251,17 +251,26 @@
                             <p/>
                             <p:column/>
                             <p:outputLabel value="Reporte Fallo: "/>
-                            <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo" style="width:220px"/>  
+                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo" rows="2" cols="50" counter="reporteDeFallo" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:column/><p:column/><p:column/>
+                            <h:outputText id="reporteDeFallo" style=" color: #c0c0c0"/>
                             <p/><p/>
                             <p:column/>
                             <p:outputLabel value="Reporte Técnico: "/>
-                            <p:inputText value="#{orden_internaBEAN.orden_interna.reporte_tecnico}" placeholder="Describa Reporte Técnico" style="width:220px"/>  
+                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.reporte_tecnico}" placeholder="Describa Reporte Técnico" rows="2" cols="50" counter="reporteTecnico" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:column/><p:column/><p:column/>
+                            <h:outputText id="reporteTecnico" style=" color: #c0c0c0"/>
                             <p/><p/>
                             <p:column/>
+                           
                             <p:outputLabel value="Posible Causa: "/>
-                            <p:inputText value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa" style="width:220px"/>  
+                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa" rows="2" cols="50" counter="posibleCausa" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            
+                            <br/><p:column/><p:column/>
+                            <h:outputText id="posibleCausa" style=" color: #c0c0c0"/>
+                            <p/><p/>
                             <h:column/>
-                            <p/>
+                            
                              <p:outputLabel value="Se recibe con: "/>
                              <p:inputText value="#{orden_internaBEAN.orden_interna.se_recibe}" placeholder="Detalles de Recepción" style="width:220px"/>  
                             <h:column/>

@@ -11,13 +11,14 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                <p:growl id="msj" showDetail="true" sticky="true"/>
-        <h:form id="formaExterior">                      
+             <p:separator style="visibility: hidden;"/> 
+        <h:form id="formaExterior">        
+            <p:growl id="msj" showDetail="true" sticky="true"/>
              <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{areaBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
             
                 <f:ajax execute="#{areaBEAN.listarArea()}" render="data" />
             </p:commandButton>
-            <p:separator/>
+             <p:separator/>
             <p:dataTable id="data" var="area" value="#{areaBEAN.listaArea}" 
                          
                          style="font-size: 14px;"
@@ -79,20 +80,22 @@
                     <p:commandLink class="fa fa-pencil" actionListener="#{areaBEAN.elegirDatoArea(area)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                 </p:column>
                 
-                <p:column headerText="Eliminar"
+                <p:column headerText="Baja"
                           width="70">
-                    <p:commandLink class="fa fa-trash" actionListener="#{areaBEAN.eliminarArea(area)}" update="data"/>
+                    <p:commandLink class="fa fa-trash" actionListener="#{areaBEAN.elegirDatoAreaBaja(area)}" update="data"/>
                 </p:column>
             </p:dataTable>
         </h:form>
         
         <p:dialog header="Datos de Area" widgetVar="Datos" id="dialogoDatos"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            
             <h:form>
+                 
                 <p/>
                  <p:outputLabel for="txtNombre" value="&nbsp;Nombre de Area&nbsp;"/>
                  <p:inputText id="txtNombre" value="#{areaBEAN.area.nombre_area}" 
                               required="true" requiredMessage="Se requiere nombre de Area" 
-                              style="text-transform: uppercase">
+                              style="text-transform: uppercase" >
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
                  
@@ -109,12 +112,14 @@
             </p:selectOneMenu>
             <p/>
             <center>
-            <p:commandButton value="#{areaBEAN.accion}" actionListener="#{areaBEAN.operarArea()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
+            <p:commandButton value="#{areaBEAN.accion}" actionListener="#{areaBEAN.operarArea()}" oncomplete="PF('Datos').hide();" update=":formaExterior" />
             <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
             </center>
             <p/>
             </h:form>
         </p:dialog>
+                
+        
             </ui:define>
 
          <!--   <ui:define name="bottom">

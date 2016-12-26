@@ -12,6 +12,8 @@
 
             <ui:define name="content">
                 <h:form id="formTabla">
+                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <p:separator style="visibility: hidden;"/> 
                     <p:commandButton value="Nuevo" oncomplete="PF('DatosUsuario').show();" actionListener="#{usuarioBEAN.setAccionDeBotonUsuario('Registrar')}" update=":dialogoUsuario">
                         <f:ajax execute="#{usuarioBEAN.listaUsuarioDepartameto()}" render="tablaU"/>
                     </p:commandButton>
@@ -89,7 +91,6 @@
                         </p:column>
                         <p:column style=" font-size: 12px "
                                   headerText="Profesion"
-                                  sortBy="#{usuario.id_profesion.nombre_profesion}"
                                   filterBy="#{usuario.id_profesion.nombre_profesion}"
                                   filterMatchMode="startsWith">
                             <p:outputLabel value="#{usuario.id_profesion.nombre_profesion}"/>
@@ -143,9 +144,9 @@
                             <p:commandLink class="fa fa-pencil" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
                         </p:column>
                         <p:column style=" font-size: 12px "
-                                  headerText="Eliminar"
+                                  headerText="Baja"
                                   width="70">
-                            <p:commandLink class="fa fa-trash" action="#"/>
+                            <p:commandLink class="fa fa-trash" actionListener="#{usuarioBEAN.elegirDatoUsuarioBaja(usuario)}" update="tablaU"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
@@ -155,8 +156,9 @@
                         <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
                         <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
                         <f:event type="preRenderView" listener="#{usuarioBEAN.llenaListaServicoCorreo()}"/>
+                        <f:event type="preRenderView" listener="#{periodo_semestralBEAN.listarPeriodo()}"/>
                         <p:panel header="Datos Personales" class="text-center container-fluid">
-                            <h:panelGrid columns="6" cellspacing="10" cellpadding="5">
+                            <h:panelGrid columns="6" cellspacing="10" cellpadding="5" class="container-fluid">
                                 <p:outputLabel value="RFC&nbsp;"/>
                                 <p:inputText class="" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}" style="text-transform: uppercase" >
                                     <f:validator validatorId="validadoresRFC"/>
@@ -164,7 +166,8 @@
                                 <h:column/><h:column/>
                                 <h:column/><h:column/>
                                 <p:outputLabel value="Nombre&nbsp;"/>
-                                <p:inputText class="" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.objetoUsuario.nombre}" required="true" requiredMessage="Nombre Requerido">
+                                <p:inputText class="" placeholder="Nombre" id="nombreUsuario"
+                                             value="#{usuarioBEAN.objetoUsuario.nombre}" required="true" requiredMessage="Nombre Requerido">
                                     <f:validator validatorId="validadoresLetrasUsuario"/>
                                 </p:inputText>
 
@@ -179,37 +182,71 @@
                             </h:panelGrid>
                         </p:panel>
                         <p/>
-                        <p:panel header="Sobre su Trabajo" class="text-center container ">
-                            <h:panelGrid columns="6" cellpadding="5" cellspacing="10">
-                                <p:outputLabel value="Area:&nbsp;"/>
+                        <p:panel header="Sobre su Trabajo" class="container-fluid">
+                            <h:panelGrid columns="3" cellpadding="5" cellspacing="10" >
+                                <p:column>
+                                <p:outputLabel value="Area:&nbsp;&nbsp;&nbsp;"/>
                                 <p:selectOneMenu value="#{usuarioBEAN.idArea}">
                                     <f:selectItem noSelectionOption="true" itemLabel="-- Area --" itemValue="#{null}"/>
                                     <f:selectItems value="#{usuarioBEAN.listaAreas}" var="area" itemLabel="#{area.nombre_area}" itemValue="#{area.idarea}"/>
                                     <p:ajax listener="#{usuarioBEAN.departamentoDeUnArea()}" update="departamento"/>
                                     <p:ajax update="oficina"/>
                                 </p:selectOneMenu>
+                                </p:column>
+                                
+                                <p:column>
                                 <p:outputLabel value="&nbsp;Departamento:&nbsp;"/>
                                 <p:selectOneMenu id="departamento" value="#{usuarioBEAN.idDepartamento}" converter="omnifaces.SelectItemsConverter">
                                     <f:selectItem noSelectionOption="true" itemLabel="-- Departamento --" itemValue="#{null}"/>
                                     <f:selectItems value="#{usuarioBEAN.listaTemporalDepartamento}" var="departamento" itemLabel="#{departamento.nombre_departamento}" itemValue="#{departamento.iddepartamento}"/>
                                     <p:ajax listener="#{usuarioBEAN.oficinaDeUnDepartamento()}" update="oficina"/>
                                 </p:selectOneMenu>
+                                </p:column>
+                                <p:column>
                                 <p:outputLabel value="&nbsp;Oficina:&nbsp;"/> 
                                 <p:selectOneMenu id="oficina" value="#{usuarioBEAN.objetoUsuario.idOficina}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Sleccione Su Oficina">
                                     <f:selectItem noSelectionOption="true" itemLabel="-- Oficina --" itemValue="#{null}"/>
                                     <f:selectItems value="#{usuarioBEAN.listaTemporalOficina}" var="oficina" itemLabel="#{oficina.nombreOficina}" itemValue="#{oficina}"/>
                                 </p:selectOneMenu>
-                                <p:outputLabel value="Profesion&nbsp;"/>
+                                </p:column>
+                                
+                                <p:column>
+                                <p:outputLabel value="Profesion:&nbsp;"/>
                                 <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.id_profesion}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Profesion requerida">
                                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                                     <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesionN" itemLabel="#{profesionN.nombre_profesion}" itemValue="#{profesionN}"/>
                                 </p:selectOneMenu>
+                                </p:column>
+                                <p:column/><p:column/>
+                                <p:column>
+                                <p:outputLabel value="Tipo de Empleado:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.tipoBT}" styleClass="selectMenu">
+                                 <f:selectItem itemLabel="Base" itemValue="Base"/>
+                                 <f:selectItem itemLabel="Temporal" itemValue="Temporal"/>
+                                </p:selectOneMenu>
+                                </p:column>
+                                <p:column/><p:column/>
+                                <p:column>
+                                <p:outputLabel value="Estatus:&nbsp;&nbsp;&nbsp;&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.estatus}" styleClass="selectMenu">
+                                 <f:selectItem itemLabel="Activo" itemValue="true"/>
+                                 <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+                                </p:selectOneMenu>
+                                </p:column>
+                                <p:column>
+                                  <p:outputLabel value="Periodo:&nbsp;&nbsp;&nbsp;&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+                                  <p:selectOneMenu id="periodo" value="#{usuarioBEAN.periodo.idperiodo_semestral}" converter="omnifaces.SelectItemsConverter">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{periodo_semestralBEAN.listaPeriodo}" var="empleadoPeriodo" itemLabel="#{empleadoPeriodo.periodo}" itemValue="#{empleadoPeriodo}"/>
+                                </p:selectOneMenu> 
+                                </p:column>
+                                
                             </h:panelGrid>
                         </p:panel>
                         <p/>
-                        <p:panel header="Datos de Cuenta" style="width: 70% " class="text-center container">
+                        <p:panel header="Datos de Cuenta" style="width: 100% " class="text-center container">
                             <h:panelGrid columns="7" class="container-fluid">
-                                <p:outputLabel value="&nbsp;Nombre Correo&nbsp;"  />
+                                <p:outputLabel value="Nombre Correo&nbsp;"  />
                                 <p:inputText class="form-control" placeholder="algun nombre" id="correoUsuario" value="#{usuarioBEAN.usuarioCorreoNombre}" required="true" requiredMessage="Nombre de Correo Requerido">
                                     <!--                            <f:validator validatorId="validadoresEmail"/>-->
                                 </p:inputText>
@@ -221,10 +258,12 @@
                                 <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.objetoUsuario.clave}" type="password" required="true" requiredMessage="Contraseña Requerido">
                                     <f:validator validatorId="validadoresContrasenia"/>
                                 </p:inputText>
-                                <p:outputLabel value="Nivel Acceso&nbsp;"/>
-                                <p:inputText class="form-control" placeholder="entre 1-3" id="nivelUsuario" value="#{usuarioBEAN.objetoUsuario.nivel}" required="true" requiredMessage="Nivel requerido" title="El valor de acceso es 1 si es usuario basico o 3 si es administrador">
-
-                                </p:inputText>    
+                                <p:outputLabel value="Nivel Acceso:"/>
+                                <p:selectOneMenu value="#{usuarioBEAN.objetoUsuario.nivel}" styleClass="selectMenu">
+                                  <f:selectItem itemLabel="1-Acceso" itemValue="1"/>
+                                  <f:selectItem itemLabel="2-Basico" itemValue="2"/>
+                                  <f:selectItem itemLabel="3-Administrador" itemValue="3"/>
+                                </p:selectOneMenu>   
                             </h:panelGrid>
                         </p:panel>
                         <p/>

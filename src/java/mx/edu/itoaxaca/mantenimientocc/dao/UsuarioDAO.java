@@ -110,7 +110,7 @@ public class UsuarioDAO extends Conexion{
         }
         return usuario;
     }
-    public Usuario consultarUsuarioPorId(Usuario usuario) throws Exception
+    public Usuario consultarUsuarioPorId(Usuario usuario) throws Exception //Se reutiliza para buscar el id del Usuario que se agregara en la tabla empleado_periodo
     {
         Usuario usuarioUnico = new Usuario();
         try{
@@ -188,7 +188,7 @@ public class UsuarioDAO extends Conexion{
     public void modificarUsuario(Usuario usuario) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareStatement("UPDATE usuario SET  rfc=?, nombre=?, apellido_paterno=?, apellido_materno=?, correo=?, clave=?, nivel=?, id_oficina=?, profesion=?, tipo_bt=?, estatus=? WHERE idusuario=?");
+            PreparedStatement consulta = this.getConexion().prepareStatement("UPDATE usuario SET  rfc=?, nombre=?, apellido_paterno=?, apellido_materno=?, correo=?, clave=?, nivel=?, id_oficina=?, id_profesion=?, tipo_bt=?, estatus=? WHERE idusuario=?");
             consulta.setString(1, usuario.getRfc());
             consulta.setString(2, usuario.getNombre());
             consulta.setString(3, usuario.getApellidoPaterno());
@@ -316,5 +316,40 @@ public class UsuarioDAO extends Conexion{
            this.Cerrar();
        }
        return listaUsuario;
+    }
+    
+    public Usuario elegirDatoUsuarioBaja(Usuario usuario) throws Exception{
+        Usuario usuariodos=null;
+        ResultSet resultadoset;
+        
+        try{
+            this.Conectar();
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT * FROM usuario WHERE idusuario=?");
+            consulta.setInt(1, usuario.getIdUsuario());
+            resultadoset = consulta.executeQuery();
+            while(resultadoset.next())
+            {
+              usuariodos= new Usuario();
+            usuariodos.setIdUsuario(resultadoset.getInt("idusuario"));
+            usuariodos.setNombre(resultadoset.getString("nombre"));
+            usuariodos.setApellidoPaterno(resultadoset.getString("apellido_paterno"));
+            usuariodos.setApellidoMaterno(resultadoset.getString("apellido_materno"));
+            usuariodos.setCorreo(resultadoset.getString("correo"));
+            usuariodos.setClave(resultadoset.getString("clave"));
+            usuariodos.setNivel(resultadoset.getInt("nivel"));
+            usuariodos.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultadoset.getInt("id_oficina")));
+            usuariodos.setRfc(resultadoset.getString("rfc"));
+            usuariodos.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultadoset.getInt("id_profesion")));
+            usuariodos.setTipoBT(resultadoset.getString("tipo_bt"));
+            usuariodos.setEstatus(resultadoset.getBoolean("estatus"));
+            }
+        }
+        catch(Exception e){
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }
+        return usuariodos;
     }
 }

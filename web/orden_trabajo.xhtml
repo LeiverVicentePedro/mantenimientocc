@@ -16,24 +16,24 @@
                 <h:form id="formOrdenTrabajo">
                     <p:growl id="msj" showDetail="true" sticky="true"/>
                    
-                     <f:event type="preRenderView" listener="#{orden_internaBEAN.existeSolicitud()}"/>
+                    <f:event type="preRenderView" listener="#{orden_trabajoBEAN.existeSolicitud()}"/>
                      <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuarioNivelTres()}"/>
                     
                     <p:panel id="panelOrden">
                         <f:facet name="header" class="text-center">
-                            <h:outputText value="Orden Interna" />
+                            <h:outputText value="Orden De Trabajo" />
 
                         </f:facet> 
 
                          <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
                             <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
-                            <p:outputLabel value="#{orden_internaBEAN.folioDesdeAsignacion.folio}"/>
+                            <p:outputLabel value="#{orden_trabajoBEAN.solicitudOT.folio}"/>
                             <p/>
                             <p:column/>
                             <p:outputLabel value="Tipo de Mantenimiento: "/>
                             <p:selectOneMenu value="#{orden_trabajoBEAN.orden_trabajo.mantenimiento_tipo}" styleClass="selectMenu" 
                                              required="true" requiredMessage="Se Requiere tipo de mantenimiento" 
-                                             style="width:220px"> 
+                                             style="width:150px"> 
 
                                 <f:selectItem itemLabel="Interno" itemValue="Interno" />
                                 <f:selectItem itemLabel="Externo" itemValue="Externo"/>
@@ -41,24 +41,34 @@
                             <p/>
                             <p:column/>
                             <p:outputLabel value="Tipo de Servicios: "/>
-                            <p:inputText value="#{orden_trabajoBEAN.orden_trabajo.tipo_servicio}" placeholder="Clase de mantenimiento a realizar" style="width:220px"/>  
-                            <p/><p/>
+                          
+                            <p:inputText value="#{orden_trabajoBEAN.orden_trabajo.tipo_servicio}" placeholder="Clase de mantenimiento a realizar" style="width:320px"/>  
+                            <br/>
+                           
                             <p:column/>
+                            <p:column/><p:column ><p/> </p:column><p:column/><p:column/>
                             <p:outputLabel value="Trabajo Realizado: "/>
-                            <p:inputText value="#{orden_trabajoBEAN.orden_trabajo.trabajo_descripcion}" placeholder="Descripción del trabajo desarrollado" style="width:220px"/>  
+                            <p:inputTextarea value="#{orden_trabajoBEAN.orden_trabajo.trabajo_descripcion}" placeholder="Descripción del trabajo desarrollado" rows="2" cols="70" counter="trabajoRealizado" maxlength="300" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:column/><p:column/><p:column/>
+                            <h:outputText id="trabajoRealizado" style=" color: #c0c0c0"/> 
                             <p/><p/>
                             <p:column/>
+                            
                             <p:outputLabel value="Aprobado por: "/>
-                            <p:selectOneMenu value="#{orden_trabajoBEAN.orden_trabajo.id_usuario_personal_jefe}" converter="omnifaces.SelectItemsConverter" 
+                            <p:selectOneMenu id="aprobado" value="#{orden_trabajoBEAN.orden_trabajo.id_usuario_personal_jefe}" converter="omnifaces.SelectItemsConverter" 
                                      styleClass="selectMenu" required="true" requiredMessage="Se Solicita Nombre"
-                                     style="text-transform: uppercase">
+                                     style="text-transform: uppercase;width: 150px" editable="true">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                             <f:selectItems value="#{usuarioBEAN.listarUsuariosNivelTresParaOrdenTrabajo}" var="ordenTrabajoitem" itemLabel="#{ordenTrabajoitem.nombre}" itemValue="#{ordenTrabajoitem}"/>
                             </p:selectOneMenu> 
+                            <p:watermark for="aprobado" value="Seleccione" id="watermark"/> <!--marca de agua para los textos entre los campos-->
+                        
                          
                         </h:panelGrid>
                            <p:separator style="visibility: hidden;"/>
-                           <p:commandButton value="Registrar" action="#{orden_trabajoBEAN.registrarOrden()}" update="formOrdenTrabajo" />
+                           <p:commandButton value="Registrar" actionListener="#{orden_trabajoBEAN.registrarOrden()}" update="formOrdenTrabajo" ajax="false" />
+                           <p:commandButton value="Volver" action="misAsignaciones.xhtml" immediate="true"/>
+                            
                    
                     </p:panel>
 

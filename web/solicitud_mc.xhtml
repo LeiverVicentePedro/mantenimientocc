@@ -19,27 +19,41 @@
                     <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaServicioSolicitado()}"/>
                     <p:panel header="Solicitud de Servico" >
                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
+                            <p:column>
+                            <p/>
                             <p:outputLabel value="Departamento Dirigido: "/>
+                            <br/>
+                            </p:column>
+                            <p:column>
+                             <p/>
                             <p:selectOneMenu value="#{solicitud_mcBEAN.solicitudmc.id_departamento}" converter="omnifaces.SelectItemsConverter"
                                              required="true" requiredMessage="Se Requiere Departamento">
-                                <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-- Seleccione uno --" />
+                                <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-- Seleccione uno --"/>
                                 <f:selectItems value="#{departamentoBEAN.listadepartamentoServicio}" var="deptoServicio" itemLabel="#{deptoServicio.nombre_departamento}" itemValue="#{deptoServicio}" />
 
                                 <p:ajax listener="#{solicitud_mcBEAN.listaServiciosParaSolicitudPorDepartametoServicio()}" update=":formProblemas:tablaProblemas"/>
                             </p:selectOneMenu>
-                            <p:column/> <p:column/>
+                            <br/>
+                            </p:column>
+                            <p:column/><p:column/>
+                            
                             <p:outputLabel value="Seleccione: "/>
+                            <p:column >
                             <p:commandButton value="Problemas" icon="fa fa-exclamation-triangle" oncomplete="PF('dialogProblemas').show();" />
+                            <br/>
                             <p:outputPanel id="display" style="width:250px;padding-left:5px;margin-top:10px" >
                                 <p:dataList value="#{solicitud_mcBEAN.serviciosSeleccionados}" var="problemas" emptyMessage="No hay problemas seleccionados" >
                                     #{problemas.servicio_solicitado}
                                 </p:dataList>
                             </p:outputPanel>
-                            <p:column/>
+                            <p/>
+                            </p:column>
+                            
+                            <p:column/><p:column/>
                             <p:outputLabel value="Otro Problema: "/>
-                            <p:inputText value="#{solicitud_mcBEAN.solicitudmc.otroProblema}" placeholder="Describa su problema"> 
-
-                            </p:inputText>
+                            <p:inputTextarea value="#{solicitud_mcBEAN.solicitudmc.otroProblema}" placeholder="Describa su problema" rows="2" cols="50" counter="MensajecontadorDeCaracteres" maxlength="100" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:column/><p:column/><p:column/>
+                            <h:outputText id="MensajecontadorDeCaracteres" />
                         </h:panelGrid>
 
                         <p:separator style="visibility: hidden;"/>
