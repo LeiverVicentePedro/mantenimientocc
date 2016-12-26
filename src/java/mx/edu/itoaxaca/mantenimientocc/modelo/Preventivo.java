@@ -18,6 +18,7 @@ public class Preventivo implements Serializable{
     private Date fecha_elaboracion;
     private Usuario id_usuario_personal;
     private String folio;
+    private String aprobo;
 
     public int getIdPreventivo() {
         return idPreventivo;
@@ -67,6 +68,15 @@ public class Preventivo implements Serializable{
         this.folio = folio;
     }
 
+    public String getAprobo() {
+        return aprobo;
+    }
+
+    public void setAprobo(String aprobo) {
+        this.aprobo = aprobo;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;

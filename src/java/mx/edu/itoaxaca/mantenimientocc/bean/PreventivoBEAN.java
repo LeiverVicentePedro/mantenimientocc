@@ -40,7 +40,7 @@ public class PreventivoBEAN implements Serializable{
     private Date fecha4;
     private Date fecha5;
     private Date fecha6;
-                
+    
     public Date getFecha1() {
         return fecha1;
     }
@@ -176,41 +176,37 @@ public class PreventivoBEAN implements Serializable{
             
             if(!detalle1.getServicio().isEmpty()){
                 detalle1.setNumero_servicio(1);
-                detalle1.setFecha_programada(fecha1);
-                detalle1.setFecha_realizada(new java.util.Date(0001, 01, 01));
-                detalle1.setFecha_reprogramada(new java.util.Date(0001, 01, 01));
+                detalle1.setFecha(fecha1);
                 detalle1.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle1);
             }
              if(!detalle2.getServicio().isEmpty()){
-                 detalle1.setNumero_servicio(2);
-                detalle2.setFecha_programada(fecha2);
-                detalle2.setFecha_realizada(new java.util.Date(0001, 01, 01));
-                detalle2.setFecha_reprogramada(new java.util.Date(0001, 01, 01));
+                 detalle2.setNumero_servicio(2);
+                detalle2.setFecha(fecha2);
                 detalle2.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle2);
             }
              if(!detalle3.getServicio().isEmpty()){
-                 detalle1.setNumero_servicio(3);
-                detalle3.setFecha_programada(fecha3);
+                 detalle3.setNumero_servicio(3);
+                detalle3.setFecha(fecha3);
                 detalle3.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle3);
             }
              if(!detalle4.getServicio().isEmpty()){
-                 detalle1.setNumero_servicio(4);
-                detalle4.setFecha_programada(fecha4);
+                 detalle4.setNumero_servicio(4);
+                detalle4.setFecha(fecha4);
                 detalle4.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle4);
             }
              if(!detalle5.getServicio().isEmpty()){
-                 detalle1.setNumero_servicio(5);
-                detalle5.setFecha_programada(fecha5);
+                 detalle5.setNumero_servicio(5);
+                detalle5.setFecha(fecha5);
                 detalle5.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle5);
             }
              if(!detalle6.getServicio().isEmpty()){
-                 detalle1.setNumero_servicio(6);
-                detalle6.setFecha_programada(fecha6);
+                 detalle6.setNumero_servicio(6);
+                detalle6.setFecha(fecha6);
                 detalle6.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle6);
             }

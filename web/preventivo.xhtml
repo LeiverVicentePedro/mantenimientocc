@@ -32,49 +32,139 @@
                         </h:panelGrid>
                         <p:accordionPanel multiple="true">
                             <p:tab title="Servicio 1">
-                                <h:panelGrid columns="6" class="container-fluid">
+                                <h:panelGrid columns="8" class="container-fluid">
                                     <p:outputLabel value="Servicio 1:" for="servicio1"/>
-                                    <p:inputText id="servicio1" value="#{preventivoBEAN.detalle1.servicio}"/> 
-                                    <p:outputLabel value="Fecha:" for="servicioFecha1"/>
-                                    <p:calendar id="servicioFecha1" value="#{preventivoBEAN.fecha1}"/>
+                                    <p:inputText id="servicio1" value="#{preventivoBEAN.detalle1.servicio}" required="true" requiredMessage="Descripcion del Servicio requerido"/> 
+                                    <p:outputLabel  value="Tipo Servicio:" for="tipoServicio1"/>
+                                    <p:selectOneMenu id="tipoServicio1" value="#{preventivoBEAN.detalle1.tipo_servicio}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Tipo de SErvicio">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione -" itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Interno" itemValue="Interno"/>
+                                        <f:selectItem itemLabel="Externo" itemValue="Externo"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="&nbsp;Estado:" for="estado1"/>
+                                    <p:selectOneMenu id="estado1" value="#{preventivoBEAN.detalle1.estado}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Estado de Programa">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione- " itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Programada" itemValue="Programada"/>
+                                        <f:selectItem itemLabel="Realizada" itemValue="Realizada"/>
+                                        <f:selectItem itemLabel="Reprogramada" itemValue="Reprogramada"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="&nbsp;Fecha:" for="servicioFecha1"/>
+                                    <p:calendar id="servicioFecha1" value="#{preventivoBEAN.fecha1}" required="true" requiredMessage="Ingrese una Fecha para su Servicio"/>
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="Servicio 2">
-                                <h:panelGrid columns="6" class="container-fluid">
+                                <h:panelGrid columns="8" class="container-fluid">
                                     <p:outputLabel value="Servicio 2:" for="servicio2"/>
                                     <p:inputText id="servicio2" value="#{preventivoBEAN.detalle2.servicio}"/> 
+                                    <p:outputLabel  value="Tipo Servicio:" for="tipoServicio2"/>
+                                    <p:selectOneMenu id="tipoServicio2" value="#{preventivoBEAN.detalle2.tipo_servicio}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Tipo de SErvicio">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione -" itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Interno" itemValue="Interno"/>
+                                        <f:selectItem itemLabel="Externo" itemValue="Externo"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="&nbsp;Estado:" for="estado2"/>
+                                    <p:selectOneMenu id="estado2" value="#{preventivoBEAN.detalle2.estado}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Estado de Programa">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione- " itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Programada" itemValue="Programada"/>
+                                        <f:selectItem itemLabel="Realizada" itemValue="Realizada"/>
+                                        <f:selectItem itemLabel="Reprogramada" itemValue="Reprogramada"/>
+                                    </p:selectOneMenu>
                                     <p:outputLabel value="Fecha:" for="servicioFecha2"/>
                                     <p:calendar id="servicioFecha2" value="#{preventivoBEAN.fecha2}"/>
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="Servicio 3">
-                                <h:panelGrid columns="6" class="container-fluid">
+                                <h:panelGrid columns="8" class="container-fluid">
                                     <p:outputLabel value="Servicio 3:" for="servicio3"/>
-                                    <p:inputText id="servicio3" value="#{preventivoBEAN.detalle3.servicio}"/> 
+                                    <p:inputText id="servicio3" value="#{preventivoBEAN.detalle3.servicio}"/>
+                                    <p:outputLabel  value="Tipo Servicio:" for="tipoServicio3"/>
+                                    <p:selectOneMenu id="tipoServicio3" value="#{preventivoBEAN.detalle3.tipo_servicio}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Tipo de SErvicio">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione -" itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Interno" itemValue="Interno"/>
+                                        <f:selectItem itemLabel="Externo" itemValue="Externo"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="&nbsp;Estado:" for="estado3"/>
+                                    <p:selectOneMenu id="estado3" value="#{preventivoBEAN.detalle3.estado}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Estado de Programa">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione- " itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Programada" itemValue="Programada"/>
+                                        <f:selectItem itemLabel="Realizada" itemValue="Realizada"/>
+                                        <f:selectItem itemLabel="Reprogramada" itemValue="Reprogramada"/>
+                                    </p:selectOneMenu>
                                     <p:outputLabel value="Fecha:" for="servicioFecha3"/>
                                     <p:calendar id="servicioFecha3" value="#{preventivoBEAN.fecha3}"/>
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="Servicio 4">
-                                <h:panelGrid columns="6" class="container-fluid">
+                                <h:panelGrid columns="8" class="container-fluid">
                                     <p:outputLabel value="Servicio 4:" for="servicio4"/>
-                                    <p:inputText id="servicio4" value="#{preventivoBEAN.detalle4.servicio}"/> 
+                                    <p:inputText id="servicio4" value="#{preventivoBEAN.detalle4.servicio}"/>
+                                    <p:outputLabel  value="Tipo Servicio:" for="tipoServicio4"/>
+                                    <p:selectOneMenu id="tipoServicio4" value="#{preventivoBEAN.detalle4.tipo_servicio}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Tipo de SErvicio">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione -" itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Interno" itemValue="Interno"/>
+                                        <f:selectItem itemLabel="Externo" itemValue="Externo"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="&nbsp;Estado:" for="estado4"/>
+                                    <p:selectOneMenu id="estado4" value="#{preventivoBEAN.detalle4.estado}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Estado de Programa">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione- " itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Programada" itemValue="Programada"/>
+                                        <f:selectItem itemLabel="Realizada" itemValue="Realizada"/>
+                                        <f:selectItem itemLabel="Reprogramada" itemValue="Reprogramada"/>
+                                    </p:selectOneMenu>
                                     <p:outputLabel value="Fecha:" for="servicioFecha4"/>
                                     <p:calendar id="servicioFecha4" value="#{preventivoBEAN.fecha4}"/>
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="Servicio 5">
-                                <h:panelGrid columns="6" class="container-fluid">
+                                <h:panelGrid columns="8" class="container-fluid">
                                     <p:outputLabel value="Servicio 5:" for="servicio5"/>
-                                    <p:inputText id="servicio5" value="#{preventivoBEAN.detalle5.servicio}"/> 
+                                    <p:inputText id="servicio5" value="#{preventivoBEAN.detalle5.servicio}"/>
+                                    <p:outputLabel  value="Tipo Servicio:" for="tipoServicio5"/>
+                                    <p:selectOneMenu id="tipoServicio5" value="#{preventivoBEAN.detalle5.tipo_servicio}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Tipo de SErvicio">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione -" itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Interno" itemValue="Interno"/>
+                                        <f:selectItem itemLabel="Externo" itemValue="Externo"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="&nbsp;Estado:" for="estado5"/>
+                                    <p:selectOneMenu id="estado5" value="#{preventivoBEAN.detalle5.estado}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Estado de Programa">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione- " itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Programada" itemValue="Programada"/>
+                                        <f:selectItem itemLabel="Realizada" itemValue="Realizada"/>
+                                        <f:selectItem itemLabel="Reprogramada" itemValue="Reprogramada"/>
+                                    </p:selectOneMenu>
                                     <p:outputLabel value="Fecha:" for="servicioFecha5"/>
                                     <p:calendar id="servicioFecha5" value="#{preventivoBEAN.fecha5}"/>
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="Servicio 6">
-                                <h:panelGrid columns="6" class="container-fluid">
+                                <h:panelGrid columns="8" class="container-fluid">
                                     <p:outputLabel value="Servicio 6:" for="servicio6"/>
-                                    <p:inputText id="servicio6" value="#{preventivoBEAN.detalle6.servicio}"/> 
+                                    <p:inputText id="servicio6" value="#{preventivoBEAN.detalle6.servicio}"/>
+                                    <p:outputLabel  value="Tipo Servicio:" for="tipoServicio6"/>
+                                    <p:selectOneMenu id="tipoServicio6" value="#{preventivoBEAN.detalle6.tipo_servicio}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Tipo de SErvicio">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione -" itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Interno" itemValue="Interno"/>
+                                        <f:selectItem itemLabel="Externo" itemValue="Externo"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="&nbsp;Estado:" for="estado6"/>
+                                    <p:selectOneMenu id="estado6" value="#{preventivoBEAN.detalle6.estado}" converter="omnifaces.SelectItemsConverter"
+                                                     styleClass="selectMenu" required="true" requiredMessage="Seleccione un Estado de Programa">
+                                        <f:selectItem noSelectionOption="true" itemLabel="- Seleccione- " itemValue="#{null}"/>
+                                        <f:selectItem itemLabel="Programada" itemValue="Programada"/>
+                                        <f:selectItem itemLabel="Realizada" itemValue="Realizada"/>
+                                        <f:selectItem itemLabel="Reprogramada" itemValue="Reprogramada"/>
+                                    </p:selectOneMenu>
                                     <p:outputLabel value="Fecha:" for="servicioFecha6"/>
                                     <p:calendar id="servicioFecha6" value="#{preventivoBEAN.fecha6}"/>
                                 </h:panelGrid>

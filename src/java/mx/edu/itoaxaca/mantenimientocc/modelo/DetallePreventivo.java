@@ -15,9 +15,9 @@ public class DetallePreventivo implements Serializable{
     private int idDetalle_preventivo;
     private int numero_servicio;
     private String servicio;
-    private Date fecha_programada;
-    private Date fecha_realizada;
-    private Date fecha_reprogramada;
+    private String tipo_servicio;
+    private String estado;
+    private Date fecha;
     private Preventivo id_preventivo;
 
     public int getIdDetalle_preventivo() {
@@ -44,28 +44,28 @@ public class DetallePreventivo implements Serializable{
         this.servicio = servicio;
     }
 
-    public Date getFecha_programada() {
-        return fecha_programada;
+    public String getTipo_servicio() {
+        return tipo_servicio;
     }
 
-    public void setFecha_programada(Date fecha_programada) {
-        this.fecha_programada = fecha_programada;
+    public void setTipo_servicio(String tipo_servicio) {
+        this.tipo_servicio = tipo_servicio;
     }
 
-    public Date getFecha_realizada() {
-        return fecha_realizada;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setFecha_realizada(Date fecha_realizada) {
-        this.fecha_realizada = fecha_realizada;
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    public Date getFecha() {
+        return fecha;
     }
 
-    public Date getFecha_reprogramada() {
-        return fecha_reprogramada;
-    }
-
-    public void setFecha_reprogramada(Date fecha_reprogramada) {
-        this.fecha_reprogramada = fecha_reprogramada;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public Preventivo getId_preventivo() {

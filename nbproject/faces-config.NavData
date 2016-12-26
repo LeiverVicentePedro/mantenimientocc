@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only">
+        <Node id="index.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="principal.xhtml" x="650" y="300" zoom="true"/>
+    </Scope>
+    <Scope Scope="Project">
+        <Node id="aasignaSolicitud.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="oficina_solicitante.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="registroUsuario.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="listaOrdenInterna.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="listarSolicitud.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="orden_interna.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="solicitud_mc.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="listaAsignacionSolicitud.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="misAsignaciones.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="periodo.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="150" zoom="false"/>
+        <Node id="refaccion_empleada.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="listaOrdenInternaa.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="usuarioNuevo.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="profesion.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="area.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="departamento.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="listarPreventivo.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="catalogo_servicio_solicitado.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="asignaSolicitud.xhtml" x="650" y="150" zoom="false"/>
+        <Node id="preventivo.xhtml" x="650" y="300" zoom="false"/>
+        <Node id="principal.xhtml" x="349" y="45" zoom="false"/>
+        <Node id="equipo.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="orden_trabajo.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="recuperacionCuenta.xhtml" x="900" y="600" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

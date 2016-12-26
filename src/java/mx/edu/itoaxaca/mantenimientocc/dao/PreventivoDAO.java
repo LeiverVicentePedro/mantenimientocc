@@ -5,7 +5,6 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.dao;
 
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -23,12 +22,13 @@ public class PreventivoDAO extends Conexion {
     public void registrarPreventivo(Preventivo objetoPreventivo) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement insertar = this.getConexion().prepareStatement("INSERT INTO preventivo (id_periodo, año, fecha_elaboracion, id_usuario_personal, folio) VALUES(?,?,?,?,?)");
+            PreparedStatement insertar = this.getConexion().prepareStatement("INSERT INTO preventivo (id_periodo, año, fecha_elaboracion, id_usuario_personal, folio, elaboro) VALUES(?,?,?,?,?,?)");
             insertar.setInt(1, objetoPreventivo.getId_periodo().getIdperiodo_semestral());
             insertar.setString(2, objetoPreventivo.getAño());
             insertar.setDate(3, (java.sql.Date) objetoPreventivo.getFecha_elaboracion());
             insertar.setInt(4, objetoPreventivo.getId_usuario_personal().getIdUsuario());
             insertar.setString(5, objetoPreventivo.getFolio());
+            insertar.setString(6, objetoPreventivo.getAprobo());
             insertar.executeUpdate();
 
         } catch (Exception ex) {
@@ -41,13 +41,14 @@ public class PreventivoDAO extends Conexion {
     public void modificarPreventivo(Preventivo objetoPreventivo) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement modificar = this.getConexion().prepareStatement("UPDATE preventivo set id_periodo=?, año=?, fecha_elaboracion=?, id_usuario_persona=?, folio=? where idpreventivo=?");
+            PreparedStatement modificar = this.getConexion().prepareStatement("UPDATE preventivo set id_periodo=?, año=?, fecha_elaboracion=?, id_usuario_persona=?, folio=?, elaboro=? where idpreventivo=?");
             modificar.setInt(1, objetoPreventivo.getId_periodo().getIdperiodo_semestral());
             modificar.setString(2, objetoPreventivo.getAño());
             modificar.setDate(3, (java.sql.Date) objetoPreventivo.getFecha_elaboracion());
             modificar.setInt(4, objetoPreventivo.getId_usuario_personal().getIdUsuario());
             modificar.setString(5, objetoPreventivo.getFolio());
-            modificar.setInt(6, objetoPreventivo.getIdPreventivo());
+            modificar.setString(6, objetoPreventivo.getAprobo());
+            modificar.setInt(7, objetoPreventivo.getIdPreventivo());
             modificar.executeUpdate();
         } catch (Exception ex) {
             System.out.println("Error en PreventivoDAO -> modificarPreventivo");
@@ -70,7 +71,8 @@ public class PreventivoDAO extends Conexion {
                 preventivo.setAño(resultado.getString("año"));
                 preventivo.setFecha_elaboracion(resultado.getDate("fecha_elaboracion"));
                 preventivo.setId_usuario_personal(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario_personal")));
-                preventivo.setFolio(resultado.getString("folio"));            
+                preventivo.setFolio(resultado.getString("folio"));   
+                preventivo.setAprobo(resultado.getString("aprobo"));
 
             }
             return preventivo;
@@ -117,6 +119,7 @@ public class PreventivoDAO extends Conexion {
                 preventivo.setFecha_elaboracion(resultado.getDate("fecha_elaboracion"));
                 preventivo.setId_usuario_personal(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario_personal")));
                 preventivo.setFolio(resultado.getString("folio"));
+                preventivo.setAprobo(resultado.getString("aprobo"));
                 
                 listaPreventivo.add(preventivo);
             }

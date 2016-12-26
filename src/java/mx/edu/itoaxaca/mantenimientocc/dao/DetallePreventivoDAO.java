@@ -22,12 +22,12 @@ public class DetallePreventivoDAO extends Conexion{
     public void registrarDetalle(DetallePreventivo detalle) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement registrar = this.getConexion().prepareStatement("INSERT INTO detalle_preventivo(numero_servicio,servicio, tipo_servicio, fecha_programada, fecha_realizada, fecha_reprogramada, id_preventivo) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement registrar = this.getConexion().prepareStatement("INSERT INTO detalle_preventivo(numero_servicio,servicio, tipo_servicio, estado, fecha, id_preventivo) VALUES(?,?,?,?,?,?)");
             registrar.setInt(1, detalle.getNumero_servicio());
             registrar.setString(2, detalle.getServicio());
-            registrar.setDate(3, new java.sql.Date(detalle.getFecha_programada().getTime()));
-            registrar.setDate(4, new java.sql.Date(detalle.getFecha_realizada().getTime()));
-            registrar.setDate(5, new java.sql.Date(detalle.getFecha_reprogramada().getTime()));
+            registrar.setString(3,detalle.getTipo_servicio());
+            registrar.setString(4, detalle.getEstado());
+            registrar.setDate(5, new java.sql.Date(detalle.getFecha().getTime()));
             registrar.setInt(6, detalle.getId_preventivo().getIdPreventivo());
             
             registrar.executeUpdate();
@@ -53,9 +53,9 @@ public class DetallePreventivoDAO extends Conexion{
                     detalle.setIdDetalle_preventivo(resultado.getInt("iddetalle_preventivo"));
                     detalle.setNumero_servicio(resultado.getInt("numero_servicio"));
                     detalle.setServicio(resultado.getString("servicio"));
-                    detalle.setFecha_programada(resultado.getDate("fecha_programada"));
-                    detalle.setFecha_realizada(resultado.getDate("fecha_realizada"));
-                    detalle.setFecha_reprogramada(resultado.getDate("fecha_reprogramada"));
+                    detalle.setTipo_servicio(resultado.getString("tipo_servicio"));
+                    detalle.setEstado(resultado.getString("estado"));
+                    detalle.setFecha(resultado.getDate("fecha"));
                     detalle.setId_preventivo(preventivo);
                     listaDetalle.add(detalle);
                 }

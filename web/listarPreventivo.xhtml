@@ -46,6 +46,9 @@
                         <p:column headerText="Realizado Por">
                             <h:outputLabel value="#{preventivo.id_usuario_personal.concatenar}"/>
                         </p:column>
+                        <p:column headerText="Aprobado Por">
+                            <h:outputLabel value="#{preventivo.aprobo}"/>
+                        </p:column>
                     </p:dataTable>
 
                     <p:separator style="visibility: hidden"/>
@@ -67,14 +70,14 @@
                         <p:column headerText="Servicio">
                             <h:outputLabel value="#{detalle.servicio}"/>
                         </p:column>
-                        <p:column headerText="Fecha Programada">
-                            <h:outputLabel value="#{detalle.fecha_programada}"/>
+                        <p:column headerText="Tipo Servicio">
+                            <h:outputLabel value="#{detalle.tipo_servicio}"/>
                         </p:column>
-                        <p:column headerText="Fecha Realizada">
-                            <h:outputLabel value="#{detalle.fecha_realizada}"/>
+                        <p:column headerText="Estado Programa">
+                            <h:outputLabel value="#{detalle.estado}"/>
                         </p:column>
-                        <p:column headerText="Fecha Reprogramada">
-                            <h:outputLabel value="#{detalle.fecha_reprogramada}"/>
+                        <p:column headerText="Fecha">
+                            <h:outputLabel value="#{detalle.fecha}"/>
                         </p:column>
                         <p:column headerText="Actualizar" class="text-center" width="85">
                             <p:commandButton  icon="fa fa-refresh" action="#"/>
