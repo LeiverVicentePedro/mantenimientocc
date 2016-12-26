@@ -27,6 +27,9 @@ import org.primefaces.context.RequestContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
+import mx.edu.itoaxaca.mantenimientocc.dao.Empleado_periodoDAO;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Empleado_periodo;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Periodo_semestral;
 /**
  *
  * @author leiver
@@ -43,7 +46,31 @@ public class UsuarioBEAN implements Serializable{
     private List<Usuario> listaUsuariosDeUnDepartamento;
     private List<Usuario> filterUsuario;
     private List<Usuario> listaParaFiltro;
+    private List<Empleado_periodo> listaEmpleadoPeriodo =  new ArrayList();
+    private Periodo_semestral periodo=new Periodo_semestral();
+
+    public Periodo_semestral getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(Periodo_semestral periodo) {
+        this.periodo = periodo;
+    }
+
     
+
+
+    
+    
+    public List<Empleado_periodo> getListaEmpleadoPeriodo() {
+        return listaEmpleadoPeriodo;
+    }
+
+    public void setListaEmpleadoPeriodo(List<Empleado_periodo> listaEmpleadoPeriodo) {
+        this.listaEmpleadoPeriodo = listaEmpleadoPeriodo;
+    }
+
+ 
     private List<Usuario> listarTodosLosUsuarios;
     
     private List<String> listaServicioCorreo;
@@ -153,10 +180,27 @@ public class UsuarioBEAN implements Serializable{
 
     public void registrarUsuario() throws Exception {
         UsuarioDAO usuarioDao;
+        Empleado_periodoDAO empleado_periodoDao;
         try {
             usuarioDao = new UsuarioDAO();
+            empleado_periodoDao = new Empleado_periodoDAO();
             objetoUsuario.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             usuarioDao.registrarUsuario(objetoUsuario);
+            
+            
+                //para agregar empleado_periodo
+                Usuario usuarioEmpleado_periodo= usuarioDao.consultarUsuario(objetoUsuario.getCorreo());
+                
+                Empleado_periodo empleado_periodo = new Empleado_periodo();
+                empleado_periodo.setId_periodo(periodo);
+                empleado_periodo.setAño("2016");
+                empleado_periodo.setId_usuario_personal(usuarioEmpleado_periodo);
+                empleado_periodoDao.registrarEmpleado_periodo(empleado_periodo);
+    
+                System.out.println("usuarioPeriodo " + empleado_periodo.getId_usuario_personal());
+                System.out.println("periodo " + empleado_periodo.getId_periodo().getIdperiodo_semestral());
+                System.out.println("Año " + empleado_periodo.getAño());
+            
         } catch (Exception e) {
             System.out.println("=========Error en UsuarioBEAN -> registrarUsuario" + e + "============");
             throw e;
@@ -167,9 +211,9 @@ public class UsuarioBEAN implements Serializable{
         UsuarioDAO usuarioDao;
         try {
             usuarioDao = new UsuarioDAO();
-            registroUsuarioNuevo.setEstatus(true);
-            registroUsuarioNuevo.setNivel(1);
-            registroUsuarioNuevo.setTipoBT("Base");
+           registroUsuarioNuevo.setEstatus(true); 
+           registroUsuarioNuevo.setNivel(1);
+           registroUsuarioNuevo.setTipoBT("Base");
             registroUsuarioNuevo.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             if (confirmacionContraseña.equals(registroUsuarioNuevo.getClave())) {
                 usuarioDao.registrarUsuario(registroUsuarioNuevo);
@@ -336,8 +380,9 @@ public class UsuarioBEAN implements Serializable{
     }
 
     public void setAccionDeBotonUsuario(String accionDeBotonUsuario) {
-        this.accionDeBotonUsuario = accionDeBotonUsuario;
         this.limpiaUsuario();
+        this.accionDeBotonUsuario = accionDeBotonUsuario;
+        
     }
 
     public String getMensajeContraseña() {
@@ -398,16 +443,17 @@ public class UsuarioBEAN implements Serializable{
         this.objetoUsuario.setEstatus(Boolean.TRUE);
         this.objetoUsuario.setTipoBT("");
         this.objetoUsuario.setIdOficina(null);
-        this.objetoUsuario.setNivel(0);
+        this.objetoUsuario.setNivel(1);
         this.objetoUsuario.setId_profesion(null);
         setIdArea(0);
         setIdDepartamento(0);
-        listaTemporalDepartamento.clear();
-        listaTemporalOficina.clear();
+       // listaTemporalDepartamento.clear();
+       // listaTemporalOficina.clear();
         setUsuarioCorreoNombre("");
         setUsuarioCorreoServicio("");
         
     }
+    
 
     public void establecerAccionDeBoton() throws Exception {
 
@@ -540,6 +586,37 @@ public class UsuarioBEAN implements Serializable{
         }
         catch(Exception e){
             System.out.println("error en UsuarioNivelTresBEAN --> listarNivelTresUusuariosBEAN"+e);
+        }
+    }
+    
+    //--------------------------para dar de baja a usuario Estatus de Activo A Inactivo
+     public void elegirDatoUsuarioBaja(Usuario usuarioElegido) throws Exception {
+        UsuarioDAO usuariodao;
+        Usuario usuarioParcial;
+        try {
+            usuariodao = new UsuarioDAO();
+             usuarioParcial = new Usuario();
+            usuarioParcial = usuariodao.elegirDatoUsuarioBaja(usuarioElegido);
+            if(usuarioParcial!=null){
+                this.objetoUsuario = usuarioParcial; 
+            }
+            this.bajaUsuario();
+            this.listaUsuarioDepartameto();
+            
+        } catch (Exception ex) {
+            System.out.println("Error en UsuarioBEAN -> elegirDatoUsuarioBaja " + ex);
+        }
+    }
+     
+    public void bajaUsuario() throws Exception {
+        UsuarioDAO usuariodao;
+        try {
+            usuariodao = new UsuarioDAO();
+            objetoUsuario.setEstatus(false);
+            usuariodao.modificarUsuario(objetoUsuario);
+        } catch (Exception ex) {
+             throw ex;
+
         }
     }
 }

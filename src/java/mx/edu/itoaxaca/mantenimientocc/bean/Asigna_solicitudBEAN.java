@@ -28,6 +28,7 @@ public class Asigna_solicitudBEAN implements Serializable{
     private List<Asigna_solicitud> listarAsignacionSolicitudes;
     private List<Asigna_solicitud> filterAsignar;
     private List<Asigna_solicitud> listaAsinacionesDeUsuarios;
+ 
    
 
    
@@ -141,10 +142,10 @@ public class Asigna_solicitudBEAN implements Serializable{
     
     }
      
-   public void eligeIdAsignaSolicitudOTrabajo(Solicitud_mc asignaSolicitud){//
+   public void eligeIdAsignaSolicitudOTrabajo(Solicitud_mc ordenTrabajoFolio){//
        
-               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignadaOR",asignaSolicitud.getIdsolicitud_mc());
-               System.out.println(asignaSolicitud.getFolio());
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignadaOR",ordenTrabajoFolio);
+               System.out.println(ordenTrabajoFolio.getFolio());
                
     
     }

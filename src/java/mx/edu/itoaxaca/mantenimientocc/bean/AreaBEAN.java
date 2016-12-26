@@ -77,7 +77,7 @@ public class AreaBEAN implements Serializable{
             }
     }   
     
-      private void modificarArea() throws Exception{
+      public void modificarArea() throws Exception{
         AreaDAO areadao;
             try{
                 areadao= new AreaDAO();
@@ -144,7 +144,7 @@ public class AreaBEAN implements Serializable{
         
     }
     
-     
+    /* fue remplazado por dar de baja y elegirDatoAreaBaja
     public void eliminarArea(Area areaEliminar) throws Exception{
         AreaDAO areadao;
             try{
@@ -156,7 +156,37 @@ public class AreaBEAN implements Serializable{
             {
                 throw e;
             }
+    }*/
+    public void elegirDatoAreaBaja(Area areaElegirDato) throws Exception{//esto es para dar de baja primero se elige el dato y despues se pone en inactivo
+        AreaDAO areadao;
+        Area areaTemporal;
+        try{
+            areadao= new AreaDAO();
+            areaTemporal=areadao.elegirDatoArea(areaElegirDato);
+            
+            if(areaTemporal != null){
+                this.area = areaTemporal;
+            }
+            this.bajaArea();//se manda a llamar al metodo dar de baja para q se modifique el estatus por INACTIVO
+            this.listarArea();//para actualizar la tabla y se vea reflejado el cambio de estatus
+            }
+        catch (Exception e){
+            throw e;
+        }
+        
     }
+     public void bajaArea() throws Exception{
+        AreaDAO areadao;
+            try{
+                areadao= new AreaDAO();
+                area.setEstatus(false);
+                areadao.modificarArea(area);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+    } 
     
    
 }

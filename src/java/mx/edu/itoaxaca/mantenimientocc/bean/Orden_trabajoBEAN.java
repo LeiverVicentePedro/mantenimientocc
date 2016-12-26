@@ -37,7 +37,21 @@ public class Orden_trabajoBEAN implements Serializable{
      private Orden_trabajo orden_trabajo=new Orden_trabajo();
      
     private List<Orden_trabajo> listaOrden_trabajo;
-    Solicitud_mc folioDesdeAsignacion;
+    Solicitud_mc solicitudOT;
+
+    public Solicitud_mc getSolicitudOT() {
+        return solicitudOT;
+    }
+
+    public void setSolicitudOT(Solicitud_mc solicitudOT) {
+        this.solicitudOT = solicitudOT;
+    }
+    
+    public void existeSolicitud(){//esto es para usar en la vista un preRender que llamara al dato para mostrar en la pagina el folio de Solicitud en Orden De Trabajo lo mismo se hace para Orden Interna 
+        solicitudOT = (Solicitud_mc) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("solicitudAsignadaOR");
+    }
+    
+    
     
     
 //-------------------Getter Y Setter
@@ -49,19 +63,6 @@ public class Orden_trabajoBEAN implements Serializable{
         this.listaOrden_trabajo = listaOrden_trabajo;
     }
     
-    public Solicitud_mc getFolioDesdeAsignacion() {
-        return folioDesdeAsignacion;
-    }
-
-    public void setFolioDesdeAsignacion(Solicitud_mc folioSolicitud) {
-        this.folioDesdeAsignacion = folioSolicitud;
-    }
-   
-    
-     public void existeSolicitud(){
-        folioDesdeAsignacion = (Solicitud_mc) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("solicitudAsignadaOT");
-    }
-
     public Orden_trabajo getOrden_trabajo() {
         return orden_trabajo;
     }
@@ -80,21 +81,28 @@ public class Orden_trabajoBEAN implements Serializable{
         try {
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
             Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
-            //existir dentro del navegador
             
+            //existir dentro del navegador
+            FacesContext contextoOT = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            solicitudOT = (Solicitud_mc) contextoOT.getExternalContext().getSessionMap().get("solicitudAsignadaOR");
             ///
             ordenTrabajoDao = new Orden_trabajoDAO();
             orden_trabajo.setId_usuario_personal(usuarioVive);
             orden_trabajo.setFecha_realizacion(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
-            orden_trabajo.setId_solicitudmc(folioDesdeAsignacion);
+            orden_trabajo.setId_solicitudmc(solicitudOT);
             ordenTrabajoDao.registrarOrdenTrabajo(orden_trabajo);
+            
              System.out.println("Datos  " + orden_trabajo.getMantenimiento_tipo()+"\n"+
                     orden_trabajo.getTipo_servicio()+"\n "+
                     orden_trabajo.getId_usuario_personal()+"\n "+
                     orden_trabajo.getFecha_realizacion()+"\n "+
                     orden_trabajo.getTrabajo_descripcion()+"\n "+
                     orden_trabajo.getId_usuario_personal_jefe()+"\n"+
-                    orden_trabajo.getId_solicitudmc());
+                    orden_trabajo.getId_solicitudmc().getFolio());
+             
+            
+            exportarOrdenTrabajo(usuarioVive);
+            this.limpiarOrdenTrabajo();
             
              } catch (Exception ex) {
             System.out.println("Error en Orden-TrabajoBEAN -> generarOrden-trabajo " + ex);
@@ -111,7 +119,7 @@ public class Orden_trabajoBEAN implements Serializable{
     ***************************************************************************/
       
       
-      public void exportarOrdenTrabajo() throws JRException, IOException{
+      public void exportarOrdenTrabajo(Usuario activoUsuario) throws JRException, IOException{
           Map<String,Object> parametros = new HashMap<String,Object>();
           String nombreUsuario = orden_trabajo.getId_solicitudmc().getId_usuario().getId_profesion().getNombre_profesion()+". "+
                 orden_trabajo.getId_solicitudmc().getId_usuario().getNombre()+" "+
@@ -121,24 +129,22 @@ public class Orden_trabajoBEAN implements Serializable{
         parametros.put("folio", orden_trabajo.getId_solicitudmc().getFolio().toUpperCase());
         if(orden_trabajo.getMantenimiento_tipo().equalsIgnoreCase("Interno")){
             parametros.put("manInterno","X");
+            parametros.put("manExterno"," ");
         }else{
             parametros.put("manExterno","X");
+            parametros.put("manInterno"," ");
         }
         parametros.put("tipoServicio",orden_trabajo.getTipo_servicio().toUpperCase());
-        parametros.put("asignado", orden_trabajo.getId_usuario_personal().getId_profesion().getNombre_profesion().toUpperCase() + ". " + orden_trabajo.getId_usuario_personal().getNombre().toUpperCase() + " " + orden_trabajo.getId_usuario_personal().getApellidoPaterno().toUpperCase() + " " + orden_trabajo.getId_usuario_personal().getApellidoMaterno().toUpperCase());
+        parametros.put("asignado", activoUsuario.getId_profesion().getNombre_profesion().toUpperCase() + ". " + activoUsuario.getNombre().toUpperCase() + " " + activoUsuario.getApellidoPaterno().toUpperCase() + " " + activoUsuario.getApellidoMaterno().toUpperCase());
         String fechaRealizacion = String.valueOf(orden_trabajo.getFecha_realizacion());
         parametros.put("fecha", fechaRealizacion);
         parametros.put("trabajo_realizado",orden_trabajo.getTrabajo_descripcion().toUpperCase());
         parametros.put("verificadoYliberado", nombreUsuario.toUpperCase());          
         parametros.put("aprobadoPor", orden_trabajo.getId_usuario_personal_jefe().getId_profesion().getNombre_profesion().toUpperCase() + ". " + orden_trabajo.getId_usuario_personal_jefe().getNombre().toUpperCase() + " " + orden_trabajo.getId_usuario_personal_jefe().getApellidoPaterno().toUpperCase() + " " + orden_trabajo.getId_usuario_personal_jefe().getApellidoMaterno().toUpperCase());
-        
-         
-         
-         
-          
-        
-        
-        
+        parametros.put("fechaLiberado"," ");
+        parametros.put("fechaAprobado"," ");
+               
+           
            File archivo = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/FormatoOrdenTrabajo.jasper"));
            JasperPrint imprimirArchivo = JasperFillManager.fillReport(archivo.getPath(), parametros, new JREmptyDataSource());
            
@@ -152,6 +158,15 @@ public class Orden_trabajoBEAN implements Serializable{
         
 
       }
+       public void limpiarOrdenTrabajo() {
+        orden_trabajo.setMantenimiento_tipo("");
+        orden_trabajo.setTipo_servicio("");
+        orden_trabajo.setTrabajo_descripcion("");
+        orden_trabajo.setId_usuario_personal_jefe(null);
+        orden_trabajo.setId_solicitudmc(null);
+        
+        
+    }        
     
     
 }

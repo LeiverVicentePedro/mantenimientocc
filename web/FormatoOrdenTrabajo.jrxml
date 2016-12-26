@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FormatoOrdenTrabajo" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="948bac21-297e-495d-961d-81d2c64a68b3">
-	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="31"/>
 	<parameter name="folio" class="java.lang.String"/>
 	<parameter name="manInterno" class="java.lang.String"/>
 	<parameter name="manExterno" class="java.lang.String"/>
@@ -65,7 +65,7 @@
 			</staticText>
 			<textField>
 				<reportElement x="470" y="3" width="85" height="20" uuid="a0aac59f-886d-4cdd-9389-08570e988bb1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{folio}]]></textFieldExpression>
@@ -95,7 +95,7 @@
 				<text><![CDATA[Interno]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="277" y="4" width="15" height="15" uuid="242ea592-1a80-47d5-886e-36104765837f"/>
+				<reportElement x="277" y="4" width="15" height="16" uuid="242ea592-1a80-47d5-886e-36104765837f"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="450" y="0" width="48" height="23" uuid="b96b52d1-af19-4af4-a150-a5faba363df4"/>
@@ -108,14 +108,14 @@
 				<reportElement x="501" y="4" width="16" height="16" uuid="b612b805-f652-4fa8-abaf-1f30b97c31fb"/>
 			</rectangle>
 			<textField>
-				<reportElement x="279" y="4" width="12" height="14" uuid="0516c1d0-1907-44d8-a20d-16ebe0b4f477"/>
+				<reportElement x="279" y="5" width="12" height="14" uuid="0516c1d0-1907-44d8-a20d-16ebe0b4f477"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{manInterno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="505" y="5" width="8" height="14" uuid="1bd089e4-f56c-4c05-ab9f-ceb73f7d094b"/>
+				<reportElement x="503" y="5" width="12" height="14" uuid="1bd089e4-f56c-4c05-ab9f-ceb73f7d094b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
