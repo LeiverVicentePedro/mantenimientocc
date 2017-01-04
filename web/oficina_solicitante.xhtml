@@ -12,7 +12,9 @@
 
            
                 <ui:define name="content">
+                    <p:separator style="visibility: hidden;"/> 
                     <h:form id="formaExterior">
+                        <p:growl id="msj" showDetail="true" sticky="true"/>
                         <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{oficina_solicitanteBEAN.setAccion('Registrar')}" update=":dialogoDatos" >
                             <f:ajax execute="#{oficina_solicitanteBEAN.listarOficina()}" render="data"/>
                         </p:commandButton>
@@ -92,9 +94,9 @@
                                   width="60">
                             <p:commandLink class="fa fa-pencil" actionListener="#{oficina_solicitanteBEAN.elegirDatoOficina(oficina)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                          </p:column>
-                         <p:column headerText="Eliminar"
+                         <p:column headerText="Baja"
                                    width="70">
-                             <p:commandLink class="fa fa-trash" actionListener="#{oficina_solicitanteBEAN.eliminarOficina(oficina)}" update="data"/>
+                             <p:commandLink class="fa fa-trash" actionListener="#{oficina_solicitanteBEAN.elegirDatoOficinaBaja(oficina)}" update="data"/>
                         
                          </p:column>
                     </p:dataTable>
@@ -145,7 +147,7 @@
                     </p:selectOneMenu>
                      <p/>
                      <center>
-                    <p:commandButton value="#{oficina_solicitanteBEAN.accion}" actionListener="#{oficina_solicitanteBEAN.operarOficina()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data"/>
+                    <p:commandButton value="#{oficina_solicitanteBEAN.accion}" actionListener="#{oficina_solicitanteBEAN.operarOficina()}" oncomplete="PF('Datos').hide();" update=":formaExterior"/>
                     
                     <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                      </center>

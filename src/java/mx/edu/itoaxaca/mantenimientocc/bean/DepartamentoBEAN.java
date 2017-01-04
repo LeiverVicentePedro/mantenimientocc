@@ -136,7 +136,7 @@ public class DepartamentoBEAN implements Serializable{
                 break;
         }
     }
-     
+     /*Este se sustituira por el metodo dar de baja en donde solo cambia el estatus
      public void eliminarDepartamento(Departamento departamentoEliminar) throws Exception{
         DepartamentoDAO departamentodao;
             try{
@@ -149,6 +149,39 @@ public class DepartamentoBEAN implements Serializable{
                 throw e;
             }
     }
+     */
+     public void elegirDatoDepartamentoBaja(Departamento departamentoElegirDato) throws Exception{
+     //esto es para dar de baja primero se elige el dato y despues se pone en inactivo
+        DepartamentoDAO departamentodao;
+        Departamento departamentoTemporal;
+        try{
+            departamentodao= new DepartamentoDAO();
+            departamentoTemporal=departamentodao.elegirDatoDepartamento(departamentoElegirDato);
+            
+            if(departamentoTemporal != null){
+                this.departamento = departamentoTemporal;
+            }
+            this.bajaDepartamento();//se manda a llamar al metodo dar de baja para q se modifique el estatus por INACTIVO
+            this.listarDepartamento();//para actualizar la tabla y se vea reflejado el cambio de estatus
+            }
+        catch (Exception e){
+            throw e;
+        }
+        
+    }
+     
+     public void bajaDepartamento() throws Exception{
+        DepartamentoDAO departamentodao;
+            try{
+                departamentodao= new DepartamentoDAO();
+                departamento.setEstatus(false);
+                departamentodao.modificarDepartamento(departamento);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+    } 
      
      public void limpiarDepartamento(){
         this.departamento.setClave_departamento("");

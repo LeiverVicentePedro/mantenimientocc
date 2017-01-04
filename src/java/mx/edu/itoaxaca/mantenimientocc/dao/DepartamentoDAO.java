@@ -126,7 +126,8 @@ public class DepartamentoDAO extends Conexion{
     }  
      
    //metodo eliminaf
-      public void eliminarDepartamento (Departamento departamentoeliminar) throws Exception{
+     /* Este se sustituye po dar de baja
+     public void eliminarDepartamento (Departamento departamentoeliminar) throws Exception{
         try{
             this.Conectar();
             PreparedStatement consulta= this.getConexion().prepareStatement("DELETE FROM departamento WHERE iddepartamento=?");
@@ -141,7 +142,7 @@ public class DepartamentoDAO extends Conexion{
         }
     }   
     
-    
+    */
      public Departamento buscarIdDepartamento(int idDepartamento) throws Exception{
          Departamento departamento = new Departamento();
          ResultSet resultadoConsulta;

@@ -120,6 +120,7 @@ public class Oficina_solicitanteDAO extends Conexion{
     }  
      
    //metodo eliminaf
+     /*
       public void eliminarOficina (Oficina_solicitante oficinaeliminar) throws Exception{
         try{
             this.Conectar();
@@ -134,7 +135,7 @@ public class Oficina_solicitanteDAO extends Conexion{
            this.Cerrar();
         }
     } 
-
+*/
 public Oficina_solicitante buscarOficina(int idoficina) throws Exception{
         Oficina_solicitante oficina = null;
         try{

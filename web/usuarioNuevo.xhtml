@@ -153,6 +153,7 @@
 
                 <p:dialog header="Datos Usuario" widgetVar="DatosUsuario" id="dialogoUsuario" class="container-fluid" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <h:form id="formDialogo">
+   
                         <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
                         <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
                         <f:event type="preRenderView" listener="#{usuarioBEAN.llenaListaServicoCorreo()}"/>
@@ -237,7 +238,7 @@
                                   <p:outputLabel value="Periodo:&nbsp;&nbsp;&nbsp;&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
                                   <p:selectOneMenu id="periodo" value="#{usuarioBEAN.periodo.idperiodo_semestral}" converter="omnifaces.SelectItemsConverter">
                                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                                    <f:selectItems value="#{periodo_semestralBEAN.listaPeriodo}" var="empleadoPeriodo" itemLabel="#{empleadoPeriodo.periodo}" itemValue="#{empleadoPeriodo}"/>
+                                    <f:selectItems value="#{periodo_semestralBEAN.listaPeriodo}" var="empleadoPeriodo" itemLabel="#{empleadoPeriodo.periodo}" itemValue="#{empleadoPeriodo.idperiodo_semestral}"/>
                                 </p:selectOneMenu> 
                                 </p:column>
                                 

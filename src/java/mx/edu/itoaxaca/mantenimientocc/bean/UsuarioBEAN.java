@@ -48,7 +48,12 @@ public class UsuarioBEAN implements Serializable{
     private List<Usuario> listaParaFiltro;
     private List<Empleado_periodo> listaEmpleadoPeriodo =  new ArrayList();
     private Periodo_semestral periodo=new Periodo_semestral();
+    //para el objeto que necesita en modificar EmpleadoPeriodo
+    private Empleado_periodo empleadoPeriodoModifica= new Empleado_periodo();
 
+  
+    
+    
     public Periodo_semestral getPeriodo() {
         return periodo;
     }
@@ -183,9 +188,11 @@ public class UsuarioBEAN implements Serializable{
         Empleado_periodoDAO empleado_periodoDao;
         try {
             usuarioDao = new UsuarioDAO();
+            
             empleado_periodoDao = new Empleado_periodoDAO();
             objetoUsuario.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             usuarioDao.registrarUsuario(objetoUsuario);
+            
             
             
                 //para agregar empleado_periodo
@@ -200,6 +207,7 @@ public class UsuarioBEAN implements Serializable{
                 System.out.println("usuarioPeriodo " + empleado_periodo.getId_usuario_personal());
                 System.out.println("periodo " + empleado_periodo.getId_periodo().getIdperiodo_semestral());
                 System.out.println("Año " + empleado_periodo.getAño());
+                 this.listaUsuarioDepartameto();
             
         } catch (Exception e) {
             System.out.println("=========Error en UsuarioBEAN -> registrarUsuario" + e + "============");
@@ -480,15 +488,48 @@ public class UsuarioBEAN implements Serializable{
                 this.objetoUsuario = usuarioParcial;
                 setIdArea(objetoUsuario.getIdOficina().getDepartamento().getArea().getIdarea());
                 setIdDepartamento(objetoUsuario.getIdOficina().getDepartamento().getIddepartamento());
+                setUsuarioCorreoNombre(objetoUsuario.getCorreo());
+                setUsuarioCorreoServicio(objetoUsuario.getCorreo());
                 departamentoDeUnArea();
                 oficinaDeUnDepartamento();
                 this.accionDeBotonUsuario = "Modificar";
+                
             }
         } catch (Exception ex) {
             System.out.println("Error en UsuarioBEAN -> elegirDatoUsuario " + ex);
         }
     }
     
+    //PARA EMPLEADO_PERIODO METODO MODIFICAR
+    private void modificarEmpleadoPeriodo() throws Exception{
+        Empleado_periodoDAO empleadoPeriododao;
+            try{
+                empleadoPeriododao= new Empleado_periodoDAO();
+                empleadoPeriododao.modificarEmpleadoPeriodo(empleadoPeriodoModifica);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+    } 
+     public void elegirDatoEmpleadoPeriodo(Empleado_periodo EmpPeriodoElegirDato) throws Exception{
+        Empleado_periodoDAO empleadoPeriododao;
+        Empleado_periodo emPeriodoTemporal;
+        try{
+            empleadoPeriododao= new Empleado_periodoDAO();
+            emPeriodoTemporal = new Empleado_periodo();
+            emPeriodoTemporal = empleadoPeriododao.elegirDatoEP(EmpPeriodoElegirDato);
+            
+            if(emPeriodoTemporal != null){
+                this.empleadoPeriodoModifica = emPeriodoTemporal;
+            }
+            }
+        catch (Exception e){
+            throw e;
+        }
+        
+    }
+    //////////////////////
     public void validaContraseña(){
         if(confirmacionContraseña.equals(registroUsuarioNuevo.getClave())){
             mensajeContraseña = " ";
