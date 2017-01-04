@@ -60,10 +60,8 @@ public class ReportePreventivo {
             parametros.put(servicios[contador], detalle.getServicio());
         }
         
-        for (int i = 0; i < 18; i++) {//correcponde a las filas
-            String[] strings = descripcionServicio[i];
-            for (int j = 0; j < 14; j++) {//corresponde a las columnas
-                String string = strings[j];
+        for (int i = 0; i < 18; i++) {//correcponde a las filas 
+            switch(i){
                 
             }
         }
