@@ -58,7 +58,19 @@ public class Solicitud_mcBEAN implements Serializable{
     private List<Solicitud_mc> listaFiltroSolicitud;
     private List<Solicitud_mc> listaSolicitudDeUsuarios;
     private List<Solicitud_mc> filtrarSolicitudIdUsuario;
+    private List<Solicitud_mc> listaSolicitudCentroComputo;
 
+    public List<Solicitud_mc> getListaSolicitudCentroComputo() {
+        return listaSolicitudCentroComputo;
+    }
+
+    public void setListaSolicitudCentroComputo(List<Solicitud_mc> listaSolicitudCentroComputo) {
+        this.listaSolicitudCentroComputo = listaSolicitudCentroComputo;
+    }
+    
+    
+    
+    
     private List<Orden_interna> listaOrdenInterna;
     
     public List<Solicitud_mc> getListaSolicitudDeUsuarios() {
@@ -324,6 +336,19 @@ public class Solicitud_mcBEAN implements Serializable{
             System.out.println("Error en MisSolicitudes BEAN -> listaMisSolicitudes "+e);
         }
     }
+     
+     
+    public void listaSolicitudCentroComputo(){
+         Solicitud_mcDAO solicitud;
+         try{
+             solicitud = new Solicitud_mcDAO();
+          //listaSolicitudCentroComputo = new ArrayList();
+            listaSolicitudCentroComputo = solicitud.listarSolicitudPorCentroComputo(solicitudmc);
+         }catch(Exception ex){
+           System.out.println("Error en Solicitud_mcBEAN -> listaServicioSolicitado "+ex);  
+         }
+         
+     }
      
      public void listaServicioSolicitado(){
          Catalogo_servicio_solicitadoDAO servicioSolicitado = new Catalogo_servicio_solicitadoDAO();

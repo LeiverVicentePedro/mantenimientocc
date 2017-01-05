@@ -143,7 +143,28 @@ public class Periodo_semestralDAO extends Conexion{
         
     }
     
+    public Periodo_semestral buscarIdPeriodo(int idperiodo) throws Exception{//para modificar lo de empleado periodo en usuario pero aun no fnciona
+        Periodo_semestral periodobusca= new Periodo_semestral();
+        ResultSet resultadosetbusca;
+      try{
+            this.Conectar();
+            PreparedStatement consulta= this.getConexion().prepareCall("SELECT * FROM periodo_semestral WHERE idperiodo_semestral=?");
+            consulta.setInt(1,idperiodo);
+            resultadosetbusca=consulta.executeQuery();
+            if(resultadosetbusca.next()){
+            periodobusca.setIdperiodo_semestral(resultadosetbusca.getInt("idperiodo_semestral"));
+            periodobusca.setPeriodo(resultadosetbusca.getString("periodo"));
+            }
+            resultadosetbusca.close();
+        }
+        catch(Exception e){
+            System.out.println("error en AreaDAO->buscarIdArea "+e);
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }  
+        return periodobusca;
+    }
   
-    
-    
 }

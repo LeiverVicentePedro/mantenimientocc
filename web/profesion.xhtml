@@ -11,10 +11,10 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-              
-                        <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <p:separator style="visibility: hidden;"/> 
+                       
         <h:form id="formaExterior">                      
-            
+             <p:growl id="msj" showDetail="true" sticky="true"/>
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();"  actionListener="#{profesionBEAN.setAccion('Registrar')}" update=":dialogoDatos">
                 <f:ajax execute="#{profesionBEAN.listarProfesion()}" render="data"/>
             </p:commandButton>         
@@ -83,7 +83,7 @@
                  </p:inputText>
                 <p/>
                 <center>
-                 <p:commandButton value="#{profesionBEAN.accion}" actionListener="#{profesionBEAN.operarProfesion()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
+                 <p:commandButton value="#{profesionBEAN.accion}" actionListener="#{profesionBEAN.operarProfesion()}" oncomplete="PF('Datos').hide();" update=":formaExterior" />
                  <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                 </center>
             </h:form>

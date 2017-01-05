@@ -135,7 +135,7 @@ public class Oficina_solicitanteBEAN implements Serializable{
                 break;
         }
     }
-     
+     /*Se remplasara por dar de baja
      public void eliminarOficina(Oficina_solicitante oficinaEliminar) throws Exception{
         Oficina_solicitanteDAO oficinadao;
             try{
@@ -147,7 +147,37 @@ public class Oficina_solicitanteBEAN implements Serializable{
             {
                 throw e;
             }
+    }*/
+      public void elegirDatoOficinaBaja(Oficina_solicitante oficinaElegirDato) throws Exception{//esto es para dar de baja primero se elige el dato y despues se pone en inactivo
+        Oficina_solicitanteDAO oficinadao;
+        Oficina_solicitante oficinaTemporal;
+        try{
+            oficinadao= new Oficina_solicitanteDAO();
+            oficinaTemporal=oficinadao.elegirDatoOficina(oficinaElegirDato);
+            
+            if(oficinaTemporal != null){
+                this.oficina = oficinaTemporal;
+            }
+            this.bajaOficina();//se manda a llamar al metodo dar de baja para q se modifique el estatus por INACTIVO
+            this.listarOficina();//para actualizar la tabla y se vea reflejado el cambio de estatus
+            }
+        catch (Exception e){
+            throw e;
+        }
+        
     }
+     public void bajaOficina() throws Exception{
+        Oficina_solicitanteDAO oficinadao;
+            try{
+                oficinadao= new Oficina_solicitanteDAO();
+                oficina.setEstatus(false);
+                oficinadao.modificarOficina(oficina);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+    } 
      
      public void limpiarOficina(){
         this.oficina.setNombreOficina("");
