@@ -20,11 +20,11 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
  */
 public class SeguimientoDAO extends Conexion{
     
-    public boolean registrarSeguimiento(Seguimiento seguimiento) throws Exception {
+    public void registrarSeguimiento(Seguimiento seguimiento) throws Exception  {
 
         try {
             this.Conectar();
-            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO seguimiento(fecha, id_usuario_personal, id_solicitud, estado_solicitud, estado_asignacion, estado_equipo_revisado, estado_progreso, estado_termino, id_usuario_solicitante) VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO seguimiento (fecha, id_usuario_personal, id_solicitud, estado_solicitud, estado_asignacion, estado_equipo_revisado, estado_progreso, estado_termino, id_usuario_solicitante) values(?,?,?,?,?,?,?,?,?)");
             inserta.setDate(1, (Date) seguimiento.getFecha());
             inserta.setInt(2, seguimiento.getId_usuario_personal().getIdUsuario());
             inserta.setInt(3, seguimiento.getId_solicitud().getIdsolicitud_mc());
@@ -35,12 +35,13 @@ public class SeguimientoDAO extends Conexion{
             inserta.setBoolean(8, seguimiento.getEstado_termino());
             inserta.setInt(9, seguimiento.getId_usuario_solicitante().getIdUsuario());
             inserta.executeUpdate();
-            return true;
-        } catch (Exception ex) {
-            System.out.println("Error en SeguimientoDAO -> RegistrarSeguimiento " + ex);
-            throw ex;
-        } finally {
-            this.Cerrar();
+          
+        } 
+        catch(Exception e){
+          System.out.println("error en AREA DAO -->RegistrarAREA"+"/n"+e);
+        }
+        finally{
+           this.Cerrar();
         }
     }
     
@@ -91,6 +92,7 @@ public class SeguimientoDAO extends Conexion{
            consulta.setBoolean(7, seguimientomodificar.getEstado_progreso());
            consulta.setBoolean(8, seguimientomodificar.getEstado_termino());
            consulta.setInt(9, seguimientomodificar.getId_usuario_solicitante().getIdUsuario());
+           consulta.setInt(10,seguimientomodificar.getIdseguimiento());
             consulta.executeUpdate();
         }
         catch(Exception e){
@@ -101,6 +103,41 @@ public class SeguimientoDAO extends Conexion{
         }
     }  
     
+    public List<Seguimiento> listarSeguimiento() throws Exception{
+     List<Seguimiento> lista;
+        ResultSet resultadoset;
+     try{
+         this.Conectar();
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT * FROM seguimiento");
+         resultadoset= consulta.executeQuery();
+         lista =new ArrayList();
+         while(resultadoset.next()){
+             Seguimiento seguimiento=new Seguimiento();
+              seguimiento.setIdseguimiento(resultadoset.getInt("idseguimiento"));
+              seguimiento.setFecha(resultadoset.getDate("fecha"));
+              seguimiento.setId_usuario_personal(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoset.getInt("id_usuario_personal")));
+              seguimiento.setId_solicitud(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultadoset.getInt("id_solicitud")));
+              seguimiento.setEstado_solicitud(resultadoset.getBoolean("estado_solicitud"));
+              seguimiento.setEstado_asignacion(resultadoset.getBoolean("estado_asignacion"));
+              seguimiento.setEstado_equipo_revisado(resultadoset.getBoolean("estado_equipo_revisado"));
+              seguimiento.setEstado_progreso(resultadoset.getBoolean("estado_progreso"));
+              seguimiento.setEstado_termino(resultadoset.getBoolean("estado_termino"));
+              seguimiento.setId_usuario_solicitante(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoset.getInt("id_usuario_solicitante")));
+           
+             
+             lista.add(seguimiento);
+         }
+             
+     }
+     catch(Exception e){
+         throw e;
+         
+     }
+     finally{
+         this.Cerrar();
+     }
+     return lista;
+    }
    
     
 }

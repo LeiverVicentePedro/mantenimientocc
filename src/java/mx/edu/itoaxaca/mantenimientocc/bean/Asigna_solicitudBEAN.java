@@ -32,7 +32,7 @@ public class Asigna_solicitudBEAN implements Serializable{
     private List<Asigna_solicitud> listaAsinacionesDeUsuarios;
  
    Seguimiento seguimiento=new Seguimiento();// esto es para el objeto de elige Solicitud de seguimiento
-   String accion;
+   
    
 
     public Seguimiento getSeguimiento() {
@@ -43,13 +43,7 @@ public class Asigna_solicitudBEAN implements Serializable{
         this.seguimiento = seguimiento;
     }
 
-    public String getAccion() {
-        return accion;
-    }
-
-    public void setAccion(String accion) {
-        this.accion = accion;
-    }
+   
    
 
    
@@ -172,23 +166,14 @@ public class Asigna_solicitudBEAN implements Serializable{
     }
    
    public void eligeDeAsignaIdSolicitudSeguimiento(Solicitud_mc seguimientoFolio) throws Exception{//para agregar a seguimiento el id_solicitud
-           
-               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudSeguimiento",seguimientoFolio);//continua en SeguimientoBEAN
-               System.out.println(seguimientoFolio.getFolio());
+           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudSeguimiento",seguimientoFolio);//continua en SeguimientoBEAN
+              
+              System.out.println(seguimientoFolio.getFolio());
+              
                seguimiento=new SeguimientoDAO().elegirDatoSeguimiento(seguimientoFolio);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("objetoSeguimiento",seguimiento);//continua en SeguimientoBEAN
+               System.out.println("aqui llamo solicituden AsignaBEAN");
                
-               if(seguimiento==null){
-                   setAccion("Registrar");
-                   System.out.println(accion);
-                   System.out.println(seguimiento);
-               }
-               else{
-                   setAccion("Modificar");
-                   System.out.println(accion);
-                   System.out.println(seguimiento);
-                   
-                   
-               }
                
                
                

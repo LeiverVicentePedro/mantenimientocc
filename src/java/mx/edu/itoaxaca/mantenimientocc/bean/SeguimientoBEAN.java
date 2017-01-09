@@ -27,7 +27,17 @@ public class SeguimientoBEAN implements Serializable{
   
   Solicitud_mc solicitudSeguimiento;
   private List<Seguimiento> listarSeguimiento;
+  String accion;
 
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
+  
+  
     public List<Seguimiento> getListarSeguimiento() {
         return listarSeguimiento;
     }
@@ -36,14 +46,6 @@ public class SeguimientoBEAN implements Serializable{
         this.listarSeguimiento = listarSeguimiento;
     }
   
-  
-
-    
-  
-
-  
-  
-
   
     //Objeto de la clase seguimiento
     public Seguimiento getSeguimiento() {
@@ -65,7 +67,20 @@ public class SeguimientoBEAN implements Serializable{
   
   public void existeSolicitud(){//esto es para usar en la vista un preRender que llamara al dato para mostrar en la pagina el folio de Solicitud en Orden De Trabajo lo mismo se hace para Orden Interna 
         solicitudSeguimiento = (Solicitud_mc) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("solicitudSeguimiento");
-       
+        System.out.println("aqui llamo solicituden Seguimiento");
+        seguimiento = (Seguimiento) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("objetoSeguimiento");
+      
+         if(seguimiento==null)
+       {
+           setAccion("Registrar");
+           System.out.println(accion);
+           seguimiento=new Seguimiento();
+         
+       }
+       else{
+           setAccion("Modificar");
+             System.out.println(accion);
+       }
     }
   
   //metodo Registrar
@@ -88,12 +103,16 @@ public class SeguimientoBEAN implements Serializable{
             seguimiento.setId_solicitud(solicitudSeguimiento);
             seguimiento.setEstado_solicitud(true);
             seguimiento.setEstado_asignacion(true);
+            
+           
+            
+            
             seguimiento.setId_usuario_solicitante(solicitudSeguimiento.getId_usuario());
+            
+           
             seguimientoDao.registrarSeguimiento(seguimiento);
             
-             System.out.println("Datos  " + seguimiento.getId_usuario_personal()+"\n"+
-                    seguimiento.getId_solicitud()+"\n "+
-                    seguimiento.getId_usuario_solicitante());
+             
              } 
         catch (Exception ex) {
             System.out.println("Error en SeguimientoBEAN -> Registrar-Seguimiento " + ex);
@@ -114,12 +133,24 @@ public class SeguimientoBEAN implements Serializable{
         }
     }
    
-    public void limpiar() {
-        this.seguimiento.setId_solicitud(null);
-        
-        
-        
-    }
+   public void operar() throws Exception{
+       
+             switch(accion){
+                 case "Registrar":
+                this.registrarSeguimiento();
+              
+                break;
+                case "Modificar":
+                this.modificarSeguimiento();
+                
+                break;
+             }
+                  
+             
+                  
+               
+      
+   }
    
   
     

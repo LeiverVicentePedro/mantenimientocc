@@ -29,19 +29,19 @@
                             <p:column/>
                             
                              <h:outputText value="Equipo Revisado: " />
-                             <p:selectBooleanCheckbox value="#{asigna_solicitudBEAN.seguimiento.estado_equipo_revisado}">
+                             <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_equipo_revisado}">
                             
                              </p:selectBooleanCheckbox>
                             <p/>
                             <p:column/>
                             <h:outputText value="En Proceso: " />
-                            <p:selectBooleanCheckbox value="#{asigna_solicitudBEAN.seguimiento.estado_progreso}">
+                            <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_progreso}">
                              
                              </p:selectBooleanCheckbox>
                             <p/>
                             <p:column/>
                             <h:outputText value="Terminado: " />
-                            <p:selectBooleanCheckbox value="#{asigna_solicitudBEAN.seguimiento.estado_termino}">
+                            <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_termino}">
                             
                              </p:selectBooleanCheckbox>
                             <p:column/>
@@ -50,8 +50,8 @@
                             
                         </h:panelGrid>
                            <p:separator style="visibility: hidden;"/>
-                           <p:commandButton value="Registrar" actionListener="#" update="formSeguimiento" />
-                           <p:commandButton value="Cerrar" action="misAsignaciones.xhtml" />
+                           <p:commandButton value="#{seguimientoBEAN.accion}" actionListener="#{seguimientoBEAN.operar()}" action="misAsignaciones.xhtml" update=":formSeguimiento" />
+                           <p:commandButton value="Cerrar" action="misAsignaciones.xhtml" immediate="true" />
                             
                    
                     </p:panel>
