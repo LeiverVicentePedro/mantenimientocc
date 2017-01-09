@@ -5,13 +5,11 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
-import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.DetallePreventivoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.DetallePreventivo;
-import java.util.List;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Preventivo;
+
 /**
  *
  * @author leiver
