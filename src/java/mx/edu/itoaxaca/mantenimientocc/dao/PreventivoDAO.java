@@ -22,7 +22,7 @@ public class PreventivoDAO extends Conexion {
     public void registrarPreventivo(Preventivo objetoPreventivo) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement insertar = this.getConexion().prepareStatement("INSERT INTO preventivo (id_periodo, año, fecha_elaboracion, id_usuario_personal, folio, elaboro) VALUES(?,?,?,?,?,?)");
+            PreparedStatement insertar = this.getConexion().prepareStatement("INSERT INTO preventivo (id_periodo, año, fecha_elaboracion, id_usuario_personal, folio, aprobo) VALUES(?,?,?,?,?,?)");
             insertar.setInt(1, objetoPreventivo.getId_periodo().getIdperiodo_semestral());
             insertar.setString(2, objetoPreventivo.getAño());
             insertar.setDate(3, (java.sql.Date) objetoPreventivo.getFecha_elaboracion());
@@ -41,7 +41,7 @@ public class PreventivoDAO extends Conexion {
     public void modificarPreventivo(Preventivo objetoPreventivo) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement modificar = this.getConexion().prepareStatement("UPDATE preventivo set id_periodo=?, año=?, fecha_elaboracion=?, id_usuario_persona=?, folio=?, elaboro=? where idpreventivo=?");
+            PreparedStatement modificar = this.getConexion().prepareStatement("UPDATE preventivo set id_periodo=?, año=?, fecha_elaboracion=?, id_usuario_persona=?, folio=?, aprobo=? where idpreventivo=?");
             modificar.setInt(1, objetoPreventivo.getId_periodo().getIdperiodo_semestral());
             modificar.setString(2, objetoPreventivo.getAño());
             modificar.setDate(3, (java.sql.Date) objetoPreventivo.getFecha_elaboracion());

@@ -17,6 +17,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Preventivo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.dao.DetallePreventivoDAO;
+import mx.edu.itoaxaca.reportes.ReportePreventivo;
 /**
  *
  * @author leiver
@@ -33,7 +34,8 @@ public class PreventivoBEAN implements Serializable{
     DetallePreventivo detalle6 = new DetallePreventivo();
     
     private List<Preventivo> listaPreventivo;
-    private List<DetallePreventivo> listaDetalle; 
+    private List<DetallePreventivo> listaDetalle;
+    private List<DetallePreventivo> listaParaReporteDetallePreventivo;//lista que se utilizara en el reporte
     private Date fecha1;
     private Date fecha2;
     private Date fecha3;
@@ -165,11 +167,13 @@ public class PreventivoBEAN implements Serializable{
         PreventivoDAO preventivoDao = new PreventivoDAO();
         Usuario usuarioVive = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         try{
+            listaParaReporteDetallePreventivo = new ArrayList();//se crea lista para detalles que se nesesita en el reporte
             
             preventivo.setAño(String.valueOf(new java.util.Date().getYear()+1900));
             preventivo.setId_usuario_personal(usuarioVive);
             preventivo.setFolio("mp-"+(new java.util.Date().getYear()+1900)+"/"+(preventivoDao.ultimoIdInsertado()+1));
             preventivo.setFecha_elaboracion(new java.sql.Date(preventivo.getFecha_elaboracion().getTime()));
+            System.out.println("valores "+preventivo);
             preventivoDao.registrarPreventivo(preventivo);
             
             preventivo = new PreventivoDAO().buscarPreventivo(preventivo);//busca al objeto de preventivo y lo asigna al mismo objeto
@@ -179,37 +183,44 @@ public class PreventivoBEAN implements Serializable{
                 detalle1.setFecha(fecha1);
                 detalle1.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle1);
+                listaParaReporteDetallePreventivo.add(detalle1);
             }
              if(!detalle2.getServicio().isEmpty()){
                  detalle2.setNumero_servicio(2);
                 detalle2.setFecha(fecha2);
                 detalle2.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle2);
+                listaParaReporteDetallePreventivo.add(detalle2);
             }
              if(!detalle3.getServicio().isEmpty()){
                  detalle3.setNumero_servicio(3);
                 detalle3.setFecha(fecha3);
                 detalle3.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle3);
+                listaParaReporteDetallePreventivo.add(detalle3);
             }
              if(!detalle4.getServicio().isEmpty()){
                  detalle4.setNumero_servicio(4);
                 detalle4.setFecha(fecha4);
                 detalle4.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle4);
+                listaParaReporteDetallePreventivo.add(detalle4);
             }
              if(!detalle5.getServicio().isEmpty()){
                  detalle5.setNumero_servicio(5);
                 detalle5.setFecha(fecha5);
                 detalle5.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle5);
+                listaParaReporteDetallePreventivo.add(detalle5);
             }
              if(!detalle6.getServicio().isEmpty()){
                  detalle6.setNumero_servicio(6);
                 detalle6.setFecha(fecha6);
                 detalle6.setId_preventivo(preventivo);
                 new DetallePreventivoBEAN().registrarDetallePreventivo(detalle6);
+                listaParaReporteDetallePreventivo.add(detalle6);
             }
+            new ReportePreventivo().crearReportePreventivo(preventivo, listaParaReporteDetallePreventivo);//se llama al metodo que creara el reporte.
             
         }catch(Exception ex){
             System.out.println("Error en PreventivoBEAN -> registrarPreventivo "+ ex);
