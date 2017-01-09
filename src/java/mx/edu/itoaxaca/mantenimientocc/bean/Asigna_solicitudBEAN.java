@@ -11,7 +11,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.dao.Asigna_solicitudDAO;
+import mx.edu.itoaxaca.mantenimientocc.dao.SeguimientoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Asigna_solicitud;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Seguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
@@ -29,6 +31,19 @@ public class Asigna_solicitudBEAN implements Serializable{
     private List<Asigna_solicitud> filterAsignar;
     private List<Asigna_solicitud> listaAsinacionesDeUsuarios;
  
+   Seguimiento seguimiento=new Seguimiento();// esto es para el objeto de elige Solicitud de seguimiento
+   
+   
+
+    public Seguimiento getSeguimiento() {
+        return seguimiento;
+    }
+
+    public void setSeguimiento(Seguimiento seguimiento) {
+        this.seguimiento = seguimiento;
+    }
+
+   
    
 
    
@@ -149,5 +164,21 @@ public class Asigna_solicitudBEAN implements Serializable{
                
     
     }
+   
+   public void eligeDeAsignaIdSolicitudSeguimiento(Solicitud_mc seguimientoFolio) throws Exception{//para agregar a seguimiento el id_solicitud
+           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudSeguimiento",seguimientoFolio);//continua en SeguimientoBEAN
+              
+              System.out.println(seguimientoFolio.getFolio());
+              
+               seguimiento=new SeguimientoDAO().elegirDatoSeguimiento(seguimientoFolio);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("objetoSeguimiento",seguimiento);//continua en SeguimientoBEAN
+               System.out.println("aqui llamo solicituden AsignaBEAN");
+               
+               
+               
+               
     
+    }
+   
+  
 }

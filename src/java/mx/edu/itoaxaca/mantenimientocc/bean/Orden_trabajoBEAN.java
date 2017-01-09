@@ -158,6 +158,8 @@ public class Orden_trabajoBEAN implements Serializable{
         
 
       }
+      
+      //**********************************************************************************************
        public void limpiarOrdenTrabajo() {
         orden_trabajo.setMantenimiento_tipo("");
         orden_trabajo.setTipo_servicio("");

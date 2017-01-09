@@ -57,13 +57,10 @@
                             <p:outputLabel value="Aprobado por: "/>
                             <p:selectOneMenu id="aprobado" value="#{orden_trabajoBEAN.orden_trabajo.id_usuario_personal_jefe}" converter="omnifaces.SelectItemsConverter" 
                                      styleClass="selectMenu" required="true" requiredMessage="Se Solicita Nombre"
-                                     style="text-transform: uppercase;width: 150px" editable="true">
-                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                     style="text-transform: uppercase;width: 150px">
                             <f:selectItems value="#{usuarioBEAN.listarUsuariosNivelTresParaOrdenTrabajo}" var="ordenTrabajoitem" itemLabel="#{ordenTrabajoitem.nombre}" itemValue="#{ordenTrabajoitem}"/>
                             </p:selectOneMenu> 
-                            <p:watermark for="aprobado" value="Seleccione" id="watermark"/> <!--marca de agua para los textos entre los campos-->
-                        
-                         
+                            
                         </h:panelGrid>
                            <p:separator style="visibility: hidden;"/>
                            <p:commandButton value="Registrar" actionListener="#{orden_trabajoBEAN.registrarOrden()}" update="formOrdenTrabajo" ajax="false" />

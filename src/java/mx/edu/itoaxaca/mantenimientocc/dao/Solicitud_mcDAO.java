@@ -142,7 +142,7 @@ public class Solicitud_mcDAO extends Conexion {
     }
     
     
-    public List<Solicitud_mc> listarSoicitudPorDepartamentoUsuario(Usuario usuario) throws Exception{
+    public List<Solicitud_mc> listarSoicitudPorDepartamentoUsuario(Usuario usuario) throws Exception{  //segundo uso de este metodo,se reutilizo para buscar el departamento de solicitud para generar asignacion 
         List<Solicitud_mc> lista;
         ResultSet resultadoList;
         try {
@@ -203,36 +203,6 @@ public class Solicitud_mcDAO extends Conexion {
          }
          return listaSolicitudDeUsuario;
      }
-    
-    public List<Solicitud_mc> listarSolicitudPorCentroComputo(Solicitud_mc solicitud) throws Exception{
-        List<Solicitud_mc> lista;
-        ResultSet resultadoList;
-        try {
-            this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM solicitud_mc where id_departamento=2");
-            consulta.setInt(1, solicitud.getId_departamento().getIddepartamento());
-            resultadoList = consulta.executeQuery();
-            lista = new ArrayList();
-            while (resultadoList.next()) {
-                Solicitud_mc solicitudMC = new Solicitud_mc();
-                solicitudMC.setIdsolicitud_mc(resultadoList.getInt("idsolicitud_mc"));
-                solicitudMC.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoList.getInt("id_usuario")));
-                solicitudMC.setFolio(resultadoList.getString("folio"));
-                solicitudMC.setFecha(resultadoList.getDate("fecha"));
-                solicitudMC.setOtroProblema(resultadoList.getString("otro_problema"));
-                solicitudMC.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoList.getInt("id_departamento")));
-                lista.add(solicitudMC);
-            }
-
-        } catch (Exception e) {
-            System.out.println("error en Solicitud_mcDAO -> ListarSolicitudPorCC " + e);
-            throw e;
-
-        } finally {
-            this.Cerrar();
-        }
-        return lista;
-    }    
-    
+      
         
 }

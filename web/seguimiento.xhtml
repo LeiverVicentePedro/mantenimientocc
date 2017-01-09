@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+            <h:form id="formSeguimiento">
+                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                   
+                    <f:event type="preRenderView" listener="#{seguimientoBEAN.existeSolicitud()}"/>
+                  
+                    
+                    <p:panel id="panelOrden">
+                        <f:facet name="header" class="text-center">
+                            <h:outputText value="Seguimiento" />
+                        </f:facet> 
+
+                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
+                            <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
+                            <p:outputLabel value="#{seguimientoBEAN.solicitudSeguimiento.folio}"/>
+                            <p/>
+                            <p:column/>
+                            
+                             <h:outputText value="Equipo Revisado: " />
+                             <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_equipo_revisado}">
+                            
+                             </p:selectBooleanCheckbox>
+                            <p/>
+                            <p:column/>
+                            <h:outputText value="En Proceso: " />
+                            <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_progreso}">
+                             
+                             </p:selectBooleanCheckbox>
+                            <p/>
+                            <p:column/>
+                            <h:outputText value="Terminado: " />
+                            <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_termino}">
+                            
+                             </p:selectBooleanCheckbox>
+                            <p:column/>
+                            
+                            
+                            
+                        </h:panelGrid>
+                           <p:separator style="visibility: hidden;"/>
+                           <p:commandButton value="#{seguimientoBEAN.accion}" actionListener="#{seguimientoBEAN.operar()}" action="misAsignaciones.xhtml" update=":formSeguimiento" />
+                           <p:commandButton value="Cerrar" action="misAsignaciones.xhtml" immediate="true" />
+                            
+                   
+                    </p:panel>
+
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
