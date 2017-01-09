@@ -5,21 +5,16 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_servicio_solicitadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Detalle_solicitudDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_internaDAO;
@@ -30,11 +25,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_interna;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import mx.edu.itoaxaca.reportes.ReporteMantenimiento;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+
 
 /**
  *

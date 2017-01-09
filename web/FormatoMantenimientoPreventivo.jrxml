@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="702" leftMargin="45" rightMargin="45" topMargin="42" bottomMargin="42" uuid="112c7786-2df2-4048-8c78-70a02529f619">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="339"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -44,7 +44,6 @@
 	<parameter name="serv4o" class="java.lang.String"/>
 	<parameter name="serv5o" class="java.lang.String"/>
 	<parameter name="serv6o" class="java.lang.String"/>
-        
 	<parameter name="tipo1P" class="java.lang.String"/>
 	<parameter name="tipo1R" class="java.lang.String"/>
 	<parameter name="tipo1O" class="java.lang.String"/>
@@ -1128,8 +1127,8 @@
 				<textFieldExpression><![CDATA[$P{fechaElaboracion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="466" y="338" width="234" height="14" uuid="b70a25cf-2818-4384-a5c1-cecaa765f019"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="470" y="338" width="230" height="14" uuid="b70a25cf-2818-4384-a5c1-cecaa765f019"/>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{elaboro}]]></textFieldExpression>
@@ -2648,7 +2647,7 @@
 			</textField>
 			<textField>
 				<reportElement x="470" y="365" width="230" height="20" uuid="b5b14d47-f1d3-41f2-9840-53a8de2eeb32"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{aprobo}]]></textFieldExpression>

@@ -54,7 +54,7 @@ public class ReportePreventivo {
             parametros.put("año", preventivo.getAño());
             parametros.put("fechaElaboracion", String.valueOf(preventivo.getFecha_elaboracion()));
             parametros.put("elaboro", preventivo.getId_usuario_personal().getConcatenar());
-
+            parametros.put("aprobo", preventivo.getAprobo());
             for (int i = 0; i < servicios.length; i++) {
 
                 if (i < tamañoLista) {
@@ -134,6 +134,7 @@ public class ReportePreventivo {
                                     parametros.put(descripcionServicio[i - 1][j], " ");
                                     parametros.put(descripcionServicio[i][j], " ");
                                 }
+                             
                             }
 
                         }

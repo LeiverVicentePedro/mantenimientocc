@@ -234,14 +234,7 @@
                                  <f:selectItem itemLabel="Inactivo" itemValue="false"/>
                                 </p:selectOneMenu>
                                 </p:column>
-                                <p:column>
-                                  <p:outputLabel value="Periodo:&nbsp;&nbsp;&nbsp;&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
-                                  <p:selectOneMenu id="periodo" value="#{usuarioBEAN.periodo.idperiodo_semestral}" converter="omnifaces.SelectItemsConverter">
-                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                                    <f:selectItems value="#{periodo_semestralBEAN.listaPeriodo}" var="empleadoPeriodo" itemLabel="#{empleadoPeriodo.periodo}" itemValue="#{empleadoPeriodo.idperiodo_semestral}"/>
-                                </p:selectOneMenu> 
-                                </p:column>
-                                
+                               
                             </h:panelGrid>
                         </p:panel>
                         <p/>

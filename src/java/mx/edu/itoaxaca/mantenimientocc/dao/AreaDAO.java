@@ -28,7 +28,7 @@ public class AreaDAO extends Conexion {
         }
     }
     
-    public List<Area> listarArea() throws Exception{
+    public List<Area> listarArea() throws Exception{//uso unico para la vista Area
      List<Area> lista;
         ResultSet resultadoset;
      try{
@@ -55,6 +55,35 @@ public class AreaDAO extends Conexion {
      }
      return lista;
     }
+    
+    public List<Area> listarAreaOtrasVistas() throws Exception{
+     List<Area> lista;
+        ResultSet resultadoset;
+     try{
+         this.Conectar();
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idarea, nombre_area, estatus FROM area where estatus=true");
+         resultadoset= consulta.executeQuery();
+         lista =new ArrayList();
+         while(resultadoset.next()){
+             Area area=new Area();
+             area.setIdarea(resultadoset.getInt("idarea"));
+             area.setNombre_area(resultadoset.getString("nombre_area"));
+             area.setEstatus(resultadoset.getBoolean("estatus"));
+             
+             lista.add(area);
+         }
+             
+     }
+     catch(Exception e){
+         throw e;
+         
+     }
+     finally{
+         this.Cerrar();
+     }
+     return lista;
+    }
+    
     
     public Area elegirDatoArea(Area area) throws Exception{
         Area areados=null;

@@ -26,6 +26,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import org.primefaces.context.RequestContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.util.StringTokenizer;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 import mx.edu.itoaxaca.mantenimientocc.dao.Empleado_periodoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Empleado_periodo;
@@ -193,14 +194,22 @@ public class UsuarioBEAN implements Serializable{
             objetoUsuario.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             usuarioDao.registrarUsuario(objetoUsuario);
             
-            
-            
+
                 //para agregar empleado_periodo
                 Usuario usuarioEmpleado_periodo= usuarioDao.consultarUsuario(objetoUsuario.getCorreo());
                 
                 Empleado_periodo empleado_periodo = new Empleado_periodo();
+                if(new java.sql.Date(new java.util.Date().getTime()).getMonth()<=5)
+                {
+                    periodo.setIdperiodo_semestral(1);
+                    periodo.setPeriodo("Ene-Jun");
+                }
+                if(new java.sql.Date(new java.util.Date().getTime()).getMonth()>5){
+                     periodo.setIdperiodo_semestral(2);
+                    periodo.setPeriodo("Ago-Dic");
+                }
                 empleado_periodo.setId_periodo(periodo);
-                empleado_periodo.setAño("2016");
+                empleado_periodo.setAño(String.valueOf(new java.sql.Date(new java.util.Date().getTime()).getYear()+1900));
                 empleado_periodo.setId_usuario_personal(usuarioEmpleado_periodo);
                 empleado_periodoDao.registrarEmpleado_periodo(empleado_periodo);
     
@@ -269,7 +278,7 @@ public class UsuarioBEAN implements Serializable{
         Area area;
         Oficina_solicitante oficina;
         try {
-            List<Area> areaDAO = new AreaDAO().listarArea();
+            List<Area> areaDAO = new AreaDAO().listarAreaOtrasVistas();
             Iterator recorrerAreaDAO = areaDAO.listIterator();
 
             while (recorrerAreaDAO.hasNext()) {
@@ -434,6 +443,7 @@ public class UsuarioBEAN implements Serializable{
         UsuarioDAO usuariodao;
         try {
             usuariodao = new UsuarioDAO();
+            objetoUsuario.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             usuariodao.modificarUsuario(objetoUsuario);
             this.listaUsuarioDepartameto();
         } catch (Exception ex) {
@@ -455,8 +465,6 @@ public class UsuarioBEAN implements Serializable{
         this.objetoUsuario.setId_profesion(null);
         setIdArea(0);
         setIdDepartamento(0);
-       // listaTemporalDepartamento.clear();
-       // listaTemporalOficina.clear();
         setUsuarioCorreoNombre("");
         setUsuarioCorreoServicio("");
         
@@ -480,16 +488,24 @@ public class UsuarioBEAN implements Serializable{
     public void elegirDatoUsuario(Usuario usuarioElegido) {
         UsuarioDAO usuariodao;
         Usuario usuarioParcial;
+        String []correo = new String[3];
         try {
             usuariodao = new UsuarioDAO();
             usuarioParcial = new Usuario();
             usuarioParcial = usuariodao.consultarUsuarioPorId(usuarioElegido);
             if(usuarioParcial!=null){
                 this.objetoUsuario = usuarioParcial;
+                //periodo = new Empleado_periodoDAO().
                 setIdArea(objetoUsuario.getIdOficina().getDepartamento().getArea().getIdarea());
                 setIdDepartamento(objetoUsuario.getIdOficina().getDepartamento().getIddepartamento());
-                setUsuarioCorreoNombre(objetoUsuario.getCorreo());
-                setUsuarioCorreoServicio(objetoUsuario.getCorreo());
+                StringTokenizer st =new StringTokenizer(objetoUsuario.getCorreo(),"@",true);
+                int contador = 0;
+                while(st.hasMoreElements()){
+                    correo[contador]=st.nextToken();
+                    contador++;   
+                }
+                setUsuarioCorreoNombre(correo[0]);
+                setUsuarioCorreoServicio(correo[1]+correo[2]);
                 departamentoDeUnArea();
                 oficinaDeUnDepartamento();
                 this.accionDeBotonUsuario = "Modificar";
@@ -570,7 +586,7 @@ public class UsuarioBEAN implements Serializable{
         DepartamentoDAO departamentoDao = new DepartamentoDAO();
         Oficina_solicitanteDAO oficinaDao = new Oficina_solicitanteDAO();
         try{
-        listaAreas = areaDao.listarArea();
+        listaAreas = areaDao.listarAreaOtrasVistas();
         listaDepartamento = departamentoDao.listarDepartamento();
         listaOficinas = oficinaDao.listarOficina();
         }catch(Exception ex){
