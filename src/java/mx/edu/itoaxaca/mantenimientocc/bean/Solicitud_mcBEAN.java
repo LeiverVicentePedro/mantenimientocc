@@ -57,15 +57,16 @@ public class Solicitud_mcBEAN implements Serializable{
     private List<Solicitud_mc> listaSolicitudPorDepartamento;
     private List<Solicitud_mc> listaFiltroSolicitud;
     private List<Solicitud_mc> listaSolicitudDeUsuarios;
-    private List<Solicitud_mc> filtrarSolicitudIdUsuario;
-    private List<Solicitud_mc> listaSolicitudCentroComputo;
+    private List<Solicitud_mc> filtrarSolicitudIdUsuario;  
+    
+    private List<Solicitud_mc> listaSolicitudPorDepartamentoParaAsignar;
 
-    public List<Solicitud_mc> getListaSolicitudCentroComputo() {
-        return listaSolicitudCentroComputo;
+    public List<Solicitud_mc> getListaSolicitudPorDepartamentoParaAsignar() {
+        return listaSolicitudPorDepartamentoParaAsignar;
     }
 
-    public void setListaSolicitudCentroComputo(List<Solicitud_mc> listaSolicitudCentroComputo) {
-        this.listaSolicitudCentroComputo = listaSolicitudCentroComputo;
+    public void setListaSolicitudPorDepartamentoParaAsignar(List<Solicitud_mc> listaSolicitudPorDepartamentoParaAsignar) {
+        this.listaSolicitudPorDepartamentoParaAsignar = listaSolicitudPorDepartamentoParaAsignar;
     }
     
     
@@ -321,6 +322,24 @@ public class Solicitud_mcBEAN implements Serializable{
             System.out.println("Error en Solicitud_mc -> listarSolicitudPorDepartamento "+ex);
         }
     }
+    
+    //para listar Solicitudes por id_departamento para asignar solicitud
+    
+     public void listarSolicitudPorDepartamentoParaAsignar(){//para Generar Asignacion de solicitud
+        Solicitud_mcDAO solicitud;
+        
+        try{
+            solicitud = new Solicitud_mcDAO();
+            //Orden_internaDAO ordenInterna = new Orden_internaDAO();
+            FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+            listaSolicitudPorDepartamentoParaAsignar =solicitud.listarSoicitudPorDepartamentoUsuario(usuarioVive);
+            
+        }catch(Exception ex){
+            System.out.println("Error en Solicitud_mc -> listarSolicitudPorDepartamentoParaAsignarSolicitud "+ex);
+        }
+    }
+    
      
      public void listaSolicitudDeUsuarios() {
         Solicitud_mcDAO miSolicituddao;
@@ -338,17 +357,7 @@ public class Solicitud_mcBEAN implements Serializable{
     }
      
      
-    public void listaSolicitudCentroComputo(){
-         Solicitud_mcDAO solicitud;
-         try{
-             solicitud = new Solicitud_mcDAO();
-          //listaSolicitudCentroComputo = new ArrayList();
-            listaSolicitudCentroComputo = solicitud.listarSolicitudPorCentroComputo(solicitudmc);
-         }catch(Exception ex){
-           System.out.println("Error en Solicitud_mcBEAN -> listaServicioSolicitado "+ex);  
-         }
-         
-     }
+   
      
      public void listaServicioSolicitado(){
          Catalogo_servicio_solicitadoDAO servicioSolicitado = new Catalogo_servicio_solicitadoDAO();

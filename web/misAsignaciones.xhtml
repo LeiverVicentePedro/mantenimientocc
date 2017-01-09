@@ -86,11 +86,18 @@
                     <p:commandLink class="fa fa-pencil" action="orden_trabajo.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}"  />    
                     
                 </p:column>
+                <p:column headerText="Seguimiento" width="140" >
+                    <p:commandLink class="fa fa-pencil" action="seguimiento.xhtml" actionListener="#{asigna_solicitudBEAN.eligeDeAsignaIdSolicitudSeguimiento(asigna_solicitud.id_solicitud)}" 
+                                     />    
+                    
+                </p:column>
         
             </p:dataTable>
            
             
         </h:form>
+             
+            
             </ui:define>
 
         </ui:composition>

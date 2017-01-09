@@ -14,7 +14,7 @@
                 <p/>
                 <h:form id="formAsignar">
                     <p:growl id="msj" showDetail="true" sticky="true"/>
-                    <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudCentroComputo()}"/>
+                    <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listarSolicitudPorDepartamentoParaAsignar()}"/>
                     <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuario()}"/>
                     <center>
                         <p:panel id="panelAsignarSolicitud" style="width: 800px">
@@ -29,7 +29,7 @@
                                              styleClass="selectMenu"
                                              style="text-transform: uppercase" required="true" requiredMessage="Se Requiere Folio De Solicitud">
                                 <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                                <f:selectItems value="#{solicitud_mcBEAN.listaSolicitudCentroComputo}" var="solicituditem" itemLabel="#{solicituditem.folio}" itemValue="#{solicituditem}"/>
+                                <f:selectItems value="#{solicitud_mcBEAN.listaSolicitudPorDepartamentoParaAsignar}" var="solicituditem" itemLabel="#{solicituditem.folio}" itemValue="#{solicituditem}"/>
                             </p:selectOneMenu>
                             <p/>
                             <p:column>
