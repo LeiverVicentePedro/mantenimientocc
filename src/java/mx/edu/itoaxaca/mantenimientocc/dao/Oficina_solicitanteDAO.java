@@ -37,12 +37,12 @@ public class Oficina_solicitanteDAO extends Conexion{
         }
     }
     
-  public List<Oficina_solicitante> listarOficina() throws Exception{
+  public List<Oficina_solicitante> listarOficina() throws Exception{//uso unico para Oficinas
      List<Oficina_solicitante> listaOfi;
         ResultSet resultadoset;
      try{
          this.Conectar();
-         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idoficinas, nombre_oficina, id_departamento,extencion, estatus FROM oficinas_solicitantes");
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT * FROM oficinas_solicitantes");
          resultadoset= consulta.executeQuery();
          listaOfi =new ArrayList();
          while(resultadoset.next()){
@@ -67,6 +67,37 @@ public class Oficina_solicitanteDAO extends Conexion{
      }
      return listaOfi;
     }
+  public List<Oficina_solicitante> listarOficinaOtrasVistas() throws Exception{//metodo para otras vistas como usuario
+     List<Oficina_solicitante> listaOfi;
+        ResultSet resultadoset;
+     try{
+         this.Conectar();
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT * FROM oficinas_solicitantes where estatus=true");
+         resultadoset= consulta.executeQuery();
+         listaOfi =new ArrayList();
+         while(resultadoset.next()){
+             Oficina_solicitante oficina=new Oficina_solicitante();
+             oficina.setIdOficinaSolicitante(resultadoset.getInt("idoficinas"));
+             oficina.setNombreOficina(resultadoset.getString("nombre_oficina"));
+             oficina.setDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultadoset.getInt("id_departamento")));
+             oficina.setExtencion(resultadoset.getInt("extencion"));
+             oficina.setEstatus(resultadoset.getBoolean("estatus"));
+             
+             listaOfi.add(oficina);
+         }
+             
+     }
+     catch(Exception e){
+         System.out.println("error en departamentoDao metodo Listar"+e);
+         throw e;
+         
+     }
+     finally{
+         this.Cerrar();
+     }
+     return listaOfi;
+    }
+  
   
   public Oficina_solicitante elegirDatoOficina(Oficina_solicitante oficina) throws Exception{
         Oficina_solicitante oficinaDos=null;
