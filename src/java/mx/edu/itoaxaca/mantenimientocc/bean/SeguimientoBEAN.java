@@ -120,11 +120,13 @@ public class SeguimientoBEAN implements Serializable{
             seguimiento.setId_usuario_solicitante(solicitudSeguimiento.getId_usuario());
             seguimientoDao.registrarSeguimiento(seguimiento);
             
-            Seguimiento seguimientoTemporal=seguimientoDao.identificadorDetalleSeguimiento(seguimiento.getIdseguimiento());
+            Seguimiento seguimientoTemporal=seguimientoDao.identificadorDetalleSeguimiento(seguimiento);//pasamos el objeto para recuperar el mismo objeto con su dato buscado
              
                 DetalleSeguimiento detalleSeguimiento = new DetalleSeguimiento();
-                detalleSeguimiento.setId_seguimiento(seguimientoTemporal);
-             
+                 Seguimiento ejemplo= new Seguimiento();
+               ejemplo.setIdseguimiento(1);
+                
+                detalleSeguimiento.setId_seguimiento(ejemplo);
                 detalleSeguimientodao.registrarDetalleSeguimiento(detalleSeguimiento);
 
             
