@@ -11,7 +11,7 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                <h:form id="formSeguimiento" enctype="multipart/form-data">
+                <h:form id="formSeguimiento" enctype="multipart/form-data" >
                     <p:growl id="msj" showDetail="true" sticky="true"/>
                    
                     <f:event type="preRenderView" listener="#{seguimientoBEAN.existeSolicitud()}"/>
@@ -31,9 +31,12 @@
                              <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_equipo_revisado}"/>
                              <p:column/><p:column/><p:column/><p:column/>
                              
-                             <p:outputLabel value="&nbsp;Numero de Evidencia:&nbsp;"  />
-                             <p:spinner value="#{detalleSeguimientoBEAN.detalleSeguimiento.numero_seguimiento}" min="1" size="3"/>
-                             
+ <p:outputLabel value="&nbsp;Numero de seguimiento:&nbsp;"  />
+                    <p:inputText value="#{detalleSeguimientoBEAN.detalleSeguimiento.numero_seguimiento}" 
+                                 required="true" requiredMessage="Se requiere Numero de Paso" 
+                                 style="text-transform: uppercase">
+                        <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>    
+                    </p:inputText>
                              <p:outputLabel value="&nbsp;Descripcion: &nbsp;"/>
                              <p:inputTextarea value="#{detalleSeguimientoBEAN.detalleSeguimiento.descripcion}"  placeholder="Descripción de trabajo realizado " 
                                               rows="2" cols="50" counter="descripcion" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
@@ -41,9 +44,9 @@
                              <h:outputText id="descripcion" style=" color: #c0c0c0"/>
                              <p:column/><p:column/><p:column/><p:column/>
                              <p:outputLabel value="&nbsp;Subir Evidencia:&nbsp;"  /> 
-                             
+                            
                              <p:fileUpload value="#{detalleSeguimientoBEAN.detalleSeguimiento.imagen}" mode="simple" />
-                             
+                           
                                 </h:panelGrid>
                             </p:tab>
                              
@@ -66,8 +69,8 @@
                           </p:accordionPanel> 
                            <p:separator style="visibility: hidden;"/>
                            <h:panelGrid columns="4" class="container-fluid">
-                           <p:commandButton value="#{seguimientoBEAN.accion}" actionListener="#{seguimientoBEAN.operar()}"  update=":formSeguimiento" />
-                           <p:commandButton value="Cerrar" action="misAsignaciones.xhtml" immediate="true" />
+                               <p:commandButton value="#{seguimientoBEAN.accion}" actionListener="#{seguimientoBEAN.operar()}"  update=":formSeguimiento"  ajax="false"/>
+                               <p:commandButton value="Cerrar" action="misAsignaciones.xhtml" immediate="true" ajax="false" />
                            </h:panelGrid> 
                          
                     </p:panel>

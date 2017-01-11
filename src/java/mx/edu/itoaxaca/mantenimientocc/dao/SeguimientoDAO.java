@@ -139,13 +139,13 @@ public class SeguimientoDAO extends Conexion{
      return lista;
     }
     
-    public Seguimiento identificadorDetalleSeguimiento(int idSeguimiento) throws Exception {//me manda a traer un objeto de solicitud que te regresa la solicitud del folio pedido
+    public Seguimiento identificadorDetalleSeguimiento(Seguimiento seguimientodetalle) throws Exception {//
         ResultSet resultadoset;
         Seguimiento seguimiento = null;
         try {
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM seguimiento WHERE idseguimiento=?");
-            consulta.setInt(1, idSeguimiento);
+            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM seguimiento WHERE id_solicitud=?");//debe ser otro dato que si conoscamos no uno q apenas se registrara (no el dato a buscar)
+            consulta.setInt(1, seguimientodetalle.getId_solicitud().getIdsolicitud_mc());
             resultadoset = consulta.executeQuery();
             if (resultadoset.next() == true) {
                 seguimiento = new Seguimiento();
