@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                <h:form id="lista" enctype="multipart/form-data">
+                   
+                    <p:outputLabel value="&nbsp;Numero de seguimiento:&nbsp;"  />
+                    <p:inputText value="#{detalleSeguimientoBEAN.detalleSeguimiento.numero_seguimiento}" 
+                                 required="true" requiredMessage="Se requiere Numero de Paso" 
+                                 style="text-transform: uppercase">
+                        <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>    
+                    </p:inputText>
+                  
+                    
+                    <p:outputLabel value="&nbsp;Descripcion: &nbsp;"/>
+                    <p:inputText value="#{detalleSeguimientoBEAN.detalleSeguimiento.descripcion}" 
+                                 required="true" requiredMessage="Se requiere Nombre de Departamento" 
+                                 style="text-transform: uppercase">
+                        <f:validator validatorId="validadoresLetrasNumEspacioPuntoGuion"/>
+                    </p:inputText>
+                    
+                    <p:fileUpload value="#{detalleSeguimientoBEAN.detalleSeguimiento.imagen}" mode="simple" />
+                     <p:separator style="visibility: hidden;"/> 
+                    <p:commandButton value="Subir" actionListener="#{detalleSeguimientoBEAN.registrarDetalleSeguimiento()}" ajax="false"/>
+                   
+                    </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

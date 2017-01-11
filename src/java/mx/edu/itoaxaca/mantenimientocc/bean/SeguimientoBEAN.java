@@ -10,7 +10,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import mx.edu.itoaxaca.mantenimientocc.dao.DetalleSeguimientoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.SeguimientoDAO;
+import mx.edu.itoaxaca.mantenimientocc.modelo.DetalleSeguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Seguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
@@ -27,6 +29,9 @@ public class SeguimientoBEAN implements Serializable{
   
   Solicitud_mc solicitudSeguimiento;
   private List<Seguimiento> listarSeguimiento;
+  private List<Seguimiento> filterSeguimiento;
+
+  
   String accion;
 
     public String getAccion() {
@@ -45,8 +50,15 @@ public class SeguimientoBEAN implements Serializable{
     public void setListarSeguimiento(List<Seguimiento> listarSeguimiento) {
         this.listarSeguimiento = listarSeguimiento;
     }
-  
-  
+
+    public List<Seguimiento> getFilterSeguimiento() {
+        return filterSeguimiento;
+    }
+
+    public void setFilterSeguimiento(List<Seguimiento> filterSeguimiento) {
+        this.filterSeguimiento = filterSeguimiento;
+    }
+ 
     //Objeto de la clase seguimiento
     public Seguimiento getSeguimiento() {
         return seguimiento;
@@ -87,6 +99,7 @@ public class SeguimientoBEAN implements Serializable{
   
    public void registrarSeguimiento() throws Exception {
         SeguimientoDAO seguimientoDao;
+        DetalleSeguimientoDAO detalleSeguimientodao;
         
         try {
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
@@ -97,20 +110,25 @@ public class SeguimientoBEAN implements Serializable{
             solicitudSeguimiento = (Solicitud_mc) contextoOT.getExternalContext().getSessionMap().get("solicitudSeguimiento");
             ///
             seguimientoDao = new SeguimientoDAO();
+            detalleSeguimientodao =new DetalleSeguimientoDAO();
             
             seguimiento.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
             seguimiento.setId_usuario_personal(usuarioVive);
             seguimiento.setId_solicitud(solicitudSeguimiento);
             seguimiento.setEstado_solicitud(true);
             seguimiento.setEstado_asignacion(true);
-            
-           
-            
-            
             seguimiento.setId_usuario_solicitante(solicitudSeguimiento.getId_usuario());
-            
-           
             seguimientoDao.registrarSeguimiento(seguimiento);
+            
+            Seguimiento seguimientoTemporal=seguimientoDao.identificadorDetalleSeguimiento(seguimiento.getIdseguimiento());
+             
+                DetalleSeguimiento detalleSeguimiento = new DetalleSeguimiento();
+                detalleSeguimiento.setId_seguimiento(seguimientoTemporal);
+             
+                detalleSeguimientodao.registrarDetalleSeguimiento(detalleSeguimiento);
+
+            
+            
             
              
              } 
@@ -145,12 +163,19 @@ public class SeguimientoBEAN implements Serializable{
                 
                 break;
              }
-                  
-             
-                  
-               
-      
+
    }
+   
+    public void listarSeguimiento() throws Exception{
+        SeguimientoDAO seguimientodao;
+        try{
+            seguimientodao=new SeguimientoDAO();
+            listarSeguimiento = seguimientodao.listarSeguimiento();
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
    
   
     
