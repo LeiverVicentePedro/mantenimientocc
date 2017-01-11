@@ -271,7 +271,7 @@ public class UsuarioBEAN implements Serializable{
         }
     }
 
-    @PostConstruct
+    /*@PostConstruct
     public void llenaListaOficinaUsuario() {
         listaOficinaUsuario = new ArrayList<SelectItem>();
         Departamento departamento;
@@ -327,7 +327,7 @@ public class UsuarioBEAN implements Serializable{
 
         }
     }
-
+*/
     public Usuario getRegistroUsuarioNuevo() {
         return registroUsuarioNuevo;
     }
@@ -557,7 +557,8 @@ public class UsuarioBEAN implements Serializable{
        UsuarioDAO usuariodao;
         try{
             usuariodao=new UsuarioDAO();
-            listarTodosLosUsuarios = usuariodao.listaUsuario();
+             Usuario usuarioVive = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            listarTodosLosUsuarios = usuariodao.listaUsuarioDepartamentoEnAsignacion(usuarioVive);
             System.out.println(listarTodosLosUsuarios.get(0).getConcatenar());
         }
         catch(Exception e){
@@ -587,10 +588,10 @@ public class UsuarioBEAN implements Serializable{
         Oficina_solicitanteDAO oficinaDao = new Oficina_solicitanteDAO();
         try{
         listaAreas = areaDao.listarAreaOtrasVistas();
-        listaDepartamento = departamentoDao.listarDepartamento();
-        listaOficinas = oficinaDao.listarOficina();
+        listaDepartamento = departamentoDao.listarDepartamentoOtrasVistas();
+        listaOficinas = oficinaDao.listarOficinaOtrasVistas();
         }catch(Exception ex){
-            System.out.println("Error en UsuarioBEAN -> lenarListasAreaDepartamentoOficina "+ex);
+            System.out.println("Error en UsuarioBEAN -> llenarListasAreaDepartamentoOficina "+ex);
         } 
     }
     

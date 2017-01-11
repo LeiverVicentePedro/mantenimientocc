@@ -5,11 +5,13 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jerusalen
  */
-public class Periodo_semestral {
+public class Periodo_semestral implements Serializable{
     
     private int idperiodo_semestral;
     private String periodo;
@@ -29,5 +31,31 @@ public class Periodo_semestral {
     public void setPeriodo(String periodo) {
         this.periodo = periodo;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + this.idperiodo_semestral;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Periodo_semestral other = (Periodo_semestral) obj;
+        if (this.idperiodo_semestral != other.idperiodo_semestral) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

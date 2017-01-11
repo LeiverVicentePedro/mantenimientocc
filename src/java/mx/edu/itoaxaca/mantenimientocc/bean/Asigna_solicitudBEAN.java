@@ -12,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.dao.Asigna_solicitudDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.SeguimientoDAO;
+import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Asigna_solicitud;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Seguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
@@ -101,8 +102,11 @@ public class Asigna_solicitudBEAN implements Serializable{
             asigna_Solicitud.setId_usuario_personal_jefe(usuarioVive);
             asigna_Solicitud.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
             asignaSolicitudDao.registrarAsignarSolicitud(asigna_Solicitud);
+            /*seccion donde se pone el estatus de la solicitud en falso para su asignacion*/
+            Solicitud_mc solicitudAsignada = asigna_Solicitud.getId_solicitud();
+            new Solicitud_mcDAO().modificarSolicitudMC(solicitudAsignada);
+            /*finaliza la seccion donde se pone falso la solicitud despues de asignarlo*/
             this.limpiarAsignaSolicitud();
-    
             System.out.println("fecha del sistema " + asigna_Solicitud.getFecha());
            
           //  this.limpiar();

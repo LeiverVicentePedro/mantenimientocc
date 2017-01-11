@@ -144,7 +144,7 @@ public class UsuarioDAO extends Conexion{
         } 
     }
     
-    public List<Usuario> listaUsuarioDepartamento(Usuario usuario) throws Exception
+    public List<Usuario> listaUsuarioDepartamento(Usuario usuario) throws Exception//usada unicamente para la vista usuario
     {
         List<Usuario> listaUsuarioDepartamento = null;
         
@@ -170,6 +170,49 @@ public class UsuarioDAO extends Conexion{
             usuarioParaLista.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioParaLista.setTipoBT(resultado.getString("tipo_bt"));
             usuarioParaLista.setEstatus(resultado.getBoolean("estatus"));
+            usuarioParaLista.setConcatenar();
+            
+            listaUsuarioDepartamento.add(usuarioParaLista);
+            
+           }
+           resultado.close();
+           
+           
+       }catch(Exception ex){
+           System.out.println("Eror en UsuarioDAO -> listaUsuarioDepartamento "+ex);
+       }finally{
+           this.Cerrar();
+       }
+       return listaUsuarioDepartamento;
+    }
+    
+    public List<Usuario> listaUsuarioDepartamentoEnAsignacion(Usuario usuario) throws Exception//usada en la asignacion vista
+    {
+        List<Usuario> listaUsuarioDepartamento = null;
+        
+        ResultSet resultado;
+        System.out.println("usuario: "+usuario.getIdOficina().getIdOficinaSolicitante());
+       try{
+           this.Conectar();
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE id_oficina=? and estatus = true");
+           consulta.setInt(1,usuario.getIdOficina().getIdOficinaSolicitante());
+           resultado = consulta.executeQuery();
+           listaUsuarioDepartamento = new ArrayList();
+           while(resultado.next()){
+               Usuario usuarioParaLista = new Usuario();
+             usuarioParaLista.setIdUsuario(resultado.getInt("idusuario"));
+            usuarioParaLista.setNombre(resultado.getString("nombre"));
+            usuarioParaLista.setApellidoPaterno(resultado.getString("apellido_paterno"));
+            usuarioParaLista.setApellidoMaterno(resultado.getString("apellido_materno"));
+            usuarioParaLista.setCorreo(resultado.getString("correo"));
+            usuarioParaLista.setClave(resultado.getString("clave"));
+            usuarioParaLista.setNivel(resultado.getInt("nivel"));
+            usuarioParaLista.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
+            usuarioParaLista.setRfc(resultado.getString("rfc"));
+            usuarioParaLista.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
+            usuarioParaLista.setTipoBT(resultado.getString("tipo_bt"));
+            usuarioParaLista.setEstatus(resultado.getBoolean("estatus"));
+            usuarioParaLista.setConcatenar();
             
             listaUsuarioDepartamento.add(usuarioParaLista);
             
@@ -242,7 +285,7 @@ public class UsuarioDAO extends Conexion{
         } 
     }
     
-    public List<Usuario> listaUsuario() throws Exception
+   /* public List<Usuario> listaUsuario() throws Exception
     {
         List<Usuario> listaUsuario;
         ResultSet resultado;
@@ -278,7 +321,7 @@ public class UsuarioDAO extends Conexion{
        }
        return listaUsuario;
     }
-    
+    */
     //para clasificar los usuarios de nivel tres
     public List<Usuario> listaUsuarioNivelTres(Usuario usuarioNivelTres) throws Exception
     {
@@ -342,6 +385,7 @@ public class UsuarioDAO extends Conexion{
             usuariodos.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultadoset.getInt("id_profesion")));
             usuariodos.setTipoBT(resultadoset.getString("tipo_bt"));
             usuariodos.setEstatus(resultadoset.getBoolean("estatus"));
+            usuariodos.setConcatenar();
             }
         }
         catch(Exception e){

@@ -41,7 +41,7 @@ public class DepartamentoDAO extends Conexion{
     }
     
     
-     public List<Departamento> listarDepartamento() throws Exception{
+     public List<Departamento> listarDepartamento() throws Exception{//unico para departamento
      List<Departamento> lista;
         ResultSet resultadoset;
      try{
@@ -72,7 +72,37 @@ public class DepartamentoDAO extends Conexion{
      }
      return lista;
     }
-     
+     public List<Departamento> listarDepartamentoOtrasVistas() throws Exception{//usada en otras vistas como usuario
+     List<Departamento> lista;
+        ResultSet resultadoset;
+     try{
+         this.Conectar();
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT * FROM departamento where estatus=true");
+         resultadoset= consulta.executeQuery();
+         lista =new ArrayList();
+         while(resultadoset.next()){
+             Departamento departamento=new Departamento();
+             departamento.setIddepartamento(resultadoset.getInt("iddepartamento"));
+             departamento.setClave_departamento(resultadoset.getString("clave_departamento"));
+             departamento.setNombre_departamento(resultadoset.getString("nombre_departamento"));
+            departamento.setArea(new AreaDAO().buscarIdArea(resultadoset.getInt("id_area")));
+
+             departamento.setEstatus(resultadoset.getBoolean("estatus"));
+             
+             lista.add(departamento);
+         }
+             
+     }
+     catch(Exception e){
+         System.out.println("error en departamentoDao metodo Listar"+e);
+         throw e;
+         
+     }
+     finally{
+         this.Cerrar();
+     }
+     return lista;
+    }
      
      public Departamento elegirDatoDepartamento(Departamento departamento) throws Exception{
         Departamento departamentodos=null;
@@ -169,13 +199,13 @@ public class DepartamentoDAO extends Conexion{
          return departamento;
      }
     
-     public List<Departamento> buscarDepartamentoPorIdArea(int idArea) throws Exception{
+     /*public List<Departamento> buscarDepartamentoPorIdArea(int idArea) throws Exception{
          
          List<Departamento> listaDepartamentoDeUnArea = null;
          ResultSet resultadoConsulta;
          try{
              this.Conectar();
-             PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM departamento where id_area=?");
+             PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM departamento where id_area=? and estatus=true");
              consulta.setInt(1, idArea);
              resultadoConsulta = consulta.executeQuery();
              listaDepartamentoDeUnArea = new ArrayList();
@@ -199,8 +229,8 @@ public class DepartamentoDAO extends Conexion{
          }
          return listaDepartamentoDeUnArea;
      }
-     
-     public List<Departamento> listarDepartamentoServicios() throws Exception{
+     */
+     public List<Departamento> listarDepartamentoServicios() throws Exception{//usado en solicitud_mc
          List<Departamento> listaDepartamentoServicio=null;
          ResultSet resultado;
          try{
