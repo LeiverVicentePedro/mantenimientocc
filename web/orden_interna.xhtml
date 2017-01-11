@@ -130,95 +130,42 @@
 
                 <p:dialog header="Datos de Refaccion" widgetVar="DatosRefaccion" id="dialogoDatosRefaccion" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
 
-                    <h:form id="formaExterior" >                
-                        <p:commandButton value="Nueva Refaccion" oncomplete="PF('Datos').show();" actionListener="#{refaccion_empleadaBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
+                    <h:form id="formaExterior" >               
+                        <p/>
+                        <p:outputLabel value="&nbsp;Cantidad&nbsp;" />
+                        <p:spinner value="#{orden_internaBEAN.refaccion.cantidad}" required="true" 
+                                     requiredMessage="Se necesita un Cantidad"
+                                     style="text-transform: uppercase" min="1">
+                            <f:validator validatorId="validadoresNumeros"/>
+                        </p:spinner>
+                        <p/> 
+                        
+                        <p:outputLabel  value="&nbsp;Num.Serie&nbsp;"/>
+                        <p:inputText  value="#{orden_internaBEAN.refaccion.numero_serie}"  
+                                       placeholder="0(cero) si no tiene"
+                                      required="true" requiredMessage="Se requiere Un Dato">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+                        
+                        <p/>
+                        <p:outputLabel  value="&nbsp;Descripcion&nbsp;"/>
+                        <p:inputText  value="#{orden_internaBEAN.refaccion.descripcion}" 
+                                      required="true" requiredMessage="Se requiere Descripcion" 
+                                      style="text-transform: uppercase" placeholder="¿Que es?">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+                        <p/>
+                        <p:outputLabel  value="&nbsp;Precio&nbsp;"/>
+                        <p:spinner  value="#{orden_internaBEAN.refaccion.precio}"  
+                                    style="text-transform: uppercase" min="0" prefix="$" placeholder="0(cero) si no tiene">
+                        </p:spinner>
 
-                            <f:ajax execute="#{refaccion_empleadaBEAN.listarRefaccion()}" render="data" />
-                        </p:commandButton>
-
-                        <p:dataTable id="data" var="refaccion" value="#{refaccion_empleadaBEAN.listaRefaccion}" selection="#{orden_internaBEAN.listaRefaccion}" rowKey="#{refaccion.id_refaccion_empleada}"
-
-                                     style="font-size: 14px;"
-
-                                     resizableColumns="true"
-                                     liveResize="true"
-
-                                     liveScroll="true" scrollRows="15" scrollWidth="100%"
-                                     scrollable="true"
-
-                                     widgetVar="buscar"
-                                     filteredValue="#{refaccion_empleadaBEAN.filterRefaccion}"
-                                     emptyMessage="No hay elementos encontrados"
-                                     paginator="true" rows="5"
-                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                     rowsPerPageTemplate="1,2,3,4,5">
-
-
-                            <f:facet name="header">
-                                <h:outputText value="Refacción" style="font-size: 15px"/>
-                                <p:outputPanel class="text-right">
-                                    <h:outputText value="Buscar:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
-
-                                                 style="width:150px" />
-                                </p:outputPanel>
-                            </f:facet>        
-                            <p:ajax event="rowSelectCheckbox" listener="#{orden_internaBEAN.checkDos}"   />
-                            <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
-
-                            <p:column headerText="Descripcion" 
-                                      sortBy="#{refaccion.descripcion}" 
-                                      filterBy="#{refaccion.descripcion}"
-                                      filterMatchMode="startsWith">
-
-                                <h:outputText value="#{refaccion.descripcion}" />
-
-                            </p:column>
-                            <p:column headerText="Numero_Serie" 
-                                      sortBy="#{refaccion.numero_serie}" 
-                                      filterBy="#{refaccion.numero_serie}"
-                                      filterMatchMode="startsWith">
-
-                                <h:outputText value="#{refaccion.numero_serie}" />
-
-                            </p:column>
-
-                            <p:column headerText="Precio" 
-                                      sortBy="#{refaccion.precio}" 
-                                      filterBy="#{refaccion.precio}"
-                                      filterMatchMode="startsWith">
-
-                                <h:outputText value="#{refaccion.precio}" />
-
-                            </p:column>
-
-                            <p:column headerText="Cantidad" 
-                                      sortBy="#{refaccion.cantidad}" 
-                                      filterBy="#{refaccion.cantidad}"
-                                      filterMatchMode="startsWith">
-
-                                <h:outputText value="#{refaccion.cantidad}" />
-
-                            </p:column>
-
-                            <p:column headerText="Editar"
-                                      width="60">
-                                <p:commandLink class="fa fa-pencil" actionListener="#{refaccion_empleadaBEAN.elegirDatoRefaccion(refaccion)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
-                            </p:column>
-
-                            <p:column headerText="Eliminar"
-                                      width="70">
-                                <p:commandLink class="fa fa-trash" actionListener="#{refaccion_empleadaBEAN.eliminarRefaccion(refaccion)}" update="data"/>
-                            </p:column>
-
-                            <f:facet name="footer">
-                                <p:commandButton   value="Seleccionar" oncomplete="PF('DatosRefaccion').hide();" update=":formOrden:displayRefaccion" >
-
-
-                                </p:commandButton>
-                            </f:facet>
-                        </p:dataTable>
-
+                        <p/>
+                        
+                        <center>
+                            <p:commandButton value="Agregar" action="#{orden_internaBEAN.agregaRefaccion()}" oncomplete="PF('DatosRefaccion').hide();" update=":formOrden:displayRefaccion" />
+                            <p:commandButton value="Cerrar" oncomplete="PF('DatosRefaccion').hide();" update=":formOrden:displayRefaccion" immediate="true"/>
+                        </center>
                     </h:form>
 
                 </p:dialog>
@@ -295,6 +242,9 @@
                                     #{problemas.descripcion}
                                 </p:dataList>
                             </p:outputPanel>
+                            <p:column/><p:column/><p:column/>
+                            <p:commandButton value="Remover Refaccion" action="#{orden_internaBEAN.limpiaListaRefaccion()}" update="formOrden:displayRefaccion"/>
+                            
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden;"/>
@@ -362,58 +312,6 @@
                         <p/>
                     </h:form>
                 </p:dialog>
-
-
-                <!--   Dialogo Refaccion -->
-
-                <p:dialog header="Datos de Refaccion" widgetVar="Datos" id="dialogoDatos"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                    <h:form>
-
-                        <p/>
-                        <p:outputLabel  value="&nbsp;Descripcion&nbsp;"/>
-                        <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.descripcion}" 
-                                      required="true" requiredMessage="Se requiere Descripcion" 
-                                      style="text-transform: uppercase">
-                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                        </p:inputText>
-
-                        <p/>
-                        <p:outputLabel  value="&nbsp;Num.Serie&nbsp;"/>
-                        <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.numero_serie}" 
-                                      required="true" requiredMessage="Se requiere Num.Serie" 
-                                      style="text-transform: uppercase">
-                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                        </p:inputText>
-
-                        <p/>
-                        <p:outputLabel  value="&nbsp;Precio&nbsp;"/>
-                        <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.precio}" 
-                                      required="true" requiredMessage="Se requiere Precio" 
-                                      style="text-transform: uppercase">
-                        </p:inputText>
-
-
-                        <p/>
-                        <p:outputLabel value="&nbsp;Cantidad&nbsp;" />
-                        <p:inputText value="#{refaccion_empleadaBEAN.refaccion.cantidad}" required="true" 
-                                     requiredMessage="Se necesita un Cantidad"
-                                     style="text-transform: uppercase">
-                            <f:validator validatorId="validadoresNumeros"/>
-                        </p:inputText>
-                        <p/>
-
-
-
-
-
-                        <center>
-                            <p:commandButton value="#{refaccion_empleadaBEAN.accion}" actionListener="#{refaccion_empleadaBEAN.operarRefaccion()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
-                            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
-                        </center>
-                        <p/>
-                    </h:form>
-                </p:dialog>
-
 
             </ui:define>
 

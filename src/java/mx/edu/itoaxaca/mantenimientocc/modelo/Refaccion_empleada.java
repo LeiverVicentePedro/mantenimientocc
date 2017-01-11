@@ -5,11 +5,13 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jerusalen
  */
-public class Refaccion_empleada {
+public class Refaccion_empleada implements Serializable{
     
     private int id_refaccion_empleada;
     private String descripcion;
@@ -17,6 +19,20 @@ public class Refaccion_empleada {
     private Double precio;
     private int cantidad;
 
+    public Refaccion_empleada(String descripcion, String numero_serie, Double precio, int cantidad) {//actualmente solo usado en orden interna
+        this.descripcion = descripcion;
+        this.numero_serie = numero_serie;
+        this.precio = precio;
+        this.cantidad = cantidad;
+    }
+
+    public Refaccion_empleada() {
+        //constructor vacio para los metodos comunes cuando se crea objetos sin nesesidad de pasar parametros
+    }
+    
+    
+    
+    
     public int getId_refaccion_empleada() {
         return id_refaccion_empleada;
     }

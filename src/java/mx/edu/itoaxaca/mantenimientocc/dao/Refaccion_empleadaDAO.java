@@ -102,7 +102,38 @@ public class Refaccion_empleadaDAO extends Conexion{
         }
         return refacciondos;
     }
-     
+    //buscar una refaccion por todos los datos que contiene
+     public Refaccion_empleada BuscaRefaccionEmpledaPorObjeto(Refaccion_empleada refaccion)throws Exception{
+        Refaccion_empleada refacciondos=null;
+        ResultSet resultadosetrefaccion;
+        try{
+            this.Conectar();
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT * FROM refaccion_empleada WHERE descripcion=? and numero_serie=? and precio=? and cantidad=?");
+            consulta.setString(1, refaccion.getDescripcion());
+            consulta.setString(2,refaccion.getNumero_serie());
+            consulta.setDouble(3, refaccion.getPrecio());
+            consulta.setInt(4,refaccion.getCantidad());
+            resultadosetrefaccion = consulta.executeQuery();
+            while(resultadosetrefaccion.next())
+            {
+              refacciondos= new Refaccion_empleada();
+              
+             refacciondos.setId_refaccion_empleada(resultadosetrefaccion.getInt("idrefaccion_empleada"));
+              refacciondos.setDescripcion(resultadosetrefaccion.getString("descripcion"));
+              refacciondos.setNumero_serie(resultadosetrefaccion.getString("numero_serie"));
+              refacciondos.setPrecio(resultadosetrefaccion.getDouble("precio"));
+              refacciondos.setCantidad(resultadosetrefaccion.getInt("cantidad"));
+            
+            }
+        }
+        catch(Exception e){
+           System.out.println("error en Refaccion_EmpleadaDao -> BuscaRefaccionEmpleadaPorObjeto"+e);
+        }
+        finally{
+           this.Cerrar();
+        }
+        return refacciondos; 
+     }
      
     //metodo modificar equipo
      
