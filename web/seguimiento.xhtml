@@ -11,49 +11,65 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-            <h:form id="formSeguimiento">
+                <h:form id="formSeguimiento" enctype="multipart/form-data">
                     <p:growl id="msj" showDetail="true" sticky="true"/>
                    
                     <f:event type="preRenderView" listener="#{seguimientoBEAN.existeSolicitud()}"/>
                   
                     
-                    <p:panel id="panelOrden">
-                        <f:facet name="header" class="text-center">
-                            <h:outputText value="Seguimiento" />
-                        </f:facet> 
-
-                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
-                            <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
-                            <p:outputLabel value="#{seguimientoBEAN.solicitudSeguimiento.folio}"/>
-                            <p/>
-                            <p:column/>
-                            
-                             <h:outputText value="Equipo Revisado: " />
-                             <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_equipo_revisado}">
-                            
-                             </p:selectBooleanCheckbox>
-                            <p/>
-                            <p:column/>
-                            <h:outputText value="En Proceso: " />
-                            <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_progreso}">
+                    <p:panel id="panelOrden" header="Formulario de Seguimiento" class="text-center container-fluid">
+                       
+                         <h:panelGrid columns="4" cellspacing="10" >
+                            <p:outputLabel value="&nbsp;Folio De Solicitud:&nbsp;"/>
+                            <p:outputLabel value="#{seguimientoBEAN.solicitudSeguimiento.folio}" style="text-transform: uppercase"/>
+                          
+                         </h:panelGrid>  
+                         <p:accordionPanel multiple="true">
+                            <p:tab title="Evidencia de Equipo">
+                                <h:panelGrid columns="6" class="text-left">
+                             <h:outputText value="Equipo Revisado:&nbsp; " />
+                             <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_equipo_revisado}"/>
+                             <p:column/><p:column/><p:column/><p:column/>
                              
-                             </p:selectBooleanCheckbox>
-                            <p/>
-                            <p:column/>
-                            <h:outputText value="Terminado: " />
-                            <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_termino}">
+                             <p:outputLabel value="&nbsp;Numero de Evidencia:&nbsp;"  />
+                             <p:spinner value="#{detalleSeguimientoBEAN.detalleSeguimiento.numero_seguimiento}" min="1" size="3"/>
+                             
+                             <p:outputLabel value="&nbsp;Descripcion: &nbsp;"/>
+                             <p:inputTextarea value="#{detalleSeguimientoBEAN.detalleSeguimiento.descripcion}"  placeholder="Descripción de trabajo realizado " 
+                                              rows="2" cols="50" counter="descripcion" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:column/><p:column/><p:column/><p:column/><p:column/>
+                             <h:outputText id="descripcion" style=" color: #c0c0c0"/>
+                             <p:column/><p:column/><p:column/><p:column/>
+                             <p:outputLabel value="&nbsp;Subir Evidencia:&nbsp;"  /> 
+                             
+                             <p:fileUpload value="#{detalleSeguimientoBEAN.detalleSeguimiento.imagen}" mode="simple" />
+                             
+                                </h:panelGrid>
+                            </p:tab>
+                             
+                             
+                             
                             
-                             </p:selectBooleanCheckbox>
-                            <p:column/>
+                             <p:tab title="Evidencia de Progreso">
+                                <h:panelGrid columns="4" class="container-fluid">  
+                            <h:outputText value="En Proceso:&nbsp; " />
+                            <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_progreso}"/>
+                                </h:panelGrid>
+                             </p:tab>
                             
-                            
-                            
-                        </h:panelGrid>
+                             <p:tab title="Evidencia de Termino">
+                              <h:panelGrid columns="4" class="container-fluid">
+                            <h:outputText value="Terminado: &nbsp;" />
+                            <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_termino}"/>
+                              </h:panelGrid>
+                             </p:tab>
+                          </p:accordionPanel> 
                            <p:separator style="visibility: hidden;"/>
-                           <p:commandButton value="#{seguimientoBEAN.accion}" actionListener="#{seguimientoBEAN.operar()}" action="misAsignaciones.xhtml" update=":formSeguimiento" />
+                           <h:panelGrid columns="4" class="container-fluid">
+                           <p:commandButton value="#{seguimientoBEAN.accion}" actionListener="#{seguimientoBEAN.operar()}"  update=":formSeguimiento" />
                            <p:commandButton value="Cerrar" action="misAsignaciones.xhtml" immediate="true" />
-                            
-                   
+                           </h:panelGrid> 
+                         
                     </p:panel>
 
                 </h:form>
