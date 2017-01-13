@@ -32,23 +32,7 @@ public class Asigna_solicitudBEAN implements Serializable{
     private List<Asigna_solicitud> filterAsignar;
     private List<Asigna_solicitud> listaAsinacionesDeUsuarios;
  
-   Seguimiento seguimiento=new Seguimiento();// esto es para el objeto de elige Solicitud de seguimiento
    
-   
-
-    public Seguimiento getSeguimiento() {
-        return seguimiento;
-    }
-
-    public void setSeguimiento(Seguimiento seguimiento) {
-        this.seguimiento = seguimiento;
-    }
-
-   
-   
-
-   
-    
     public List<Asigna_solicitud> getListaAsinacionesDeUsuarios() {
         return listaAsinacionesDeUsuarios;
     }
@@ -90,7 +74,7 @@ public class Asigna_solicitudBEAN implements Serializable{
     
      public void registrarAsignaSolicitu() throws Exception {
         Asigna_solicitudDAO asignaSolicitudDao;
-        
+        SeguimientoDAO seguimientodao;
             try {
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
             Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
@@ -106,6 +90,15 @@ public class Asigna_solicitudBEAN implements Serializable{
             Solicitud_mc solicitudAsignada = asigna_Solicitud.getId_solicitud();
             new Solicitud_mcDAO().modificarSolicitudMC(solicitudAsignada);
             /*finaliza la seccion donde se pone falso la solicitud despues de asignarlo*/
+            /* Aqui comienza para modificar el SEGUIMIENTO Y PODER REGISTRAR EL PERSONAL QUE TIENE A CARGO LA SOLICITUD 
+            Y EL ESTADO DE ASIGNACION EN MODO TRUE*/
+            seguimientodao = new SeguimientoDAO();//el seguimientodao es para poder tener acceso a la clase SeguimientoDao y mandar a llamar al metodo elegirDatoSeguimiento
+           Seguimiento solicitudSeguimientoTemporal = seguimientodao.elegirDatoSeguimiento(solicitudAsignada);//Aqui es para buscar el seguimiento con la solicitud asignada
+           
+            solicitudSeguimientoTemporal.setId_usuario_personal(asigna_Solicitud.getId_usuario_personal()); //se manda el valor del personal extrallendolo desde el get
+            solicitudSeguimientoTemporal.setEstado_asignacion(true);
+            seguimientodao.modificarSeguimiento(solicitudSeguimientoTemporal);//se manda a llamar el metodo modificar que se encuentra en el SeguimientoDao
+            
             this.limpiarAsignaSolicitud();
             System.out.println("fecha del sistema " + asigna_Solicitud.getFecha());
            
@@ -169,20 +162,11 @@ public class Asigna_solicitudBEAN implements Serializable{
     
     }
    
-   public void eligeDeAsignaIdSolicitudSeguimiento(Solicitud_mc seguimientoFolio) throws Exception{//para agregar a seguimiento el id_solicitud
+   public void eligeDeAsignaIdSolicitudSeguimiento(Solicitud_mc seguimientoFolio) throws Exception{//para agregar a DetalleSeguimiento el id_solicitud
            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudSeguimiento",seguimientoFolio);//continua en SeguimientoBEAN
               
-              System.out.println(seguimientoFolio.getFolio());
+              System.out.println(seguimientoFolio.getFolio());}
               
-               seguimiento=new SeguimientoDAO().elegirDatoSeguimiento(seguimientoFolio);
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("objetoSeguimiento",seguimiento);//continua en SeguimientoBEAN
-               System.out.println("aqui llamo solicituden AsignaBEAN");
-               
-               
-               
-               
-    
-    }
-   
-  
+              
+ 
 }
