@@ -64,15 +64,13 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable{
     /*Metodo que busca y llena el objeto de Seguimiento si este tiene algo o no*/
     public void redirigeVistaSiExisteSolicitud() throws Exception{
         try{
-         
-         System.out.println("seguimiento "+seguimientoEncontrado.getIdseguimiento());
          solicitudABuscar = new Solicitud_mcDAO().identificadorDeSolicitud(solicitudABuscar.getFolio());
          if( new SeguimientoDAO().elegirDatoSeguimiento(solicitudABuscar)!=null){
              seguimientoEncontrado = new SeguimientoDAO().elegirDatoSeguimiento(solicitudABuscar);
-             setNoExisteSolicitud("Seguimiento Encontrado");
+             setNoExisteSolicitud("ACTIVO");
              alNavegadorSiExiste();
-         }else{
-             setNoExisteSolicitud("UP!! Esta Solicitud No Exite Verifique.");
+         }if(new SeguimientoDAO().elegirDatoSeguimiento(solicitudABuscar)==null){
+             setNoExisteSolicitud("NO EXISTE");
              System.out.println("seguimiento "+seguimientoEncontrado.getIdseguimiento());
              System.out.println(noExisteSolicitud);
              alNavegadorNoExiste();
