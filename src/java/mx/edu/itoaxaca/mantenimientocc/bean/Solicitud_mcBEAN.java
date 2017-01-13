@@ -18,10 +18,12 @@ import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_servicio_solicitadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Detalle_solicitudDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_internaDAO;
+import mx.edu.itoaxaca.mantenimientocc.dao.SeguimientoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Catalogo_servicio_solicitado;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Detalle_solicitud;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_interna;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Seguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import mx.edu.itoaxaca.reportes.ReporteMantenimiento;
@@ -164,12 +166,15 @@ public class Solicitud_mcBEAN implements Serializable{
     public void registrarSolicitudMC() throws Exception {
         Solicitud_mcDAO solicitudDao;
         Detalle_solicitudDAO detalleSolicitudDao;
+        SeguimientoDAO seguimientoDao;
         try {
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
             usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
             //existir dentro del navegador
             solicitudDao = new Solicitud_mcDAO();
             detalleSolicitudDao = new Detalle_solicitudDAO();
+            seguimientoDao=new SeguimientoDAO();
+            
             generaFolioSolicitud();
             solicitudmc.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
             solicitudmc.setId_usuario(usuarioVive);
@@ -186,7 +191,24 @@ public class Solicitud_mcBEAN implements Serializable{
                 detalleSolicitudDao.registrarDetalleSolicitud(detalleSolicitud);
 
             }
-           
+            
+            Seguimiento seguimiento=new Seguimiento(); //se esta declarando el objeto seguimiento
+            
+            seguimiento.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
+            //no se llenara el dato id_usuario_personal se quedara vacio
+            seguimiento.setId_solicitud(solicitudTemporal); //mandamos a llenar idSolicitud de seguimiento con solicitud Temporal porque ahi ya esta cargada la solicitud
+            seguimiento.setEstado_solicitud(true);
+            seguimiento.setEstado_asignacion(false);
+            
+            System.out.println(seguimiento.getFecha()+"\n");
+            System.out.println(seguimiento.getId_usuario_personal()+"\n");
+            System.out.println(seguimiento.getId_solicitud()+"\n");
+            System.out.println(seguimiento.getEstado_solicitud()+"\n");
+            System.out.println(seguimiento.getEstado_asignacion()+"\n");
+            seguimientoDao.registrarSeguimiento(seguimiento);
+                    
+            
+            
             new ReporteMantenimiento().exportarPDFSolicitud(solicitudmc, serviciosSeleccionados);//metodo para exportar pdf desde otra clase
             
             System.out.println("fecha del sistema " + solicitudmc.getFecha());
