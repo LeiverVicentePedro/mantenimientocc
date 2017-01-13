@@ -12,28 +12,36 @@
 
             <ui:define name="content">
                 <f:event type="preRenderView" listener="#{segiomientoMantenimientoUsuarioBEAN.recuperaNavegador()}"/>
-                 <p:separator style="visibility: hidden"/>
-                 <center>
-                     <p:outputLabel value="Seguimiento de Solicitud de Mantenimiento" style="font-family: sans-serif; font-size: 24px;"/>
-                 </center>
+                <p:separator style="visibility: hidden"/>
+                <center>
+                    <p:outputLabel value="Seguimiento de Solicitud de Mantenimiento" style="font-family: sans-serif; font-size: 24px;"/>
+                </center>
                 <br/>
                 <center>
-                    <div class="col-md-3" align="left">
-                        <h:outputLabel value="Folio:&nbsp;&nbsp;" style="font-family: sans-serif; font-size: 18px; font-weight: bold"/>
-                    <h:outputLabel value="#{segiomientoMantenimientoUsuarioBEAN.seguimientoEncontrado.id_solicitud.folio}" style="font-family: sans-serif; font-size: 18px; color: blue"/>
-                     <p:separator style="visibility: hidden"/>
-                     
+                    <div class="col-md-3" align="left"></div>
+                    <div class="col-md-6">
+                       
+                        <h:outputLabel value="Departamento Dirigido:&nbsp;&nbsp;" style="font-family: sans-serif; font-size: 18px; font-weight: bold"/>
+                        <h:outputLabel value="#{segiomientoMantenimientoUsuarioBEAN.seguimientoEncontrado.id_solicitud.id_departamento.nombre_departamento}" style="font-family: sans-serif; font-size: 14px; color: blue"/>
+                    </div>
+                    <div class="col-md-3" align="right"></div>
+                    <div class="col-md-3" align="center">
+                        <h:outputLabel value="Folio:&nbsp;&nbsp;" style="font-family: sans-serif; font-size: 16px; font-weight: bold"/>
+                        <h:outputLabel value="#{segiomientoMantenimientoUsuarioBEAN.seguimientoEncontrado.id_solicitud.folio}" style="font-family: sans-serif; font-size: 16px; color: blue"/>
+                        <p:separator style="visibility: hidden"/>
+
                     </div>
                     <div class="col-md-6" align="center"></div>
-                    <div class="col-md-3" align="right">
-                        <h:outputLabel value="Estado:&nbsp;&nbsp;" style="font-family: sans-serif; font-size: 18px; font-weight: bold"/>
-                        <h:outputLabel value="#{segiomientoMantenimientoUsuarioBEAN.noExisteSolicitud}" style="font-size: 18px;"/>
+                    <div class="col-md-3" align="center">
+                        <h:outputLabel value="Estado:&nbsp;&nbsp;" style="font-family: sans-serif; font-size: 16px; font-weight: bold"/>
+                        <h:outputLabel value="#{segiomientoMantenimientoUsuarioBEAN.noExisteSolicitud}" style="font-size: 16px;"/>
                     </div>
-                    <br/>
+                    <br/><br/><br/>
+                    
                 </center>
+
                 
-                
-                 
+
             </ui:define>
 
         </ui:composition>
