@@ -31,21 +31,18 @@
                              <p:selectBooleanCheckbox value="#{seguimientoBEAN.seguimiento.estado_equipo_revisado}"/>
                              <p:column/><p:column/><p:column/><p:column/>
                              
- <p:outputLabel value="&nbsp;Numero de seguimiento:&nbsp;"  />
-                    <p:inputText value="#{detalleSeguimientoBEAN.detalleSeguimiento.numero_seguimiento}" 
-                                 required="true" requiredMessage="Se requiere Numero de Paso" 
-                                 style="text-transform: uppercase">
-                        <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>    
-                    </p:inputText>
+                      <p:outputLabel value="&nbsp;Numero de seguimiento:&nbsp;"  />
+                      <p:spinner value="#{seguimientoBEAN.detalleSeguimiento.numero_seguimiento}" min="1" size="3"/> 
+                   
                              <p:outputLabel value="&nbsp;Descripcion: &nbsp;"/>
-                             <p:inputTextarea value="#{detalleSeguimientoBEAN.detalleSeguimiento.descripcion}"  placeholder="Descripción de trabajo realizado " 
+                             <p:inputTextarea value="#{seguimientoBEAN.detalleSeguimiento.descripcion}"  placeholder="Descripción de trabajo realizado " 
                                               rows="2" cols="50" counter="descripcion" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
                             <p:column/><p:column/><p:column/><p:column/><p:column/>
                              <h:outputText id="descripcion" style=" color: #c0c0c0"/>
                              <p:column/><p:column/><p:column/><p:column/>
                              <p:outputLabel value="&nbsp;Subir Evidencia:&nbsp;"  /> 
                             
-                             <p:fileUpload value="#{detalleSeguimientoBEAN.detalleSeguimiento.imagen}" mode="simple" />
+                             <p:fileUpload value="#{seguimientoBEAN.detalleSeguimiento.imagen}" mode="simple"  />
                            
                                 </h:panelGrid>
                             </p:tab>

@@ -28,8 +28,17 @@ public class SeguimientoBEAN implements Serializable{
   private Seguimiento seguimiento= new Seguimiento();
   
   Solicitud_mc solicitudSeguimiento;
+  DetalleSeguimiento detalleSeguimiento = new DetalleSeguimiento();
   private List<Seguimiento> listarSeguimiento;
   private List<Seguimiento> filterSeguimiento;
+
+    public DetalleSeguimiento getDetalleSeguimiento() {
+        return detalleSeguimiento;
+    }
+
+    public void setDetalleSeguimiento(DetalleSeguimiento detalleSeguimiento) {
+        this.detalleSeguimiento = detalleSeguimiento;
+    }
 
   
   String accion;
@@ -109,6 +118,7 @@ public class SeguimientoBEAN implements Serializable{
             FacesContext contextoOT = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
             solicitudSeguimiento = (Solicitud_mc) contextoOT.getExternalContext().getSessionMap().get("solicitudSeguimiento");
             ///
+            
             seguimientoDao = new SeguimientoDAO();
             detalleSeguimientodao =new DetalleSeguimientoDAO();
             
@@ -117,22 +127,23 @@ public class SeguimientoBEAN implements Serializable{
             seguimiento.setId_solicitud(solicitudSeguimiento);
             seguimiento.setEstado_solicitud(true);
             seguimiento.setEstado_asignacion(true);
-            seguimiento.setId_usuario_solicitante(solicitudSeguimiento.getId_usuario());
+           // seguimiento.setId_usuario_solicitante(solicitudSeguimiento.getId_usuario());
             seguimientoDao.registrarSeguimiento(seguimiento);
             
+            
             Seguimiento seguimientoTemporal=seguimientoDao.identificadorDetalleSeguimiento(seguimiento);//pasamos el objeto para recuperar el mismo objeto con su dato buscado
-             
-                DetalleSeguimiento detalleSeguimiento = new DetalleSeguimiento();
-                 Seguimiento ejemplo= new Seguimiento();
-               ejemplo.setIdseguimiento(1);
-                
-                detalleSeguimiento.setId_seguimiento(ejemplo);
+             while(seguimientoTemporal!=null)  
+             {                
+                detalleSeguimiento.setId_seguimiento(seguimientoTemporal);
                 detalleSeguimientodao.registrarDetalleSeguimiento(detalleSeguimiento);
 
+            System.out.println(detalleSeguimiento.getImagen()+"\n");
+            System.out.println(detalleSeguimiento.getDescripcion()+"\n");
+            System.out.println(detalleSeguimiento.getId_seguimiento()+"\n");
+            System.out.println(detalleSeguimiento.getIddetalle_seguimiento()+"\n");
+            System.out.println(detalleSeguimiento.getNumero_seguimiento()+"\n");
             
-            
-            
-             
+             }
              } 
         catch (Exception ex) {
             System.out.println("Error en SeguimientoBEAN -> Registrar-Seguimiento " + ex);
