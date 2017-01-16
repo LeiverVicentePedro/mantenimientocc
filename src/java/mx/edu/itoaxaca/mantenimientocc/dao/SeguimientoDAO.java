@@ -40,7 +40,7 @@ public class SeguimientoDAO extends Conexion{
         }
     }
     
-    public Seguimiento elegirDatoSeguimiento(Solicitud_mc seguimientoElige) throws Exception{
+    public Seguimiento elegirDatoSeguimiento(Solicitud_mc seguimientoElige) throws Exception{// esto es para la parte de en asigna para buscar el id del seguimiento
         Seguimiento seguimientoDos=null;
         ResultSet resultadosetseguimiento;
         try{

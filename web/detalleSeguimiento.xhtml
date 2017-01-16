@@ -11,28 +11,35 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                <h:form id="lista" enctype="multipart/form-data">
-                   
-                    <p:outputLabel value="&nbsp;Numero de seguimiento:&nbsp;"  />
-                    <p:inputText value="#{detalleSeguimientoBEAN.detalleSeguimiento.numero_seguimiento}" 
-                                 required="true" requiredMessage="Se requiere Numero de Paso" 
-                                 style="text-transform: uppercase">
-                        <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>    
-                    </p:inputText>
-                  
-                    
-                    <p:outputLabel value="&nbsp;Descripcion: &nbsp;"/>
-                    <p:inputText value="#{detalleSeguimientoBEAN.detalleSeguimiento.descripcion}" 
-                                 required="true" requiredMessage="Se requiere Nombre de Departamento" 
-                                 style="text-transform: uppercase">
-                        <f:validator validatorId="validadoresLetrasNumEspacioPuntoGuion"/>
-                    </p:inputText>
-                    
-                    <p:fileUpload value="#{detalleSeguimientoBEAN.detalleSeguimiento.imagen}" mode="simple" />
+              <h:form enctype="multipart/form-data">
+                <p/>
+            <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
+            <style type="text/css">                                      
+            .selectMenu { display: inline-block; vertical-align: top; }
+            </style>
+            <p/>
+            <p:outputLabel value="&nbsp; Estado de seguimiento&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+            <p:selectOneMenu value="#{detalleSeguimientoBEAN.detalleSeguimiento.estado}" styleClass="selectMenu" 
+                             style="text-transform: uppercase">
+                <f:selectItem itemLabel="Inicial" itemValue="Inicial"/>
+                <f:selectItem itemLabel="Proceso" itemValue="Proceso"/>
+                <f:selectItem itemLabel="Final" itemValue="Final"/>
+            </p:selectOneMenu>
+            <p/>
+            <p:outputLabel for="txtNombre" value="&nbsp;Descripción:&nbsp;"/>
+            <p:inputText id="txtNombre" value="#{detalleSeguimientoBEAN.detalleSeguimiento.descripcion}" 
+                              required="true" requiredMessage="Se requiere nombre de Area" 
+                              style="text-transform: uppercase" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+            <p:fileUpload value="#{detalleSeguimientoBEAN.detalleSeguimiento.imagen}" mode="simple" />
                      <p:separator style="visibility: hidden;"/> 
-                    <p:commandButton value="Subir" actionListener="#{detalleSeguimientoBEAN.registrarDetalleSeguimiento()}" ajax="false"/>
-                   
-                    </h:form>
+            <center>
+                <p:commandButton value="Registrar" actionListener="#{detalleSeguimientoBEAN.registrarDetalleSeguimiento()}" ajax="false" />
+                <p:commandButton value="Cancelar" immediate="true" action="misAsignaciones.xhtml" ajax="false" />
+            </center>
+            <p/>
+            </h:form>
             </ui:define>
 
         </ui:composition>

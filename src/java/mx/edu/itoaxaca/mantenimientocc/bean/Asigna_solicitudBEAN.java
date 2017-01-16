@@ -31,8 +31,8 @@ public class Asigna_solicitudBEAN implements Serializable{
     private List<Asigna_solicitud> listarAsignacionSolicitudes;
     private List<Asigna_solicitud> filterAsignar;
     private List<Asigna_solicitud> listaAsinacionesDeUsuarios;
- 
-   
+  
+
     public List<Asigna_solicitud> getListaAsinacionesDeUsuarios() {
         return listaAsinacionesDeUsuarios;
     }
@@ -146,10 +146,11 @@ public class Asigna_solicitudBEAN implements Serializable{
         }
     }
      
-   public void eligeIdAsignaSolicitud(Asigna_solicitud asignaSolicitud){//
+   public void eligeIdAsignaSolicitud(Asigna_solicitud asignaSolicitud) throws Exception{ //
        
                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignada",asignaSolicitud.getId_solicitud());
                System.out.println(asignaSolicitud.getId_solicitud().getFolio());
+             
                
     
     }
@@ -165,8 +166,10 @@ public class Asigna_solicitudBEAN implements Serializable{
    public void eligeDeAsignaIdSolicitudSeguimiento(Solicitud_mc seguimientoFolio) throws Exception{//para agregar a DetalleSeguimiento el id_solicitud
            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudSeguimiento",seguimientoFolio);//continua en SeguimientoBEAN
               
-              System.out.println(seguimientoFolio.getFolio());}
-              
+              System.out.println(seguimientoFolio.getFolio());
+   
+          
+   }   
               
  
 }

@@ -5,6 +5,7 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.util.Date;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -13,10 +14,11 @@ import org.primefaces.model.UploadedFile;
  */
 public class DetalleSeguimiento {
  private int iddetalle_seguimiento;
- private int numero_seguimiento;
+ private String estado;
  private String descripcion;
  private UploadedFile imagen;
  private Seguimiento id_seguimiento;
+ private Date fecha;
 
     public int getIddetalle_seguimiento() {
         return iddetalle_seguimiento;
@@ -26,12 +28,12 @@ public class DetalleSeguimiento {
         this.iddetalle_seguimiento = iddetalle_seguimiento;
     }
 
-    public int getNumero_seguimiento() {
-        return numero_seguimiento;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setNumero_seguimiento(int numero_seguimiento) {
-        this.numero_seguimiento = numero_seguimiento;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getDescripcion() {
@@ -57,9 +59,16 @@ public class DetalleSeguimiento {
     public void setId_seguimiento(Seguimiento id_seguimiento) {
         this.id_seguimiento = id_seguimiento;
     }
- 
- 
- 
- 
- 
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+
 }
+
+   
