@@ -11,28 +11,55 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                <h:form id="lista" enctype="multipart/form-data">
-                   
-                    <p:outputLabel value="&nbsp;Numero de seguimiento:&nbsp;"  />
-                    <p:inputText value="#{detalleSeguimientoBEAN.detalleSeguimiento.numero_seguimiento}" 
-                                 required="true" requiredMessage="Se requiere Numero de Paso" 
-                                 style="text-transform: uppercase">
-                        <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>    
-                    </p:inputText>
+              <h:form enctype="multipart/form-data">
+                  <f:event type="preRenderView" listener="#{detalleSeguimientoBEAN.existeSolicitud()}"/>
                   
-                    
-                    <p:outputLabel value="&nbsp;Descripcion: &nbsp;"/>
-                    <p:inputText value="#{detalleSeguimientoBEAN.detalleSeguimiento.descripcion}" 
-                                 required="true" requiredMessage="Se requiere Nombre de Departamento" 
-                                 style="text-transform: uppercase">
-                        <f:validator validatorId="validadoresLetrasNumEspacioPuntoGuion"/>
-                    </p:inputText>
-                    
-                    <p:fileUpload value="#{detalleSeguimientoBEAN.detalleSeguimiento.imagen}" mode="simple" />
+                   <p:panel id="panelDetalleSeguimiento">
+                        <f:facet name="header" class="text-center">
+                            <h:outputText value="Seguimiento" />
+
+                        </f:facet> 
+
+                        <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
+                            <p:outputLabel value="&nbsp;Folio De Solicitud&nbsp;"/>
+                            <p:column>
+                            <p:outputLabel value="#{detalleSeguimientoBEAN.solicitud.folio}"/>
+                            </p:column>
+                            <p:column/><p:column/> 
+            
+                            <p:column>
+            <p:outputLabel value="Estado de seguimiento"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+                            </p:column>
+                            <p:column>
+            <p:selectOneMenu value="#{detalleSeguimientoBEAN.detalleSeguimiento.estado}" 
+                             style="text-transform: uppercase">
+                <f:selectItem itemLabel="Inicial" itemValue="Inicial"/>
+                <f:selectItem itemLabel="Proceso" itemValue="Proceso"/>
+                <f:selectItem itemLabel="Final" itemValue="Final"/>
+            </p:selectOneMenu>
+                            </p:column>
+            <p:column/> <p:column/>
+            <p:outputLabel  value="&nbsp;Descripción:&nbsp;"/>
+                <p:inputTextarea value="#{detalleSeguimientoBEAN.detalleSeguimiento.descripcion}" 
+                                 placeholder="Describa Posible causa" rows="2" cols="50" counter="detalle" 
+                                 maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            
+                            <p:column/><p:column/><p:column/>
+                            <h:outputText id="detalle" style=" color: #c0c0c0"/>
+                          <p:column/> <p:column/> <p:column/> 
+            <p:fileUpload value="#{detalleSeguimientoBEAN.detalleSeguimiento.imagen}" mode="simple" />
                      <p:separator style="visibility: hidden;"/> 
-                    <p:commandButton value="Subir" actionListener="#{detalleSeguimientoBEAN.registrarDetalleSeguimiento()}" ajax="false"/>
-                   
-                    </h:form>
+                     
+            </h:panelGrid>
+                    </p:panel>     
+                     
+            <center>
+                <p:commandButton value="Registrar" actionListener="#{detalleSeguimientoBEAN.registrarDetalleSeguimiento()}" ajax="false" />
+                <p:commandButton value="Cancelar" immediate="true" action="misAsignaciones.xhtml" ajax="false" />
+            </center>
+            <p/>
+             
+            </h:form>
             </ui:define>
 
         </ui:composition>
