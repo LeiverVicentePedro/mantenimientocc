@@ -35,7 +35,9 @@ public class DetalleSeguimientoBEAN implements Serializable{
     public void setSolicitud(Solicitud_mc solicitud) {
         this.solicitud = solicitud;
     }
-   
+   public void existeSolicitud(){
+        solicitud = (Solicitud_mc) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("solicitudAsignadaOR");
+    }
    
 
     public Seguimiento getSeguimiento() {
@@ -63,18 +65,27 @@ public class DetalleSeguimientoBEAN implements Serializable{
             try{
                 detalleSeguimientodao= new DetalleSeguimientoDAO();
                 FacesContext contextoOT = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
-            solicitud = (Solicitud_mc) contextoOT.getExternalContext().getSessionMap().get("solicitudSeguimiento");
+            solicitud = (Solicitud_mc) contextoOT.getExternalContext().getSessionMap().get("solicitudAsignadaOR");
                 seguimientodao = new SeguimientoDAO();//el seguimientodao es para poder tener acceso a la clase SeguimientoDao y mandar a llamar al metodo elegirDatoSeguimiento
            Seguimiento solicitudSeguimientoTemporal = seguimientodao.elegirDatoSeguimiento(solicitud);
               
                 detalleSeguimiento.setId_seguimiento(solicitudSeguimientoTemporal);
                 detalleSeguimiento.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
                 detalleSeguimientodao.registrarDetalleSeguimiento(detalleSeguimiento);
+                this.limpiarDetalleSeguimiento();
+                
             }
             catch(Exception e)
             {
                 System.out.println("error en DetalleSeguimiento BEAN -->RegistrarDetalleSeguimiento"+e);
             }
-    }   
+    }
+    
+    public void limpiarDetalleSeguimiento()
+    {
+        this.detalleSeguimiento.setEstado("Inicio");
+        this.detalleSeguimiento.setDescripcion(" ");
+        
+    }
     
 }

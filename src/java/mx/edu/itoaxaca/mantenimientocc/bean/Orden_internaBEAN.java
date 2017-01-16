@@ -66,7 +66,7 @@ public class Orden_internaBEAN implements Serializable{
        this.folioDesdeAsignacion = solicitud_mc;
     }
      public void existeSolicitud(){
-        folioDesdeAsignacion = (Solicitud_mc) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("solicitudAsignada");
+        folioDesdeAsignacion = (Solicitud_mc) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("solicitudAsignadaOR");
     }
      
     

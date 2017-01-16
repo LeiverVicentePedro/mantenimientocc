@@ -146,30 +146,13 @@ public class Asigna_solicitudBEAN implements Serializable{
         }
     }
      
-   public void eligeIdAsignaSolicitud(Asigna_solicitud asignaSolicitud) throws Exception{ //
-       
-               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignada",asignaSolicitud.getId_solicitud());
-               System.out.println(asignaSolicitud.getId_solicitud().getFolio());
-             
-               
-    
-    }
-     
-   public void eligeIdAsignaSolicitudOTrabajo(Solicitud_mc ordenTrabajoFolio){//
+   public void eligeIdAsignaSolicitudOTrabajo(Solicitud_mc ordenTrabajoFolio){//para Seguimiento,Orden Interna,Trabajo
        
                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignadaOR",ordenTrabajoFolio);
                System.out.println(ordenTrabajoFolio.getFolio());
                
     
     }
-   
-   public void eligeDeAsignaIdSolicitudSeguimiento(Solicitud_mc seguimientoFolio) throws Exception{//para agregar a DetalleSeguimiento el id_solicitud
-           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudSeguimiento",seguimientoFolio);//continua en SeguimientoBEAN
-              
-              System.out.println(seguimientoFolio.getFolio());
-   
-          
-   }   
-              
+    
  
 }
