@@ -43,34 +43,24 @@
                 <p:separator style="visibility: hidden"/>
                 <div class="col-md-12 container">
                     <p:tabView orientation="left" style=" border: none;">
-                    <p:tab title="Inicial" >
-                        <p:carousel numVisible="1" effect="easeInStrong" autoPlayInterval="3000" circular="true" headerText="Inicial" >
+                        <p:tab title="Inicial" class="container-fluid">
+                            <p:galleria value="#{segiomientoMantenimientoUsuarioBEAN.imgenes}" var="image" panelWidth="780" panelHeight="300" showCaption="true">
+                                <p:graphicImage name="#{image}" alt="Image Description for #{image}" title="#{image}"/>
+                            </p:galleria>
 
-                            <h:panelGrid columns="2" style="  margin-top: 1em;"  cellpadding="10" width="750px;">
-                                <p:graphicImage name="/images/LogoITO.png" width="250px" height="270"/>
-                                <h:outputText value="Logotipo perteneciente a el instituto Tecnologico de Oaxaca actualmente este es el emblema de la institución"/>
+                        </p:tab>
+                        <p:tab title="Proceso">
+                            <h:panelGrid columns="2">
+
                             </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Final">
+                            <h:panelGrid columns="2">
 
-
-                            <h:panelGrid columns="2"   cellpadding="10" width="750px;">
-                                <p:graphicImage name="/images/gobmx.png" height="250px" width="270px"/>
-                                <h:outputText style="margin-left:0.3em;" value="Logotipo perteneciente a el instituto Tecnologico de Oaxaca actualmente este es el emblema de la institución"/>
                             </h:panelGrid>
+                        </p:tab>
 
-                        </p:carousel>
-                    </p:tab>
-                    <p:tab title="Proceso">
-                        <h:panelGrid columns="2">
-
-                        </h:panelGrid>
-                    </p:tab>
-                    <p:tab title="Final">
-                        <h:panelGrid columns="2">
-
-                        </h:panelGrid>
-                    </p:tab>
-
-                </p:tabView>
+                    </p:tabView>
                 </div>
 
             </ui:define>

@@ -8,10 +8,13 @@ package mx.edu.itoaxaca.mantenimientocc.dao;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.DetalleSeguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Seguimiento;
+import org.primefaces.model.UploadedFile;
 
 
 /**
@@ -42,6 +45,30 @@ public class DetalleSeguimientoDAO extends Conexion{
         }
     }
     
-    
+    public List<DetalleSeguimiento> listarSeguimiento(Seguimiento seguimiento) throws Exception{
+        List<DetalleSeguimiento> listaDetalle = new ArrayList();
+        try{
+            ResultSet resultado;
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM detalle_seguimiento WHERE id_seguimiento=?");
+            consulta.setInt(1,seguimiento.getIdseguimiento());
+            resultado = consulta.executeQuery();
+            
+            while(resultado.next()){
+                DetalleSeguimiento detalle = new DetalleSeguimiento();
+                detalle.setIddetalle_seguimiento(resultado.getInt("iddetalle_seguimiento"));
+                detalle.setEstado(resultado.getString("estado"));
+                detalle.setDescripcion(resultado.getString("descripcion"));
+                detalle.setImagen((UploadedFile) resultado.getBlob("imagen"));
+                detalle.setId_seguimiento(seguimiento);
+                detalle.setFecha(resultado.getDate("fecha"));
+                listaDetalle.add(detalle);
+            }
+            return listaDetalle;
+        }catch(Exception ex){
+            System.out.println("Error en DetalleSeguimientoDAO -> listarSeguimiento "+ex);
+            throw ex;
+        }
+    }
     
 }
