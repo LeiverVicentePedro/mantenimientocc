@@ -146,6 +146,31 @@ public class SeguimientoDAO extends Conexion{
             this.Cerrar();
         }
     }
+   // esto es para el id_SEGUIMIENTO que se necesita para listar detalle_seguimiento
+    public Seguimiento identificadorDetalleSeguimientoID(int seguimientodetalle) throws Exception {//
+        ResultSet resultadoset;
+        Seguimiento seguimiento = null;
+        try {
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM seguimiento WHERE idseguimiento=?");//debe ser otro dato que si conoscamos no uno q apenas se registrara (no el dato a buscar)
+            consulta.setInt(1, seguimientodetalle);
+            resultadoset = consulta.executeQuery();
+            if (resultadoset.next() == true) {
+                seguimiento = new Seguimiento();
+               seguimiento.setIdseguimiento(resultadoset.getInt("idseguimiento"));
+              seguimiento.setFecha(resultadoset.getDate("fecha"));
+              seguimiento.setId_usuario_personal(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoset.getInt("id_usuario_personal")));
+              seguimiento.setId_solicitud(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultadoset.getInt("id_solicitud")));
+              seguimiento.setEstado_solicitud(resultadoset.getBoolean("estado_solicitud"));
+              seguimiento.setEstado_asignacion(resultadoset.getBoolean("estado_asignacion"));
+           }
+            return seguimiento;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            this.Cerrar();
+        }
+    }
    
     
 }

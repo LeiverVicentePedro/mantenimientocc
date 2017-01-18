@@ -44,11 +44,9 @@ public class AreaDAO extends Conexion {
              
              lista.add(area);
          }
-             
      }
      catch(Exception e){
          throw e;
-         
      }
      finally{
          this.Cerrar();

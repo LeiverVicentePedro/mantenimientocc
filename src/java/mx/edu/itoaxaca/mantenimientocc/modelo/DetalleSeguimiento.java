@@ -5,14 +5,16 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
  *
  * @author Jerusalen
  */
-public class DetalleSeguimiento {
+public class DetalleSeguimiento implements Serializable{
  private int iddetalle_seguimiento;
  private String estado;
  private String descripcion;
