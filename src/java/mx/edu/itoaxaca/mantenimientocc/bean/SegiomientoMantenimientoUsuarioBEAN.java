@@ -35,7 +35,7 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     private String noExisteSolicitud;
     private String vista;
     private List<DetalleSeguimiento> listaDetalle = new ArrayList();
-
+    
     public String getVista() {
         return vista;
     }
