@@ -16,10 +16,12 @@ public class DetalleSeguimiento {
  private int iddetalle_seguimiento;
  private String estado;
  private String descripcion;
- private UploadedFile imagen;
+ private UploadedFile imagen;//para subir la imagen unicamente
+ private byte[] imagenDowload;//para bajar la imagen unicamente
  private Seguimiento id_seguimiento;
  private Date fecha;
-
+ private String ruta;
+ 
     public int getIddetalle_seguimiento() {
         return iddetalle_seguimiento;
     }
@@ -44,6 +46,14 @@ public class DetalleSeguimiento {
         this.descripcion = descripcion;
     }
 
+    public byte[] getImagenDowload() {
+        return imagenDowload;
+    }
+
+    public void setImagenDowload(byte[] imagenDowload) {
+        this.imagenDowload = imagenDowload;
+    }
+    
     public UploadedFile getImagen() {
         return imagen;
     }
@@ -68,6 +78,15 @@ public class DetalleSeguimiento {
         this.fecha = fecha;
     }
 
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
+    
+    
 
 }
 
