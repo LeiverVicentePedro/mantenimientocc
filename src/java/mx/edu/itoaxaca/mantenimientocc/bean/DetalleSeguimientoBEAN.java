@@ -83,7 +83,7 @@ public class DetalleSeguimientoBEAN implements Serializable{
     
     public void limpiarDetalleSeguimiento()
     {
-        this.detalleSeguimiento.setEstado("Inicio");
+        this.detalleSeguimiento.setEstado("Seleccionar");
         this.detalleSeguimiento.setDescripcion(" ");
         
     }
