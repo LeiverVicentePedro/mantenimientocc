@@ -18,10 +18,12 @@ public class DetalleSeguimiento implements Serializable{
  private int iddetalle_seguimiento;
  private String estado;
  private String descripcion;
- private UploadedFile imagen;
+ private UploadedFile imagen;//para subir la imagen unicamente
+ private byte[] imagenDowload;//para bajar la imagen unicamente
  private Seguimiento id_seguimiento;
  private Date fecha;
-
+ private String ruta;
+ 
     public int getIddetalle_seguimiento() {
         return iddetalle_seguimiento;
     }
@@ -46,6 +48,14 @@ public class DetalleSeguimiento implements Serializable{
         this.descripcion = descripcion;
     }
 
+    public byte[] getImagenDowload() {
+        return imagenDowload;
+    }
+
+    public void setImagenDowload(byte[] imagenDowload) {
+        this.imagenDowload = imagenDowload;
+    }
+    
     public UploadedFile getImagen() {
         return imagen;
     }
@@ -70,32 +80,15 @@ public class DetalleSeguimiento implements Serializable{
         this.fecha = fecha;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        return hash;
+    public String getRuta() {
+        return ruta;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final DetalleSeguimiento other = (DetalleSeguimiento) obj;
-        if (this.iddetalle_seguimiento != other.iddetalle_seguimiento) {
-            return false;
-        }
-        return true;
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
     }
-
-   
-  
+    
+    
 
 }
 

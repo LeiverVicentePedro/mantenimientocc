@@ -57,5 +57,10 @@
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
+    
+    <mime-mapping> 
+        <extension>jpg</extension> 
+        <mime-type>image/jpeg</mime-type> 
+    </mime-mapping>
 </web-app>
 
