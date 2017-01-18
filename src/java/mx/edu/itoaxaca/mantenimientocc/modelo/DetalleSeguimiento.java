@@ -5,14 +5,16 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
  *
  * @author Jerusalen
  */
-public class DetalleSeguimiento {
+public class DetalleSeguimiento implements Serializable{
  private int iddetalle_seguimiento;
  private String estado;
  private String descripcion;
@@ -68,6 +70,32 @@ public class DetalleSeguimiento {
         this.fecha = fecha;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DetalleSeguimiento other = (DetalleSeguimiento) obj;
+        if (this.iddetalle_seguimiento != other.iddetalle_seguimiento) {
+            return false;
+        }
+        return true;
+    }
+
+   
+  
 
 }
 

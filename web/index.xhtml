@@ -36,7 +36,7 @@
                                 <p:outputLabel value="Cuenta Usuario:" for="campoUsuario"/>
                                 <p:inputText class="form-control" placeholder="@ Correo" id="campoUsuario" value="#{accesoBEAN.correo}" required="true" requiredMessage="Ingrese cuenta de correo"/>
                                 <p:outputLabel value="Contraseña:" for="campoContraseña"/>
-                                <p:inputText class="form-control" id="campoContraseña" placeholder="Contraseña" value="#{accesoBEAN.clave}" type="password" required="true" requiredMessage="Por favor\n Ingrese su CLAVE de Acceso"/>
+                                <p:inputText class="form-control" id="campoContraseña" placeholder="Contraseña" value="#{accesoBEAN.clave}" type="password" required="true" requiredMessage="Por favor Ingrese su CLAVE de Acceso"/>
                             </h:panelGrid>
                             <br/>
                             <p:commandButton value="Acceder" icon="fa fa-sign-in" action="#{accesoBEAN.URL()}" actionListener="#{accesoBEAN.accederSistema()}"/>

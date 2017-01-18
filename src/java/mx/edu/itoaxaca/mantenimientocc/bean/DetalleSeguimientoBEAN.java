@@ -6,6 +6,7 @@
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -27,7 +28,28 @@ public class DetalleSeguimientoBEAN implements Serializable{
     private DetalleSeguimiento detalleSeguimiento=new DetalleSeguimiento();
    Seguimiento seguimiento;
    Solicitud_mc solicitud;
+   List<DetalleSeguimiento> detalleListaSeguimiento;
+   List<DetalleSeguimiento> filterDetalleSeguimiento;
 
+    public List<DetalleSeguimiento> getFilterDetalleSeguimiento() {
+        return filterDetalleSeguimiento;
+    }
+
+    public void setFilterDetalleSeguimiento(List<DetalleSeguimiento> filterDetalleSeguimiento) {
+        this.filterDetalleSeguimiento = filterDetalleSeguimiento;
+    }
+   
+
+   
+    public List<DetalleSeguimiento> getDetalleListaSeguimiento() {
+        return detalleListaSeguimiento;
+    }
+
+    public void setDetalleListaSeguimiento(List<DetalleSeguimiento> detalleListaSeguimiento) {
+        this.detalleListaSeguimiento = detalleListaSeguimiento;
+    }
+   
+   
     public Solicitud_mc getSolicitud() {
         return solicitud;
     }
@@ -86,6 +108,18 @@ public class DetalleSeguimientoBEAN implements Serializable{
         this.detalleSeguimiento.setEstado("Seleccionar");
         this.detalleSeguimiento.setDescripcion(" ");
         
+    }
+    
+    public void listarDetalleSeguimiento() throws Exception{
+        DetalleSeguimientoDAO detalleSeguimientodao;
+        try{
+            detalleSeguimientodao=new DetalleSeguimientoDAO();
+            detalleListaSeguimiento = detalleSeguimientodao.listarDetalleSeguimiento();
+            System.out.println(detalleListaSeguimiento);
+        }
+        catch(Exception e){
+            System.out.println("error en DetalleSegimientoBEAN --> listarDetalleBEAN"+e);
+        }
     }
     
 }
