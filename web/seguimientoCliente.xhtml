@@ -13,7 +13,7 @@
             <ui:define name="content">
                 
                 <f:event type="preRenderView" listener="#{segiomientoMantenimientoUsuarioBEAN.recuperaNavegador()}"/>
-                <f:event type="preRenderView" listener="#{segiomientoMantenimientoUsuarioBEAN.setListaDetalle()}"/>
+                <f:event type="preRenderView" listener="#{segiomientoMantenimientoUsuarioBEAN.setListaDetalleImagenes()}"/>
                 
                 <p:separator style="visibility: hidden"/>
                 <center>
@@ -42,16 +42,7 @@
                         <h:outputLabel value="Personal Asignado:"/>
                         <h:outputLabel value="#{segiomientoMantenimientoUsuarioBEAN.seguimientoEncontrado.id_usuario_personal.concatenar}"/>
                     </div>
-                    <h:form enctype="multipart/form-data">
-                        <p:commandButton value="ver" action="#{segiomientoMantenimientoUsuarioBEAN.ver()}" ajax="false"/>
-                          
-                        <p:commandButton value="descargar" action="#{segiomientoMantenimientoUsuarioBEAN.descargar()}" ajax="false">
-                            <p:fileDownload value="#{segiomientoMantenimientoUsuarioBEAN.detalleSeguimiento.imagenDowload}"/>
-                        </p:commandButton>
-                        <p:commandButton value="descargar2" action="#{segiomientoMantenimientoUsuarioBEAN.descargar2()}" ajax="false">
-                            <p:fileDownload value="#{segiomientoMantenimientoUsuarioBEAN.contenido}"/>
-                        </p:commandButton>
-                    </h:form>
+                     
                 </center>
                
                 <p:separator style="visibility: hidden"/>
@@ -65,14 +56,14 @@
 
                         </p:tab>
                         <p:tab title="Proceso">
-                            <h:panelGrid columns="2">
-
-                            </h:panelGrid>
+                            <p:galleria var="listaDetalle" value="#{segiomientoMantenimientoUsuarioBEAN.listaDetalleProceso}" panelWidth="780" panelHeight="450" showCaption="true">
+                                <p:graphicImage value="resources/#{listaDetalle.ruta}" alt="#{listaDetalle.descripcion}" title="#{listaDetalle.ruta}" width="780" height="450"/>
+                            </p:galleria>
                         </p:tab>
                         <p:tab title="Final">
-                            <h:panelGrid columns="2">
-
-                            </h:panelGrid>
+                            <p:galleria var="listaDetalle" value="#{segiomientoMantenimientoUsuarioBEAN.listaDetalleFinal}" panelWidth="780" panelHeight="450" showCaption="true">
+                                <p:graphicImage value="resources/#{listaDetalle.ruta}" alt="#{listaDetalle.descripcion}" title="#{listaDetalle.ruta}" width="780" height="450"/>
+                            </p:galleria>
                         </p:tab>
 
                     </p:tabView>

@@ -29,6 +29,7 @@
                 <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
                 <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
                 <f:event type="preRenderView" listener="#{usuarioBEAN.llenaListaServicoCorreo()}"/>
+                <f:event type="preRenderView" listener="#{usuarioBEAN.limpiaUsuario()}"/>
                 <p:separator style="visibility: hidden"/>
                 <p:outputLabel value="REGISTRO NUEVO USUARIO" class="text-capitalize"/>
                 <p:separator style="visibility: hidden"/>
@@ -85,10 +86,9 @@
                             </h:panelGrid>
                         </p:panel>
                 <p:separator style="visibility: hidden"/>
-                <p:panel header="Datos de Cuenta" style="width: 95% " class="text-center container" id="Datos">
-                    <h:panelGrid columns="8" class="container-fluid">
-
-                        <p:outputLabel value="&nbsp;Correo&nbsp;"  />
+                <p:panel header="Datos de Cuenta" style="width: 95% " class="container" id="Datos">
+                    <h:panelGrid columns="9" class="container-fluid">
+                        <p:outputLabel value="Correo&nbsp;"  />
                         <p:inputText class="form-control" placeholder="algun nombre" id="correoUsuario" value="#{usuarioBEAN.usuarioCorreoNombre}" required="true" requiredMessage="Nombre de Correo Requerido">
 <!--                            <f:validator validatorId="validadoresEmail"/>-->
                         </p:inputText>
