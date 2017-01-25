@@ -35,7 +35,35 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     private String noExisteSolicitud;
     private String vista;
     private List<DetalleSeguimiento> listaDetalle = new ArrayList();
+     private List<DetalleSeguimiento> listaDetalleProceso = new ArrayList();
+    private List<DetalleSeguimiento> listaDetalleFinal = new ArrayList();
 
+    public List<DetalleSeguimiento> getListaDetalle() {
+        return listaDetalle;
+    }
+
+    public void setListaDetalle(List<DetalleSeguimiento> listaDetalle) {
+        this.listaDetalle = listaDetalle;
+    }
+    
+    
+    public List<DetalleSeguimiento> getListaDetalleProceso() {
+        return listaDetalleProceso;
+    }
+
+    public void setListaDetalleProceso(List<DetalleSeguimiento> listaDetalleProceso) {
+        this.listaDetalleProceso = listaDetalleProceso;
+    }
+
+    public List<DetalleSeguimiento> getListaDetalleFinal() {
+        return listaDetalleFinal;
+    }
+
+    public void setListaDetalleFinal(List<DetalleSeguimiento> listaDetalleFinal) {
+        this.listaDetalleFinal = listaDetalleFinal;
+    }
+   
+    
     public String getVista() {
         return vista;
     }
@@ -116,11 +144,24 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
         }
     }
     
-    public void setListaDetalle() throws IOException, Exception{
-        this.listaDetalle = getListaDetalle();
+    public void setListaDetalleImagenes() throws IOException, Exception{
+        List<DetalleSeguimiento> listaSD = new ArrayList();
+        listaSD = getListaDetalleImagenes();
+        
+        for(DetalleSeguimiento seguimiento : listaSD){
+            if(seguimiento.getEstado().equalsIgnoreCase("Inicial")){
+                listaDetalle.add(seguimiento);
+            }
+            if(seguimiento.getEstado().equalsIgnoreCase("Proceso")){
+                listaDetalleProceso.add(seguimiento);
+            }
+            if(seguimiento.getEstado().equalsIgnoreCase("Final")){
+                listaDetalleFinal.add(seguimiento);
+            }
+        }
     }
     
-    public List<DetalleSeguimiento> getListaDetalle() throws SQLException, IOException, Exception{
+    public List<DetalleSeguimiento> getListaDetalleImagenes() throws SQLException, IOException, Exception{
          DetalleSeguimientoDAO detalleDAO = new DetalleSeguimientoDAO();
          List<DetalleSeguimiento> listaDetalle = detalleDAO.listardetalle(seguimientoEncontrado);
          //List<String> imagen= new ArrayList<String>();
