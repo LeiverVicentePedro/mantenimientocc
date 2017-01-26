@@ -20,6 +20,7 @@ import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.DetalleSeguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Seguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
 
 /**
@@ -34,10 +35,20 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     private Seguimiento seguimientoEncontrado = new Seguimiento();
     private String noExisteSolicitud;
     private String vista;
+    private List<Solicitud_mc> listaSolicitudActivas = new ArrayList();
     private List<DetalleSeguimiento> listaDetalle = new ArrayList();
      private List<DetalleSeguimiento> listaDetalleProceso = new ArrayList();
     private List<DetalleSeguimiento> listaDetalleFinal = new ArrayList();
 
+    public List<Solicitud_mc> getListaSolicitudActivas() {
+        return listaSolicitudActivas;
+    }
+
+    public void setListaSolicitudActivas(List<Solicitud_mc> listaSolicitudActivas) {
+        this.listaSolicitudActivas = listaSolicitudActivas;
+    }
+    
+    
     public List<DetalleSeguimiento> getListaDetalle() {
         return listaDetalle;
     }
@@ -99,7 +110,15 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     public String redirige() {//para redirigir
         return vista;
     }
-
+    /*metodo que busca la lista de solicitudes realizad por un usuario*/
+    public void listarSolicitudesSeguimientoactivasPorUsuario(){
+        try{
+            Usuario existeUsuario =(Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            listaSolicitudActivas = new Solicitud_mcDAO().listarSolicitudPorDepartamentoUsuarioEnSeguimiento(existeUsuario);
+        }catch(Exception ex){
+            System.out.println("Eror en SeguimientoMantenimientoUsuario -> listarSolicitudesSeguimiento "+ex);
+        }
+    }
     /*Metodo que busca y llena el objeto de Seguimiento si este tiene algo o no*/
     public void redirigeVistaSiExisteSolicitud() throws Exception {
         try {

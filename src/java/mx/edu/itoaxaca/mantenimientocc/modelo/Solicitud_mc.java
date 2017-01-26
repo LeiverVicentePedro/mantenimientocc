@@ -22,6 +22,7 @@ public class Solicitud_mc implements Serializable{
     private Departamento id_departamento;
     private String asignacion;
     private Boolean estatus;
+    private Boolean estado_seguimiento;
     
     public int getIdsolicitud_mc() {
         return idsolicitud_mc;
@@ -85,6 +86,14 @@ public class Solicitud_mc implements Serializable{
 
     public void setEstatus(Boolean estatus) {
         this.estatus = estatus;
+    }
+
+    public Boolean getEstado_seguimiento() {
+        return estado_seguimiento;
+    }
+
+    public void setEstado_seguimiento(Boolean estado_seguimiento) {
+        this.estado_seguimiento = estado_seguimiento;
     }
     
     
