@@ -39,7 +39,7 @@ public class ValidarContrasenia implements Validator {
         objetoPatron=patron.matcher(value.toString());
         if(!objetoPatron.matches())
         {
-            FacesMessage mensaje=new FacesMessage("Valor Invalido");
+            FacesMessage mensaje=new FacesMessage("Valor Inválido en Contraseña");
             mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(mensaje);
         }

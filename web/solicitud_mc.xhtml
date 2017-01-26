@@ -27,31 +27,38 @@
                             <p:column>
                              <p/>
                             <p:selectOneMenu value="#{solicitud_mcBEAN.solicitudmc.id_departamento}" converter="omnifaces.SelectItemsConverter"
-                                             required="true" requiredMessage="Se Requiere Departamento">
+                                             required="true" requiredMessage="Se Requiere Departamento" style="width:350px;">
                                 <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-- Seleccione uno --"/>
                                 <f:selectItems value="#{departamentoBEAN.listadepartamentoServicio}" var="deptoServicio" itemLabel="#{deptoServicio.nombre_departamento}" itemValue="#{deptoServicio}" />
 
                                 <p:ajax listener="#{solicitud_mcBEAN.listaServiciosParaSolicitudPorDepartametoServicio()}" update=":formProblemas:tablaProblemas"/>
                             </p:selectOneMenu>
-                            <br/>
+                            <p/><p/><p/><p/>
                             </p:column>
-                            <p:column/><p:column/>
-                            
+                            <p:column/>
+                            <p:column/>
+                            <p:column>
+                             
                             <p:outputLabel value="Seleccione: "/>
+                            </p:column>
                             <p:column >
-                            <p:commandButton value="Problemas" icon="fa fa-exclamation-triangle" oncomplete="PF('dialogProblemas').show();" />
+                             <p/><p/><p/><p/>
+                            <p:commandButton value="Opción que describa su problema" icon="fa fa-exclamation-triangle" oncomplete="PF('dialogProblemas').show();" style="width:350px"/>
                             <br/>
-                            <p:outputPanel id="display" style="width:250px;padding-left:5px;margin-top:10px" >
-                                <p:dataList value="#{solicitud_mcBEAN.serviciosSeleccionados}" var="problemas" emptyMessage="No hay problemas seleccionados" >
+                            <p:outputPanel id="display" style="width:350px;padding-left:5px;margin-top:10px" >
+                                <p:dataList value="#{solicitud_mcBEAN.serviciosSeleccionados}" var="problemas" emptyMessage="Lista de problemas seleccionados" >
                                     #{problemas.servicio_solicitado}
                                 </p:dataList>
                             </p:outputPanel>
-                            <p/>
+                            <br/>
                             </p:column>
                             
                             <p:column/><p:column/>
                             <p:outputLabel value="Otro Problema: "/>
-                            <p:inputTextarea value="#{solicitud_mcBEAN.solicitudmc.otroProblema}" placeholder="Describa su problema" rows="2" cols="50" counter="MensajecontadorDeCaracteres" maxlength="100" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:inputTextarea id="otroProblema" value="#{solicitud_mcBEAN.solicitudmc.otroProblema}" placeholder="Describa su problema" rows="2" cols="50" 
+                                             counter="MensajecontadorDeCaracteres" maxlength="100" counterTemplate="{0} Caracteres restantes."
+                                             autoResize="false" style="width:350px;" />
+                            
                             <p:column/><p:column/><p:column/>
                             <h:outputText id="MensajecontadorDeCaracteres" />
                         </h:panelGrid>
@@ -146,20 +153,23 @@
                     <h:form id='formProblemas'>
                         <p:dataTable id="tablaProblemas" var='problemas' value="#{solicitud_mcBEAN.serviciosPorDepartamento}" selection="#{solicitud_mcBEAN.serviciosSeleccionados}" rowKey="#{problemas.idcatalogo_servicio_solicitado}"
                                      emptyMessage="No hay elementos encontrados"
-                                 paginator="true" rows="10"
+                                 paginator="true" rows="10" 
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 paginatorPosition="top"
                                  >
-                             <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
-                            <p:column headerText="Nombre Problema"
-                                      sortBy="#{problemas.servicio_solicitado}"
-                                      filterBy="#{problemas.servicio_solicitado}"
-                                      filterMatchMode="startsWith">
+                          
+                            <p:columnGroup type="header" > <p:row> <p:column width="35"/> <p:column headerText="Nombre del Problema"/> </p:row> </p:columnGroup><!-- ESTO ES PARA QUITAR EL SELECCIONAR TODOS LOS CAMPOS el cuadrito del header -->
+                             <p:column selectionMode="multiple" style="width:35%;text-align:center"/>
+                             <p:column headerText="Nombre Problema">
                                 <h:outputText value="#{problemas.servicio_solicitado}"/>
                             </p:column>
                              <f:facet name='footer'>
-                                 <p:commandButton value="Seleccionar" oncomplete="PF('dialogProblemas').hide();" update=":formSolicitud:display"/>
-                                    
-                                 
+                                 <p:commandLink value="Otro Problema" oncomplete="PF('dialogProblemas').hide();" style="float: left;font-size: 90%"/>
+                                 <p/><br/>
+                                 <center>
+                                 <p:commandButton value="Aceptar" oncomplete="PF('dialogProblemas').hide();" update=":formSolicitud:display"/>
+                                 <p:commandButton value="Cancelar" oncomplete="PF('dialogProblemas').hide();" />
+                                 </center>
                              </f:facet>
                         </p:dataTable>
                     </h:form>

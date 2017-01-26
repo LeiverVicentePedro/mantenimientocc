@@ -23,24 +23,27 @@
         </div>
 
         <div class="container text-center" style="margin-top: 2em">
-            <p:growl id="mensaje" sticky="true" showDetail="true"/>
+           
 
             <h:form>
+                 <p:growl id="mensaje" sticky="true" showDetail="true"/>
                 <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
                 <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
                 <f:event type="preRenderView" listener="#{usuarioBEAN.llenaListaServicoCorreo()}"/>
-                <f:event type="preRenderView" listener="#{usuarioBEAN.limpiaUsuario()}"/>
+                
                 <p:separator style="visibility: hidden"/>
                 <p:outputLabel value="REGISTRO NUEVO USUARIO" class="text-capitalize"/>
-              <p:wizard>
-                  <p:tab id="personal" title="Personal">
-                <p:panel header="Datos Personales"  >
+                <p:separator style="visibility: hidden"/>
+                <p:wizard backLabel="Atras" nextLabel="Siguiente">
+                    <p:tab id="personal" title="Personal" >
+                        <p:panel header="Datos Personales" style="font-size:18px" >
                     <p:messages />
+                    
                     <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="500">
                         <p:column><br/> </p:column><p:column><br/> </p:column>
                         <h:outputText value="RFC:" style="color: black;font-size:14px"/>
                         <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" 
-                                     style="text-transform: uppercase; "  label="RFC" size="50">
+                                     style="text-transform: uppercase; "  label="RFC" size="50" >
                             <f:validator validatorId="validadoresRFC"/>
                         </p:inputText>
                         <p:column><br/> </p:column><p:column><br/> </p:column>
@@ -62,18 +65,21 @@
                             <f:validator validatorId="validadoresLetrasUsuario"/>
                         </p:inputText>
                             <p:column><br/> </p:column><p:column><br/> </p:column>
+                       
                     </h:panelGrid>
+                    
                 </p:panel>
                   </p:tab>
                   
                   <p:tab id="trabajo" title="Trabajo"> 
-                <p:panel header="Sobre su Trabajo" >
+                <p:panel header="Sobre su Trabajo" style="font-size:18px"  >
+                    <p:messages />
                             <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="500">
                         <p:column><br/> </p:column><p:column><br/> </p:column>
                             
                                 <h:outputText value="Area:" style="color: black;font-size:14px"/>
-                                <p:selectOneMenu value="#{usuarioBEAN.idArea}" label="Area:" required="true" requiredMessage="Seleccione Su Área" >
-                                    <f:selectItem noSelectionOption="true" itemLabel="-- Area --" itemValue="#{null}"/>
+                                <p:selectOneMenu value="#{usuarioBEAN.idArea}" label="Area:" required="true" requiredMessage="Área requerido" style="height:30px;width:350px" >
+                                    <f:selectItem noSelectionOption="true" itemLabel="-- Area --" itemValue="#{null}" />
                                     <f:selectItems value="#{usuarioBEAN.listaAreas}" var="area" itemLabel="#{area.nombre_area}" itemValue="#{area.idarea}"/>
                                     <p:ajax listener="#{usuarioBEAN.departamentoDeUnArea()}" update="departamento"/>
                                     <p:ajax update="oficina"/>
@@ -81,7 +87,7 @@
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Departamento:" style="color: black;font-size:14px"/>
                                 <p:selectOneMenu id="departamento" value="#{usuarioBEAN.idDepartamento}" converter="omnifaces.SelectItemsConverter" label="Departamento:" 
-                                                 required="true" requiredMessage="Seleccione Su Departamento">
+                                                 required="true" requiredMessage="Departamento requerido" style="height:30px;width:350px">
                                     <f:selectItem noSelectionOption="true" itemLabel="-- Departamento --" itemValue="#{null}"/>
                                     <f:selectItems value="#{usuarioBEAN.listaTemporalDepartamento}" var="departamento" itemLabel="#{departamento.nombre_departamento}" itemValue="#{departamento.iddepartamento}"/>
                                     <p:ajax listener="#{usuarioBEAN.oficinaDeUnDepartamento()}" update="oficina"/>
@@ -89,13 +95,14 @@
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <p:outputLabel value="Oficina:" style="color: black;font-size:14px" /> 
                                 <p:selectOneMenu id="oficina" value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" converter="omnifaces.SelectItemsConverter" 
-                                                 required="true" requiredMessage="Seleccione Su Oficina" label="Oficina:">
+                                                 required="true" requiredMessage="Oficina requerido" label="Oficina:" style="height:30px;width:350px">
                                     <f:selectItem noSelectionOption="true" itemLabel="-- Oficina --" itemValue="#{null}"/>
                                     <f:selectItems value="#{usuarioBEAN.listaTemporalOficina}" var="oficina" itemLabel="#{oficina.nombreOficina}" itemValue="#{oficina}"/>
                                 </p:selectOneMenu>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <p:outputLabel value="Profesión:" style="color: black;font-size:14px"/>
-                                <p:selectOneMenu value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Profesion requerida" label="Profesión:">
+                                <p:selectOneMenu value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" converter="omnifaces.SelectItemsConverter" required="true" 
+                                                 requiredMessage="Profesión requerida" label="Profesión:" style="height:30px;width:350px"><!-- es para su ancho y largo del selectOneMenu -->
                                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                                     <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesionN" itemLabel="#{profesionN.nombre_profesion}"
                                                    itemValue="#{profesionN}"/>
@@ -103,22 +110,22 @@
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                             </h:panelGrid>
                         </p:panel>
-                      
                   </p:tab>
                 
                   <p:tab id="cuenta" title="Cuenta">
-                <p:panel header="Datos de Cuenta" >
+                <p:panel header="Datos de Cuenta" style="font-size:18px"  >
+                    <p:messages />
                     <h:panelGrid columns="3" columnClasses="label, value" class="container-fluid  text-justify" width="500">
                          <p:column><br/> </p:column><p:column><br/> </p:column><p:column><br/> </p:column>
                         <h:outputText value="Correo:" style="color: black;font-size:14px"  />
                         
-                        <p:inputText class="form-control" placeholder="algun nombre" id="correoUsuario" value="#{usuarioBEAN.usuarioCorreoNombre}"
-                                     required="true" requiredMessage="Nombre de Correo Requerido" label="Correo:" maxlength="100">
+                        <p:inputText class="form-control" placeholder="algún nombre" id="correoUsuario" value="#{usuarioBEAN.usuarioCorreoNombre}"
+                                     required="true" requiredMessage="Nombre de Correo Requerido" label="Correo:" style="width:250px">
 <!--                            <f:validator validatorId="validadoresEmail"/>-->
                         </p:inputText>
                         <p:column>
                         <p:selectOneMenu id="servicioCorreo" value="#{usuarioBEAN.usuarioCorreoServicio}" required="true" 
-                                         requiredMessage="Seleccione su Servicio de Correo" editable="true" maxlength="100">
+                                         requiredMessage="Seleccione su Servicio de Correo" editable="true" style="height:30px;width:250px">
                             <f:selectItems value="#{usuarioBEAN.listaServicioCorreo}"/>  
                         </p:selectOneMenu>
                         <p:watermark for="servicioCorreo" value="@Selecciona.com.mx" id="watermark"/> <!--marca de agua para los textos entre los campos-->
@@ -126,15 +133,21 @@
                         <p:column><br/> </p:column><p:column><br/> </p:column><p:column><br/> </p:column>
                         <h:outputText value="Contraseña:" style="color: black;font-size:14px" />
                         <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}"
-                                     type="password" required="true" requiredMessage="Contraseña Requerido" label="Contraseña:">
+                                     type="password" required="true" requiredMessage="Contraseña Requerida" label="Contraseña:" style="width:250px">
                             <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
                            <p:ajax event="blur" />
                         </p:inputText>
                         <p:column/>
-                         <p:column><br/> </p:column><p:column><br/> </p:column><p:column><br/> </p:column>
+                         <p:column><br/> </p:column>
+                         <p:column>
+                         <h:outputText value="6 Digítos como mínimo " style="color: #5e5e5e;font-size:13px" />
+                         </p:column>
+                         <p:column><br/> </p:column>
+                         <!-- Ocupamos las tres columnas para separar  -->
+                         <p:column><br/> </p:column><p:column><br/> </p:column>
                         <h:outputText value="Confirma:" style="color: black;font-size:14px" />
                         <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" 
-                                     type="password" required="true" requiredMessage="Confirme su Contraseña" label="Confirma:">
+                                     type="password" required="true" requiredMessage="Confirme su Contraseña" label="Confirma:" style="width:250px">
                             <f:validator validatorId="validadoresContrasenia"/>
                             <p:ajax event="keyup" update="validaContraseña" listener="#{usuarioBEAN.validaContraseña()}"/>
                         </p:inputText>
@@ -145,38 +158,39 @@
                   </p:tab>
                   
                   <p:tab id="confirma" title="Confirmación">
-            <p:panel header="Confirmación">
+            <p:panel header="Confirmación" style="font-size:18px" >
+                
                 <h:panelGrid id="confirmacion" columns="3" columnClasses="grid,grid,grid" class="container-fluid  text-justify">
                     <h:panelGrid columns="2" columnClasses="label, value" width="300" >
                         <h:outputText value="RFC: " style="color: black;font-size:13px"/>
-                        <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" styleClass="outputLabel" style="color: black;font-size:13px"  />
+                        <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" styleClass="outputLabel" style="color: black;font-size:13px;text-transform: uppercase" />
                         <p:column><br/> </p:column><p:column><br/> </p:column>
                         <h:outputText value="Nombre: " style="color: black;font-size:13px" />
-                        <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" styleClass="outputLabel" style="color: black;font-size:13px"/>
+                        <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" styleClass="outputLabel" style="color: black;font-size:13px;text-transform: uppercase"/>
                         <p:column><br/> </p:column><p:column><br/> </p:column>
                         <h:outputText value="Apellido Paterno: " style="color: black;font-size:13px"/>
-                        <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.apellidoPaterno}" styleClass="outputLabel" style="color: black;font-size:13px"/>
+                        <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.apellidoPaterno}" styleClass="outputLabel" style="color: black;font-size:13px;text-transform: uppercase"/>
                         <p:column><br/> </p:column><p:column><br/> </p:column>
                         <h:outputText value="Apellido Materno: " style="color: black;font-size:13px"/>
-                        <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.apellidoMaterno}" styleClass="outputLabel" style="color: black;font-size:13px"/>
+                        <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.apellidoMaterno}" styleClass="outputLabel" style="color: black;font-size:13px;text-transform: uppercase"/>
                     </h:panelGrid>
                   
                     <h:panelGrid columns="2" columnClasses="label, value" width="400">
                         <h:outputText value="Área: " style="color: black;font-size:13px" />
                         <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.idOficina.departamento.area.nombre_area}" styleClass="outputLabel"
-                                      style="color: black;font-size:13px"/>
+                                      style="color: black;font-size:13px;text-transform: uppercase"/>
                         <p:column><br/> </p:column><p:column><br/> </p:column>
                          <h:outputText value="Departamento: " style="color: black;font-size:13px" />
                          <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.idOficina.departamento.nombre_departamento}" styleClass="outputLabel"
-                                       style="color: black;font-size:13px"/>
+                                       style="color: black;font-size:13px;text-transform: uppercase"/>
                         <p:column><br/> </p:column><p:column><br/> </p:column>
                           <h:outputText value="Oficina: " style="color: black;font-size:13px" />
                           <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.idOficina.nombreOficina}" styleClass="outputLabel"
-                                        style="color: black;font-size:13px"/>
+                                        style="color: black;font-size:13px;text-transform: uppercase"/>
                         <p:column><br/> </p:column><p:column><br/> </p:column>
                            <h:outputText value="Profesión: " style="color: black;font-size:13px"/>
                            <h:outputText value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion.nombre_profesion}" styleClass="outputLabel"
-                                         style="color: black;font-size:13px"/>
+                                         style="color: black;font-size:13px;text-transform: uppercase"/>
                         
                       </h:panelGrid>
                    
@@ -190,17 +204,20 @@
                         </p:column>
                        
                       </h:panelGrid>
+                
                 </h:panelGrid>    
                    
                 <p:separator style="visibility: hidden;"/>     
                 <div class="container text-center">
-                    <p:commandButton value="Cancelar" action="index.xhtml" immediate="true"/>
                     <p:commandButton value="Registrar" action="index.xhtml" actionListener="#{usuarioBEAN.registrarNuevoUsuario}"/>
                 </div>
                 </p:panel>
                    </p:tab>
                       
               </p:wizard>
+                <p:separator style="visibility: hidden;"/> 
+                <p:commandLink value="Ir a página de Inicio" action="index.xhtml" immediate="true" style="float: left" />
+               
             </h:form>
 
         </div>
