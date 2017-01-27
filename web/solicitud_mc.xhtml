@@ -65,90 +65,13 @@
 
                         <p:separator style="visibility: hidden;"/>
                         <p:commandButton value="Registrar" action="#{solicitud_mcBEAN.registrarSolicitudMC()}" update="formSolicitud" ajax="false"/>
+                         <p:commandButton value="Continuar" action="misSolicitudes.xhtml" immediate="true"/>
+                      
                     </p:panel>
-
-
-                </h:form>
-                <p:separator style="visibility: hidden;"/>
-                <h:form id="formaExterior"> 
-                    <f:event id="event" type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudDeUsuarios()}"/>
-                    <center>
-                        <p:outputLabel value="MIS SOLICITUDES " style=" font-size: 20px;"/> 
-                    </center>
-                    <p:dataTable id="data" var="solicitud_usuario" value="#{solicitud_mcBEAN.listaSolicitudDeUsuarios}" 
-
-                                 style="font-size: 14px;"
-
-                                 resizableColumns="true"
-                                 liveResize="true"
-
-                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
-                                 scrollable="true"
-
-                                 widgetVar="buscar"
-                                 filteredValue="#{solicitud_mcBEAN.filtrarSolicitudIdUsuario}"
-                                 emptyMessage="No hay elementos encontrados"
-                                 paginator="true" rows="5"
-                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                 rowsPerPageTemplate="1,2,3,4,5">
-
-
-                        <f:facet name="header">
-                            <p:outputPanel class="text-right">
-                                <h:outputText value="Buscar:" />
-                                <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
-
-                                             style="width:150px" />
-                            </p:outputPanel>
-                        </f:facet>
-
-                        <p:column headerText="Folio" 
-                                  sortBy="#{solicitud_usuario.folio}" 
-                                  filterBy="#{solicitud_usuario.folio}"
-                                  filterMatchMode="startsWith">
-
-                            <h:outputText value="#{solicitud_usuario.folio}" />
-
-                        </p:column>
-
-                        <p:column headerText="Nombre del Solicitante" 
-                                  sortBy="#{solicitud_usuario.id_usuario.nombre}" 
-                                  filterBy="#{solicitud_usuario.id_usuario.nombre}"
-                                  filterMatchMode="startsWith">
-
-                            <h:outputText value="#{solicitud_usuario.id_usuario.nombre}" />
-                            <h:outputText value="&nbsp;"/>
-                            <h:outputText value="#{solicitud_usuario.id_usuario.apellidoPaterno}"/>
-                            <h:outputText value="&nbsp;"/>
-                            <h:outputText value="#{solicitud_usuario.id_usuario.apellidoMaterno}"/>
-
-                        </p:column>
-
-
-
-                        <p:column headerText="Fecha de Solicitud" 
-                                  sortBy="#{solicitud_usuario.fecha}" 
-                                  filterBy="#{solicitud_usuario.fecha}"
-                                  filterMatchMode="startsWith">
-
-                            <h:outputText value="#{solicitud_usuario.fecha}" />
-
-                        </p:column>
-
-                        <p:column headerText="Departamento que dio Atención" 
-                                  sortBy="#{solicitud_usuario.id_departamento.nombre_departamento}" 
-                                  filterBy="#{solicitud_usuario.id_departamento.nombre_departamento}"
-                                  filterMatchMode="startsWith">
-
-                            <h:outputText value="#{solicitud_usuario.id_departamento.nombre_departamento}" />
-
-                        </p:column>
-
-
-                    </p:dataTable>
-
+                    
 
                 </h:form>
+               
                 <p:dialog id='dialogProblema' header="Problemas" widgetVar="dialogProblemas" closable="false" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="30%">
                     <h:form id='formProblemas'>
                         <p:dataTable id="tablaProblemas" var='problemas' value="#{solicitud_mcBEAN.serviciosPorDepartamento}" selection="#{solicitud_mcBEAN.serviciosSeleccionados}" rowKey="#{problemas.idcatalogo_servicio_solicitado}"
