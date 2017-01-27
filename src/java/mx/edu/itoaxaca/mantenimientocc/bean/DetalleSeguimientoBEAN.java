@@ -96,6 +96,8 @@ public class DetalleSeguimientoBEAN implements Serializable{
                 detalleSeguimientodao.registrarDetalleSeguimiento(detalleSeguimiento);
                 this.limpiarDetalleSeguimiento();
                 
+                
+                
             }
             catch(Exception e)
             {

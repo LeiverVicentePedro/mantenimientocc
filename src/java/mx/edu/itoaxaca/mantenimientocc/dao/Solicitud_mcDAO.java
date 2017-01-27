@@ -319,6 +319,37 @@ public class Solicitud_mcDAO extends Conexion {
          }
          return listaSolicitudDeUsuario;
      }
+    
+    public Solicitud_mc elegirDatoSolicitudParaModificarEstado_Seguimiento(Solicitud_mc solicitudEstadoSeguimiento) throws Exception{
+        Solicitud_mc solicituddos=null;
+        ResultSet resultadoset;
+        
+        try{
+            this.Conectar();
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT * FROM solicitud_mc WHERE idsolicitud_mc=?");
+            consulta.setInt(1, solicitudEstadoSeguimiento.getIdsolicitud_mc());
+            resultadoset = consulta.executeQuery();
+            while(resultadoset.next())
+            {
+              solicituddos= new Solicitud_mc();
+           solicituddos.setIdsolicitud_mc(resultadoset.getInt("idsolicitud_mc"));
+            solicituddos.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoset.getInt("id_usuario")));
+            solicituddos.setFolio(resultadoset.getString("folio"));
+            solicituddos.setFecha(resultadoset.getDate("fecha"));
+            solicituddos.setOtroProblema(resultadoset.getString("otro_problema"));
+            solicituddos.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoset.getInt("id_departamento")));
+            solicituddos.setEstatus(resultadoset.getBoolean("estatus"));
+           solicituddos.setEstado_seguimiento(resultadoset.getBoolean("estado_seguimiento"));
+            }
+        }
+        catch(Exception e){
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }
+        return solicituddos;
+    }
       
         
 }
