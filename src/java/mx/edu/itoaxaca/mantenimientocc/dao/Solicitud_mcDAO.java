@@ -52,7 +52,7 @@ public class Solicitud_mcDAO extends Conexion {
             inserta.setString(5, solicitudmc.getOtroProblema());
             inserta.setBoolean(6, false);
             inserta.setBoolean(7, true);
-            inserta.setInt(7,solicitudmc.getIdsolicitud_mc());
+            inserta.setInt(8,solicitudmc.getIdsolicitud_mc());
             inserta.executeUpdate();
         }catch(Exception ex){
             System.out.println("Error en modificarSolicitudMC -> Solicitud_mcDAO");
