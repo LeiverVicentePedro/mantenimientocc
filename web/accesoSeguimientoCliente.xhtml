@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -12,6 +13,7 @@
             <ui:define name="content">
                 
                 <h:form enctype="multipart/form-data">
+                    <f:event type="preRenderView" listener="#{segiomientoMantenimientoUsuarioBEAN.listarSolicitudesSeguimientoactivasPorUsuario()}"/>
                     <p:separator style="visibility: hidden"/>
                     <center>
                         <h:outputLabel value="Seguimiento de Solicitud Realizada"/>
@@ -23,8 +25,10 @@
                     <p:panel>  
                         <h:panelGrid columns="1" class="container-fluid text-center">
                             <p:outputLabel value="Folio de Solicitud:"/>
-                            <p:inputText value="#{segiomientoMantenimientoUsuarioBEAN.solicitudABuscar.folio}" required="true" requiredMessage="Ingrese Folio de su Solicitud"/>
-                            <br/>
+                            <p:selectOneMenu value="#{segiomientoMantenimientoUsuarioBEAN.solicitudABuscar.folio}">
+                                <f:selectItem itemLabel="---------" noSelectionOption="true" itemValue="#{null}"/>
+                                <f:selectItems value="#{segiomientoMantenimientoUsuarioBEAN.listaSolicitudActivas}" var="solicitud" itemLabel="#{solicitud.folio}" itemValue="#{solicitud.folio}"/>
+                            </p:selectOneMenu>
                             <p:commandButton value="Buscar" action="seguimientoCliente.xhtml" actionListener="#{segiomientoMantenimientoUsuarioBEAN.redirigeVistaSiExisteSolicitud()}" ajax="false"/>
                         </h:panelGrid>
                     </p:panel>

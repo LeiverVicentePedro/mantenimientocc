@@ -24,13 +24,14 @@ public class Solicitud_mcDAO extends Conexion {
 
         try {
             this.Conectar();
-            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO solicitud_mc(id_usuario, folio, fecha, id_departamento, otro_problema,estatus) VALUES(?,?,?,?,?,?)");
+            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO solicitud_mc(id_usuario, folio, fecha, id_departamento, otro_problema,estatus,estado_seguimiento) VALUES(?,?,?,?,?,?,?)");
             inserta.setInt(1, solicitudmc.getId_usuario().getIdUsuario());
             inserta.setString(2, solicitudmc.getFolio());
             inserta.setDate(3, (Date) solicitudmc.getFecha());
             inserta.setInt(4, solicitudmc.getId_departamento().getIddepartamento());
             inserta.setString(5, solicitudmc.getOtroProblema());
             inserta.setBoolean(6, true);
+            inserta.setBoolean(7, true);
             inserta.executeUpdate();
             return true;
         } catch (Exception ex) {
@@ -43,13 +44,14 @@ public class Solicitud_mcDAO extends Conexion {
     public void modificarSolicitudMC(Solicitud_mc solicitudmc) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement inserta = this.getConexion().prepareStatement("UPDATE solicitud_mc SET id_usuario=?, folio=?, fecha=?, id_departamento=?, otro_problema=?, estatus=? WHERE idsolicitud_mc=?");
+            PreparedStatement inserta = this.getConexion().prepareStatement("UPDATE solicitud_mc SET id_usuario=?, folio=?, fecha=?, id_departamento=?, otro_problema=?, estatus=?, estado_seguimiento=? WHERE idsolicitud_mc=?");
             inserta.setInt(1, solicitudmc.getId_usuario().getIdUsuario());
             inserta.setString(2, solicitudmc.getFolio());
             inserta.setDate(3, (Date) solicitudmc.getFecha());
             inserta.setInt(4, solicitudmc.getId_departamento().getIddepartamento());
             inserta.setString(5, solicitudmc.getOtroProblema());
             inserta.setBoolean(6, false);
+            inserta.setBoolean(7, true);
             inserta.setInt(7,solicitudmc.getIdsolicitud_mc());
             inserta.executeUpdate();
         }catch(Exception ex){
@@ -60,7 +62,27 @@ public class Solicitud_mcDAO extends Conexion {
             this.Cerrar();
         }
     }
-    
+    public void modificarSolicitudSeguimiento(Solicitud_mc solicitudmc) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement inserta = this.getConexion().prepareStatement("UPDATE solicitud_mc SET id_usuario=?, folio=?, fecha=?, id_departamento=?, otro_problema=?, estatus=? estado_seguimiento=? WHERE idsolicitud_mc=?");
+            inserta.setInt(1, solicitudmc.getId_usuario().getIdUsuario());
+            inserta.setString(2, solicitudmc.getFolio());
+            inserta.setDate(3, (Date) solicitudmc.getFecha());
+            inserta.setInt(4, solicitudmc.getId_departamento().getIddepartamento());
+            inserta.setString(5, solicitudmc.getOtroProblema());
+            inserta.setBoolean(6, false);
+            inserta.setBoolean(7,false);
+            inserta.setInt(8,solicitudmc.getIdsolicitud_mc());
+            inserta.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("Error en modificarSolicitudSeguimiento -> Solicitud_mcDAO");
+            throw ex;
+            
+        }finally{
+            this.Cerrar();
+        }
+    }
     public int indiceDeSolicitud(int idDepartamento) throws Exception {//para saber que numero de solicitud que se usa para sacar el folio
         ResultSet resultado;
         int numeroParaFolio = 0;
@@ -98,6 +120,7 @@ public class Solicitud_mcDAO extends Conexion {
                 solicitud.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario")));
                 solicitud.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultado.getInt("id_departamento")));
                 solicitud.setEstatus(resultado.getBoolean("estatus"));
+                solicitud.setEstado_seguimiento(resultado.getBoolean("estado_seguimiento"));
             }
             return solicitud;
         } catch (Exception ex) {
@@ -124,6 +147,7 @@ public class Solicitud_mcDAO extends Conexion {
                 solicitud.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario")));
                 solicitud.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultado.getInt("id_departamento")));
                 solicitud.setEstatus(resultado.getBoolean("estatus"));
+                solicitud.setEstado_seguimiento(resultado.getBoolean("estado_seguimiento"));
             }
             return solicitud;
         } catch (Exception ex) {
@@ -151,6 +175,7 @@ public class Solicitud_mcDAO extends Conexion {
                 solicitudMC.setOtroProblema(resultadoList.getString("otro_problema"));
                 solicitudMC.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoList.getInt("id_departamento")));
                 solicitudMC.setEstatus(resultadoList.getBoolean("estatus"));
+                solicitudMC.setEstado_seguimiento(resultadoList.getBoolean("estado_seguimiento"));
 
                 lista.add(solicitudMC);
             }
@@ -184,6 +209,7 @@ public class Solicitud_mcDAO extends Conexion {
                 solicitudMC.setOtroProblema(resultadoList.getString("otro_problema"));
                 solicitudMC.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoList.getInt("id_departamento")));
                 solicitudMC.setEstatus(resultadoList.getBoolean("estatus"));
+                solicitudMC.setEstado_seguimiento(resultadoList.getBoolean("estado_seguimiento"));
                 lista.add(solicitudMC);
             }
 
@@ -215,6 +241,7 @@ public class Solicitud_mcDAO extends Conexion {
                 solicitudMC.setOtroProblema(resultadoList.getString("otro_problema"));
                 solicitudMC.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoList.getInt("id_departamento")));
                 solicitudMC.setEstatus(resultadoList.getBoolean("estatus"));
+                solicitudMC.setEstado_seguimiento(resultadoList.getBoolean("estado_seguimiento"));
                 lista.add(solicitudMC);
             }
 
@@ -227,6 +254,40 @@ public class Solicitud_mcDAO extends Conexion {
         }
         return lista;
     }
+    /*lista de solicitud que tienen un seguimiento activo*/
+    public List<Solicitud_mc> listarSolicitudPorDepartamentoUsuarioEnSeguimiento(Usuario usuario) throws Exception{ //usado en Asignas Solicitud en asignaSolicitud
+        List<Solicitud_mc> lista;
+        ResultSet resultadoList;
+        try {
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM solicitud_mc where estado_seguimiento = true and id_usuario=?");
+            consulta.setInt(1, usuario.getIdUsuario());
+            resultadoList = consulta.executeQuery();
+            lista = new ArrayList();
+            while (resultadoList.next()) {
+                Solicitud_mc solicitudMC = new Solicitud_mc();
+                solicitudMC.setIdsolicitud_mc(resultadoList.getInt("idsolicitud_mc"));
+                solicitudMC.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoList.getInt("id_usuario")));
+                solicitudMC.setFolio(resultadoList.getString("folio"));
+                solicitudMC.setFecha(resultadoList.getDate("fecha"));
+                solicitudMC.setOtroProblema(resultadoList.getString("otro_problema"));
+                solicitudMC.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoList.getInt("id_departamento")));
+                solicitudMC.setEstatus(resultadoList.getBoolean("estatus"));
+                solicitudMC.setEstado_seguimiento(resultadoList.getBoolean("estado_seguimiento"));
+                lista.add(solicitudMC);
+            }
+
+        } catch (Exception e) {
+            System.out.println("error en Solicitud_mcDAO -> ListarSolicitudPorDepartamentoUsuario " + e);
+            throw e;
+
+        } finally {
+            this.Cerrar();
+        }
+        return lista;
+    }
+    
+    
     public List<Solicitud_mc> buscarSolucitudPorIdUsuario(int idUsuario) throws Exception{
          List<Solicitud_mc> listaSolicitudDeUsuario = null;
          ResultSet resultadoConsulta;
@@ -245,6 +306,7 @@ public class Solicitud_mcDAO extends Conexion {
             misolicitud.setOtroProblema(resultadoConsulta.getString("otro_problema"));
             misolicitud.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoConsulta.getInt("id_departamento")));
             misolicitud.setEstatus(resultadoConsulta.getBoolean("estatus"));
+            misolicitud.setEstado_seguimiento(resultadoConsulta.getBoolean("estado_seguimiento"));
              listaSolicitudDeUsuario.add(misolicitud);
               }
               resultadoConsulta.close();

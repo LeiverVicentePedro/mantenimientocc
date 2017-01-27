@@ -135,7 +135,7 @@
                         <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}"
                                      type="password" required="true" requiredMessage="Contraseña Requerida" label="Contraseña:" style="width:250px">
                             <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
-                           <p:ajax event="blur" />
+                            <p:ajax event="blur" listener="#{usuarioBEAN.validaContraseña()}" update="validaContraseña"/>
                         </p:inputText>
                         <p:column/>
                          <p:column><br/> </p:column>
@@ -151,8 +151,8 @@
                             <f:validator validatorId="validadoresContrasenia"/>
                             <p:ajax event="keyup" update="validaContraseña" listener="#{usuarioBEAN.validaContraseña()}"/>
                         </p:inputText>
-                        <p:outputLabel id="validaContraseña" value="#{usuarioBEAN.mensajeContraseña}" style="font-size: 10px; color: #ff6600"/>
-                   <p:column><br/> </p:column>
+                        <p:outputLabel id="validaContraseña" value="#{usuarioBEAN.mensajeContraseña}" style="font-size: 14px; color: #ff6600"/>
+                   <!--<p:column><br/> </p:column>-->
                     </h:panelGrid>
                 </p:panel>
                   </p:tab>
