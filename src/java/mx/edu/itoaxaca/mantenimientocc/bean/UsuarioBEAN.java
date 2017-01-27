@@ -450,7 +450,7 @@ public class UsuarioBEAN implements Serializable{
 
         }
     }
-
+    @PostConstruct
     public void limpiaUsuario() {
         this.objetoUsuario.setNombre("");
         this.objetoUsuario.setApellidoPaterno("");
