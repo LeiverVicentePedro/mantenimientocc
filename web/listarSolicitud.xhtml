@@ -11,6 +11,7 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
+                <p:separator style="visibility:hidden"/>
                 <h:form>
                     <f:event id="listaSolicitud" type="preRenderView" listener="#{solicitud_mcBEAN.listarSolicitudPorDepartamento()}"/>
                     <p:dataTable id="tablaSolicitud" var="solicitudMC" value="#{solicitud_mcBEAN.listaSolicitudPorDepartamento}" 
@@ -25,9 +26,10 @@
                                  widgetVar="buscar"
                                  filteredValue="#{solicitud_mcBEAN.listaFiltroSolicitud}"
                                  emptyMessage="No hay elementos encontrados"
-                                 paginator="true" rows="5"
+                                 paginator="true" rows="10"
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                 rowsPerPageTemplate="1,2,3,4,5">
+                                 paginatorPosition="bottom"
+                                 >
 
                         <f:facet name="header">
                             <p:outputPanel class="text-right">
@@ -37,10 +39,10 @@
                                              style="width:150px" />
                             </p:outputPanel>
                         </f:facet>
-                        <p:column headerText="Folio" sortBy="#{solicitudMC.folio}" filterBy="#{solicitudMC.folio}" filterMatchMode="startsWith">
+                        <p:column headerText="Folio" sortBy="#{solicitudMC.folio}" filterBy="#{solicitudMC.folio}" filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0" >
                             <h:outputLabel value="#{solicitudMC.folio}"/>
                         </p:column>
-                        <p:column headerText="Solicitante" sortBy="#{solicitudMC.id_usuario.nombre}" filterBy="#{solicitudMC.id_usuario.nombre}" filterMatchMode="startsWith">
+                        <p:column headerText="Solicitante" sortBy="#{solicitudMC.id_usuario.nombre}" filterBy="#{solicitudMC.id_usuario.nombre}" filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0">
 
                             <h:outputLabel value="#{solicitudMC.id_usuario.nombre}"/>
                             <h:outputLabel value="&nbsp;"/>
@@ -50,20 +52,20 @@
 
                         </p:column>
 
-                        <p:column headerText="Fecha" sortBy="#{solicitudMC.fecha}" filterBy="#{solicitudMC.fecha}" filterMatchMode="startsWith">
+                        <p:column headerText="Fecha" sortBy="#{solicitudMC.fecha}" filterBy="#{solicitudMC.fecha}" filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0">
                             <h:outputLabel value="#{solicitudMC.fecha}"/>
                         </p:column>
-                        <p:column headerText="Problema" sortBy="#{solicitudMC.otroProblema}" filterBy="#{solicitudMC.otroProblema}" filterMatchMode="startsWith">
+                        <p:column headerText="Problema" sortBy="#{solicitudMC.otroProblema}" filterBy="#{solicitudMC.otroProblema}" filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0">
                             <h:outputLabel value="#{solicitudMC.otroProblema}"/>
                         </p:column>
-                        <p:column headerText="Departamento" sortBy="#{solicitudMC.id_departamento.nombre_departamento}" filterBy="#{solicitudMC.id_departamento.nombre_departamento}" filterMatchMode="startsWith">
+                        <p:column headerText="Departamento" sortBy="#{solicitudMC.id_departamento.nombre_departamento}" filterBy="#{solicitudMC.id_departamento.nombre_departamento}" filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0">
                             <h:outputLabel value="#{solicitudMC.id_departamento.nombre_departamento}"/>
                         </p:column>
-                        <p:column headerText="Asignado" sortBy="#{solicitudMC.asignacion}" filterBy="#{solicitudMC.asignacion}" filterMatchMode="startsWith">
+                        <p:column headerText="Asignado"  sortBy="#{solicitudMC.asignacion}" filterBy="#{solicitudMC.asignacion}" filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0">
                             <h:outputLabel value="#{solicitudMC.asignacion}"/>
                         </p:column>
                         <p:column>
-                            <p:commandLink class="fa fa-download" action="#"/>
+                            <p:commandLink class="#{solicitudMC.icono}" action="asignaSolicitud.xhtml"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

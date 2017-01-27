@@ -257,7 +257,7 @@ public class Solicitud_mcBEAN implements Serializable{
             listaSolicitud = solicitudMCdao.listarSolicitudMC();
         }
         catch(Exception e){
-            System.out.println("error en Solicitud BEAN --> listarSolicitud BEAN"+e);
+            System.out.println("error en Solicitud BEAN -> listarSolicitud BEAN"+e);
         }
     }
    
@@ -266,20 +266,23 @@ public class Solicitud_mcBEAN implements Serializable{
         
         try{
             solicitud = new Solicitud_mcDAO();
-            Orden_internaDAO ordenInterna = new Orden_internaDAO();
+           // Orden_internaDAO ordenInterna = new Orden_internaDAO();
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
             usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
             listaSolicitudPorDepartamento =solicitud.listarSolicitudPorDepartamentoUsuario(usuarioVive);
-            listaOrdenInterna = ordenInterna.listarOrden_interna();
-            for(int i=0; i<listaSolicitudPorDepartamento.size();i++){
-                listaSolicitudPorDepartamento.get(i).setAsignacion("No Asignada");
-                for(int j=0;j<listaOrdenInterna.size();j++){
-                    if(listaSolicitudPorDepartamento.get(i).getIdsolicitud_mc()==listaOrdenInterna.get(j).getIdsolicitud().getIdsolicitud_mc()){
+            //listaOrdenInterna = ordenInterna.listarOrden_interna();
+                for(int i=0;i<listaSolicitudPorDepartamento.size();i++){
+                    if(listaSolicitudPorDepartamento.get(i).getEstatus().equals(false)){
                         listaSolicitudPorDepartamento.get(i).setAsignacion("Asignada");
+                    }
+                    else{
+                        listaSolicitudPorDepartamento.get(i).setAsignacion("No Asignada");
+                        listaSolicitudPorDepartamento.get(i).setIcono("fa fa-thumb-tack");
+                        listaSolicitudPorDepartamento.get(i).setVista("asignaSolicitud.xhtml");
                     }
                 }
                 
-            }
+            
         }catch(Exception ex){
             System.out.println("Error en Solicitud_mc -> listarSolicitudPorDepartamento "+ex);
         }

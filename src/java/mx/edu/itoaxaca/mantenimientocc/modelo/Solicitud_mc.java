@@ -23,6 +23,8 @@ public class Solicitud_mc implements Serializable{
     private String asignacion;
     private Boolean estatus;
     private Boolean estado_seguimiento;
+    private String icono;//variable para ir a asignar seguimienrto
+    private String vista;//ruta pra ir a asignar seguimiento
     
     public int getIdsolicitud_mc() {
         return idsolicitud_mc;
@@ -94,6 +96,22 @@ public class Solicitud_mc implements Serializable{
 
     public void setEstado_seguimiento(Boolean estado_seguimiento) {
         this.estado_seguimiento = estado_seguimiento;
+    }
+
+    public String getIcono() {
+        return icono;
+    }
+
+    public void setIcono(String icono) {
+        this.icono = icono;
+    }
+
+    public String getVista() {
+        return vista;
+    }
+
+    public void setVista(String vista) {
+        this.vista = vista;
     }
     
     
