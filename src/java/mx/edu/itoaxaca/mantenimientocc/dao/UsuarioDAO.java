@@ -194,7 +194,7 @@ public class UsuarioDAO extends Conexion{
         System.out.println("usuario: "+usuario.getIdOficina().getIdOficinaSolicitante());
        try{
            this.Conectar();
-           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE id_oficina=? and estatus = true");
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE (id_oficina=? and estatus = true) and not nivel like '%1%'");
            consulta.setInt(1,usuario.getIdOficina().getIdOficinaSolicitante());
            resultado = consulta.executeQuery();
            listaUsuarioDepartamento = new ArrayList();

@@ -63,12 +63,12 @@
                             
                         </h:panelGrid>
                            <p:separator style="visibility: hidden;"/>
-                           <p:commandButton value="Registrar" actionListener="#{orden_trabajoBEAN.registrarOrden()}" update="formOrdenTrabajo" ajax="false" />
-                           <p:commandButton value="Continuar" action="detalleSeguimiento.xhtml" immediate="true"/>
+                           
                             
                    
                     </p:panel>
-
+                     <p:commandButton value="Registrar" actionListener="#{orden_trabajoBEAN.registrarOrden()}" update="formOrdenTrabajo" ajax="false" />
+                     <p:commandButton value="Continuar" action="detalleSeguimiento.xhtml" immediate="true"/>
                 </h:form>
                 
             </ui:define>

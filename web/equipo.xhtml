@@ -12,9 +12,10 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                
-                 <p:growl id="msj" showDetail="true" sticky="true"/>
-        <h:form id="formaExterior">                      
+                 <p:separator style="visibility: hidden;"/> 
+                 
+        <h:form id="formaExterior">    
+            <p:growl id="msj" showDetail="true" sticky="true"/>
              <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{equipoBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
             
                  <f:ajax execute="#{equipoBEAN.listarEquipo()}" render="data" />
@@ -97,15 +98,35 @@
                    
                 </p:column>
                 
+                <p:column headerText="Estatus"
+                          sortBy="#{equipo.estatus}"
+                          >
+                    
+                    <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 12px ">
+                                  <f:converter converterId="javax.faces.Boolean" />
+                                      <f:selectItem itemLabel="Todos" itemValue="" />
+                                      <f:selectItem itemLabel="Act." itemValue="true" />
+                                      <f:selectItem itemLabel="Inac." itemValue="false" />
+                                </p:selectOneButton>
+                    </f:facet>
+                    
+                    
+                    
+                    <p:outputLabel value="#{equipo.estatus}"  >
+                        <f:converter converterId="conversionEstatus" />
+                    </p:outputLabel>
+                </p:column>
+                
                
                 <p:column headerText="Editar"
                           width="60">
                     <p:commandLink class="fa fa-pencil" actionListener="#{equipoBEAN.elegirDatoEquipo(equipo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                 </p:column>
                 
-                <p:column headerText="Eliminar"
+                <p:column headerText="Baja"
                           width="70">
-                    <p:commandLink class="fa fa-trash" actionListener="#{equipoBEAN.eliminarEquipo(equipo)}" update="data"/>
+                    <p:commandLink class="fa fa-trash" actionListener="#{equipoBEAN.elegirDatoEquipoBaja(equipo)}" update="data"/>
                 </p:column>
                 
                  
@@ -154,7 +175,17 @@
                         <f:validator validatorId="validadoresNumeros"/>
                     </p:inputText>
                    <p/>
-                   
+                    <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
+            <style type="text/css">                                      
+            .selectMenu { display: inline-block; vertical-align: top; }
+            </style>
+            <p/>
+            <p:outputLabel value="&nbsp; Estatus&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+            <p:selectOneMenu value="#{equipoBEAN.equipo.estatus}" styleClass="selectMenu" 
+                             style="text-transform: uppercase">
+                <f:selectItem itemLabel="Activo" itemValue="true"/>
+                <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+            </p:selectOneMenu>
                  
                     <p/>
                  

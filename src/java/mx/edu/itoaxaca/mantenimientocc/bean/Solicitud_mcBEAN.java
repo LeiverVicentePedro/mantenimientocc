@@ -51,6 +51,7 @@ public class Solicitud_mcBEAN implements Serializable{
     private List<Solicitud_mc> listaSolicitudPorDepartamento;
     private List<Solicitud_mc> listaFiltroSolicitud;
     private List<Solicitud_mc> listaSolicitudDeUsuarios;
+     private List<Solicitud_mc> listaSolicitudDeUsuariosHistorialSeguimiento;
     private List<Solicitud_mc> filtrarSolicitudIdUsuario;  
     
     private List<Solicitud_mc> listaSolicitudPorDepartamentoParaAsignar;
@@ -59,6 +60,15 @@ public class Solicitud_mcBEAN implements Serializable{
         return listaSolicitudPorDepartamentoParaAsignar;
     }
 
+    public List<Solicitud_mc> getListaSolicitudDeUsuariosHistorialSeguimiento() {
+        return listaSolicitudDeUsuariosHistorialSeguimiento;
+    }
+
+    public void setListaSolicitudDeUsuariosHistorialSeguimiento(List<Solicitud_mc> listaSolicitudDeUsuariosHistorialSeguimiento) {
+        this.listaSolicitudDeUsuariosHistorialSeguimiento = listaSolicitudDeUsuariosHistorialSeguimiento;
+    }
+     
+    
     public void setListaSolicitudPorDepartamentoParaAsignar(List<Solicitud_mc> listaSolicitudPorDepartamentoParaAsignar) {
         this.listaSolicitudPorDepartamentoParaAsignar = listaSolicitudPorDepartamentoParaAsignar;
     }
@@ -334,6 +344,23 @@ public class Solicitud_mcBEAN implements Serializable{
          }
          
      }
+     
+     //Esto es para Historial de Seguimiento los Activos y los terminados
+     
+      public void listaSolicitudDeUsuariosHistorialSeguimiento() {
+        Solicitud_mcDAO miSolicituddao;
+        
+        try{
+                miSolicituddao = new Solicitud_mcDAO();
+               FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+           
+                
+            listaSolicitudDeUsuariosHistorialSeguimiento = miSolicituddao.buscarSolucitudPorIdUsuarioParaMisSeguimientos(usuarioVive.getIdUsuario());
+        }catch(Exception e){
+            System.out.println("Error en HistorialSeguimiento BEAN -> listaHistorialSeguimiento "+e);
+        }
+    }
      
     
      

@@ -19,10 +19,10 @@
                     <h:form id="formaExteriorUno"> 
 
                         <p:commandButton value="Nuevo Equipo" oncomplete="PF('DatosUno').show();" actionListener="#{equipoBEAN.setAccion('Registrar')}" update=":dialogoDatosUno" >         
-                            <f:ajax execute="#{equipoBEAN.listarEquipo()}" render="dataUno" />
+                            <f:ajax execute="#{equipoBEAN.listarEquipoOrdenInterna()}" render="dataUno" />
                         </p:commandButton>
 
-                        <p:dataTable id="dataUno" var="equipo" value="#{equipoBEAN.listaEquipo}"  selection="#{orden_internaBEAN.listaEquipo}" rowKey="#{equipo.idequipo}"
+                        <p:dataTable id="dataUno" var="equipo" value="#{equipoBEAN.listaEquipoOrdenIn}"  selection="#{orden_internaBEAN.listaEquipo}" rowKey="#{equipo.idequipo}"
 
                                      style="font-size: 14px;"
 
@@ -101,22 +101,11 @@
 
                             </p:column>
 
-
-                            <p:column headerText="Editar"
-                                      width="60">
-                                <p:commandLink class="fa fa-pencil" actionListener="#{equipoBEAN.elegirDatoEquipo(equipo)}" oncomplete="PF('DatosUno').show();" update=":dialogoDatosUno"/>
-                            </p:column>
-
-                            <p:column headerText="Eliminar"
-                                      width="70">
-                                <p:commandLink class="fa fa-trash" actionListener="#{equipoBEAN.eliminarEquipo(equipo)}" update="dataUno"/>
-                            </p:column>
-
+                           
                             <f:facet name="footer">
-                                <p:commandButton process="dataUno" value="Seleccionar" oncomplete="PF('DatosEquipo').hide();" update=":formOrden:display" >
-
-                                </p:commandButton>
-                            </f:facet>
+                                <p:commandButton process="dataUno" value="Aceptar" oncomplete="PF('DatosEquipo').hide();" update=":formOrden:display" />
+                                 <p:commandButton value="Cerrar" oncomplete="PF('DatosEquipo').hide();" />
+                             </f:facet>
                         </p:dataTable>
                     </h:form>
                 </p:dialog>
@@ -195,8 +184,8 @@
                                 <f:selectItem itemLabel="Orden de Mantenimiento" itemValue="orden de mantenimiento" />
                                 <f:selectItem itemLabel="Orden De Servicios De Red, Internet Y Telefonía" itemValue="orden de servicios de red, internet y telefonía"/>
                             </p:selectOneMenu>
-                            <p/>
-                            <p:column/>
+                            <p:separator style="visibility: hidden"/>
+                            <p:separator style="visibility: hidden"/>
                             <p:outputLabel value="Reporte Fallo: "/>
                             <p:inputTextarea value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo" rows="2" cols="50" counter="reporteDeFallo" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
                             <p:column/><p:column/><p:column/>
@@ -232,6 +221,7 @@
                                     #{problemasEquipo.tipo}
                                 </p:dataList>
                             </p:outputPanel>
+                            <br/><p:column/><p:column/><p:column/>
                             <p:outputLabel value="Seleccione Refaccion usada: "/>
                             
                             <p:commandButton value="Refacción" oncomplete="PF('DatosRefaccion').show();" update=":dialogoDatosRefaccion" /> 
@@ -300,13 +290,23 @@
                             <f:validator validatorId="validadoresNumeros"/>
                         </p:inputText>
                         <p/>
-
+                         <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
+            <style type="text/css">                                      
+            .selectMenu { display: inline-block; vertical-align: top; }
+            </style>
+            <p/>
+            <p:outputLabel value="&nbsp; Estatus&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+            <p:selectOneMenu value="#{equipoBEAN.equipo.estatus}" styleClass="selectMenu" 
+                             style="text-transform: uppercase">
+                <f:selectItem itemLabel="Activo" itemValue="true"/>
+                <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+            </p:selectOneMenu>
 
                         <p/>
 
 
                         <center>
-                            <p:commandButton value="#{equipoBEAN.accion}" actionListener="#{equipoBEAN.operarEquipo()}" oncomplete="PF('DatosUno').hide();" update=":formaExteriorUno:dataUno" />
+                            <p:commandButton value="#{equipoBEAN.accion}" actionListener="#{equipoBEAN.operarEquipo()}" oncomplete="PF('DatosUno').hide();" update=":formaExteriorUno" />
                             <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosUno').hide();" actionListener="#{equipoBEAN.limpiarEquipo()}" />
                         </center>
                         <p/>

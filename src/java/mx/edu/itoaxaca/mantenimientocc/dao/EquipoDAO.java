@@ -21,12 +21,13 @@ public class EquipoDAO extends Conexion{
     public void registrarEquipo(Equipo equiporegistra) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement consulta= this.getConexion().prepareStatement("INSERT INTO equipo (tipo,marca,modelo,numero_serie,folio_inventario) values(?,?,?,?,?)");
+            PreparedStatement consulta= this.getConexion().prepareStatement("INSERT INTO equipo (tipo,marca,modelo,numero_serie,folio_inventario,estatus) values(?,?,?,?,?,?)");
             consulta.setString(1, equiporegistra.getTipo());
             consulta.setString(2,equiporegistra.getMarca());
             consulta.setString(3,equiporegistra.getModelo());
             consulta.setString(4,equiporegistra.getNumero_serie());
             consulta.setInt(5, equiporegistra.getFolio_inventario());
+            consulta.setBoolean(6, true);
             consulta.executeUpdate();
             
         }
@@ -40,12 +41,12 @@ public class EquipoDAO extends Conexion{
     }
     
     
-     public List<Equipo> listarEquipo() throws Exception{
+     public List<Equipo> listarEquipo() throws Exception{//esta lista es para el listado General
      List<Equipo> lista;
         ResultSet resultadoset;
      try{
          this.Conectar();
-         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idequipo, tipo,marca,modelo,numero_serie,folio_inventario FROM equipo");
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idequipo, tipo,marca,modelo,numero_serie,folio_inventario,estatus FROM equipo");
          resultadoset= consulta.executeQuery();
          lista =new ArrayList();
          while(resultadoset.next()){
@@ -56,6 +57,43 @@ public class EquipoDAO extends Conexion{
              equipo.setModelo(resultadoset.getString("modelo"));
              equipo.setNumero_serie(resultadoset.getString("numero_serie"));
              equipo.setFolio_inventario(resultadoset.getInt("folio_inventario"));
+             equipo.setEstatus(resultadoset.getBoolean("estatus"));
+             
+             
+             
+             lista.add(equipo);
+         }
+             
+     }
+     catch(Exception e){
+         System.out.println("error en Orden_internaDao metodo Listar"+e);
+         throw e;
+         
+     }
+     finally{
+         this.Cerrar();
+     }
+     return lista;
+    }
+     //este es para la lista que vera el usuario que realiza una orden Interna
+     
+      public List<Equipo> listarEquipoOrIn() throws Exception{//esta lista es para el listado General
+     List<Equipo> lista;
+        ResultSet resultadoset;
+     try{
+         this.Conectar();
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idequipo, tipo,marca,modelo,numero_serie,folio_inventario,estatus FROM equipo where estatus=true");
+         resultadoset= consulta.executeQuery();
+         lista =new ArrayList();
+         while(resultadoset.next()){
+             Equipo equipo=new Equipo();
+             equipo.setIdequipo(resultadoset.getInt("idequipo"));
+             equipo.setTipo(resultadoset.getString("tipo"));
+             equipo.setMarca(resultadoset.getString("marca"));
+             equipo.setModelo(resultadoset.getString("modelo"));
+             equipo.setNumero_serie(resultadoset.getString("numero_serie"));
+             equipo.setFolio_inventario(resultadoset.getInt("folio_inventario"));
+             equipo.setEstatus(resultadoset.getBoolean("estatus"));
              
              
              
@@ -80,7 +118,7 @@ public class EquipoDAO extends Conexion{
         ResultSet resultadosetequipo;
         try{
             this.Conectar();
-             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT idequipo, tipo, marca,modelo,numero_serie,folio_inventario FROM equipo WHERE idequipo=?");
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT idequipo, tipo, marca,modelo,numero_serie,folio_inventario,estatus FROM equipo WHERE idequipo=?");
             consulta.setInt(1, equipo.getIdequipo());
             resultadosetequipo = consulta.executeQuery();
             while(resultadosetequipo.next())
@@ -93,6 +131,7 @@ public class EquipoDAO extends Conexion{
               equipodos.setModelo(resultadosetequipo.getString("modelo"));
               equipodos.setNumero_serie(resultadosetequipo.getString("numero_serie"));
               equipodos.setFolio_inventario(resultadosetequipo.getInt("folio_inventario"));
+              equipodos.setEstatus(resultadosetequipo.getBoolean("estatus"));
             
             }
         }
@@ -112,13 +151,14 @@ public class EquipoDAO extends Conexion{
           
         try{
             this.Conectar();
-            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE equipo SET tipo=?, marca=?, modelo=?, numero_serie=?, folio_inventario=? WHERE idequipo=?");
+            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE equipo SET tipo=?, marca=?, modelo=?, numero_serie=?, folio_inventario=?, estatus=? WHERE idequipo=?");
              consulta.setString(1, equipomodificar.getTipo());
             consulta.setString(2,equipomodificar.getMarca());
             consulta.setString(3,equipomodificar.getModelo());
             consulta.setString(4,equipomodificar.getNumero_serie());
             consulta.setInt(5, equipomodificar.getFolio_inventario());
-            consulta.setInt(6, equipomodificar.getIdequipo());
+            consulta.setBoolean(6, equipomodificar.getEstatus());
+            consulta.setInt(7, equipomodificar.getIdequipo());
             consulta.executeUpdate();
         }
         catch(Exception e){
@@ -130,6 +170,7 @@ public class EquipoDAO extends Conexion{
     }  
      
    //metodo eliminaf
+     /*
       public void eliminarEquipo (Equipo equipoeliminar) throws Exception{
         try{
             this.Conectar();
@@ -143,7 +184,7 @@ public class EquipoDAO extends Conexion{
         finally{
            this.Cerrar();
         }
-    }   
+    }   */
       
     public Equipo buscarIdEquipo(int idEquipo) throws Exception{
          Equipo equipo = new Equipo();
@@ -160,6 +201,7 @@ public class EquipoDAO extends Conexion{
               equipo.setModelo(resultadoConsulta.getString("modelo"));
               equipo.setNumero_serie(resultadoConsulta.getString("numero_serie"));
               equipo.setFolio_inventario(resultadoConsulta.getInt("folio_inventario"));
+              equipo.setEstatus(resultadoConsulta.getBoolean("estatus"));
               }
               resultadoConsulta.close();
               

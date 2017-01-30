@@ -50,7 +50,7 @@ public class DetalleSeguimientoDAO extends Conexion {
         ResultSet resultadoset;
      try{
          this.Conectar();
-         PreparedStatement consulta=this.getConexion().prepareCall("SELECT iddetalle_seguimiento, estado, descripcion,imagen, id_seguimiento, fecha FROM detalle_seguimiento");
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT iddetalle_seguimiento, estado, descripcion,imagen, id_seguimiento, fecha FROM detalle_seguimiento where estado like '%final%'");
          resultadoset= consulta.executeQuery();
          lista =new ArrayList();
          

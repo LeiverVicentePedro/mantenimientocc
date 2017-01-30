@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_trabajoDAO;
+import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_trabajo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
@@ -77,6 +78,7 @@ public class Orden_trabajoBEAN implements Serializable{
     
       public void registrarOrden() throws Exception {
         Orden_trabajoDAO ordenTrabajoDao;
+        Solicitud_mcDAO solicitudDao;
         
         try {
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
@@ -92,6 +94,8 @@ public class Orden_trabajoBEAN implements Serializable{
             orden_trabajo.setId_solicitudmc(solicitudOT);
             ordenTrabajoDao.registrarOrdenTrabajo(orden_trabajo);
             
+            
+            
              System.out.println("Datos  " + orden_trabajo.getMantenimiento_tipo()+"\n"+
                     orden_trabajo.getTipo_servicio()+"\n "+
                     orden_trabajo.getId_usuario_personal()+"\n "+
@@ -100,9 +104,15 @@ public class Orden_trabajoBEAN implements Serializable{
                     orden_trabajo.getId_usuario_personal_jefe()+"\n"+
                     orden_trabajo.getId_solicitudmc().getFolio());
              
+             solicitudDao=new Solicitud_mcDAO();//aqui se modifica solicitud en estado_seguimiento
+            Solicitud_mc solicitudEstadoSeguimiento=solicitudDao.elegirDatoSolicitudParaModificarEstado_Seguimiento(orden_trabajo.getId_solicitudmc());
+            solicitudDao.modificarSolicitudSeguimiento(solicitudEstadoSeguimiento);
             
             exportarOrdenTrabajo(usuarioVive);
+            
             this.limpiarOrdenTrabajo();
+            
+            
             
              } catch (Exception ex) {
             System.out.println("Error en Orden-TrabajoBEAN -> generarOrden-trabajo " + ex);
@@ -164,8 +174,9 @@ public class Orden_trabajoBEAN implements Serializable{
         orden_trabajo.setMantenimiento_tipo("");
         orden_trabajo.setTipo_servicio("");
         orden_trabajo.setTrabajo_descripcion("");
+        /*
         orden_trabajo.setId_usuario_personal_jefe(null);
-        orden_trabajo.setId_solicitudmc(null);
+        orden_trabajo.setId_solicitudmc(null);*/
         
         
     }        

@@ -16,6 +16,7 @@ public class Equipo {
     private String modelo;
     private String numero_serie;
     private int folio_inventario;
+    private Boolean estatus;
     
 
     public int getIdequipo() {
@@ -65,6 +66,16 @@ public class Equipo {
     public void setFolio_inventario(int folio_inventario) {
         this.folio_inventario = folio_inventario;
     }
+
+    public Boolean getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(Boolean estatus) {
+        this.estatus = estatus;
+    }
+    
+    
 
    
     

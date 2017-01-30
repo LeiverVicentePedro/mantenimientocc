@@ -22,6 +22,7 @@ public class EquipoBEAN implements Serializable{
     
     private Equipo equipo= new Equipo();
     private List<Equipo> listaEquipo;
+    private List<Equipo> listaEquipoOrdenIn;
     private List<Equipo> filterEquipo;
  
     private String accion;
@@ -56,6 +57,14 @@ public class EquipoBEAN implements Serializable{
 
     public void setAccion(String accion) {
         this.accion = accion;
+    }
+
+    public List<Equipo> getListaEquipoOrdenIn() {
+        return listaEquipoOrdenIn;
+    }
+
+    public void setListaEquipoOrdenIn(List<Equipo> listaEquipoOrdenIn) {
+        this.listaEquipoOrdenIn = listaEquipoOrdenIn;
     }
 
    
@@ -125,8 +134,8 @@ public class EquipoBEAN implements Serializable{
                 break;
         }
     }
-     
-     public void eliminarEquipo(Equipo equipoEliminar) throws Exception{
+     //se modifica por metodo baja
+    /* public void eliminarEquipo(Equipo equipoEliminar) throws Exception{
         EquipoDAO equipodao;
             try{
                 equipodao= new EquipoDAO();
@@ -137,7 +146,38 @@ public class EquipoBEAN implements Serializable{
             {
                 throw e;
             }
+    }*/
+      public void elegirDatoEquipoBaja(Equipo equipoElegirDato) throws Exception{//esto es para dar de baja primero se elige el dato y despues se pone en inactivo
+        EquipoDAO equipodao;
+        Equipo equipoTemporal;
+        try{
+            equipodao= new EquipoDAO();
+            equipoTemporal=equipodao.elegirDatoEquipo(equipoElegirDato);
+            
+            if(equipoTemporal != null){
+                this.equipo = equipoTemporal;
+            }
+            this.bajaEquipo();//se manda a llamar al metodo dar de baja para q se modifique el estatus por INACTIVO
+            this.listarEquipo();//para actualizar la tabla y se vea reflejado el cambio de estatus
+            }
+        catch (Exception e){
+            throw e;
+        }
+        
     }
+      
+      public void bajaEquipo() throws Exception{
+        EquipoDAO equipodao;
+            try{
+                equipodao= new EquipoDAO();
+                equipo.setEstatus(false);
+                equipodao.modificarEquipo(equipo);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+    } 
      
      public void limpiarEquipo(){
         this.equipo.setTipo("");
@@ -145,6 +185,7 @@ public class EquipoBEAN implements Serializable{
         this.equipo.setModelo("");
         this.equipo.setNumero_serie("");
         this.equipo.setFolio_inventario(0);
+        
     }
      
       //Metodo ´para listar 
@@ -154,6 +195,16 @@ public class EquipoBEAN implements Serializable{
         try{
             equipodao=new EquipoDAO();
             listaEquipo = equipodao.listarEquipo();
+        }
+        catch(Exception e){
+            System.out.println("error en EquipoBEAN --> listarEquipoBEAN"+e);
+        }
+    }
+    public void listarEquipoOrdenInterna() throws Exception{
+        EquipoDAO equipodao;
+        try{
+            equipodao=new EquipoDAO();
+            listaEquipoOrdenIn = equipodao.listarEquipoOrIn();
         }
         catch(Exception e){
             System.out.println("error en EquipoBEAN --> listarEquipoBEAN"+e);

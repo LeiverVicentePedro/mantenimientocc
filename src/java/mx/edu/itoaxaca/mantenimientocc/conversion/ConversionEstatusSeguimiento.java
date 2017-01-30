@@ -33,10 +33,10 @@ public class ConversionEstatusSeguimiento implements Converter {
             estatus=String.valueOf(value);
           switch(estatus){
                 case "true":
-                    estatus="Realizado";
+                    estatus="Activo";
                     break;
                 case "false":
-                    estatus="Pendiente";
+                    estatus="Terminado";
                     break;
             }
             

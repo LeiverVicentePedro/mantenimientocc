@@ -31,7 +31,18 @@ public class Asigna_solicitudBEAN implements Serializable{
     private List<Asigna_solicitud> listarAsignacionSolicitudes;
     private List<Asigna_solicitud> filterAsignar;
     private List<Asigna_solicitud> listaAsinacionesDeUsuarios;
+    private List<Asigna_solicitud> listaAsinacionesTerminadasDeUsuarios;
+
+    public List<Asigna_solicitud> getListaAsinacionesTerminadasDeUsuarios() {
+        return listaAsinacionesTerminadasDeUsuarios;
+    }
+
+    public void setListaAsinacionesTerminadasDeUsuarios(List<Asigna_solicitud> listaAsinacionesTerminadasDeUsuarios) {
+        this.listaAsinacionesTerminadasDeUsuarios = listaAsinacionesTerminadasDeUsuarios;
+    }
+    
   
+    
 
     public List<Asigna_solicitud> getListaAsinacionesDeUsuarios() {
         return listaAsinacionesDeUsuarios;
@@ -117,7 +128,7 @@ public class Asigna_solicitudBEAN implements Serializable{
        Asigna_solicitudDAO asigna_solicituddao;
         try{
             asigna_solicituddao=new Asigna_solicitudDAO();
-            listarAsignacionSolicitudes = asigna_solicituddao.listarAsignarSolicitud();
+            listarAsignacionSolicitudes = asigna_solicituddao.listarTodasAsignaciones();
         }
         catch(Exception e){
             System.out.println("error en Listar AsignacionBEAN --> listarAsignacion BEAN"+e);
@@ -143,6 +154,20 @@ public class Asigna_solicitudBEAN implements Serializable{
             listaAsinacionesDeUsuarios = asignaSolicituddao.buscarAsignacionPorIdUsuario(usuarioVive.getIdUsuario());
         }catch(Exception e){
             System.out.println("Error en SolicitudesCC BEAN -> listaSolicitudesCC "+e);
+        }
+    }
+      public void listaAsignacionesTerminadasDeUsuarios() {
+        Asigna_solicitudDAO asignaSolicituddao;
+        
+        try{
+                asignaSolicituddao = new Asigna_solicitudDAO();
+               FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+           
+                
+            listaAsinacionesTerminadasDeUsuarios = asignaSolicituddao.buscarAsignacionTerminadasPorIdUsuario(usuarioVive.getIdUsuario());
+        }catch(Exception e){
+            System.out.println("Error en listaAsignacionesTerminadas BEAN -> listaAsignacionesTerminadas "+e);
         }
     }
      

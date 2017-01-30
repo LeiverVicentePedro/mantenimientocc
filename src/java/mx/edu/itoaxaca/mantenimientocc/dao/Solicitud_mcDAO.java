@@ -41,7 +41,7 @@ public class Solicitud_mcDAO extends Conexion {
             this.Cerrar();
         }
     }
-    public void modificarSolicitudMC(Solicitud_mc solicitudmc) throws Exception{
+    public void modificarSolicitudMC(Solicitud_mc solicitudmc) throws Exception{//para estado de asignacion y el estado seguimiento aun no cambia
         try{
             this.Conectar();
             PreparedStatement inserta = this.getConexion().prepareStatement("UPDATE solicitud_mc SET id_usuario=?, folio=?, fecha=?, id_departamento=?, otro_problema=?, estatus=?, estado_seguimiento=? WHERE idsolicitud_mc=?");
@@ -62,17 +62,17 @@ public class Solicitud_mcDAO extends Conexion {
             this.Cerrar();
         }
     }
-    public void modificarSolicitudSeguimiento(Solicitud_mc solicitudmc) throws Exception{
+    public void modificarSolicitudSeguimiento(Solicitud_mc solicitudmc) throws Exception{//el estado seguimiento cambia porque se ha realizado en orden de trabajo
         try{
             this.Conectar();
-            PreparedStatement inserta = this.getConexion().prepareStatement("UPDATE solicitud_mc SET id_usuario=?, folio=?, fecha=?, id_departamento=?, otro_problema=?, estatus=? estado_seguimiento=? WHERE idsolicitud_mc=?");
+            PreparedStatement inserta = this.getConexion().prepareStatement("UPDATE solicitud_mc SET id_usuario=?, folio=?, fecha=?, id_departamento=?, otro_problema=?, estatus=?, estado_seguimiento=? WHERE idsolicitud_mc=?");
             inserta.setInt(1, solicitudmc.getId_usuario().getIdUsuario());
             inserta.setString(2, solicitudmc.getFolio());
             inserta.setDate(3, (Date) solicitudmc.getFecha());
             inserta.setInt(4, solicitudmc.getId_departamento().getIddepartamento());
             inserta.setString(5, solicitudmc.getOtroProblema());
             inserta.setBoolean(6, false);
-            inserta.setBoolean(7,false);
+            inserta.setBoolean(7, false);
             inserta.setInt(8,solicitudmc.getIdsolicitud_mc());
             inserta.executeUpdate();
         }catch(Exception ex){
@@ -350,6 +350,40 @@ public class Solicitud_mcDAO extends Conexion {
         }
         return solicituddos;
     }
+    
+    //esto es para la parte de mis seguimiento se reutiliza la de mis asignaciones solo q esta mostrara si estan activas o ya no las solicitudes
+    
+    public List<Solicitud_mc> buscarSolucitudPorIdUsuarioParaMisSeguimientos(int idUsuario) throws Exception{
+         List<Solicitud_mc> listaSolicitudDeUsuario = null;
+         ResultSet resultadoConsulta;
+         try{
+             this.Conectar();
+             PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM solicitud_mc where id_usuario=? and estado_seguimiento=false");
+             consulta.setInt(1, idUsuario);
+             resultadoConsulta = consulta.executeQuery();
+             listaSolicitudDeUsuario = new ArrayList();
+             while(resultadoConsulta.next()){
+             Solicitud_mc misolicitud = new Solicitud_mc();
+            misolicitud.setIdsolicitud_mc(resultadoConsulta.getInt("idsolicitud_mc"));
+            misolicitud.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoConsulta.getInt("id_usuario")));
+            misolicitud.setFolio(resultadoConsulta.getString("folio"));
+            misolicitud.setFecha(resultadoConsulta.getDate("fecha"));
+            misolicitud.setOtroProblema(resultadoConsulta.getString("otro_problema"));
+            misolicitud.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoConsulta.getInt("id_departamento")));
+            misolicitud.setEstatus(resultadoConsulta.getBoolean("estatus"));
+            misolicitud.setEstado_seguimiento(resultadoConsulta.getBoolean("estado_seguimiento"));
+             listaSolicitudDeUsuario.add(misolicitud);
+              }
+              resultadoConsulta.close();
+              
+         }catch(Exception ex){
+             System.out.println("Error en Lista Solicitudes por UsuarioDAO -> buscar Solicitud por Usuario "+ex);
+             throw ex;
+         }finally{
+             this.Cerrar();
+         }
+         return listaSolicitudDeUsuario;
+     }
       
         
 }
