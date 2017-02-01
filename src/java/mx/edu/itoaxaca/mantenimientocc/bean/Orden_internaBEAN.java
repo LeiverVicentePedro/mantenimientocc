@@ -6,6 +6,7 @@
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,16 +19,20 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import mx.edu.itoaxaca.mantenimientocc.dao.DetalleSeguimientoDAO;
 
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_internaDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Refaccion_empleadaDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Relacion_orden_equipoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Relacion_orden_refaccionDAO;
+import mx.edu.itoaxaca.mantenimientocc.dao.SeguimientoDAO;
+import mx.edu.itoaxaca.mantenimientocc.modelo.DetalleSeguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Equipo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_interna;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Refaccion_empleada;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_equipo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Relacion_orden_refaccion;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Seguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -36,6 +41,8 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultUploadedFile;
+import org.primefaces.model.UploadedFile;
 
 
 /**
@@ -182,8 +189,26 @@ public class Orden_internaBEAN implements Serializable{
             }
             
             System.out.println("fecha del sistema " + orden_interna.getFecha());
+            Seguimiento segimiento = new SeguimientoDAO().elegirDatoSeguimiento(folioDesdeAsignacion);
+            
+            /*subir evidencia a la base de datos de que falta herramientas
+            *creando los objetos nesesarios*/
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\resources");
+            File imagen = new File(path+"\\"+"images\\"+"aviso.png");
+            System.out.println("ruta imagen:-> "+path+"\\"+"images\\"+"aviso.png");
+            FileInputStream parseoImagen = new FileInputStream(imagen);
+            if(!orden_interna.getRefaccion_faltante().isEmpty()){
+            DetalleSeguimiento detalleseguimiento = new DetalleSeguimiento();
+            detalleseguimiento.setId_seguimiento(segimiento);
+            detalleseguimiento.setEstado("proceso");
+            detalleseguimiento.setFecha(new java.sql.Date(new java.util.Date().getTime()));
+            detalleseguimiento.setDescripcion(orden_interna.getRefaccion_faltante());
+          
+            new DetalleSeguimientoDAO().registrarDetalleSeguimientoEnOrdenInterna(detalleseguimiento,parseoImagen);
+            }
+           
             exportarPDFOrdenInterna(usuarioVive);
-            this.limpiarOrdenInterna();
+             this.limpiarOrdenInterna();
 
         } catch (Exception ex) {
             System.out.println("Error en Orden-BEAN -> generarOrden " + ex);
@@ -283,7 +308,7 @@ public class Orden_internaBEAN implements Serializable{
         parametros.put("numParte", numeroPartes.toUpperCase());
         parametros.put("descripcion", descripcion.toUpperCase());
         parametros.put("precio", precio);
-        
+        parametros.put("refaccion_faltante",orden_interna.getRefaccion_faltante());
         File archivo = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/FormatoOrdenInterna.jasper"));
         JasperPrint imprimirArchivo = JasperFillManager.fillReport(archivo.getPath(), parametros, new JREmptyDataSource());
 

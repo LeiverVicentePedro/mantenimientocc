@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="516" leftMargin="48" rightMargin="48" topMargin="48" bottomMargin="48" uuid="af22f82a-4c25-4687-b0ce-3855f185b1b5">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="397"/>
+	<property name="ireport.y" value="595"/>
 	<parameter name="cordinacion" class="java.lang.String"/>
 	<parameter name="orden" class="java.lang.String"/>
 	<parameter name="nombreUsiario" class="java.lang.String"/>
@@ -26,6 +26,7 @@
 	<parameter name="descripcion" class="java.lang.String"/>
 	<parameter name="precio" class="java.lang.String"/>
 	<parameter name="extension" class="java.lang.String"/>
+	<parameter name="refaccion_faltante" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -430,28 +431,28 @@
 				<textFieldExpression><![CDATA[$P{fechaRealizo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="33" y="481" width="48" height="97" uuid="9adcc139-64e6-41b9-ad53-12e2cc4d7d3c"/>
+				<reportElement x="33" y="481" width="48" height="79" uuid="9adcc139-64e6-41b9-ad53-12e2cc4d7d3c"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="123" y="480" width="94" height="98" uuid="36e63dfd-0679-4183-8c88-bdcc98d5f9c4"/>
+				<reportElement x="123" y="480" width="94" height="80" uuid="36e63dfd-0679-4183-8c88-bdcc98d5f9c4"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{numParte}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="250" y="480" width="140" height="98" uuid="5c774925-67de-4e8d-ac9f-82436d1c5909"/>
+				<reportElement x="250" y="480" width="140" height="80" uuid="5c774925-67de-4e8d-ac9f-82436d1c5909"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="425" y="480" width="55" height="98" uuid="132e796c-4490-47af-9363-ae6cf7aa4008"/>
+				<reportElement x="425" y="480" width="55" height="80" uuid="132e796c-4490-47af-9363-ae6cf7aa4008"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{precio}]]></textFieldExpression>
 			</textField>
@@ -461,6 +462,13 @@
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{extension}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="575" width="439" height="20" uuid="e680e7e0-f299-47d6-858d-bf638fa51ce0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{refaccion_faltante}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
