@@ -16,11 +16,16 @@
                  
         <h:form id="formaExterior">    
             <p:growl id="msj" showDetail="true" sticky="true"/>
+            <center>
+                        <p:separator style="visibility: hidden;"/> 
+                        <p:outputLabel value="Lista de Equipo" style="font-size: 25px;" />
+                    </center>
+                <p:separator/> 
              <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{equipoBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
             
                  <f:ajax execute="#{equipoBEAN.listarEquipo()}" render="data" />
             </p:commandButton>
-            <p:separator/>
+            <p:separator style="visibility: hidden;"/> 
             <p:dataTable id="data" var="equipo" value="#{equipoBEAN.listaEquipo}"
                          
                          style="font-size: 14px;"
@@ -34,9 +39,9 @@
                                  widgetVar="buscar"
                                  filteredValue="#{equipoBEAN.filterEquipo}"
                           emptyMessage="No hay elementos encontrados"
-                          paginator="true" rows="5"
+                          paginator="true" rows="10"
                           paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                          rowsPerPageTemplate="1,2,3,4,5">
+                          paginatorPosition="bottom">
                 
                 
                           <f:facet name="header">
@@ -53,7 +58,9 @@
                           sortBy="#{equipo.tipo}" 
                           filterBy="#{equipo.tipo}"
                           filterMatchMode="startsWith"
-                          width="170">
+                          width="170"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase ">
                     
                     <h:outputText value="#{equipo.tipo}" />
                    
@@ -62,7 +69,9 @@
                           sortBy="#{equipo.marca}" 
                           filterBy="#{equipo.marca}"
                           filterMatchMode="startsWith"
-                          width="170">
+                          width="140"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase ">
                     
                     <h:outputText value="#{equipo.marca}" />
                    
@@ -72,38 +81,45 @@
                           sortBy="#{equipo.modelo}" 
                           filterBy="#{equipo.modelo}"
                           filterMatchMode="startsWith"
-                          width="170">
+                          width="140"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase ">
                     
                     <h:outputText value="#{equipo.modelo}" />
                    
                 </p:column>
                 
-                <p:column headerText="#Serie" 
+                <p:column headerText="#SERIE" 
                           sortBy="#{equipo.numero_serie}" 
                           filterBy="#{equipo.numero_serie}"
                           filterMatchMode="startsWith"
-                          width="150" >
+                          width="150" 
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;">
                     
                     <h:outputText value="#{equipo.numero_serie}" />
                    
                 </p:column>
                 
-                <p:column headerText="FolioInventario" 
+                <p:column headerText="FOLIO INVENTARIO" 
                           sortBy="#{equipo.folio_inventario}" 
                           filterBy="#{equipo.folio_inventario}"
                           filterMatchMode="startsWith"
-                         width="170">
+                         width="150" filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;">
                     
                     <h:outputText value="#{equipo.folio_inventario}" />
                    
                 </p:column>
                 
-                <p:column headerText="Estatus"
+                <p:column headerText="ESTATUS"
                           sortBy="#{equipo.estatus}"
-                          >
+                           filterBy="#{equipo.estatus}"
+                           filterMatchMode="equals"
+                          style="font-size: 12px " width="130">
                     
                     <f:facet name="filter">
-                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 12px ">
+                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 9px ">
                                   <f:converter converterId="javax.faces.Boolean" />
                                       <f:selectItem itemLabel="Todos" itemValue="" />
                                       <f:selectItem itemLabel="Act." itemValue="true" />
@@ -119,13 +135,13 @@
                 </p:column>
                 
                
-                <p:column headerText="Editar"
-                          width="60">
+                <p:column headerText="EDITAR"
+                          width="70" style="font-size: 13px ">
                     <p:commandLink class="fa fa-pencil" actionListener="#{equipoBEAN.elegirDatoEquipo(equipo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                 </p:column>
                 
-                <p:column headerText="Baja"
-                          width="70">
+                <p:column headerText="BAJA"
+                          width="60" style="font-size: 13px ">
                     <p:commandLink class="fa fa-trash" actionListener="#{equipoBEAN.elegirDatoEquipoBaja(equipo)}" update="data"/>
                 </p:column>
                 
@@ -137,58 +153,56 @@
             <h:form>
         
                 <p/>
-                 <p:outputLabel  value="&nbsp;Tipo&nbsp;"/>
+                <h:panelGrid id="trabajoF" columns="2" columnClasses="grid,grid" class="container-fluid  text-justify">
+                       <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
+                 <h:outputText  value="Tipo:" style="color: black;font-size:14px"/>
                  <p:inputText  value="#{equipoBEAN.equipo.tipo}" 
                               required="true" requiredMessage="Se requiere Tipo" 
-                              style="text-transform: uppercase">
+                              style="text-transform: uppercase" >
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
                  
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Marca&nbsp;"/>
+                 <br/><p:column/>
+                 <h:outputText  value="Marca:" style="color: black;font-size:14px"/>
                  <p:inputText  value="#{equipoBEAN.equipo.marca}" 
                               required="true" requiredMessage="Se requiere Marca" 
                               style="text-transform: uppercase">
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
                  
-                 <p/>
-                 <p:outputLabel  value="&nbsp;Modelo&nbsp;"/>
+                 <br/><p:column/>
+                 <h:outputText  value="Modelo:" style="color: black;font-size:14px"/>
                  <p:inputText  value="#{equipoBEAN.equipo.modelo}" 
                               required="true" requiredMessage="Se requiere Modelo" 
                               style="text-transform: uppercase">
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
-                 
-                 <p/>
-                 <p:outputLabel value="&nbsp;Num.Serie&nbsp;"/>
+                       </h:panelGrid>
+                  <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
+                 <br/><p:column/>
+                 <h:outputText value="Num.Serie:" style="color: black;font-size:14px"/>
                  <p:inputText  value="#{equipoBEAN.equipo.numero_serie}" 
                               required="true" requiredMessage="Se requiere Num.Serie" 
                               style="text-transform: uppercase">
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
-                 <p/>
-                 <p:outputLabel value="&nbsp;Folio Inventario&nbsp;" />
+                 <br/><p:column/>
+                 <h:outputText value="Folio Inventario:" style="color: black;font-size:14px" />
                  <p:inputText value="#{equipoBEAN.equipo.folio_inventario}" required="true" 
                                  requiredMessage="Se necesita un Folio de Inventario"
                                  style="text-transform: uppercase">
                         <f:validator validatorId="validadoresNumeros"/>
-                    </p:inputText>
-                   <p/>
-                    <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
-            <style type="text/css">                                      
-            .selectMenu { display: inline-block; vertical-align: top; }
-            </style>
-            <p/>
-            <p:outputLabel value="&nbsp; Estatus&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+                 </p:inputText>
+                 <br/><p:column/>
+            <h:outputText value="Estatus:" style="color: black;font-size:14px"/> 
             <p:selectOneMenu value="#{equipoBEAN.equipo.estatus}" styleClass="selectMenu" 
                              style="text-transform: uppercase">
                 <f:selectItem itemLabel="Activo" itemValue="true"/>
                 <f:selectItem itemLabel="Inactivo" itemValue="false"/>
             </p:selectOneMenu>
-                 
-                    <p/>
-                 
+                       </h:panelGrid>
+                </h:panelGrid>
+                <br/>
            
             <center>
                 <p:commandButton value="#{equipoBEAN.accion}" actionListener="#{equipoBEAN.operarEquipo()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />

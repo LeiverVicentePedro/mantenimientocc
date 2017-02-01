@@ -21,11 +21,11 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
      public void registrarCatalogo_servicio_solicitado(Catalogo_servicio_solicitado catalogo_servicio_solicitado) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement consulta= this.getConexion().prepareStatement("INSERT INTO catalogo_servicio_solicitado (servicio_solicitado,id_departamento) values(?,?)");
+            PreparedStatement consulta= this.getConexion().prepareStatement("INSERT INTO catalogo_servicio_solicitado (servicio_solicitado,id_departamento,estatus) values(?,?,?)");
           
             consulta.setString(1,catalogo_servicio_solicitado.getServicio_solicitado());
             consulta.setInt(2,catalogo_servicio_solicitado.getDepartamento().getIddepartamento());
-           
+            consulta.setBoolean(3,catalogo_servicio_solicitado.getEstatus());
             consulta.executeUpdate();
         }
         catch(Exception e){
@@ -43,7 +43,7 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
         ResultSet resultadosetCatalogo;
      try{
          this.Conectar();
-         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idcatalogo_servicio_solicitado, servicio_solicitado, id_departamento FROM catalogo_servicio_solicitado");
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idcatalogo_servicio_solicitado, servicio_solicitado, id_departamento, estatus FROM catalogo_servicio_solicitado");
          resultadosetCatalogo= consulta.executeQuery();
          listaCatalogo =new ArrayList();
          while(resultadosetCatalogo.next()){
@@ -51,6 +51,7 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
              catalogo.setIdcatalogo_servicio_solicitado(resultadosetCatalogo.getInt("idcatalogo_servicio_solicitado"));
              catalogo.setServicio_solicitado(resultadosetCatalogo.getString("servicio_solicitado"));
              catalogo.setDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultadosetCatalogo.getInt("id_departamento")));
+             catalogo.setEstatus(resultadosetCatalogo.getBoolean("estatus"));
              
              
              listaCatalogo.add(catalogo);
@@ -73,7 +74,7 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
         
         try{
             this.Conectar();
-             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT idcatalogo_servicio_solicitado, servicio_solicitado, id_departamento FROM catalogo_servicio_solicitado WHERE idcatalogo_servicio_solicitado=?");
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT idcatalogo_servicio_solicitado, servicio_solicitado, id_departamento, estatus FROM catalogo_servicio_solicitado WHERE idcatalogo_servicio_solicitado=?");
             consulta.setInt(1, catalogoElegir.getIdcatalogo_servicio_solicitado());
             resultadosetElegirCatalogo = consulta.executeQuery();
             while(resultadosetElegirCatalogo.next())
@@ -82,6 +83,7 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
               catalogoElegirdos.setIdcatalogo_servicio_solicitado(resultadosetElegirCatalogo.getInt("idcatalogo_servicio_solicitado"));
               catalogoElegirdos.setServicio_solicitado(resultadosetElegirCatalogo.getString("servicio_solicitado"));
               catalogoElegirdos.setDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultadosetElegirCatalogo.getInt("id_departamento")));
+              catalogoElegirdos.setEstatus(resultadosetElegirCatalogo.getBoolean("estatus"));
              
             }
         }
@@ -98,10 +100,11 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
     public void modificarCatalogo (Catalogo_servicio_solicitado catalogomodificar) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE catalogo_servicio_solicitado SET servicio_solicitado=?, id_departamento=? WHERE idcatalogo_servicio_solicitado=?");
+            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE catalogo_servicio_solicitado SET servicio_solicitado=?, id_departamento=?, estatus=? WHERE idcatalogo_servicio_solicitado=?");
             consulta.setString(1, catalogomodificar.getServicio_solicitado());
             consulta.setInt(2,catalogomodificar.getDepartamento().getIddepartamento());
-            consulta.setInt(3,catalogomodificar.getIdcatalogo_servicio_solicitado());
+            consulta.setBoolean(3,catalogomodificar.getEstatus());
+            consulta.setInt(4,catalogomodificar.getIdcatalogo_servicio_solicitado());
             
             consulta.executeUpdate();
         }
@@ -112,7 +115,7 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
            this.Cerrar();
         }
     }  
-    
+    /*
     public void eliminarCatalogo (Catalogo_servicio_solicitado catalogoeliminar) throws Exception{
         try{
             this.Conectar();
@@ -127,7 +130,7 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
            this.Cerrar();
         }
     }   
-    
+    */
     
    public List<Catalogo_servicio_solicitado> listarCatalogoPorDepartamentoServico(int idDepartamento) throws Exception{
      List<Catalogo_servicio_solicitado> listaCatalogo;
@@ -143,6 +146,7 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
              catalogo.setIdcatalogo_servicio_solicitado(resultadosetCatalogo.getInt("idcatalogo_servicio_solicitado"));
              catalogo.setServicio_solicitado(resultadosetCatalogo.getString("servicio_solicitado"));
              catalogo.setDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultadosetCatalogo.getInt("id_departamento")));
+             catalogo.setEstatus(resultadosetCatalogo.getBoolean("estatus"));
              
              listaCatalogo.add(catalogo);
          }

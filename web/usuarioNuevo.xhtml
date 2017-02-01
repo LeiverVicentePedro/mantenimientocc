@@ -37,9 +37,9 @@
                                  filteredValue="#{usuarioBEAN.filterUsuario}"
 
                                  emptyMessage="No hay elementos encontrados"
-                                 paginator="true" rows="5"
+                                 paginator="true" rows="10"
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                 rowsPerPageTemplate="1,2,3,4,5">
+                                 paginatorPosition="bottom">
 
                         <f:facet name="header">
                             <p:outputPanel class="text-right">
@@ -52,74 +52,71 @@
 
 
                         <p:column 
-                            style=" font-size: 12px "
+                            style=" font-size: 13px "
                             headerText="RFC"
                             sortBy="#{usuario.rfc}"
                             filterBy="#{usuario.rfc}"
                             filterMatchMode="contains"
-                            >
+                            width="120"
+                            filterStyle="visibility:hidden; height:0">
                             <p:outputLabel value="#{usuario.rfc}"/>
                         </p:column>
 
-                        <p:column style=" font-size: 12px "
+                        <p:column style=" font-size: 13px;text-transform: uppercase "
                                   headerText="Nombre"
                                   sortBy="#{usuario.nombre}"
                                   filterBy="#{usuario.nombre}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith"
+                                  width="120"
+                                  filterStyle="visibility:hidden; height:0">
                             <p:outputLabel value="#{usuario.nombre}"/>
                         </p:column>
 
                         <p:column 
-                            style=" font-size: 12px "
+                            style=" font-size: 13px;text-transform: uppercase "
                             headerText="Ap.Paterno"
                             sortBy="#{usuario.apellidoPaterno}"
                             filterBy="#{usuario.apellidoPaterno}"
-                            filterMatchMode="startsWith">
+                            filterMatchMode="startsWith" width="120"
+                            filterStyle="visibility:hidden; height:0">
                             <p:outputLabel value="#{usuario.apellidoPaterno}"/>
                         </p:column>
 
-                        <p:column style=" font-size: 12px "
+                        <p:column style=" font-size: 13px;text-transform: uppercase "
                                   headerText="Ap.Materno"
                                   sortBy="#{usuario.apellidoMaterno}"
                                   filterBy="#{usuario.apellidoMaterno}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith" width="120"
+                                  filterStyle="visibility:hidden; height:0">
                             <p:outputLabel value="#{usuario.apellidoMaterno}"/>
                         </p:column>
-                        <p:column style=" font-size: 12px "
-                                  headerText="Oficina"
-
-                                  sortBy="#{usuario.idOficina.nombreOficina}"
-                                  filterBy="#{usuario.idOficina.nombreOficina}"
-                                  filterMatchMode="startsWith">
-                            <p:outputLabel value="#{usuario.idOficina.nombreOficina}"/>
-                        </p:column>
-                        <p:column style=" font-size: 12px "
-                                  headerText="Profesion"
-                                  filterBy="#{usuario.id_profesion.nombre_profesion}"
-                                  filterMatchMode="startsWith">
-                            <p:outputLabel value="#{usuario.id_profesion.nombre_profesion}"/>
-                        </p:column>
+                                               
                         <p:column 
-                            style=" font-size: 12px "
-                            width="70"
-                            headerText="Correo">
+                            style=" font-size: 13px "
+                            
+                            headerText="CORREO" 
+                            filterBy="#{usuario.correo}"
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0">
                             <p:outputLabel value="#{usuario.correo}"/>
                         </p:column>
-                        <p:column style=" font-size: 12px " 
-                                  width="60"
-                                  headerText="Nivel"
+                        <p:column style=" font-size: 13px " 
+                                  width="70"
+                                  headerText="NIVEL"
                                   sortBy="#{usuario.nivel}"
-                                  filterMatchMode="startsWith">
+                                  filterBy="#{usuario.nivel}"
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0">
                             <p:outputLabel value="#{usuario.nivel}"/>
                         </p:column>
-                        <p:column style=" font-size: 12px "
-                                  width="130"
+                        <p:column style=" font-size: 13px;text-transform: uppercase "
+                                  width="140"
                                   filterBy="#{usuario.estatus}" 
-                                  headerText="Estatus"
+                                  headerText="ESTATUS"
                                   filterMatchMode="equals"
-
+                                  
                                   >
-                            <f:facet name="filter">
+                                <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 8px ">
                                     <f:converter converterId="javax.faces.Boolean" />
                                     <f:selectItem itemLabel="Todos" itemValue="" />
@@ -127,29 +124,30 @@
                                     <f:selectItem itemLabel="Inac." itemValue="false" />
                                 </p:selectOneButton>
                             </f:facet>
-
                             <p:outputLabel value="#{usuario.estatus}">
                                 <f:converter converterId="conversionEstatus"/>
                             </p:outputLabel>
 
                         </p:column>
 
-                        <p:column style=" font-size: 12px "
-                                  width="60"
-                                  headerText="Tipo"
+                        <p:column style=" font-size: 13px "
+                                  width="80"
+                                  headerText="TIPO"
                                   sortBy="#{usuario.tipoBT}"
-                                  filterMatchMode="startsWith">
+                                  filterBy="#{usuario.tipoBT}"
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0">
                             <p:outputLabel value="#{usuario.tipoBT}"/>
                         </p:column>
                         <p:column
                             style=" font-size: 12px "
-                            headerText="Editar"
-                            width="50">
+                            headerText="EDITAR"
+                            width="60">
                             <p:commandLink class="fa fa-pencil" actionListener="#{usuarioBEAN.elegirDatoUsuario(usuario)}" oncomplete="PF('DatosUsuario').show();" update=":dialogoUsuario"/>
                         </p:column>
                         <p:column style=" font-size: 12px "
-                                  headerText="Baja"
-                                  width="70">
+                                  headerText="BAJA"
+                                  width="50">
                             <p:commandLink class="fa fa-trash" actionListener="#{usuarioBEAN.elegirDatoUsuarioBaja(usuario)}" update="tablaU"/>
                         </p:column>
                     </p:dataTable>

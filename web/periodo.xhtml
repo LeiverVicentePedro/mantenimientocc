@@ -16,10 +16,15 @@
                   
         <h:form id="formaExterior">                      
             <p:growl id="msj" showDetail="true" sticky="true"/>
+             <center>
+                        <p:separator style="visibility: hidden;"/> 
+                        <p:outputLabel value="Lista de Periodo" style="font-size: 25px;" />
+                    </center>
+                <p:separator/> 
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();"  actionListener="#{periodo_semestralBEAN.setAccion('Registrar')}" update=":dialogoDatos">
                 <f:ajax execute="#{periodo_semestralBEAN.listarPeriodo()}" render="data"/>
             </p:commandButton>
-            <p:separator/>
+           <p:separator style="visibility: hidden;"/> 
             <p:dataTable id="data" value="#{periodo_semestralBEAN.listaPeriodo}"
                          var="periodo" 
                          
@@ -37,7 +42,7 @@
                          emptyMessage="No hay elementos encontrados"
                          paginator="true" rows="5"
                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                         rowsPerPageTemplate="1,2,3,4,5">
+                         paginatorPosition="bottom">
                 
                           <f:facet name="header">
                                 <p:outputPanel class="text-right">
@@ -52,17 +57,14 @@
                 <p:column headerText="Periodo"
                           sortBy="#{periodo.periodo}"
                           filterBy="#{periodo.periodo}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 14px;text-transform: uppercase">
                     <p:outputLabel value="#{periodo.periodo}" style="text-transform: uppercase"/><!-- ES PARA MAYUSCULA style="text-transform: uppercase"  -->
                 </p:column>
-               <p:column headerText="Editar"
-                         width="60">
+               <p:column headerText="EDITAR"
+                         width="70" style=" font-size: 13px;">
                    <p:commandLink class="fa fa-pencil" actionListener="#{periodo_semestralBEAN.elegirDatoPeriodo(periodo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
-                </p:column>
-                
-                <p:column headerText="Eliminar"
-                          width="70">
-                    <p:commandLink class="fa fa-trash" actionListener="#{periodo_semestralBEAN.eliminarPeriodo(periodo)}" update="data"/>
                 </p:column>
             </p:dataTable>
         </h:form>

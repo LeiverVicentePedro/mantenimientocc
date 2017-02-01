@@ -28,10 +28,10 @@ public class ConversionEstatus implements Converter {
             estatus=String.valueOf(value);
           switch(estatus){
                 case "true":
-                    estatus="Activo";
+                    estatus="ACTIVO";
                     break;
                 case "false":
-                    estatus="Inactivo";
+                    estatus="INACTIVO";
                     break;
             }
             

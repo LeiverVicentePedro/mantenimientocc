@@ -16,11 +16,16 @@
                 <p:separator style="visibility: hidden;"/> 
                 <h:form id="formaExterior">              
                     <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <center>
+                      <p:separator style="visibility: hidden;"/> 
+                   <p:outputLabel value="Lista de Departamento" style="font-size: 25px;" />
+                    </center>
+                <p:separator/> 
                     <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{departamentoBEAN.setAccion('Registrar')}" update=":dialogoDatos" >
                         <f:ajax execute="#{departamentoBEAN.listarDepartamento()}" render="data" />
                     </p:commandButton>
                     
-                    <p:separator/>
+                    <p:separator style="visibility: hidden;"/> 
                     <p:dataTable id="data" value="#{departamentoBEAN.listadepartamento}" 
                                  var="departamento"
                                  
@@ -36,9 +41,9 @@
                                  filteredValue="#{departamentoBEAN.filterDepartamento}"
                                  
                                  emptyMessage="No hay elementos encontrados"
-                                  paginator="true" rows="5"
+                                  paginator="true" rows="10"
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                 rowsPerPageTemplate="1,2,3,4,5">
+                                 paginatorPosition="bottom">
                         
                                 <f:facet name="header">
                                 <p:outputPanel class="text-right">
@@ -53,34 +58,40 @@
                         <p:column headerText="Clave Departamento"
                                   sortBy="#{departamento.clave_departamento}" 
                                   filterBy="#{departamento.clave_departamento}"
-                                   filterMatchMode="startsWith">
+                                   filterMatchMode="startsWith"
+                                   filterStyle="visibility:hidden; height:0"
+                                   style=" font-size: 13px;text-transform: uppercase ">
                             
                             <h:outputText value="#{departamento.clave_departamento}"  />
                             
                         </p:column>
-                        <p:column headerText="Nombre de Departamento"
+                        <p:column headerText="NOMBRE DE DEPARTAMENTO"
                                   sortBy="#{departamento.nombre_departamento}"
                                   filterBy="#{departamento.nombre_departamento}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0"
+                                  style=" font-size: 13px;text-transform: uppercase ">
                             
                             <p:outputLabel value="#{departamento.nombre_departamento}" />
                         
                         </p:column>
-                        <p:column headerText="Area"
+                        <p:column headerText="ÁREA"
                                   sortBy="#{departamento.area.nombre_area}"
                                   filterBy="#{departamento.area.nombre_area}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0"
+                                  style=" font-size: 13px;text-transform: uppercase ">
                                   
                             <p:outputLabel value="#{departamento.area.nombre_area}" />
                         
                         </p:column>
-                        <p:column headerText="Estatus"
+                        <p:column headerText="ESTATUS"
                                   sortBy="#{departamento.estatus}"
                                   filterBy="#{departamento.estatus}"
-                                  filterMatchMode="equals">
+                                  filterMatchMode="equals" style=" font-size: 13px;text-transform: uppercase " width="160">
                             
                             <f:facet name="filter">
-                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 12px ">
+                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 9px ">
                                   <f:converter converterId="javax.faces.Boolean" />
                                       <f:selectItem itemLabel="Todos" itemValue="" />
                                       <f:selectItem itemLabel="Act." itemValue="true" />
@@ -92,12 +103,12 @@
                                  <f:converter converterId="conversionEstatus" />
                             </p:outputLabel>
                         </p:column>
-                        <p:column headerText="Editar"
-                                  width="60">
+                        <p:column headerText="EDITAR"
+                                  width="70" style="font-size: 13px ">
                             <p:commandLink class="fa fa-pencil" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                          </p:column>
-                         <p:column headerText="Baja"
-                                   width="70">
+                         <p:column headerText="BAJA"
+                                   width="70" style="font-size: 13px ">
                              <p:commandLink class="fa fa-trash" actionListener="#{departamentoBEAN.elegirDatoDepartamentoBaja(departamento)}" update="data"/>
                          </p:column>
                     </p:dataTable>
@@ -105,56 +116,58 @@
                 
                 
                 <p:dialog header="Datos Departamento" widgetVar="Datos" id="dialogoDatos" class="container-fluid"  modal="true" showEffect="fade" hideEffect="fade" resizable="false"> 
+                  
                     <h:form id="lista">
                         
                     <f:event id="event" type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
-                    
+                     
                     <p/>
-                    <p:outputLabel value="&nbsp;Clave Departamento&nbsp;&nbsp;"  />
+                    <h:panelGrid id="trabajoF" columns="1" columnClasses="grid" class="container-fluid  text-justify">
+                       <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
+                     
+                                <h:outputText value="Clave Departamento:" style="color: black;font-size:14px" />
                     <p:inputText value="#{departamentoBEAN.departamento.clave_departamento}" 
                                  required="true" requiredMessage="Se requiere Clave Departamento" 
-                                 style="text-transform: uppercase">
+                                 style="text-transform: uppercase;width:250px">
                         <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>    
                     </p:inputText>
-                    <p/>
-                    <p align="left">
-                    <p:outputLabel value="&nbsp;Nombre de Departamento &nbsp;"/>
+                    <br/><p:column/>
+                    
+                    
+                    <h:outputText value="Nombre de Departamento:" style="color: black;font-size:14px"/>
                     <p:inputText value="#{departamentoBEAN.departamento.nombre_departamento}" 
                                  required="true" requiredMessage="Se requiere Nombre de Departamento" 
-                                 style="text-transform: uppercase">
+                                 style="text-transform: uppercase;width:250px">
                         <f:validator validatorId="validadoresLetrasNumEspacioPuntoGuion"/>
                     </p:inputText>
-                    </p>
                    
-                   <p/>
-                    <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
-                    <style type="text/css">                                      
-                    .selectMenu { display: inline-block; vertical-align: top; }
-                    </style>
-                    
-                    <p:outputLabel value="&nbsp;Nombre de area&nbsp;"/>
+                    <br/><p:column/>
+                    <h:outputText value="Nombre de area:" style="color: black;font-size:14px"/>
                     <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter" 
                                      styleClass="selectMenu" required="true" requiredMessage="Se Requiere Area"
-                                     style="text-transform: uppercase">
+                                     style="text-transform: uppercase;height:30px;width:250px">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                             <f:selectItems value="#{areaBEAN.listaArea}" var="areaitem" itemLabel="#{areaitem.nombre_area}" itemValue="#{areaitem}"/>
                     </p:selectOneMenu> 
-                    <p/>
-                    <p:outputLabel value="&nbsp;Estatus&nbsp;" />
+                    <br/><p:column/>
+                    <h:outputText value="Estatus:" style="color: black;font-size:14px"/>
                     <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}" styleClass="selectMenu" 
                                      required="true" requiredMessage="Se Requiere un Estatus" 
-                                     style="text-transform: uppercase"> 
+                                     style="text-transform: uppercase" > 
                     
                         <f:selectItem itemLabel="Activo" itemValue="true" />
                         <f:selectItem itemLabel="Inactivo" itemValue="false"/>
                     </p:selectOneMenu>
+                    
+                    
+                            </h:panelGrid>
+                    </h:panelGrid>
                     <p/>
                     <center>
                     <p:commandButton value="#{departamentoBEAN.accion}" actionListener="#{departamentoBEAN.operarDepartamento()}" oncomplete="PF('Datos').hide();" update=":formaExterior"/>
                     
                     <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                     </center>
-                    <p/>
                     </h:form>
                 </p:dialog>
 

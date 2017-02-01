@@ -154,7 +154,7 @@ public class Catalogo_servicio_solicitadoBEAN  implements Serializable{
         
     }
     
-     
+     /*
     public void eliminarCatalogo(Catalogo_servicio_solicitado catalogoEliminar) throws Exception{
         Catalogo_servicio_solicitadoDAO catalogodao;
             try{
@@ -168,13 +168,38 @@ public class Catalogo_servicio_solicitadoBEAN  implements Serializable{
             }
             
             
-    } 
+    } */
     
-    public void listarCatalogoPorServicio(){
+     public void elegirDatoCatalogoBaja(Catalogo_servicio_solicitado catalogoElegirDato) throws Exception{//esto es para dar de baja primero se elige el dato y despues se pone en inactivo
+        Catalogo_servicio_solicitadoDAO catalogodao;
+        Catalogo_servicio_solicitado catalogoTemporal;
+        try{
+            catalogodao= new Catalogo_servicio_solicitadoDAO();
+            catalogoTemporal=catalogodao.elegirDatoCatalogo(catalogoElegirDato);
+            
+            if(catalogoTemporal != null){
+                this.catalogo = catalogoTemporal;
+            }
+            this.bajaOficina();//se manda a llamar al metodo dar de baja para q se modifique el estatus por INACTIVO
+            this.listarCatalogo();//para actualizar la tabla y se vea reflejado el cambio de estatus
+            }
+        catch (Exception e){
+            throw e;
+        }
         
     }
-    
-    
-    
+     public void bajaOficina() throws Exception{
+        Catalogo_servicio_solicitadoDAO catalogodao;
+            try{
+                catalogodao= new Catalogo_servicio_solicitadoDAO();
+                catalogo.setEstatus(false);
+                catalogodao.modificarCatalogo(catalogo);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+    } 
+ 
     
 }

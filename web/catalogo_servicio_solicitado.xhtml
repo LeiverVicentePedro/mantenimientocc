@@ -15,10 +15,15 @@
                 
         <h:form id="formaExterior">                      
               <p:growl id="msj" showDetail="true" sticky="true"/>
+              <center>
+                        <p:separator style="visibility: hidden;"/> 
+                        <p:outputLabel value="Lista de Catalogo de Servicios Solicitado" style="font-size: 25px;" />
+                    </center>
+                <p:separator/>
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();"  actionListener="#{catalogo_servicio_solicitadoBEAN.setAccion('Registrar')}" update=":dialogoDatos">
                 <f:ajax execute="#{catalogo_servicio_solicitadoBEAN.listarCatalogo()}" render="data"/>
             </p:commandButton>
-            <p:separator/>
+            <p:separator style="visibility: hidden;"/> 
             <p:dataTable id="data" value="#{catalogo_servicio_solicitadoBEAN.catalogoLista}"
                          var="catalogo"
                          
@@ -34,9 +39,9 @@
                                  filteredValue="#{catalogo_servicio_solicitadoBEAN.filterCatalogo}"
                          
                          emptyMessage="No hay elementos encontrados"
-                                  paginator="true" rows="5"
+                                  paginator="true" rows="10"
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                 rowsPerPageTemplate="1,2,3,4,5">
+                                 paginatorPosition="bottom">
                 
                 
                          <f:facet name="header">
@@ -51,7 +56,8 @@
                 <p:column headerText="Nombre de Servicio Solicitado"
                           sortBy="#{catalogo.servicio_solicitado}"
                           filterBy="#{catalogo.servicio_solicitado}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase ">
                     
                     <p:outputLabel value="#{catalogo.servicio_solicitado}" style="text-transform: uppercase"/><!-- ES PARA MAYUSCULA style="text-transform: uppercase"  -->
                 
@@ -59,22 +65,43 @@
                 <p:column headerText="Departamento"
                           sortBy="#{catalogo.departamento.nombre_departamento}"
                           filterBy="#{catalogo.departamento.nombre_departamento}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase ">
                     
                     <p:outputLabel value="#{catalogo.departamento.nombre_departamento}" style="text-transform: uppercase"/>
                
                 </p:column>
+                 <p:column headerText="ESTATUS"
+                                  sortBy="#{catalogo.estatus}"
+                                  filterBy="#{catalogo.estatus}"
+                                  filterMatchMode="equals" style="font-size: 13px" width="140">
+                            
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 9px ">
+                                  <f:converter converterId="javax.faces.Boolean" />
+                                      <f:selectItem itemLabel="Todos" itemValue="" />
+                                      <f:selectItem itemLabel="Act." itemValue="true" />
+                                      <f:selectItem itemLabel="Inac." itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            
+                                                        
+                            <p:outputLabel value="#{catalogo.estatus}" >
+                                 <f:converter converterId="conversionEstatus"/>
+                            </p:outputLabel>
+                        </p:column>
                 
                 
                 
-                <p:column headerText="Editar"
-                          width="60">
+                <p:column headerText="EDITAR"
+                          width="70" style=" font-size: 13px ">
                     <p:commandLink class="fa fa-pencil" actionListener="#{catalogo_servicio_solicitadoBEAN.elegirDatoCatalogo(catalogo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                 </p:column>
                 
-                <p:column headerText="Eliminar"
+                <p:column headerText="BAJA"
                           width="70">
-                    <p:commandLink class="fa fa-trash" actionListener="#{catalogo_servicio_solicitadoBEAN.eliminarCatalogo(catalogo)}" update="data"/>
+                    <p:commandLink class="fa fa-trash" actionListener="#{catalogo_servicio_solicitadoBEAN.elegirDatoCatalogoBaja(catalogo)}" update="data"/>
                 </p:column>
                 
             </p:dataTable>
@@ -84,25 +111,32 @@
             <h:form>
                 <f:event type="preRenderView" listener="#{departamentoBEAN.listaDepartamentoServicio()}"/>
                 <p/>
-                 <p:outputLabel for="txtNombre" value="Nombre de Servicio"/>
+                 <h:panelGrid id="trabajoF" columns="1" columnClasses="grid" class="container-fluid  text-justify">
+                       <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
+                 <h:outputText value="Nombre de Servicio" style="color: black;font-size:14px"/>
                  <p:inputText id="txtNombre" value="#{catalogo_servicio_solicitadoBEAN.catalogo.servicio_solicitado}" 
-                              required="true" requiredMessage="Se requiere Nombre de Servicio" style="text-transform: uppercase">
+                              required="true" requiredMessage="Se requiere Nombre de Servicio" style="text-transform: uppercase;;width:350px">
                      <f:validator validatorId="validadoresCatalogo"/>
                  </p:inputText>
-                 <p/>
-                  <!-- el style es para poder alinear correctamente el selectOneMenu -->
-                    <style type="text/css">                                      
-                    .selectMenu { display: inline-block; vertical-align: top; }
-                    </style>
-                     <p:outputLabel value="&nbsp;Nombre de departamento&nbsp;"/>
+                 <br/><p:column/>
+                     <h:outputText value="Nombre de departamento:" style="color: black;font-size:14px"/>
                      <p:selectOneMenu value="#{catalogo_servicio_solicitadoBEAN.catalogo.departamento}" converter="omnifaces.SelectItemsConverter" 
                                       styleClass="selectMenu" required="true" requiredMessage="Seleccione un Departamento" 
-                                      style="text-transform: uppercase">
+                                      style="text-transform: uppercase;width:350px">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                             <f:selectItems value="#{departamentoBEAN.listadepartamentoServicio}" var="departamentoitem" itemLabel="#{departamentoitem.nombre_departamento}" itemValue="#{departamentoitem}"/>
                         </p:selectOneMenu> 
-                 
-                <p/>
+                     <br/><p:column/>
+                      <h:outputText value="Estatus:" style="color: black;font-size:14px"/>
+                    <p:selectOneMenu value="#{catalogo_servicio_solicitadoBEAN.catalogo.estatus}" required="true" 
+                                     requiredMessage=" Se necesita un Estatus" styleClass="selectMenu"
+                                     style="text-transform: uppercase">
+                        <f:selectItem itemLabel="Activo" itemValue="true"/>
+                        <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+                    </p:selectOneMenu>
+                       </h:panelGrid>
+                 </h:panelGrid>
+                <br/>
                 <center>
                  <p:commandButton value="#{catalogo_servicio_solicitadoBEAN.accion}" actionListener="#{catalogo_servicio_solicitadoBEAN.operarCatalogo()}" oncomplete="PF('Datos').hide();" update=":formaExterior" />
                  <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />

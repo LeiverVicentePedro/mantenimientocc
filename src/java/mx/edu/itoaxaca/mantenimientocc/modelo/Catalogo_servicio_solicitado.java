@@ -16,7 +16,18 @@ public class Catalogo_servicio_solicitado implements Serializable{
     private int idcatalogo_servicio_solicitado;
     private String servicio_solicitado;
     private Departamento departamento;
+    private Boolean estatus;
 
+    public Boolean getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(Boolean estatus) {
+        this.estatus = estatus;
+    }
+    
+
+    
     public int getIdcatalogo_servicio_solicitado() {
         return idcatalogo_servicio_solicitado;
     }

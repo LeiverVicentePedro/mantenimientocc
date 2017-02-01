@@ -17,11 +17,12 @@
 
                 <p:dialog header="Datos de Equipo" widgetVar="DatosEquipo" id="dialogoDatosEquipo" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
                     <h:form id="formaExteriorUno"> 
-
+                       
+                        <p/>
                         <p:commandButton value="Nuevo Equipo" oncomplete="PF('DatosUno').show();" actionListener="#{equipoBEAN.setAccion('Registrar')}" update=":dialogoDatosUno" >         
                             <f:ajax execute="#{equipoBEAN.listarEquipoOrdenInterna()}" render="dataUno" />
                         </p:commandButton>
-
+                        <p/>
                         <p:dataTable id="dataUno" var="equipo" value="#{equipoBEAN.listaEquipoOrdenIn}"  selection="#{orden_internaBEAN.listaEquipo}" rowKey="#{equipo.idequipo}"
 
                                      style="font-size: 14px;"
@@ -37,11 +38,10 @@
                                      emptyMessage="No hay elementos encontrados"
                                      paginator="true" rows="5"
                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                     rowsPerPageTemplate="1,2,3,4,5">
+                                     paginatorPosition="bottom">
 
 
                             <f:facet name="header">
-                                <h:outputText value="Equipos" style="font-size: 15px"/> 
                                 <p:outputPanel class="text-right">
                                     <h:outputText value="Buscar:" />
                                     <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
@@ -51,56 +51,68 @@
                             </f:facet>
 
                             <p:ajax event="rowSelectCheckbox" listener="#{orden_internaBEAN.check}"   />
+                            <p:columnGroup type="header" > 
+                                <p:row> 
+                                    <p:column width="20"></p:column>
+                                <p:column headerText="Tipo" 
+                          sortBy="#{equipo.tipo}" 
+                          filterBy="#{equipo.tipo}"
+                          filterMatchMode="startsWith"
+                          width="170"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase "> </p:column>
+                <p:column headerText="Marca" 
+                          sortBy="#{equipo.marca}" 
+                          filterBy="#{equipo.marca}"
+                          filterMatchMode="startsWith"
+                          width="140"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase "> </p:column>
+                
+                <p:column headerText="Modelo" 
+                          sortBy="#{equipo.modelo}" 
+                          filterBy="#{equipo.modelo}"
+                          filterMatchMode="startsWith"
+                          width="140"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase "></p:column>
+                
+                <p:column headerText="#SERIE" 
+                          sortBy="#{equipo.numero_serie}" 
+                          filterBy="#{equipo.numero_serie}"
+                          filterMatchMode="startsWith"
+                          width="150" 
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;"></p:column>
+                
+                <p:column headerText="FOLIO INVENTARIO" 
+                          sortBy="#{equipo.folio_inventario}" 
+                          filterBy="#{equipo.folio_inventario}"
+                          filterMatchMode="startsWith"
+                         width="150" filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;"></p:column>
+                                </p:row> 
+                            </p:columnGroup><!-- ESTO ES PARA QUITAR EL SELECCIONAR TODOS LOS CAMPOS el cuadrito del header -->
                             <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
-                            <p:column headerText="Tipo" 
-                                      sortBy="#{equipo.tipo}" 
-                                      filterBy="#{equipo.tipo}"
-                                      filterMatchMode="startsWith"
-                                      width="170">
-
-                                <h:outputText value="#{equipo.tipo}" />
-
-                            </p:column>
-                            <p:column headerText="Marca" 
-                                      sortBy="#{equipo.marca}" 
-                                      filterBy="#{equipo.marca}"
-                                      filterMatchMode="startsWith"
-                                      width="170">
-
-                                <h:outputText value="#{equipo.marca}" />
-
-                            </p:column>
-
-                            <p:column headerText="Modelo" 
-                                      sortBy="#{equipo.modelo}" 
-                                      filterBy="#{equipo.modelo}"
-                                      filterMatchMode="startsWith"
-                                      width="170">
-
-                                <h:outputText value="#{equipo.modelo}" />
-
-                            </p:column>
-
-                            <p:column headerText="#Serie" 
-                                      sortBy="#{equipo.numero_serie}" 
-                                      filterBy="#{equipo.numero_serie}"
-                                      filterMatchMode="startsWith"
-                                      width="150" >
-
-                                <h:outputText value="#{equipo.numero_serie}" />
-
-                            </p:column>
-
-                            <p:column headerText="FolioInventario" 
-                                      sortBy="#{equipo.folio_inventario}" 
-                                      filterBy="#{equipo.folio_inventario}"
-                                      filterMatchMode="startsWith"
-                                      width="170">
-
-                                <h:outputText value="#{equipo.folio_inventario}" />
-
-                            </p:column>
-
+                            <p:column> <h:outputText value="#{equipo.tipo}" /> </p:column>
+                <p:column><h:outputText value="#{equipo.marca}" />
+                </p:column>
+                
+                <p:column >
+                    <h:outputText value="#{equipo.modelo}" />
+                </p:column>
+                
+                <p:column >
+                    <h:outputText value="#{equipo.numero_serie}" />
+                </p:column>
+                
+                <p:column>
+                    
+                    <h:outputText value="#{equipo.folio_inventario}" />
+                   
+                </p:column>
+                            
+                             
                            
                             <f:facet name="footer">
                                 <p:commandButton process="dataUno" value="Aceptar" oncomplete="PF('DatosEquipo').hide();" update=":formOrden:display" />
@@ -208,12 +220,13 @@
                             <h:column/>
                             
                              <p:outputLabel value="Se recibe con: "/>
-                             <p:inputText value="#{orden_internaBEAN.orden_interna.se_recibe}" placeholder="Detalles de Recepción" style="width:220px"/>  
+                             <p:inputText value="#{orden_internaBEAN.orden_interna.se_recibe}" placeholder="Detalles de Recepción" style="width:220px" required="true" 
+                                          requiredMessage="Se requiere campo -Se recibe con-"/>  
                             <h:column/>
                             <p/>
                             <p:outputLabel value="Seleccione Equipo en servicio: "/>
                             
-                            <p:commandButton value="Equipo" oncomplete="PF('DatosEquipo').show();" update=":dialogoDatosEquipo" />  
+                            <p:commandButton value="Equipo" oncomplete="PF('DatosEquipo').show();" update=":dialogoDatosEquipo"  />  
                             
                             <p:outputLabel value="Equipo seleccionado: "/>
                             <p:outputPanel id="display" style="width:240px;padding-left:5px;margin-top:10px" >
@@ -250,60 +263,57 @@
                 <!-- Dialogo del equipo para registrar equipo nuevo-->    
                 <p:dialog header="Datos de Equipo" widgetVar="DatosUno" id="dialogoDatosUno"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <h:form>
-
-                        <p/>
-                        <p:outputLabel  value="&nbsp;Tipo&nbsp;"/>
-                        <p:inputText  value="#{equipoBEAN.equipo.tipo}" 
-                                      required="true" requiredMessage="Se requiere Tipo" 
-                                      style="text-transform: uppercase">
-                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                        </p:inputText>
-
-                        <p/>
-                        <p:outputLabel  value="&nbsp;Marca&nbsp;"/>
-                        <p:inputText  value="#{equipoBEAN.equipo.marca}" 
-                                      required="true" requiredMessage="Se requiere Marca" 
-                                      style="text-transform: uppercase">
-                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                        </p:inputText>
-
-                        <p/>
-                        <p:outputLabel  value="&nbsp;Modelo&nbsp;"/>
-                        <p:inputText  value="#{equipoBEAN.equipo.modelo}" 
-                                      required="true" requiredMessage="Se requiere Modelo" 
-                                      style="text-transform: uppercase">
-                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                        </p:inputText>
-
-                        <p/>
-                        <p:outputLabel value="&nbsp;Num.Serie&nbsp;"/>
-                        <p:inputText  value="#{equipoBEAN.equipo.numero_serie}" 
-                                      required="true" requiredMessage="Se requiere Num.Serie" 
-                                      style="text-transform: uppercase">
-                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                        </p:inputText>
-                        <p/>
-                        <p:outputLabel value="&nbsp;Folio Inventario&nbsp;" />
-                        <p:inputText value="#{equipoBEAN.equipo.folio_inventario}" required="true" 
-                                     requiredMessage="Se necesita un Folio de Inventario"
-                                     style="text-transform: uppercase">
-                            <f:validator validatorId="validadoresNumeros"/>
-                        </p:inputText>
-                        <p/>
-                         <!-- el style es para poder alinear correctamente el selectOneMenu Estatus-->
-            <style type="text/css">                                      
-            .selectMenu { display: inline-block; vertical-align: top; }
-            </style>
-            <p/>
-            <p:outputLabel value="&nbsp; Estatus&nbsp;"/> <!-- &nbsp; --><!--sirve para dar espacio -->
+                           
+                <p/>
+                <h:panelGrid id="trabajoF" columns="2" columnClasses="grid,grid" class="container-fluid  text-justify">
+                       <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
+                 <h:outputText  value="Tipo:" style="color: black;font-size:14px"/>
+                 <p:inputText  value="#{equipoBEAN.equipo.tipo}" 
+                              required="true" requiredMessage="Se requiere Tipo" 
+                              style="text-transform: uppercase" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 
+                 <br/><p:column/>
+                 <h:outputText  value="Marca:" style="color: black;font-size:14px"/>
+                 <p:inputText  value="#{equipoBEAN.equipo.marca}" 
+                              required="true" requiredMessage="Se requiere Marca" 
+                              style="text-transform: uppercase">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 
+                 <br/><p:column/>
+                 <h:outputText  value="Modelo:" style="color: black;font-size:14px"/>
+                 <p:inputText  value="#{equipoBEAN.equipo.modelo}" 
+                              required="true" requiredMessage="Se requiere Modelo" 
+                              style="text-transform: uppercase">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                       </h:panelGrid>
+                  <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
+                 <br/><p:column/>
+                 <h:outputText value="Num.Serie:" style="color: black;font-size:14px"/>
+                 <p:inputText  value="#{equipoBEAN.equipo.numero_serie}" 
+                              required="true" requiredMessage="Se requiere Num.Serie" 
+                              style="text-transform: uppercase">
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 <br/><p:column/>
+                 <h:outputText value="Folio Inventario:" style="color: black;font-size:14px" />
+                 <p:inputText value="#{equipoBEAN.equipo.folio_inventario}" required="true" 
+                                 requiredMessage="Se necesita un Folio de Inventario"
+                                 style="text-transform: uppercase">
+                        <f:validator validatorId="validadoresNumeros"/>
+                 </p:inputText>
+                 <br/><p:column/>
+           
             <p:selectOneMenu value="#{equipoBEAN.equipo.estatus}" styleClass="selectMenu" 
-                             style="text-transform: uppercase">
+                             style="text-transform: uppercase" >
                 <f:selectItem itemLabel="Activo" itemValue="true"/>
-                <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+                
             </p:selectOneMenu>
-
-                        <p/>
-
+                       </h:panelGrid>
+                </h:panelGrid>
 
                         <center>
                             <p:commandButton value="#{equipoBEAN.accion}" actionListener="#{equipoBEAN.operarEquipo()}" oncomplete="PF('DatosUno').hide();" update=":formaExteriorUno" />
