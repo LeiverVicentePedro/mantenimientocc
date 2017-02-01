@@ -6,6 +6,7 @@
 package mx.edu.itoaxaca.mantenimientocc.dao;
 
 
+import java.io.FileInputStream;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,6 +46,27 @@ public class DetalleSeguimientoDAO extends Conexion {
             this.Cerrar();
         }
     }
+    /*insercion para cuando no hay refacciones unicamente*/
+     public void registrarDetalleSeguimientoEnOrdenInterna(DetalleSeguimiento detalleseguimiento,FileInputStream imagen) throws Exception {
+
+        try {
+            this.Conectar();
+            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO detalle_seguimiento (estado, descripcion,  imagen, id_seguimiento, fecha ) values(?,?,?,?,?)");
+            inserta.setString(1, detalleseguimiento.getEstado());
+            inserta.setString(2, detalleseguimiento.getDescripcion());
+            inserta.setBinaryStream(3, imagen);//para valor a imagen
+            inserta.setInt(4, detalleseguimiento.getId_seguimiento().getIdseguimiento());
+            inserta.setDate(5, (Date) detalleseguimiento.getFecha());
+
+            inserta.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("error en DetalleSeguimiento DAO -->RegistrarDetalleSeguimientoEnOrdenInterna" + "/n" + e);
+        } finally {
+            this.Cerrar();
+        }
+    }
+    /*fon del metodo para cuando no hay refaccion*/
         public List<DetalleSeguimiento> listarDetalleSeguimiento() throws Exception{//uso unico para la vista Area
      List<DetalleSeguimiento> lista;
         ResultSet resultadoset;

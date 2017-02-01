@@ -234,7 +234,12 @@
                             </p:outputPanel>
                             <p:column/><p:column/><p:column/>
                             <p:commandButton value="Remover Refaccion" action="#{orden_internaBEAN.limpiaListaRefaccion()}" update="formOrden:displayRefaccion"/>
-                            
+                            <p:separator style="visibility: hidden"/><p:column/><p:column/><p:column/>
+                            <p:column/>
+                            <p:outputLabel value="NOTA: Si el Servicio se detuvo por falta de refaccion apuntar el motivo en el campo sogiente"/>
+                            <p:column/><p:column/>
+                            <p:column/>
+                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.refaccion_faltante}" placeholder="Describa Motivo de falta de refaccion." rows="2" cols="50" counter="reporteTecnico" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false"/>
                         </h:panelGrid>
                     </p:panel>
                     <p:separator style="visibility: hidden;"/>
@@ -301,10 +306,7 @@
                 <f:selectItem itemLabel="Activo" itemValue="true"/>
                 <f:selectItem itemLabel="Inactivo" itemValue="false"/>
             </p:selectOneMenu>
-
                         <p/>
-
-
                         <center>
                             <p:commandButton value="#{equipoBEAN.accion}" actionListener="#{equipoBEAN.operarEquipo()}" oncomplete="PF('DatosUno').hide();" update=":formaExteriorUno" />
                             <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('DatosUno').hide();" actionListener="#{equipoBEAN.limpiarEquipo()}" />

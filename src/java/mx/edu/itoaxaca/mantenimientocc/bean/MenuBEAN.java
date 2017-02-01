@@ -33,7 +33,7 @@ public class MenuBEAN implements Serializable {
         Usuario usuarioActivo = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         try {
             listaMenu = menuDao.listarMenuPorUsuario(usuarioActivo.getNivel());//lista con los elementos del menu
-            if (usuarioActivo.getIdOficina().getDepartamento().getClave_departamento().equalsIgnoreCase("cc")) {
+            if (usuarioActivo.getIdOficina().getDepartamento().getClave_departamento().equalsIgnoreCase("DCC")) {
                 for (Menu menu : listaMenu) {//primer for que generara el menu principal
                     if (menu.getId_elemento_menu().getTipo_menu().equalsIgnoreCase("submenu") && menu.getId_elemento_menu().getCodigo_submenu() == 0) {//condicion que comprueba si es un submenu principal
                         DefaultSubMenu subMenuPrincipal = new DefaultSubMenu(menu.getId_elemento_menu().getNombre());

@@ -135,7 +135,7 @@
                         <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}"
                                      type="password" required="true" requiredMessage="Contraseña Requerida" label="Contraseña:" style="width:250px">
                             <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
-                            <p:ajax event="blur" listener="#{usuarioBEAN.validaContraseña()}" update="validaContraseña"/>
+                            <p:ajax event="blur" update="validaContraseña"/>
                         </p:inputText>
                         <p:column/>
                          <p:column><br/> </p:column>

@@ -23,7 +23,8 @@ public class Orden_interna {
     private String reporte_tecnico;
     private String posible_causa;
     private String se_recibe;
-
+    private String refaccion_faltante;
+    
     public String getSe_recibe() {
         return se_recibe;
     }
@@ -107,6 +108,15 @@ public class Orden_interna {
         this.posible_causa = posible_causa;
     }
 
+    public String getRefaccion_faltante() {
+        return refaccion_faltante;
+    }
+
+    public void setRefaccion_faltante(String refaccion_faltante) {
+        this.refaccion_faltante = refaccion_faltante;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
