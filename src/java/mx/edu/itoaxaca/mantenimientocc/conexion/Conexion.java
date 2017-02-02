@@ -37,7 +37,7 @@ public class Conexion {
      
      //conexion= DriverManager.getConnection(servidor,usuarioDB,passwordDB);
         }
-     catch(SQLException ex){
+     catch(Exception ex){
         System.out.println("Error de Conexion" +ex+" ==============================");
         throw ex;
     }
