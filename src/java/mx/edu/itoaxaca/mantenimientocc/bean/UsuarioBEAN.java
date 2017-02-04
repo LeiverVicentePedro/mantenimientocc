@@ -232,6 +232,7 @@ public class UsuarioBEAN implements Serializable{
            registroUsuarioNuevo.setNivel(1);
            registroUsuarioNuevo.setTipoBT("Base");
             registroUsuarioNuevo.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
+            this.modificarUsuarioRFC();
             if (confirmacionContraseña.equals(registroUsuarioNuevo.getClave())) {
                 usuarioDao.registrarUsuario(registroUsuarioNuevo);
                 setMensajeClaseUsuario("Usuario Registrado");
@@ -446,6 +447,15 @@ public class UsuarioBEAN implements Serializable{
             objetoUsuario.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             usuariodao.modificarUsuario(objetoUsuario);
             this.listaUsuarioDepartameto();
+        } catch (Exception ex) {
+
+        }
+    }
+    public void modificarUsuarioRFC() {
+        UsuarioDAO usuariodao;
+        try {
+            usuariodao = new UsuarioDAO();
+            usuariodao.modificarUsuarioRFC(objetoUsuario);
         } catch (Exception ex) {
 
         }

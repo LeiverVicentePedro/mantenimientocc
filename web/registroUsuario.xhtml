@@ -25,7 +25,7 @@
         <div class="container text-center" style="margin-top: 2em">
            
 
-            <h:form>
+            <h:form >
                  <p:growl id="mensaje" sticky="true" showDetail="true"/>
                 <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
                 <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
@@ -64,8 +64,44 @@
                                      requiredMessage="Apellido Materno Requerido" style="text-transform: uppercase" label="Apellido Materno">
                             <f:validator validatorId="validadoresLetrasUsuario"/>
                         </p:inputText>
-                            <p:column><br/> </p:column><p:column><br/> </p:column>
-                       
+                            <p:column><br/> </p:column>
+                            <script>
+
+
+        PrimeFaces.locales['es'] = {
+                closeText: 'Cerrar',
+                prevText: 'Anterior',
+                nextText: 'Siguiente',
+                monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+                dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+                dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                dayNamesMin: ['D','L','M','M','J','V','S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Sólo hora',
+                timeText: 'Tiempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                currentText: 'Fecha actual',
+                ampm: false,
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText : 'Todo el día'
+        };
+       
+        </script>
+                        <h:outputText value="Fecha Nacimiento:" style="color: black;font-size:14px"/>
+                        <p:calendar id="calendario" value="#{usuarioBEAN.registroUsuarioNuevo.fecha_nacimiento}" yearRange="c-117: c + 10" pattern="dd/MM/yyyy"  locale="es" required="true" onkeypress="return permite(event, 'none')" requiredMessage="Fecha de Nacimiento Requerido" navigator="true" effect="fadeIn" effectDuration="100">
+        
+                        </p:calendar>
+                        <p:column><br/> </p:column><p:column><br/> </p:column>
+                        
                     </h:panelGrid>
                     
                 </p:panel>
