@@ -36,10 +36,19 @@ import net.sf.jasperreports.engine.JasperPrint;
 public class Orden_trabajoBEAN implements Serializable{
     
      private Orden_trabajo orden_trabajo=new Orden_trabajo();
-     
+     private List<Orden_trabajo> filterOrdenTrabajo;
     private List<Orden_trabajo> listaOrden_trabajo;
     Solicitud_mc solicitudOT;
 
+    public List<Orden_trabajo> getFilterOrdenTrabajo() {
+        return filterOrdenTrabajo;
+    }
+
+    public void setFilterOrdenTrabajo(List<Orden_trabajo> filterOrdenTrabajo) {
+        this.filterOrdenTrabajo = filterOrdenTrabajo;
+    }
+
+    
     public Solicitud_mc getSolicitudOT() {
         return solicitudOT;
     }
@@ -179,7 +188,20 @@ public class Orden_trabajoBEAN implements Serializable{
         orden_trabajo.setId_solicitudmc(null);*/
         
         
-    }        
+    } 
+
+//Metodo ´para listar 
+    
+    public void listarOrden_trabajo() throws Exception{
+       Orden_trabajoDAO orden_trabajodao;
+        try{
+            orden_trabajodao=new Orden_trabajoDAO();
+            listaOrden_trabajo = orden_trabajodao.listarOrden_trabajo();
+        }
+        catch(Exception e){
+            System.out.println("error en orden_trabajoBEAN --> listarorden TrabajoBEAN"+e);
+        }
+    }       
     
     
 }
