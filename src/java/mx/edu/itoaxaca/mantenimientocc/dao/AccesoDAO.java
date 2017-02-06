@@ -39,6 +39,7 @@ public class AccesoDAO extends Conexion {
                 usuario.setClave(resultado.getString("clave"));
                 usuario.setEstatus(resultado.getBoolean("estatus"));
                 usuario.setIdOficina(new Oficina_solicitanteDAO().buscarOficina(resultado.getInt("id_oficina")));
+                usuario.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
                 resultado.close();
             }else{
                 System.out.println("Esta vacio el objeto ");

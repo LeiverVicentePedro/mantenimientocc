@@ -6,6 +6,7 @@
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 
@@ -28,6 +29,16 @@ public class Usuario implements Serializable{
     private String tipoBT;
     private Boolean estatus;
     private String concatenar;
+    private Date fecha_nacimiento;
+
+    public Date getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+    
 
     
     public String getConcatenar() {
@@ -108,7 +119,7 @@ public class Usuario implements Serializable{
     }
 
     public void setRfc(String rfc) {
-        this.rfc = rfc;
+        this.rfc = rfc.toUpperCase();
     }
 
     public Profesion getId_profesion() {

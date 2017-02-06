@@ -12,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.dao.AccesoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
+import mx.edu.itoaxaca.mantenimientocc.validacion.ValidacionMantenimientoRFC;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -84,6 +85,7 @@ public class AccesoBEAN implements Serializable{
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioBean);
                 setMensajeAcceso("Bienvenido");
                 setRedireccion("principal.xhtml");
+                
             } else {
                 setMensajeAcceso("Credenciales incorrectos");
                 FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", mensajeAcceso);

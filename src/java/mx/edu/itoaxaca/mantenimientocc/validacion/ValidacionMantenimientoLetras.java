@@ -46,8 +46,6 @@ public class ValidacionMantenimientoLetras implements Validator {
             throw new ValidatorException(mensaje);
         }
        }
-    
-    
 }
 
 

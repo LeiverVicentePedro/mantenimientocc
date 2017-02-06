@@ -5,6 +5,7 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class UsuarioDAO extends Conexion{
     {
         try{
             this.Conectar();
-            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO usuario (nombre, apellido_materno, apellido_paterno,correo, clave, nivel,id_oficina, rfc, id_profesion, tipo_bt, estatus)"
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO usuario (nombre, apellido_materno, apellido_paterno,correo, clave, nivel,id_oficina, rfc, id_profesion, tipo_bt, estatus, fecha_nacimiento)"
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             inserta.setString(1,usuarioRegistrar.getNombre());
             inserta.setString(2, usuarioRegistrar.getApellidoMaterno());
             inserta.setString(3, usuarioRegistrar.getApellidoPaterno());
@@ -35,6 +36,7 @@ public class UsuarioDAO extends Conexion{
             inserta.setInt(9, usuarioRegistrar.getId_profesion().getIdprofesion());
             inserta.setString(10, usuarioRegistrar.getTipoBT());
             inserta.setBoolean(11, usuarioRegistrar.getEstatus());
+            inserta.setDate(12, (Date) usuarioRegistrar.getFecha_nacimiento());
             
             inserta.executeUpdate();
             
@@ -67,6 +69,7 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
+            usuarioUnico.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
             usuarioUnico.setConcatenar();
             }
             resultado.close();
@@ -100,6 +103,7 @@ public class UsuarioDAO extends Conexion{
             usuario.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuario.setTipoBT(resultado.getString("tipo_bt"));
             usuario.setEstatus(resultado.getBoolean("estatus"));
+            usuario.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
             usuario.setConcatenar();
             }
             
@@ -131,6 +135,7 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
+            usuarioUnico.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
             usuarioUnico.setConcatenar();
             
             }
@@ -170,6 +175,7 @@ public class UsuarioDAO extends Conexion{
             usuarioParaLista.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioParaLista.setTipoBT(resultado.getString("tipo_bt"));
             usuarioParaLista.setEstatus(resultado.getBoolean("estatus"));
+            usuarioParaLista.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
             usuarioParaLista.setConcatenar();
             
             listaUsuarioDepartamento.add(usuarioParaLista);
@@ -212,6 +218,7 @@ public class UsuarioDAO extends Conexion{
             usuarioParaLista.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioParaLista.setTipoBT(resultado.getString("tipo_bt"));
             usuarioParaLista.setEstatus(resultado.getBoolean("estatus"));
+            usuarioParaLista.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
             usuarioParaLista.setConcatenar();
             
             listaUsuarioDepartamento.add(usuarioParaLista);
@@ -231,7 +238,7 @@ public class UsuarioDAO extends Conexion{
     public void modificarUsuario(Usuario usuario) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareStatement("UPDATE usuario SET  rfc=?, nombre=?, apellido_paterno=?, apellido_materno=?, correo=?, clave=?, nivel=?, id_oficina=?, id_profesion=?, tipo_bt=?, estatus=? WHERE idusuario=?");
+            PreparedStatement consulta = this.getConexion().prepareStatement("UPDATE usuario SET  rfc=?, nombre=?, apellido_paterno=?, apellido_materno=?, correo=?, clave=?, nivel=?, id_oficina=?, id_profesion=?, tipo_bt=?, estatus=?, fecha_nacimiento=? WHERE idusuario=?");
             consulta.setString(1, usuario.getRfc());
             consulta.setString(2, usuario.getNombre());
             consulta.setString(3, usuario.getApellidoPaterno());
@@ -243,10 +250,23 @@ public class UsuarioDAO extends Conexion{
             consulta.setInt(9, usuario.getId_profesion().getIdprofesion());
             consulta.setString(10, usuario.getTipoBT());
             consulta.setBoolean(11, usuario.getEstatus());
-            consulta.setInt(12, usuario.getIdUsuario());
+            consulta.setDate(12, (Date) usuario.getFecha_nacimiento());
+            consulta.setInt(13, usuario.getIdUsuario());
             consulta.executeUpdate();
         }catch(Exception ex){
             System.out.println("Error en UsuarioDAO -> modificarUsuario "+ex);
+        }finally{
+            this.Cerrar();
+        }
+    }
+     public void modificarUsuarioRFC(Usuario usuario) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("UPDATE usuario SET  rfc=UPPER(rfc) WHERE idusuario=?");
+            consulta.setString(1, usuario.getRfc());
+            consulta.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("Error en UsuarioRFCDAO -> rfcUsuario "+ex);
         }finally{
             this.Cerrar();
         }
@@ -273,6 +293,8 @@ public class UsuarioDAO extends Conexion{
             usuarioUnico.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioUnico.setTipoBT(resultado.getString("tipo_bt"));
             usuarioUnico.setEstatus(resultado.getBoolean("estatus"));
+            usuarioUnico.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
+            
             usuarioUnico.setConcatenar();
             }
             resultado.close();
@@ -347,6 +369,7 @@ public class UsuarioDAO extends Conexion{
             usuarioParaLista.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioParaLista.setTipoBT(resultado.getString("tipo_bt"));
             usuarioParaLista.setEstatus(resultado.getBoolean("estatus"));
+            usuarioParaLista.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
             usuarioParaLista.setConcatenar();
             listaUsuario.add(usuarioParaLista);
             
@@ -385,6 +408,7 @@ public class UsuarioDAO extends Conexion{
             usuariodos.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultadoset.getInt("id_profesion")));
             usuariodos.setTipoBT(resultadoset.getString("tipo_bt"));
             usuariodos.setEstatus(resultadoset.getBoolean("estatus"));
+            usuariodos.setFecha_nacimiento(resultadoset.getDate("fecha_nacimiento"));
             usuariodos.setConcatenar();
             }
         }

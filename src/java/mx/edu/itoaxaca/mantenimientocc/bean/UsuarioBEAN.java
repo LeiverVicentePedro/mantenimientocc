@@ -27,6 +27,7 @@ import org.primefaces.context.RequestContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.StringTokenizer;
+import javax.faces.validator.ValidatorException;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 import mx.edu.itoaxaca.mantenimientocc.dao.Empleado_periodoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Empleado_periodo;
@@ -232,6 +233,7 @@ public class UsuarioBEAN implements Serializable{
            registroUsuarioNuevo.setNivel(1);
            registroUsuarioNuevo.setTipoBT("Base");
             registroUsuarioNuevo.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
+            this.modificarUsuarioRFC();
             if (confirmacionContraseña.equals(registroUsuarioNuevo.getClave())) {
                 usuarioDao.registrarUsuario(registroUsuarioNuevo);
                 setMensajeClaseUsuario("Usuario Registrado");
@@ -446,6 +448,15 @@ public class UsuarioBEAN implements Serializable{
             objetoUsuario.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             usuariodao.modificarUsuario(objetoUsuario);
             this.listaUsuarioDepartameto();
+        } catch (Exception ex) {
+
+        }
+    }
+    public void modificarUsuarioRFC() {
+        UsuarioDAO usuariodao;
+        try {
+            usuariodao = new UsuarioDAO();
+            usuariodao.modificarUsuarioRFC(objetoUsuario);
         } catch (Exception ex) {
 
         }
@@ -676,5 +687,69 @@ public class UsuarioBEAN implements Serializable{
              throw ex;
 
         }
+    }
+    /*metodos para */
+    public void valida(){
+        new Runnable(){
+            @Override
+            public void run() {
+               comparaRFC(registroUsuarioNuevo);
+            }
+            
+        }.run();
+        
+    }
+    public void comparaRFC(Usuario obj){
+        
+            String RFCSinHomoclave="";
+            //System.out.println(cumpleaños+"");
+            char nom = obj.getNombre().charAt(0);
+            String apP=String.valueOf(obj.getApellidoPaterno().charAt(0));
+            char vocal=0;
+            int contador=1;
+            while(vocal==0){
+                String tmp=String.valueOf(obj.getApellidoPaterno().charAt(contador));
+                
+                if(tmp.equalsIgnoreCase("a")||tmp.equalsIgnoreCase("e")||tmp.equalsIgnoreCase("i")||tmp.equalsIgnoreCase("o")||tmp.equalsIgnoreCase("u"))
+                { apP+=tmp;
+                    vocal=obj.getApellidoPaterno().charAt(contador);
+                    }
+                contador++;
+            }
+            
+            char apMat = obj.getApellidoMaterno().charAt(0);
+            int año = obj.getFecha_nacimiento().getYear();
+            int mes = obj.getFecha_nacimiento().getMonth()+1;
+            int dia = obj.getFecha_nacimiento().getDate();
+            RFCSinHomoclave=apP+apMat+nom;
+            if(RFCSinHomoclave.equalsIgnoreCase("culo")||RFCSinHomoclave.equalsIgnoreCase("pene")||RFCSinHomoclave.equalsIgnoreCase("pito")){
+                String tres = RFCSinHomoclave.substring(0,3);
+                RFCSinHomoclave = tres;
+                RFCSinHomoclave+="X";
+            }
+            RFCSinHomoclave +=año;
+            if(mes<10)
+                RFCSinHomoclave+="0"+mes;
+            
+            else
+                RFCSinHomoclave+=mes;
+            
+            if(dia<10)
+                RFCSinHomoclave+="0"+dia;
+            
+            else
+                RFCSinHomoclave+=dia;
+            
+            System.out.println(RFCSinHomoclave.toUpperCase());
+            
+            if(!RFCSinHomoclave.equalsIgnoreCase(obj.getRfc().substring(0,9)))
+            {  
+                 FacesContext.getCurrentInstance().addMessage("mensaje2", new FacesMessage("Error RFC Invalido"));
+                 
+            }
+       
+    }
+    public void ConFoco(){
+        FacesContext.getCurrentInstance().addMessage("mensaje2", new FacesMessage(""));
     }
 }
