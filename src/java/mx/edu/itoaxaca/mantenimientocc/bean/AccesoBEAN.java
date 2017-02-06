@@ -84,8 +84,17 @@ public class AccesoBEAN implements Serializable{
                 usuarioBean = accesodao.accesoUsuario(correo, clave);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioBean);
                 setMensajeAcceso("Bienvenido");
+                
+                if(usuarioBean.getNivel()==1){
+                setRedireccion("principalNivelUno.xhtml");
+                }
+                if(usuarioBean.getNivel()==2){
                 setRedireccion("principal.xhtml");
-                new ValidacionMantenimientoRFC().comparaRFC(usuarioBean.getNombre(), usuarioBean.getApellidoPaterno(), usuarioBean.getApellidoMaterno(), usuarioBean.getFecha_nacimiento());
+                }
+                 if(usuarioBean.getNivel()==3){
+                setRedireccion("principal.xhtml");
+                }
+               // new ValidacionMantenimientoRFC().comparaRFC(usuarioBean.getNombre(), usuarioBean.getApellidoPaterno(), usuarioBean.getApellidoMaterno(), usuarioBean.getFecha_nacimiento());
             } else {
                 setMensajeAcceso("Credenciales incorrectos");
                 FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", mensajeAcceso);

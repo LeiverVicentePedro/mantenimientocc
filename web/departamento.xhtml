@@ -18,9 +18,9 @@
                     <p:growl id="msj" showDetail="true" sticky="true"/>
                     <center>
                       <p:separator style="visibility: hidden;"/> 
-                   <p:outputLabel value="Lista de Departamento" style="font-size: 25px;" />
+                   <p:outputLabel value="Listado de Departamentos del ITO" style="font-size: 25px;" />
                     </center>
-                <p:separator/> 
+            <p:separator/> 
                     <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{departamentoBEAN.setAccion('Registrar')}" update=":dialogoDatos" >
                         <f:ajax execute="#{departamentoBEAN.listarDepartamento()}" render="data" />
                     </p:commandButton>
@@ -30,7 +30,7 @@
                                  var="departamento"
                                  
                                  style="font-size: 14px;"
-                                 
+                                 selectionMode="multiple" selection="#{departamentoBEAN.seleccionDepartamento}" rowKey="#{departamento.iddepartamento}"
                                  resizableColumns="true"
                                  liveResize="true"
                                  
@@ -60,7 +60,7 @@
                                   filterBy="#{departamento.clave_departamento}"
                                    filterMatchMode="startsWith"
                                    filterStyle="visibility:hidden; height:0"
-                                   style=" font-size: 13px;text-transform: uppercase ">
+                                   style=" font-size: 13px;text-transform: uppercase " width="10" >
                             
                             <h:outputText value="#{departamento.clave_departamento}"  />
                             
@@ -70,7 +70,7 @@
                                   filterBy="#{departamento.nombre_departamento}"
                                   filterMatchMode="startsWith"
                                   filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase ">
+                                  style=" font-size: 13px;text-transform: uppercase " width="60">
                             
                             <p:outputLabel value="#{departamento.nombre_departamento}" />
                         
@@ -80,7 +80,7 @@
                                   filterBy="#{departamento.area.nombre_area}"
                                   filterMatchMode="startsWith"
                                   filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase ">
+                                  style=" font-size: 13px;text-transform: uppercase " width="50">
                                   
                             <p:outputLabel value="#{departamento.area.nombre_area}" />
                         
@@ -88,7 +88,7 @@
                         <p:column headerText="ESTATUS"
                                   sortBy="#{departamento.estatus}"
                                   filterBy="#{departamento.estatus}"
-                                  filterMatchMode="equals" style=" font-size: 13px;text-transform: uppercase " width="160">
+                                  filterMatchMode="equals" style=" font-size: 13px;text-transform: uppercase " width="40">
                             
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 9px ">
@@ -103,13 +103,13 @@
                                  <f:converter converterId="conversionEstatus" />
                             </p:outputLabel>
                         </p:column>
-                        <p:column headerText="EDITAR"
-                                  width="70" style="font-size: 13px ">
-                            <p:commandLink class="fa fa-pencil" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                        <p:column headerText="MODIFICAR"
+                                  width="23" style="font-size: 10px ">
+                            <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
                          </p:column>
-                         <p:column headerText="BAJA"
-                                   width="70" style="font-size: 13px ">
-                             <p:commandLink class="fa fa-trash" actionListener="#{departamentoBEAN.elegirDatoDepartamentoBaja(departamento)}" update="data"/>
+                         <p:column headerText="CAMBIAR ESTADO"
+                                   width="35" style="font-size: 10px ">
+                             <p:commandButton process="data" icon="fa fa-trash" actionListener="#{departamentoBEAN.elegirDatoDepartamentoBaja(departamento)}" update="data"/>
                          </p:column>
                     </p:dataTable>
                  </h:form>

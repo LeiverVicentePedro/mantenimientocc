@@ -23,7 +23,18 @@ public class DepartamentoBEAN implements Serializable{
   private List<Departamento> listadepartamentoServicio;//esta lista es para clasificar los departamentos prestadores de servicio de mantenimiento
   private List<Departamento> filterDepartamento;//esta lista es para una busqueda general es una lista vacia
   private String accion;//esta variable es para usarla en un switch y poder escoger si es opcion registrar o modificar
+  private List<Departamento> seleccionDepartamento;
 
+    public List<Departamento> getSeleccionDepartamento() {
+        return seleccionDepartamento;
+    }
+
+    public void setSeleccionDepartamento(List<Departamento> seleccionDepartamento) {
+        this.seleccionDepartamento = seleccionDepartamento;
+    }
+  
+   
+  
     public List<Departamento> getFilterDepartamento() {
         return filterDepartamento;
     }

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                 <div class="text-center">
+                    <p:separator style="visibility: hidden"/>
+                    <p:outputLabel value="Bienvenido" class="text-capitalize" style="font-size:1.8em; color: #ffab2d"/>
+                    <br/>
+                    <p:outputLabel value="#{accesoBEAN.nombreCompleto}" class="text-capitalize" style="font-size: 1.4em;"/> 
+                    <p:separator style="visibility: hidden"/>
+                </div>
+                  <h:form>
+                     <f:event type="preRenderView" listener="#{segiomientoMantenimientoUsuarioBEAN.listarSolicitudesSeguimientoactivasPorUsuario()}"/>
+                    <center>
+                        <p:outputLabel value="Listado de Solicitudes Activas" style="font-size: 25px;" />
+                    </center>
+                <p:separator/> 
+                <p:separator style="visibility: hidden;"/>
+                    <p:dataTable id="tablaSolicitud" var="seguimientoActivos" value="#{segiomientoMantenimientoUsuarioBEAN.listaSolicitudActivas}" 
+                                 style="font-size: 15px;text-transform: uppercase;"
+
+                                 resizableColumns="true"
+                                 liveResize="true"
+
+                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                 scrollable="true"
+
+                                 widgetVar="buscar"
+                                 filteredValue="#{segiomientoMantenimientoUsuarioBEAN.listaSolicitudActivasfilter}"
+                                 emptyMessage="No hay elementos encontrados"
+                                 paginator="true" rows="10"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 paginatorPosition="bottom"
+                                 >
+
+                        <f:facet name="header">
+                            <p:outputPanel class="text-right">
+                                <h:outputText value="Buscar:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
+
+                                             style="width:150px" />
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column headerText="Folio" sortBy="#{seguimientoActivos.folio}"
+                                  filterBy="#{seguimientoActivos.folio}"
+                                  filterMatchMode="startsWith" 
+                                  filterStyle="visibility:hidden; height:0"
+                                  width="50">
+                            <h:outputLabel value="#{seguimientoActivos.folio}"/>
+                        </p:column>
+                        <p:column headerText="Fecha de Creación" sortBy="#{seguimientoActivos.fecha}" 
+                                  filterBy="#{seguimientoActivos.fecha}" 
+                                  filterMatchMode="startsWith" 
+                                  filterStyle="visibility:hidden; height:0" width="70">
+                            <h:outputLabel value="#{seguimientoActivos.fecha}"/>
+                        </p:column>
+                        <p:column headerText="Dirigidó Al Departamento" sortBy="#{seguimientoActivos.id_departamento.nombre_departamento}" 
+                                  filterBy="#{seguimientoActivos.id_departamento.nombre_departamento}" 
+                                  filterMatchMode="startsWith" 
+                                  filterStyle="visibility:hidden; height:0" width="90">
+                            <h:outputLabel value="#{seguimientoActivos.id_departamento.nombre_departamento}"/>
+                        </p:column>
+                        <p:column headerText="Estado" sortBy="#{seguimientoActivos.estado_seguimiento}" 
+                                  filterBy="#{seguimientoActivos.estado_seguimiento}" 
+                                  filterMatchMode="startsWith" 
+                                  filterStyle="visibility:hidden; height:0" width="70">
+                            <h:outputLabel value="#{seguimientoActivos.estado_seguimiento}">
+                                <f:converter converterId="conversionEstatusSeguimiento" />
+                            </h:outputLabel>
+                        </p:column>
+                        
+                        
+
+                        <p:column headerText="Seguimiento" width="60">
+                            <center>
+                           <p:commandButton value="Ver" icon="fa fa-eye" action="seguimientoCliente.xhtml" actionListener="#{segiomientoMantenimientoUsuarioBEAN.redirigeVistaSiExisteSolicitud(seguimientoActivos)}" ajax="false"/>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <div class="text-center">
+                   <p:separator style="visibility: hidden"/>
+                    <p:outputLabel value="Sistema de Mantenimiento Preventivo y Correctivo" class="text-justify" style="font-size: 1.3em;"/>
+                    <br/>
+                    <p:outputLabel value="(SIMAPRECO)" class="text-capitalize" style="font-size: 1.7em;"/>
+
+
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

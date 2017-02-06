@@ -16,7 +16,7 @@
             <p:growl id="msj" showDetail="true" sticky="true"/>
             <center>
                       <p:separator style="visibility: hidden;"/> 
-                   <p:outputLabel value="Lista de Áreas" style="font-size: 25px;" />
+                   <p:outputLabel value="Listado de Áreas del ITO" style="font-size: 25px;" />
                     </center>
             <p:separator/> 
              <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{areaBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
@@ -26,9 +26,7 @@
              <p:separator style="visibility: hidden;"/> 
             <p:dataTable id="data" var="area" value="#{areaBEAN.listaArea}" 
                          
-                         style="font-size: 14px;"
-                                 
-                                 resizableColumns="true"
+                         style="font-size: 14px;" selectionMode="multiple" selection="#{areaBEAN.seleccionArea}" rowKey="#{area.idarea}"
                                  liveResize="true"
                                  
                                  liveScroll="true" scrollRows="15" scrollWidth="100%"
@@ -55,7 +53,7 @@
                           filterBy="#{area.nombre_area}"
                           filterMatchMode="startsWith"
                           filterStyle="visibility:hidden; height:0"
-                          style="text-transform: uppercase">
+                          style="text-transform: uppercase" width="35">
                     
                     <h:outputText value="#{area.nombre_area}" />
                    
@@ -64,7 +62,7 @@
                 <p:column headerText="ESTATUS"
                           sortBy="#{area.estatus}"
                           filterBy="#{area.estatus}"
-                          filterMatchMode="equals">
+                          filterMatchMode="equals" width="55">
                     
                     <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 12px ">
@@ -82,14 +80,18 @@
                     </p:outputLabel>
                 </p:column>
                 
-                <p:column headerText="EDITAR"
-                          width="70">
-                    <p:commandLink class="fa fa-pencil" actionListener="#{areaBEAN.elegirDatoArea(area)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                <p:column headerText="MODIFICAR"
+                          width="15">
+                    <center>
+                        <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{areaBEAN.elegirDatoArea(area)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                    </center>
                 </p:column>
                 
-                <p:column headerText="BAJA"
-                          width="70">
-                    <p:commandLink class="fa fa-trash" actionListener="#{areaBEAN.elegirDatoAreaBaja(area)}" update="data"/>
+                <p:column headerText="CAMBIAR ESTADO"
+                          width="15">
+                    <center>
+                        <p:commandButton process="data" icon="fa fa-trash" actionListener="#{areaBEAN.elegirDatoAreaBaja(area)}" update="data"/>
+                    </center>
                 </p:column>
             </p:dataTable>
         </h:form>

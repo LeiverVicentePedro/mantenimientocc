@@ -31,7 +31,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 @SessionScoped
 public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
 
-    private Solicitud_mc solicitudABuscar = new Solicitud_mc();
+   // private Solicitud_mc solicitudABuscar = new Solicitud_mc();
     private Seguimiento seguimientoEncontrado = new Seguimiento();
     private String noExisteSolicitud;
     private String vista;
@@ -39,6 +39,18 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     private List<DetalleSeguimiento> listaDetalle = new ArrayList();
      private List<DetalleSeguimiento> listaDetalleProceso = new ArrayList();
     private List<DetalleSeguimiento> listaDetalleFinal = new ArrayList();
+        private List<Solicitud_mc> listaSolicitudActivasfilter;
+
+    public List<Solicitud_mc> getListaSolicitudActivasfilter() {
+        return listaSolicitudActivasfilter;
+    }
+
+    public void setListaSolicitudActivasfilter(List<Solicitud_mc> listaSolicitudActivasfilter) {
+        this.listaSolicitudActivasfilter = listaSolicitudActivasfilter;
+    }
+        
+
+    
 
     public List<Solicitud_mc> getListaSolicitudActivas() {
         return listaSolicitudActivas;
@@ -82,7 +94,7 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     public void setVista(String vista) {
         this.vista = vista;
     }
-
+/*
     public Solicitud_mc getSolicitudABuscar() {
         return solicitudABuscar;
     }
@@ -90,7 +102,7 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     public void setSolicitudABuscar(Solicitud_mc solicitudABuscar) {
         this.solicitudABuscar = solicitudABuscar;
     }
-
+*/
     public Seguimiento getSeguimientoEncontrado() {
         return seguimientoEncontrado;
     }
@@ -116,24 +128,29 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
             Usuario existeUsuario =(Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
             listaSolicitudActivas = new Solicitud_mcDAO().listarSolicitudPorDepartamentoUsuarioEnSeguimiento(existeUsuario);
         }catch(Exception ex){
-            System.out.println("Eror en SeguimientoMantenimientoUsuario -> listarSolicitudesSeguimiento "+ex);
+            System.out.println("Error en SeguimientoMantenimientoUsuario -> listarSolicitudesSeguimiento "+ex);
         }
     }
     /*Metodo que busca y llena el objeto de Seguimiento si este tiene algo o no*/
-    public void redirigeVistaSiExisteSolicitud() throws Exception {
+    public void redirigeVistaSiExisteSolicitud(Solicitud_mc buscarSolicitud) throws Exception {
         try {
-            solicitudABuscar = new Solicitud_mcDAO().identificadorDeSolicitud(solicitudABuscar.getFolio());
-            if (new SeguimientoDAO().elegirDatoSeguimiento(solicitudABuscar) != null) {
-                seguimientoEncontrado = new SeguimientoDAO().elegirDatoSeguimiento(solicitudABuscar);
+           // solicitudABuscar = new Solicitud_mcDAO().identificadorDeSolicitud(solicitudABuscar.getFolio());
+            if (new SeguimientoDAO().elegirDatoSeguimiento(buscarSolicitud) != null) {
+                seguimientoEncontrado = new SeguimientoDAO().elegirDatoSeguimiento(buscarSolicitud);
                 setNoExisteSolicitud("ACTIVO");
+                if(buscarSolicitud.getEstado_seguimiento()==false)
+                {
+                  setNoExisteSolicitud("TERMINADO");  
+                }
                 alNavegadorSiExiste();
             }
-            if (new SeguimientoDAO().elegirDatoSeguimiento(solicitudABuscar) == null) {
+            if (new SeguimientoDAO().elegirDatoSeguimiento(buscarSolicitud) == null) {
                 setNoExisteSolicitud("NO EXISTE");
                 System.out.println("seguimiento " + seguimientoEncontrado.getIdseguimiento());
                 System.out.println(noExisteSolicitud);
                 alNavegadorNoExiste();
             }
+            
         } catch (Exception ex) {
             System.out.println("Error en SeguimientoMantenimientoUsuarioBEAN -> redirigeVistaSiExisteSolicitud " + ex);
             throw ex;
