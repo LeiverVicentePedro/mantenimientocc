@@ -59,7 +59,7 @@
                    
                 </p:column>
                 
-                <p:column headerText="ESTATUS"
+                <p:column headerText="ESTADO"
                           sortBy="#{area.estatus}"
                           filterBy="#{area.estatus}"
                           filterMatchMode="equals" width="55">
@@ -90,7 +90,7 @@
                 <p:column headerText="CAMBIAR ESTADO"
                           width="15">
                     <center>
-                        <p:commandButton process="data" icon="fa fa-trash" actionListener="#{areaBEAN.elegirDatoAreaBaja(area)}" update="data"/>
+                        <p:commandButton process="data" icon="fa fa-refresh" actionListener="#{areaBEAN.elegirDatoAreaBaja(area)}" update="data"/>
                     </center>
                 </p:column>
             </p:dataTable>

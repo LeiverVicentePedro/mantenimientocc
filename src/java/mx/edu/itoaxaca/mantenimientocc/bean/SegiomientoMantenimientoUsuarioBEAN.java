@@ -31,7 +31,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 @SessionScoped
 public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
 
-   // private Solicitud_mc solicitudABuscar = new Solicitud_mc();
+  private Solicitud_mc solicitudABuscar = new Solicitud_mc();
     private Seguimiento seguimientoEncontrado = new Seguimiento();
     private String noExisteSolicitud;
     private String vista;
@@ -94,7 +94,7 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     public void setVista(String vista) {
         this.vista = vista;
     }
-/*
+
     public Solicitud_mc getSolicitudABuscar() {
         return solicitudABuscar;
     }
@@ -102,7 +102,7 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     public void setSolicitudABuscar(Solicitud_mc solicitudABuscar) {
         this.solicitudABuscar = solicitudABuscar;
     }
-*/
+
     public Seguimiento getSeguimientoEncontrado() {
         return seguimientoEncontrado;
     }
@@ -131,7 +131,7 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
             System.out.println("Error en SeguimientoMantenimientoUsuario -> listarSolicitudesSeguimiento "+ex);
         }
     }
-    /*Metodo que busca y llena el objeto de Seguimiento si este tiene algo o no*/
+    /*Metodo que busca y llena el objeto de Seguimiento si este tiene algo o no*///para nivel UNO
     public void redirigeVistaSiExisteSolicitud(Solicitud_mc buscarSolicitud) throws Exception {
         try {
            // solicitudABuscar = new Solicitud_mcDAO().identificadorDeSolicitud(solicitudABuscar.getFolio());
@@ -156,7 +156,34 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
             throw ex;
         }
     }
-
+    
+    public void redirigeVistaSiExisteSolicitudNivelDosYTres() throws Exception {
+        try {
+           // solicitudABuscar = new Solicitud_mcDAO().identificadorDeSolicitud(solicitudABuscar.getFolio());
+            if (new SeguimientoDAO().elegirDatoSeguimiento(solicitudABuscar) != null) {
+                seguimientoEncontrado = new SeguimientoDAO().elegirDatoSeguimiento(solicitudABuscar);
+                setNoExisteSolicitud("ACTIVO");
+                if(solicitudABuscar.getEstado_seguimiento()==false)
+                {
+                  setNoExisteSolicitud("TERMINADO");  
+                }
+                alNavegadorSiExiste();
+            }
+            if (new SeguimientoDAO().elegirDatoSeguimiento(solicitudABuscar) == null) {
+                setNoExisteSolicitud("NO EXISTE");
+                System.out.println("seguimiento " + seguimientoEncontrado.getIdseguimiento());
+                System.out.println(noExisteSolicitud);
+                alNavegadorNoExiste();
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Error en SeguimientoMantenimientoUsuarioBEAN -> redirigeVistaSiExisteSolicitud " + ex);
+            throw ex;
+        }
+    }
+    
+    
+   //para nivel 2 y 3
     public void alNavegadorSiExiste() {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("existe", noExisteSolicitud);
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("seguimiento", seguimientoEncontrado);

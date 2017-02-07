@@ -23,9 +23,18 @@ public class ProfesionBEAN implements Serializable{
     private Profesion profesion= new Profesion();
     private List<Profesion> profesionLista;
     private List<Profesion> filterProfesion;
+    private List<Profesion> seleccionProfesion;
     private String accion;
-    
 
+    public List<Profesion> getSeleccionProfesion() {
+        return seleccionProfesion;
+    }
+
+    public void setSeleccionProfesion(List<Profesion> seleccionProfesion) {
+        this.seleccionProfesion = seleccionProfesion;
+    }
+    
+    
     public Profesion getProfesion() {
         return profesion;
     }

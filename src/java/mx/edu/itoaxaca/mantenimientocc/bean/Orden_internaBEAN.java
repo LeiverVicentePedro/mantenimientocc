@@ -59,12 +59,39 @@ public class Orden_internaBEAN implements Serializable{
     private List<Equipo> listaEquipo = new ArrayList();
     private List<Refaccion_empleada> listaRefaccion= new ArrayList();
     private List<Orden_interna> listaOrden_interna;
+    private List<Orden_interna> listaOrden_internaUsuario;
     private List<Orden_interna> filterOrden;
     private List<Orden_interna> selecEquipoRefaccion;
-     Solicitud_mc folioDesdeAsignacion;
+    private List<Orden_interna> seleccionOrdenInterna;
+    Usuario usuarioVive;
     
-            
+     Solicitud_mc folioDesdeAsignacion;
 
+    public List<Orden_interna> getSeleccionOrdenInterna() {
+        return seleccionOrdenInterna;
+    }
+
+    public void setSeleccionOrdenInterna(List<Orden_interna> seleccionOrdenInterna) {
+        this.seleccionOrdenInterna = seleccionOrdenInterna;
+    }
+
+     
+    public List<Orden_interna> getListaOrden_internaUsuario() {
+        return listaOrden_internaUsuario;
+    }
+
+    public void setListaOrden_internaUsuario(List<Orden_interna> listaOrden_internaUsuario) {
+        this.listaOrden_internaUsuario = listaOrden_internaUsuario;
+    }
+   
+    public Usuario getUsuarioVive() {
+        return usuarioVive;
+    }
+
+    public void setUsuarioVive(Usuario usuarioVive) {
+        this.usuarioVive = usuarioVive;
+    }
+    
     public Solicitud_mc getFolioDesdeAsignacion() {
         return folioDesdeAsignacion;
     }
@@ -175,10 +202,16 @@ public class Orden_internaBEAN implements Serializable{
                 relacion_orden_equipoDAO.registrarDetalleOrdenEquipo(detalleOrdenEquipo);
 
             }
-            
-            
+             for (int i = 0; i < listaRefaccion.size(); i++) {
+               Relacion_orden_refaccion detalleOrdenRefaccion = new Relacion_orden_refaccion();
+
+               detalleOrdenRefaccion.setIdOrdenRefaccion(ordenTemporal);
+                detalleOrdenRefaccion.setIdRefaccion(listaRefaccion.get(i));
+                relacion_orden_refaccionDAO.registrarDetalleOrdenRefaccion(detalleOrdenRefaccion);
+
+            }
                 System.out.println("Lista de Refaccion "+listaRefaccion.size());                      
-            for (int i = 0; i < listaRefaccion.size(); i++) {
+           /* for (int i = 0; i < listaRefaccion.size(); i++) {
                 Relacion_orden_refaccion detalleOrdenRefaccion = new Relacion_orden_refaccion();
                 new Refaccion_empleadaDAO().registrarRefaccion(listaRefaccion.get(i));
                 listaRefaccion.set(i,new Refaccion_empleadaDAO().BuscaRefaccionEmpledaPorObjeto(listaRefaccion.get(i)));
@@ -186,7 +219,7 @@ public class Orden_internaBEAN implements Serializable{
                 detalleOrdenRefaccion.setIdRefaccion(listaRefaccion.get(i));
                 relacion_orden_refaccionDAO.registrarDetalleOrdenRefaccion(detalleOrdenRefaccion);
                
-            }
+            }*/
             
             System.out.println("fecha del sistema " + orden_interna.getFecha());
             Seguimiento segimiento = new SeguimientoDAO().elegirDatoSeguimiento(folioDesdeAsignacion);
@@ -235,6 +268,22 @@ public class Orden_internaBEAN implements Serializable{
         }
         catch(Exception e){
             System.out.println("error en orden_internaBEAN --> listarordenInternaBEAN"+e);
+        }
+    }
+     public void listarOrdenInternaPorUsuario(){
+        Orden_internaDAO ordenInterna;
+        
+        try{
+            ordenInterna = new Orden_internaDAO();
+           // Orden_internaDAO ordenInterna = new Orden_internaDAO();
+            FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+            listaOrden_internaUsuario =ordenInterna.listarOrdenInternaPorDepartamentoUsuario(usuarioVive);
+           
+                
+            
+        }catch(Exception ex){
+            System.out.println("Error en Solicitud_mc -> listarSolicitudPorDepartamento "+ex);
         }
     }
     
@@ -332,7 +381,7 @@ public class Orden_internaBEAN implements Serializable{
     }
     
     /*Metodo que llena la lista para las refacciones empleadas*/
-    public void agregaRefaccion(){
+   /* public void agregaRefaccion(){
         System.out.println(refaccion.getDescripcion()+"objeto");
         
         listaRefaccion.add(new Refaccion_empleada(refaccion.getDescripcion(),refaccion.getNumero_serie(),refaccion.getPrecio(),refaccion.getCantidad()));
@@ -341,7 +390,7 @@ public class Orden_internaBEAN implements Serializable{
         refaccion.setDescripcion(null);
         refaccion.setPrecio(0.0);
         
-    }
+    }*/
     
     public void limpiaListaRefaccion(){
         listaRefaccion.clear();

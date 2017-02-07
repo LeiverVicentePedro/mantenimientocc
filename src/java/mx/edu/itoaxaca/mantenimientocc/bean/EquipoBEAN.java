@@ -24,7 +24,17 @@ public class EquipoBEAN implements Serializable{
     private List<Equipo> listaEquipo;
     private List<Equipo> listaEquipoOrdenIn;
     private List<Equipo> filterEquipo;
- 
+    private List<Equipo> seleccionEquipo;
+
+    public List<Equipo> getSeleccionEquipo() {
+        return seleccionEquipo;
+    }
+
+    public void setSeleccionEquipo(List<Equipo> seleccionEquipo) {
+        this.seleccionEquipo = seleccionEquipo;
+    }
+    
+    
     private String accion;
 
     public Equipo getEquipo() {

@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.dao.Asigna_solicitudDAO;
+import mx.edu.itoaxaca.mantenimientocc.dao.DetalleSeguimientoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.SeguimientoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Asigna_solicitud;
@@ -32,7 +33,17 @@ public class Asigna_solicitudBEAN implements Serializable{
     private List<Asigna_solicitud> filterAsignar;
     private List<Asigna_solicitud> listaAsinacionesDeUsuarios;
     private List<Asigna_solicitud> listaAsinacionesTerminadasDeUsuarios;
+    private List<Asigna_solicitud> seleccionAsignacion;
+    
 
+    public List<Asigna_solicitud> getSeleccionAsignacion() {
+        return seleccionAsignacion;
+    }
+
+    public void setSeleccionAsignacion(List<Asigna_solicitud> seleccionAsignacion) {
+        this.seleccionAsignacion = seleccionAsignacion;
+    }
+    
     public List<Asigna_solicitud> getListaAsinacionesTerminadasDeUsuarios() {
         return listaAsinacionesTerminadasDeUsuarios;
     }
@@ -178,6 +189,7 @@ public class Asigna_solicitudBEAN implements Serializable{
                
     
     }
+   
     
  
 }
