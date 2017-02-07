@@ -245,20 +245,23 @@
                             <p:separator style="visibility: hidden"/>
                             <p:separator style="visibility: hidden"/>
                             <p:outputLabel value="Reporte Fallo: "/>
-                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo" rows="2" cols="50" counter="reporteDeFallo" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo" rows="2" cols="50" 
+                                             required="true" requiredMessage=" Se Requiere Reporte Fallo" counter="reporteDeFallo" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
                             <p:column/><p:column/><p:column/>
                             <h:outputText id="reporteDeFallo" style=" color: #c0c0c0"/>
                             <p/><p/>
                             <p:column/>
                             <p:outputLabel value="Reporte Técnico: "/>
-                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.reporte_tecnico}" placeholder="Describa Reporte Técnico" rows="2" cols="50" counter="reporteTecnico" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.reporte_tecnico}" placeholder="Describa Reporte Técnico" 
+                                             required="true" requiredMessage="Se requiere Reporte Técnico" rows="2" cols="50" counter="reporteTecnico" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
                             <p:column/><p:column/><p:column/>
                             <h:outputText id="reporteTecnico" style=" color: #c0c0c0"/>
                             <p/><p/>
                             <p:column/>
                            
                             <p:outputLabel value="Posible Causa: "/>
-                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa" rows="2" cols="50" counter="posibleCausa" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa" 
+                                             required="true" requiredMessage="Se requiere Posible Causa" rows="2" cols="50" counter="posibleCausa" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
                             
                             <br/><p:column/><p:column/>
                             <h:outputText id="posibleCausa" style=" color: #c0c0c0"/>

@@ -11,12 +11,15 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                 <p:separator style="visibility: hidden;"/>
+                 
                 <h:form id="formaExterior"> 
                     <f:event id="event" type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudDeUsuarios()}"/>
                     <center>
-                        <p:outputLabel value="MIS SOLICITUDES " style=" font-size: 20px;"/> 
+                      <p:separator style="visibility: hidden;"/> 
+                   <p:outputLabel value="Mis Solicitudes" style="font-size: 25px;" />
                     </center>
+            <p:separator/> 
+             <p:separator style="visibility: hidden;"/> 
                     <p:dataTable id="data" var="solicitud_usuario" value="#{solicitud_mcBEAN.listaSolicitudDeUsuarios}" 
 
                                  style="font-size: 14px;"
@@ -30,9 +33,9 @@
                                  widgetVar="buscar"
                                  filteredValue="#{solicitud_mcBEAN.filtrarSolicitudIdUsuario}"
                                  emptyMessage="No hay elementos encontrados"
-                                 paginator="true" rows="5"
+                                 paginator="true" rows="10"
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                 rowsPerPageTemplate="1,2,3,4,5">
+                                 paginatorPosition="bottom">
 
 
                         <f:facet name="header">
@@ -46,7 +49,9 @@
                         <p:column headerText="Folio" 
                                   sortBy="#{solicitud_usuario.folio}" 
                                   filterBy="#{solicitud_usuario.folio}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0"
+                          style="text-transform: uppercase">
 
                             <h:outputText value="#{solicitud_usuario.folio}" />
 
@@ -55,7 +60,9 @@
                         <p:column headerText="Nombre del Solicitante" 
                                   sortBy="#{solicitud_usuario.id_usuario.nombre}" 
                                   filterBy="#{solicitud_usuario.id_usuario.nombre}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0"
+                          style="text-transform: uppercase">
 
                             <h:outputText value="#{solicitud_usuario.id_usuario.nombre}" />
                             <h:outputText value="&nbsp;"/>
@@ -70,7 +77,9 @@
                         <p:column headerText="Fecha de Solicitud" 
                                   sortBy="#{solicitud_usuario.fecha}" 
                                   filterBy="#{solicitud_usuario.fecha}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0"
+                          style="text-transform: uppercase">
 
                             <h:outputText value="#{solicitud_usuario.fecha}" />
 
@@ -79,7 +88,9 @@
                         <p:column headerText="Departamento que dio Atención" 
                                   sortBy="#{solicitud_usuario.id_departamento.nombre_departamento}" 
                                   filterBy="#{solicitud_usuario.id_departamento.nombre_departamento}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0"
+                          style="text-transform: uppercase">
 
                             <h:outputText value="#{solicitud_usuario.id_departamento.nombre_departamento}" />
 

@@ -46,31 +46,7 @@ public class ValidacionMantenimientoRFC implements Validator {
         }
        }
     
-    public boolean comparaRFC(String nombre,String apPaterno,String apMaterno,Date cumpleaños){
-            String RFCSinHomoclave="";
-            System.out.println(cumpleaños+"");
-            char nom = nombre.charAt(0);
-            String apP=apPaterno.substring(0, 2);
-            char apMat = apMaterno.charAt(0);
-            int año = cumpleaños.getYear();
-            int mes = cumpleaños.getMonth()+1;
-            int dia = cumpleaños.getDate();
-            RFCSinHomoclave=apP+apMat+nom+año;
-            if(mes<10)
-                RFCSinHomoclave+="0"+mes;
-            
-            else
-                RFCSinHomoclave+=mes;
-            
-            if(dia<10)
-                RFCSinHomoclave+="0"+dia;
-            
-            else
-                RFCSinHomoclave+=dia;
-            
-            System.out.println(RFCSinHomoclave);
-        return false;
-    }
+    
 }
 
 

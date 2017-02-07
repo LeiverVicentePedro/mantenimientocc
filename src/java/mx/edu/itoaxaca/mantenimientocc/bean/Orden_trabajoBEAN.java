@@ -16,6 +16,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_trabajoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_trabajo;
@@ -36,10 +37,19 @@ import net.sf.jasperreports.engine.JasperPrint;
 public class Orden_trabajoBEAN implements Serializable{
     
      private Orden_trabajo orden_trabajo=new Orden_trabajo();
-     
+     private List<Orden_trabajo> filterOrdenTrabajo;
     private List<Orden_trabajo> listaOrden_trabajo;
     Solicitud_mc solicitudOT;
 
+    public List<Orden_trabajo> getFilterOrdenTrabajo() {
+        return filterOrdenTrabajo;
+    }
+
+    public void setFilterOrdenTrabajo(List<Orden_trabajo> filterOrdenTrabajo) {
+        this.filterOrdenTrabajo = filterOrdenTrabajo;
+    }
+
+    
     public Solicitud_mc getSolicitudOT() {
         return solicitudOT;
     }
@@ -107,7 +117,7 @@ public class Orden_trabajoBEAN implements Serializable{
              solicitudDao=new Solicitud_mcDAO();//aqui se modifica solicitud en estado_seguimiento
             Solicitud_mc solicitudEstadoSeguimiento=solicitudDao.elegirDatoSolicitudParaModificarEstado_Seguimiento(orden_trabajo.getId_solicitudmc());
             solicitudDao.modificarSolicitudSeguimiento(solicitudEstadoSeguimiento);
-            
+            new CorreoRegistroUsuario().enviarMensajeOrdenTrabajo(orden_trabajo);
             exportarOrdenTrabajo(usuarioVive);
             
             this.limpiarOrdenTrabajo();
@@ -179,7 +189,20 @@ public class Orden_trabajoBEAN implements Serializable{
         orden_trabajo.setId_solicitudmc(null);*/
         
         
-    }        
+    } 
+
+//Metodo ´para listar 
+    
+    public void listarOrden_trabajo() throws Exception{
+       Orden_trabajoDAO orden_trabajodao;
+        try{
+            orden_trabajodao=new Orden_trabajoDAO();
+            listaOrden_trabajo = orden_trabajodao.listarOrden_trabajo();
+        }
+        catch(Exception e){
+            System.out.println("error en orden_trabajoBEAN --> listarorden TrabajoBEAN"+e);
+        }
+    }       
     
     
 }

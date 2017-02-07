@@ -5,6 +5,9 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
+
+import com.javeros.anonimos.code.Rfc;
+import com.javeros.anonimos.code.dto.PersonaRfcDto;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +30,7 @@ import org.primefaces.context.RequestContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.StringTokenizer;
+import javax.faces.validator.ValidatorException;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 import mx.edu.itoaxaca.mantenimientocc.dao.Empleado_periodoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Empleado_periodo;
@@ -557,11 +561,19 @@ public class UsuarioBEAN implements Serializable{
     }
     //////////////////////
     public void validaContraseña(){
-        if(confirmacionContraseña.equals(registroUsuarioNuevo.getClave())){
-            mensajeContraseña = " ";
+        new Runnable(){
+            @Override
+            public void run() {
+                if(confirmacionContraseña.equals(registroUsuarioNuevo.getClave())){
+            mensajeContraseña = "";
         }else{
-            mensajeContraseña = "clave incorrecto";
+            FacesContext.getCurrentInstance().addMessage("mensaje3", new FacesMessage("Error Contraseña No Coincide"));
         }
+               
+            }
+            
+        }.run();
+        
     }
     public void listarUsuario() throws Exception{
        UsuarioDAO usuariodao;
@@ -686,5 +698,95 @@ public class UsuarioBEAN implements Serializable{
              throw ex;
 
         }
+    }
+    /*metodos para */
+    public void valida(){
+        
+               comparaRFC(registroUsuarioNuevo);
+          
+        
+    }
+    public void comparaRFC(Usuario obj){
+             new Runnable(){
+            @Override
+            public void run() {
+              
+            
+            String RFCSinHomoclave="";
+            //System.out.println(cumpleaños+"");
+            char nom = obj.getNombre().charAt(0);
+            String apP=String.valueOf(obj.getApellidoPaterno().charAt(0));
+            char vocal=0;
+            int contador=1;
+            while(vocal==0){
+                String tmp=String.valueOf(obj.getApellidoPaterno().charAt(contador));
+                
+                if(tmp.equalsIgnoreCase("a")||tmp.equalsIgnoreCase("e")||tmp.equalsIgnoreCase("i")||tmp.equalsIgnoreCase("o")||tmp.equalsIgnoreCase("u"))
+                { apP+=tmp;
+                    vocal=obj.getApellidoPaterno().charAt(contador);
+                    }
+                contador++;
+            }
+            
+            char apMat = obj.getApellidoMaterno().charAt(0);
+            int año = obj.getFecha_nacimiento().getYear();
+            int mes = obj.getFecha_nacimiento().getMonth()+1;
+            int dia = obj.getFecha_nacimiento().getDate();
+            RFCSinHomoclave=apP+apMat+nom;
+            if(RFCSinHomoclave.equalsIgnoreCase("culo")||RFCSinHomoclave.equalsIgnoreCase("pene")||RFCSinHomoclave.equalsIgnoreCase("pito")){
+                String tres = RFCSinHomoclave.substring(0,3);
+                RFCSinHomoclave = tres;
+                RFCSinHomoclave+="X";
+            }
+            RFCSinHomoclave +=año;
+            if(mes<10)
+                RFCSinHomoclave+="0"+mes;
+            
+            else
+                RFCSinHomoclave+=mes;
+            
+            if(dia<10)
+                RFCSinHomoclave+="0"+dia;
+            
+            else
+                RFCSinHomoclave+=dia;
+            
+            System.out.println(RFCSinHomoclave.toUpperCase());
+            
+            if(!RFCSinHomoclave.equalsIgnoreCase(obj.getRfc().substring(0,9)))
+            {  
+                 FacesContext.getCurrentInstance().addMessage("mensaje2", new FacesMessage(FacesMessage.SEVERITY_WARN.toString(),"Error RFC Invalido"));
+                 
+            }
+       }
+            
+        }.run();
+    }
+    public void elaboraRFC(){
+            int año = registroUsuarioNuevo.getFecha_nacimiento().getYear()+1900;
+            int mes = registroUsuarioNuevo.getFecha_nacimiento().getMonth()+1;
+            int dia = registroUsuarioNuevo.getFecha_nacimiento().getDate();
+            Rfc rfc = new Rfc();
+            PersonaRfcDto persona = new PersonaRfcDto();
+            persona.setNombre(registroUsuarioNuevo.getNombre());
+            persona.setApPaterno(registroUsuarioNuevo.getApellidoPaterno());
+            persona.setApMaterno(registroUsuarioNuevo.getApellidoMaterno());
+            String mesc;
+            String diac;
+             if(mes<10)
+                mesc="0"+mes;
+            
+            else
+                mesc=mes+"";
+            
+            if(dia<10)
+                diac="0"+dia;
+            
+            else
+                diac=dia+"";
+            System.out.println(año+""+mesc+""+diac);
+            persona.setFecha(año+""+mesc+""+diac);
+            System.out.println(rfc.generarRfc(persona));
+            registroUsuarioNuevo.setRfc(rfc.generarRfc(persona));
     }
 }

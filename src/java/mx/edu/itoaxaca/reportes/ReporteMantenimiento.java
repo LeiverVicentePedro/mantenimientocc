@@ -35,17 +35,17 @@ public class ReporteMantenimiento {
         Map<String, Object> parametros = new HashMap<String, Object>();
         String servicioSolicitado = "";
 
-        if (solicitudmc.getId_departamento().getClave_departamento().equalsIgnoreCase("cc")) {
+        if (solicitudmc.getId_departamento().getClave_departamento().equalsIgnoreCase("DCC")) {
             parametros.put("recursosMaterialesServicio", " ");
             parametros.put("centroComputo", "x");
             parametros.put("mantenimientoEquipo", " ");
         }
-        if (solicitudmc.getId_departamento().getClave_departamento().equalsIgnoreCase("me")) {
+        if (solicitudmc.getId_departamento().getClave_departamento().equalsIgnoreCase("DME")) {
             parametros.put("recursosMaterialesServicio", " ");
             parametros.put("centroComputo", " ");
             parametros.put("mantenimientoEquipo", "x");
         }
-        if (solicitudmc.getId_departamento().getClave_departamento().equalsIgnoreCase("rms")) {
+        if (solicitudmc.getId_departamento().getClave_departamento().equalsIgnoreCase("DRM")) {
             parametros.put("recursosMaterialesServicio", "x");
             parametros.put("centroComputo", " ");
             parametros.put("mantenimientoEquipo", " ");
