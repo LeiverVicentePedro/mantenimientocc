@@ -5,6 +5,9 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
+
+import com.javeros.anonimos.code.Rfc;
+import com.javeros.anonimos.code.dto.PersonaRfcDto;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -558,11 +561,19 @@ public class UsuarioBEAN implements Serializable{
     }
     //////////////////////
     public void validaContraseña(){
-        if(confirmacionContraseña.equals(registroUsuarioNuevo.getClave())){
-            mensajeContraseña = " ";
+        new Runnable(){
+            @Override
+            public void run() {
+                if(confirmacionContraseña.equals(registroUsuarioNuevo.getClave())){
+            mensajeContraseña = "";
         }else{
-            mensajeContraseña = "clave incorrecto";
+            FacesContext.getCurrentInstance().addMessage("mensaje3", new FacesMessage("Error Contraseña No Coincide"));
         }
+               
+            }
+            
+        }.run();
+        
     }
     public void listarUsuario() throws Exception{
        UsuarioDAO usuariodao;
@@ -690,17 +701,17 @@ public class UsuarioBEAN implements Serializable{
     }
     /*metodos para */
     public void valida(){
-        new Runnable(){
-            @Override
-            public void run() {
+        
                comparaRFC(registroUsuarioNuevo);
-            }
-            
-        }.run();
+          
         
     }
     public void comparaRFC(Usuario obj){
-        
+             new Runnable(){
+            @Override
+            public void run() {
+              
+            
             String RFCSinHomoclave="";
             //System.out.println(cumpleaños+"");
             char nom = obj.getNombre().charAt(0);
@@ -744,12 +755,38 @@ public class UsuarioBEAN implements Serializable{
             
             if(!RFCSinHomoclave.equalsIgnoreCase(obj.getRfc().substring(0,9)))
             {  
-                 FacesContext.getCurrentInstance().addMessage("mensaje2", new FacesMessage("Error RFC Invalido"));
+                 FacesContext.getCurrentInstance().addMessage("mensaje2", new FacesMessage(FacesMessage.SEVERITY_WARN.toString(),"Error RFC Invalido"));
                  
             }
-       
+       }
+            
+        }.run();
     }
-    public void ConFoco(){
-        FacesContext.getCurrentInstance().addMessage("mensaje2", new FacesMessage(""));
+    public void elaboraRFC(){
+            int año = registroUsuarioNuevo.getFecha_nacimiento().getYear()+1900;
+            int mes = registroUsuarioNuevo.getFecha_nacimiento().getMonth()+1;
+            int dia = registroUsuarioNuevo.getFecha_nacimiento().getDate();
+            Rfc rfc = new Rfc();
+            PersonaRfcDto persona = new PersonaRfcDto();
+            persona.setNombre(registroUsuarioNuevo.getNombre());
+            persona.setApPaterno(registroUsuarioNuevo.getApellidoPaterno());
+            persona.setApMaterno(registroUsuarioNuevo.getApellidoMaterno());
+            String mesc;
+            String diac;
+             if(mes<10)
+                mesc="0"+mes;
+            
+            else
+                mesc=mes+"";
+            
+            if(dia<10)
+                diac="0"+dia;
+            
+            else
+                diac=dia+"";
+            System.out.println(año+""+mesc+""+diac);
+            persona.setFecha(año+""+mesc+""+diac);
+            System.out.println(rfc.generarRfc(persona));
+            registroUsuarioNuevo.setRfc(rfc.generarRfc(persona));
     }
 }

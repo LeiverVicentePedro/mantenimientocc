@@ -11,10 +11,10 @@
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <h:outputStylesheet library="css" name="bootstrap-theme.min.css"/>
         <h:outputScript library="js" name="bootstrap.min.js"/>
-        <script>function formulario(f) {
-                if (f.rfcUsuario.value == '') {
-                    alert('El nombre esta vacío');
-                    f.nombre.focus();
+        <script>function formulario() {
+                if (document.getElementById("contraseñaUsuario").value !== document.getElementById("confirmaContraseña")) {
+                    alert('contraseña no coinciden');
+                    document.getElementById("contraseñaUsuario").focus();
                     return false;
                 }
                 return true;
@@ -33,7 +33,7 @@
         <div class="container text-center" style="margin-top: 2em">
 
 
-            <h:form  id='form'>
+            <h:form  id="form">
                 <p:growl id="mensaje" sticky="true" showDetail="true"/>
                 <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
                 <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
@@ -45,21 +45,10 @@
                 <p:wizard backLabel="Atras" nextLabel="Siguiente">
                     <p:tab id="personal" title="Personal" >
                         <p:panel header="Datos Personales" style="font-size:18px" >
-                            <p:messages id="mensaje2" />
+                            <p:messages id="mensaje2" closable="true"/>
                             <p:growl id="msj1" widgetVar="mensaje"/>
                             <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="500">
-                                <p:column><br/> </p:column><p:column><br/> </p:column>
-                                <h:outputText value="RFC:" style="color: black;font-size:14px"/> 
-                                <p:inputText class="form-control" widgetVar="rfc" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" onblur="if (this.value.length=== 12){
-                                        PF('mensaje').renderMessage({'summary':'RFC INVALIDO',
-                                             'detail':'Longitud menos a la esperada',
-                                             'severity':'warn'})}"
-                                             style="text-transform: uppercase; "  label="RFC" size="50" >
-                                   
-                                             <f:validator validatorId="validadoresRFC" />
-                                             <p:ajax event="blur" update="mensaje2" listener="#{usuarioBEAN.valida()}" oncomplete="setTimeout(function() { $('[id$=mensaje2]').hide(1000); }, 2000);"/>
-                                            <p:ajax event="keyup" update="mensaje2" listener="#{usuarioBEAN.ConFoco()}"/> 
-                                </p:inputText>
+                                
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Nombre:" style="color: black;font-size:14px" />
                                 <p:inputText class="form-control" placeholder="Nombre" id="nombreUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido" 
@@ -112,10 +101,18 @@
                                 </script>
                                 <h:outputText value="Fecha Nacimiento:" style="color: black;font-size:14px"/>
                                 <p:calendar id="calendario" value="#{usuarioBEAN.registroUsuarioNuevo.fecha_nacimiento}" yearRange="c-117: c + 10" pattern="dd/MM/yyyy"  locale="es" required="true" onkeypress="return permite(event, 'none')" requiredMessage="Fecha de Nacimiento Requerido" navigator="true" effect="fadeIn" effectDuration="100">
-
+                                   
                                 </p:calendar>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
-
+                                <p:commandButton  value="Crea RFC" actionListener="#{usuarioBEAN.elaboraRFC}" update=":form:rfcUsuario"/>
+                             
+                                <p:inputText class="form-control" widgetVar="rfc" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}"
+                                             style="text-transform: uppercase; "  label="RFC" size="50" >
+                                   
+                                             <!--<f:validator validatorId="validadoresRFC" /> -->
+                                              
+                                </p:inputText>
+                                <p:column><br/> </p:column><p:column><br/> </p:column>
                             </h:panelGrid>
 
                         </p:panel>
@@ -150,7 +147,7 @@
                                     <f:selectItems value="#{usuarioBEAN.listaTemporalOficina}" var="oficina" itemLabel="#{oficina.nombreOficina}" itemValue="#{oficina}"/>
                                 </p:selectOneMenu>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
-                                <p:outputLabel value="Profesión:" style="color: black;font-size:14px"/>
+                                <p:outputLabel value="Titulo:" style="color: black;font-size:14px"/>
                                 <p:selectOneMenu value="#{usuarioBEAN.registroUsuarioNuevo.id_profesion}" converter="omnifaces.SelectItemsConverter" required="true" 
                                                  requiredMessage="Profesión requerida" label="Profesión:" style="height:30px;width:350px"><!-- es para su ancho y largo del selectOneMenu -->
                                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
@@ -164,7 +161,7 @@
 
                     <p:tab id="cuenta" title="Cuenta">
                         <p:panel header="Datos de Cuenta" style="font-size:18px"  >
-                            <p:messages />
+                            <p:messages id="mensaje3"/>
                             <h:panelGrid columns="3" columnClasses="label, value" class="container-fluid  text-justify" width="500">
                                 <p:column><br/> </p:column><p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Correo:" style="color: black;font-size:14px"  />
@@ -182,11 +179,11 @@
                                 </p:column>
                                 <p:column><br/> </p:column><p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Contraseña:" style="color: black;font-size:14px" />
-                                <p:inputText class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}"
-                                             type="password" required="true" requiredMessage="Contraseña Requerida" label="Contraseña:" style="width:250px">
-                                    <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor este entre 6 y 15-->
+                                <p:password class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" match=":form:confirmaContraseña"
+                                             required="true" requiredMessage="Contraseña Requerida" label="Contraseña:" style="width:250px">
+                                    <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor sea igual a el de la contraseña-->
                                     <p:ajax event="blur" update="validaContraseña"/>
-                                </p:inputText>
+                                </p:password>
                                 <p:column/>
                                 <p:column><br/> </p:column>
                                 <p:column>
@@ -196,11 +193,12 @@
                                 <!-- Ocupamos las tres columnas para separar  -->
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Confirma:" style="color: black;font-size:14px" />
-                                <p:inputText class="form-control" placeholder="Confirma Contraseña" id="ConfirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}" 
-                                             type="password" required="true" requiredMessage="Confirme su Contraseña" label="Confirma:" style="width:250px">
-                                    <f:validator validatorId="validadoresContrasenia"/>
-                                    <p:ajax event="keyup" update="validaContraseña" listener="#{usuarioBEAN.validaContraseña()}"/>
-                                </p:inputText>
+                                <p:password class="form-control" placeholder="Confirma Contraseña" id="confirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}"
+                                              required="true" requiredMessage="Confirme su Contraseña" label="Confirma:" style="width:250px">
+                                    <f:validator validatorId="validaContraseña"/>
+                                    <p:ajax event="keyup" update="mensaje3"/>
+                                   
+                                </p:password>
                                 <p:outputLabel id="validaContraseña" value="#{usuarioBEAN.mensajeContraseña}" style="font-size: 14px; color: #ff6600"/>
                                 <!--<p:column><br/> </p:column>-->
                             </h:panelGrid>

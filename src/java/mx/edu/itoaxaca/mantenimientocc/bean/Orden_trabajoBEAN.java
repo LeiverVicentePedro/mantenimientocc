@@ -16,6 +16,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_trabajoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_trabajo;
@@ -116,7 +117,7 @@ public class Orden_trabajoBEAN implements Serializable{
              solicitudDao=new Solicitud_mcDAO();//aqui se modifica solicitud en estado_seguimiento
             Solicitud_mc solicitudEstadoSeguimiento=solicitudDao.elegirDatoSolicitudParaModificarEstado_Seguimiento(orden_trabajo.getId_solicitudmc());
             solicitudDao.modificarSolicitudSeguimiento(solicitudEstadoSeguimiento);
-            
+            new CorreoRegistroUsuario().enviarMensajeOrdenTrabajo(orden_trabajo);
             exportarOrdenTrabajo(usuarioVive);
             
             this.limpiarOrdenTrabajo();

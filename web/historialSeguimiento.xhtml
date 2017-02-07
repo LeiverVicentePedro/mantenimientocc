@@ -13,12 +13,14 @@
                  <p:separator style="visibility: hidden;"/>
                 <h:form id="formaExterior"> 
                     <f:event id="event" type="preRenderView" listener="#{solicitud_mcBEAN.listaSolicitudDeUsuariosHistorialSeguimiento()}"/>
-                    <center>
-                        <p:outputLabel value="HISTORIAL " style=" font-size: 20px;"/> 
+                     <center>
+                        <p:outputLabel value="Listado de Solicitudes Terminadas" style="font-size: 25px;" />
                     </center>
+                <p:separator/> 
+                <p:separator style="visibility: hidden;"/>
                     <p:dataTable id="data" var="solicitud_usuario" value="#{solicitud_mcBEAN.listaSolicitudDeUsuariosHistorialSeguimiento}" 
 
-                                 style="font-size: 14px;"
+                                 style="font-size: 15px;text-transform: uppercase;"
 
                                  resizableColumns="true"
                                  liveResize="true"
@@ -45,31 +47,44 @@
                         <p:column headerText="Folio" 
                                   sortBy="#{solicitud_usuario.folio}" 
                                   filterBy="#{solicitud_usuario.folio}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith" width="50">
 
                             <h:outputText value="#{solicitud_usuario.folio}" />
 
                         </p:column>
+                        <p:column headerText="Fecha de Creación" 
+                                  sortBy="#{solicitud_usuario.fecha}" 
+                                  filterBy="#{solicitud_usuario.fecha}"
+                                  filterMatchMode="startsWith" width="70">
+
+                            <h:outputText value="#{solicitud_usuario.fecha}" />
+
+                        </p:column>
 
 
-                        <p:column headerText="Departamento que dio Atención" 
+                        <p:column headerText="Dirigidó Al Departamento" 
                                   sortBy="#{solicitud_usuario.id_departamento.nombre_departamento}" 
                                   filterBy="#{solicitud_usuario.id_departamento.nombre_departamento}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith" width="90">
 
                             <h:outputText value="#{solicitud_usuario.id_departamento.nombre_departamento}" />
 
                         </p:column>
                         
-                        <p:column headerText="Estado de Solicitud" 
+                        <p:column headerText="Estado" 
                                   sortBy="#{solicitud_usuario.estado_seguimiento}" 
                                   filterBy="#{solicitud_usuario.estado_seguimiento}"
-                                  filterMatchMode="startsWith">
+                                  filterMatchMode="startsWith" width="70">
 
                             <h:outputText value="#{solicitud_usuario.estado_seguimiento}" >
                                  <f:converter converterId="conversionEstatusSeguimiento" />
                             </h:outputText>
 
+                        </p:column>
+                        <p:column headerText="Seguimiento" width="60">
+                            <center>
+                           <p:commandButton value="Ver" icon="fa fa-eye" action="seguimientoCliente.xhtml" actionListener="#{segiomientoMantenimientoUsuarioBEAN.redirigeVistaSiExisteSolicitud(solicitud_usuario)}" ajax="false"/>
+                            </center>
                         </p:column>
 
 

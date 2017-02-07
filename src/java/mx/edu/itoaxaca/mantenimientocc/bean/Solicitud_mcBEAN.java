@@ -13,6 +13,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 
 
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_servicio_solicitadoDAO;
@@ -216,9 +217,7 @@ public class Solicitud_mcBEAN implements Serializable{
             System.out.println(seguimiento.getEstado_solicitud()+"\n");
             System.out.println(seguimiento.getEstado_asignacion()+"\n");
             seguimientoDao.registrarSeguimiento(seguimiento);
-                    
-            
-            
+           new CorreoRegistroUsuario().enviarMensajeSolicitud(usuarioVive.getCorreo(), solicitudmc);//correo de validacion de solicitud
             new ReporteMantenimiento().exportarPDFSolicitud(solicitudmc, serviciosSeleccionados);//metodo para exportar pdf desde otra clase
             
             System.out.println("fecha del sistema " + solicitudmc.getFecha());

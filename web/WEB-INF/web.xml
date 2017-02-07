@@ -63,5 +63,9 @@
         <extension>jpg</extension> 
         <mime-type>image/jpeg</mime-type> 
     </mime-mapping> 
+    
+    
+    
+    
 </web-app>
 

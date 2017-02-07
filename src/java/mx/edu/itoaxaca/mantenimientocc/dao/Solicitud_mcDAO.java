@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
+import mx.edu.itoaxaca.mantenimientocc.modelo.SeguimientoCliente;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
@@ -276,7 +277,6 @@ public class Solicitud_mcDAO extends Conexion {
                 solicitudMC.setEstado_seguimiento(resultadoList.getBoolean("estado_seguimiento"));
                 lista.add(solicitudMC);
             }
-
         } catch (Exception e) {
             System.out.println("error en Solicitud_mcDAO -> ListarSolicitudPorDepartamentoUsuario " + e);
             throw e;
@@ -286,6 +286,39 @@ public class Solicitud_mcDAO extends Conexion {
         }
         return lista;
     }
+    /*PENDIENTE POR USAR ESTO ES POR SI AFUERZA SE NOS PIDE QUE MOSTREMOS LOS ESTADOS
+    public List<SeguimientoCliente> listarSolicitudPorDepartamentoUsuarioEnSeguimiento(Usuario usuario) throws Exception{ //usado en Asignas Solicitud en asignaSolicitud
+        List<SeguimientoCliente> lista;
+        ResultSet resultadoList;
+        try {
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM solicitud_mc where estado_seguimiento = true and id_usuario=?");
+            consulta.setInt(1, usuario.getIdUsuario());
+            resultadoList = consulta.executeQuery();
+            lista = new ArrayList();
+            while (resultadoList.next()) {
+                SeguimientoCliente solicitudMC = new SeguimientoCliente();
+                solicitudMC.setIdsolicitud_mc(resultadoList.getInt("idsolicitud_mc"));
+                solicitudMC.setId_usuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoList.getInt("id_usuario")));
+                solicitudMC.setFolio(resultadoList.getString("folio"));
+                solicitudMC.setFecha(resultadoList.getDate("fecha"));
+                solicitudMC.setOtroProblema(resultadoList.getString("otro_problema"));
+                solicitudMC.setId_departamento(new DepartamentoDAO().buscarIdDepartamento(resultadoList.getInt("id_departamento")));
+                solicitudMC.setEstatus(resultadoList.getBoolean("estatus"));
+                solicitudMC.setEstado_seguimiento(resultadoList.getBoolean("estado_seguimiento"));
+                lista.add(solicitudMC);
+            }
+        } catch (Exception e) {
+            System.out.println("error en Solicitud_mcDAO -> ListarSolicitudPorDepartamentoUsuario " + e);
+            throw e;
+
+        } finally {
+            this.Cerrar();
+        }
+        return lista;
+    }
+    
+    */
     
     
     public List<Solicitud_mc> buscarSolucitudPorIdUsuario(int idUsuario) throws Exception{

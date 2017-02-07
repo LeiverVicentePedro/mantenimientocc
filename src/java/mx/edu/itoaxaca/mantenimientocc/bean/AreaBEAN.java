@@ -20,8 +20,18 @@ public class AreaBEAN implements Serializable{
     private Area area = new Area();
     private List<Area> listaArea;
     private List<Area> filterArea;
+    private List<Area> seleccionArea;
     private String accion;
 
+    public List<Area> getSeleccionArea() {
+        return seleccionArea;
+    }
+
+    public void setSeleccionArea(List<Area> seleccionArea) {
+        this.seleccionArea = seleccionArea;
+    }
+
+    
 
     public Area getArea() {
         return area;
