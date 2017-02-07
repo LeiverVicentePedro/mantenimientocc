@@ -18,6 +18,7 @@ import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.DetalleSeguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Seguimiento;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 
 
 
@@ -125,5 +126,41 @@ public class DetalleSeguimientoDAO extends Conexion {
         }
         return detalles;
     }
+    
+    public List<DetalleSeguimiento> listarEstados(Solicitud_mc solicitudEstados) throws Exception{
+         ArrayList<DetalleSeguimiento> detalledos = new ArrayList<DetalleSeguimiento>();
+        ResultSet resultado=null;
+        
+        try{
+            this.Conectar();
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT *\n" +
+"FROM detalle_seguimiento inner join seguimiento on detalle_seguimiento.id_seguimiento=seguimiento.idseguimiento\n" +
+"inner join solicitud_mc on solicitud_mc.idsolicitud_mc=seguimiento.id_solicitud \n" +
+"where estado_seguimiento=false and idsolicitud_mc=?");
+            consulta.setInt(1, solicitudEstados.getIdsolicitud_mc());
+            resultado = consulta.executeQuery();
+            while(resultado.next())
+            {
+             DetalleSeguimiento seguimientoDetalle = new DetalleSeguimiento();
+             seguimientoDetalle.setIddetalle_seguimiento(resultado.getInt("iddetalle_seguimiento"));
+                seguimientoDetalle.setEstado(resultado.getString("estado"));
+                seguimientoDetalle.setDescripcion(resultado.getString("descripcion"));
+                seguimientoDetalle.setImagenDowload(resultado.getBytes("imagen"));
+                seguimientoDetalle.setId_seguimiento(new SeguimientoDAO().identificadorDetalleSeguimientoID(resultado.getInt("id_seguimiento")));
+             
+                seguimientoDetalle.setFecha(resultado.getDate("fecha"));
+                detalledos.add(seguimientoDetalle);
+            }
+        }
+        catch(Exception e){
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }
+        return detalledos;
+    }
+    
+    
 
 }

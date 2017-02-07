@@ -22,6 +22,17 @@ public class Periodo_semestralBEAN implements Serializable{
     private Periodo_semestral periodo=new Periodo_semestral();
     private List<Periodo_semestral> listaPeriodo;
     private List<Periodo_semestral> filterPeriodo;
+    private List<Periodo_semestral> seleccionPeriodo;//este es para ver que dato se selecciono
+
+    public List<Periodo_semestral> getSeleccionPeriodo() {
+        return seleccionPeriodo;
+    }
+
+    public void setSeleccionPeriodo(List<Periodo_semestral> seleccionPeriodo) {
+        this.seleccionPeriodo = seleccionPeriodo;
+    }
+    
+    
     private String accion;
 
     public Periodo_semestral getPeriodo() {

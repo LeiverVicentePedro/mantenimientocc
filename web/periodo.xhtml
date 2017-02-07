@@ -18,7 +18,7 @@
             <p:growl id="msj" showDetail="true" sticky="true"/>
              <center>
                         <p:separator style="visibility: hidden;"/> 
-                        <p:outputLabel value="Lista de Periodo" style="font-size: 25px;" />
+                        <p:outputLabel value="Listado de Periodos" style="font-size: 25px;" />
                     </center>
                 <p:separator/> 
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();"  actionListener="#{periodo_semestralBEAN.setAccion('Registrar')}" update=":dialogoDatos">
@@ -32,7 +32,7 @@
                                  
                                  resizableColumns="true"
                                  liveResize="true"
-                                 
+                                 selectionMode="multiple" selection="#{periodo_semestralBEAN.seleccionPeriodo}" rowKey="#{periodo.idperiodo_semestral}"
                                  liveScroll="true" scrollRows="15" scrollWidth="100%"
                                  scrollable="true"
                                  
@@ -62,10 +62,12 @@
                           style=" font-size: 14px;text-transform: uppercase">
                     <p:outputLabel value="#{periodo.periodo}" style="text-transform: uppercase"/><!-- ES PARA MAYUSCULA style="text-transform: uppercase"  -->
                 </p:column>
-               <p:column headerText="EDITAR"
-                         width="70" style=" font-size: 13px;">
-                   <p:commandLink class="fa fa-pencil" actionListener="#{periodo_semestralBEAN.elegirDatoPeriodo(periodo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
-                </p:column>
+               <p:column headerText="MODIFICAR"
+                         width="100" style=" font-size: 13px;">
+                   <center>
+                   <p:commandButton icon="fa fa-pencil" actionListener="#{periodo_semestralBEAN.elegirDatoPeriodo(periodo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                   </center>
+               </p:column>
             </p:dataTable>
         </h:form>
         

@@ -137,5 +137,39 @@ public class Orden_internaDAO extends Conexion {
         }
         return orden_interna;
     }
+        public List<Orden_interna> listarOrdenInternaPorDepartamentoUsuario(Usuario usuario) throws Exception{  //segundo uso de este metodo,se reutilizo para buscar el departamento de solicitud para generar asignacion 
+            List<Orden_interna> lista;
+        ResultSet resultadoConsulta;
+        try {
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM orden_interna where id_usuario_personal=?");
+            consulta.setInt(1, usuario.getIdUsuario());
+            resultadoConsulta = consulta.executeQuery();
+            lista = new ArrayList();
+            while (resultadoConsulta.next()) {
+                Orden_interna ordenInterna = new Orden_interna();
+                 ordenInterna.setIdorden_interna(resultadoConsulta.getInt("idorden_interna"));
+                ordenInterna.setNombre_orden(resultadoConsulta.getString("nombre_orden"));
+                ordenInterna.setId_usuario_personal(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoConsulta.getInt("id_usuario_personal")));
+                ordenInterna.setFecha(resultadoConsulta.getDate("fecha_entrada"));
+                ordenInterna.setReporte_fallo(resultadoConsulta.getString("reporte_fallo"));
+                ordenInterna.setReporte_tecnico(resultadoConsulta.getString("reporte_tecnico"));
+                ordenInterna.setPosible_causa(resultadoConsulta.getString("posible_causa"));
+                ordenInterna.setIdsolicitud(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultadoConsulta.getInt("id_solicitudmc")));
+                ordenInterna.setSe_recibe(resultadoConsulta.getString("se_recibe"));
+                ordenInterna.setRefaccion_faltante(resultadoConsulta.getString("refaccion_faltante"));
+                lista.add(ordenInterna);
+            }
+
+        } catch (Exception e) {
+            System.out.println("error en Orden_internaDAO -> ListarOrden InternaPorDepartamentoUsuario " + e);
+            throw e;
+
+        } finally {
+            this.Cerrar();
+        }
+        return lista;
+    }
+    
 
 }

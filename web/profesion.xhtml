@@ -17,7 +17,7 @@
              <p:growl id="msj" showDetail="true" sticky="true"/>
              <center>
                         <p:separator style="visibility: hidden;"/> 
-                        <p:outputLabel value="Lista de Profesión" style="font-size: 25px;" />
+                        <p:outputLabel value="Listado de Profesión" style="font-size: 25px;" />
                     </center>
                 <p:separator/> 
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();"  actionListener="#{profesionBEAN.setAccion('Registrar')}" update=":dialogoDatos">
@@ -32,7 +32,7 @@
                                  
                                  resizableColumns="true"
                                  liveResize="true"
-                                 
+                                 selectionMode="multiple" selection="#{profesionBEAN.seleccionProfesion}" rowKey="#{profesion.idprofesion}"
                                  liveScroll="true" scrollRows="15" scrollWidth="100%"
                                  scrollable="true"
                                  
@@ -66,9 +66,11 @@
                 
                 
                 
-                <p:column headerText="EDITAR"
-                          width="70" style=" font-size: 13px">
-                    <p:commandLink class="fa fa-pencil" actionListener="#{profesionBEAN.elegirDatoProfesion(profesion)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                <p:column headerText="MODIFICAR"
+                          width="100" style=" font-size: 13px">
+                    <center>
+                        <p:commandButton icon="fa fa-pencil" actionListener="#{profesionBEAN.elegirDatoProfesion(profesion)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                    </center>
                 </p:column>
                 
                 

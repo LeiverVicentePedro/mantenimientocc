@@ -16,10 +16,10 @@
         <h:form id="formaExterior">                      
               <p:growl id="msj" showDetail="true" sticky="true"/>
               <center>
-                        <p:separator style="visibility: hidden;"/> 
-                        <p:outputLabel value="Lista de Catalogo de Servicios Solicitado" style="font-size: 25px;" />
+                      <p:separator style="visibility: hidden;"/> 
+                   <p:outputLabel value="Listado de Servicios Solicitados" style="font-size: 25px;" />
                     </center>
-                <p:separator/>
+            <p:separator/> 
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();"  actionListener="#{catalogo_servicio_solicitadoBEAN.setAccion('Registrar')}" update=":dialogoDatos">
                 <f:ajax execute="#{catalogo_servicio_solicitadoBEAN.listarCatalogo()}" render="data"/>
             </p:commandButton>
@@ -31,7 +31,7 @@
                                  
                                  resizableColumns="true"
                                  liveResize="true"
-                                 
+                                 selectionMode="multiple" selection="#{catalogo_servicio_solicitadoBEAN.seleccionCatalogo}" rowKey="#{catalogo.idcatalogo_servicio_solicitado}"
                                  liveScroll="true" scrollRows="15" scrollWidth="100%"
                                  scrollable="true"
                                  
@@ -72,7 +72,7 @@
                     <p:outputLabel value="#{catalogo.departamento.nombre_departamento}" style="text-transform: uppercase"/>
                
                 </p:column>
-                 <p:column headerText="ESTATUS"
+                 <p:column headerText="ESTADO"
                                   sortBy="#{catalogo.estatus}"
                                   filterBy="#{catalogo.estatus}"
                                   filterMatchMode="equals" style="font-size: 13px" width="140">
@@ -94,14 +94,18 @@
                 
                 
                 
-                <p:column headerText="EDITAR"
-                          width="70" style=" font-size: 13px ">
-                    <p:commandLink class="fa fa-pencil" actionListener="#{catalogo_servicio_solicitadoBEAN.elegirDatoCatalogo(catalogo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                <p:column headerText="MODIFICAR"
+                          width="90" style=" font-size: 12px ">
+                    <center>
+                    <p:commandButton icon="fa fa-pencil" actionListener="#{catalogo_servicio_solicitadoBEAN.elegirDatoCatalogo(catalogo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                    </center>
                 </p:column>
                 
-                <p:column headerText="BAJA"
-                          width="70">
-                    <p:commandLink class="fa fa-trash" actionListener="#{catalogo_servicio_solicitadoBEAN.elegirDatoCatalogoBaja(catalogo)}" update="data"/>
+                <p:column headerText="CAMBIAR ESTADO"
+                          width="120" style=" font-size: 12px ">
+                    <center>
+                    <p:commandButton icon="fa fa-trash" actionListener="#{catalogo_servicio_solicitadoBEAN.elegirDatoCatalogoBaja(catalogo)}" update="data"/>
+                    </center>
                 </p:column>
                 
             </p:dataTable>

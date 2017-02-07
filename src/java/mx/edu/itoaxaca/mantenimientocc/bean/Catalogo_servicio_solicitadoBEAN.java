@@ -23,11 +23,17 @@ public class Catalogo_servicio_solicitadoBEAN  implements Serializable{
     private List<Catalogo_servicio_solicitado> catalogoLista;
     private List<Catalogo_servicio_solicitado> listaSolicitudCatalogo;
     private List<Catalogo_servicio_solicitado> filterCatalogo;
+    private List<Catalogo_servicio_solicitado> seleccionCatalogo;
     private String accion;
 
-    
-    
-    
+    public List<Catalogo_servicio_solicitado> getSeleccionCatalogo() {
+        return seleccionCatalogo;
+    }
+
+    public void setSeleccionCatalogo(List<Catalogo_servicio_solicitado> seleccionCatalogo) {
+        this.seleccionCatalogo = seleccionCatalogo;
+    }
+
     
     public Catalogo_servicio_solicitado getCatalogo() {
         return catalogo;

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
+       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
@@ -11,25 +11,17 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                 <p:growl id="msj" showDetail="true" sticky="true">
-                     
-                 </p:growl>
-                
-                <p/><p/>
-                
-                
-        <h:form id="formaExterior">     
-            <f:event id="event" type="preRenderView" listener="#{orden_internaBEAN.listarOrden_interna()}"/>
-             <p:separator style="visibility: hidden;"/>
-             <center>
-                        <p:outputLabel value=" Listado de Ordenes Internas" style="font-size: 25px;" />
+                 <h:form id="formaExterior">     
+                     <f:event id="event" type="preRenderView" listener="#{orden_internaBEAN.listarOrdenInternaPorUsuario()}"/>
+                      <p:separator style="visibility: hidden;"/>
+                     <center>
+                        <p:outputLabel value=" Listado de Mis Ordenes Internas" style="font-size: 25px;" />
                     </center>
                 <p:separator/> 
                 <p:separator style="visibility: hidden;"/>
-               
-            <p:dataTable id="data" var="ordenInterna" value="#{orden_internaBEAN.listaOrden_interna}" 
+                <p:dataTable id="data" var="ordenInterna" value="#{orden_internaBEAN.listaOrden_internaUsuario}" 
                           
-                 style="font-size: 14px;text-transform: uppercase"
+                         style="font-size: 14px;text-transform: uppercase"
                                  
                                  resizableColumns="true"
                                  liveResize="true"
@@ -116,12 +108,13 @@
                      <h:outputText value="#{ordenInterna.posible_causa}" />
                    
                 </p:column>
-                      
+               
+              
                 
              
             </p:dataTable>
             
-           
+            
             
         </h:form>
             </ui:define>

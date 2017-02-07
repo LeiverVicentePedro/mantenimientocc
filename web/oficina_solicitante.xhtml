@@ -16,10 +16,10 @@
                     <h:form id="formaExterior">
                         <p:growl id="msj" showDetail="true" sticky="true"/>
                      <center>
-                        <p:separator style="visibility: hidden;"/> 
-                        <p:outputLabel value="Lista de Oficina" style="font-size: 25px;" />
+                      <p:separator style="visibility: hidden;"/> 
+                   <p:outputLabel value="Listado de Oficinas del ITO" style="font-size: 25px;" />
                     </center>
-                <p:separator/> 
+            <p:separator/> 
                         <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{oficina_solicitanteBEAN.setAccion('Registrar')}" update=":dialogoDatos" >
                             <f:ajax execute="#{oficina_solicitanteBEAN.listarOficina()}" render="data"/>
                         </p:commandButton>
@@ -27,7 +27,7 @@
                        <p:separator style="visibility: hidden;"/> 
                      <p:dataTable id="data" value="#{oficina_solicitanteBEAN.listaOficina}" 
                                   var="oficina" 
-                                  
+                                  selectionMode="multiple" selection="#{oficina_solicitanteBEAN.seleccionOficina}" rowKey="#{oficina.idOficinaSolicitante}"
                                   style="font-size: 14px;"
                                  
                                  resizableColumns="true"
@@ -59,7 +59,7 @@
                                   filterMatchMode="startsWith"
                                    filterStyle="visibility:hidden; height:0"
                                    style=" font-size: 13px;text-transform: uppercase "
-                                   width="160">
+                                   width="65">
                             
                             <p:outputLabel value="#{oficina.nombreOficina}"  />
                         
@@ -70,7 +70,7 @@
                                   filterMatchMode="startsWith"
                                    filterStyle="visibility:hidden; height:0"
                                    style=" font-size: 13px;text-transform: uppercase "
-                                   width="160">
+                                   width="120">
                             
                             <p:outputLabel value="#{oficina.departamento.nombre_departamento}" />
                             
@@ -82,13 +82,13 @@
                                   filterMatchMode="startsWith"
                                    filterStyle="visibility:hidden; height:0"
                                    style=" font-size: 13px;text-transform: uppercase"
-                                   width="70">
+                                   width="40">
                             <p:outputLabel value="#{oficina.extencion}" />
                         </p:column>
-                        <p:column headerText="ESTATUS"
+                        <p:column headerText="ESTADO"
                                   sortBy="#{oficina.estatus}"
                                   filterBy="#{oficina.estatus}"
-                                  filterMatchMode="equals" style="font-size: 13px" width="100">
+                                  filterMatchMode="equals" style="font-size: 13px" width="60">
                             
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 9px ">
@@ -104,14 +104,17 @@
                                  <f:converter converterId="conversionEstatus"/>
                             </p:outputLabel>
                         </p:column>
-                        <p:column headerText="EDITAR"
-                                  width="70" style="font-size: 13px">
-                            <p:commandLink class="fa fa-pencil" actionListener="#{oficina_solicitanteBEAN.elegirDatoOficina(oficina)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
-                         </p:column>
-                         <p:column headerText="BAJA"
-                                   width="70" style="font-size: 13px">
-                             <p:commandLink class="fa fa-trash" actionListener="#{oficina_solicitanteBEAN.elegirDatoOficinaBaja(oficina)}" update="data"/>
-                        
+                        <p:column headerText="MODIFICAR"
+                                  width="35" style="font-size: 11px">
+                            <center>
+                                <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{oficina_solicitanteBEAN.elegirDatoOficina(oficina)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                            </center>
+                        </p:column>
+                         <p:column headerText="CAMBIAR ESTADO"
+                                   width="50" style="font-size: 11px">
+                             <center>
+                                 <p:commandButton process="data" icon="fa fa-refresh" actionListener="#{oficina_solicitanteBEAN.elegirDatoOficinaBaja(oficina)}" update="data"/>
+                             </center>
                          </p:column>
                     </p:dataTable>
                      

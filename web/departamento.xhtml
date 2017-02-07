@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
     <body>
@@ -60,7 +61,7 @@
                                   filterBy="#{departamento.clave_departamento}"
                                    filterMatchMode="startsWith"
                                    filterStyle="visibility:hidden; height:0"
-                                   style=" font-size: 13px;text-transform: uppercase " width="10" >
+                                   style=" font-size: 13px;text-transform: uppercase " width="1" >
                             
                             <h:outputText value="#{departamento.clave_departamento}"  />
                             
@@ -80,12 +81,12 @@
                                   filterBy="#{departamento.area.nombre_area}"
                                   filterMatchMode="startsWith"
                                   filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase " width="50">
+                                  style=" font-size: 13px;text-transform: uppercase " width="45">
                                   
                             <p:outputLabel value="#{departamento.area.nombre_area}" />
                         
                         </p:column>
-                        <p:column headerText="ESTATUS"
+                        <p:column headerText="ESTADO"
                                   sortBy="#{departamento.estatus}"
                                   filterBy="#{departamento.estatus}"
                                   filterMatchMode="equals" style=" font-size: 13px;text-transform: uppercase " width="40">
@@ -104,12 +105,16 @@
                             </p:outputLabel>
                         </p:column>
                         <p:column headerText="MODIFICAR"
-                                  width="23" style="font-size: 10px ">
+                                  width="20" style="font-size: 11px ">
+                            <center>
                             <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
-                         </p:column>
+                            </center>
+                        </p:column>
                          <p:column headerText="CAMBIAR ESTADO"
-                                   width="35" style="font-size: 10px ">
-                             <p:commandButton process="data" icon="fa fa-trash" actionListener="#{departamentoBEAN.elegirDatoDepartamentoBaja(departamento)}" update="data"/>
+                                   width="35" style="font-size: 11px ">
+                             <center>
+                             <p:commandButton process="data" icon="fa fa-refresh" actionListener="#{departamentoBEAN.elegirDatoDepartamentoBaja(departamento)}" update="data"/>
+                             </center>
                          </p:column>
                     </p:dataTable>
                  </h:form>

@@ -6,6 +6,7 @@
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
 
+
 import com.javeros.anonimos.code.Rfc;
 import com.javeros.anonimos.code.dto.PersonaRfcDto;
 import java.util.ArrayList;
@@ -762,6 +763,7 @@ public class UsuarioBEAN implements Serializable{
             
         }.run();
     }
+    
     public void elaboraRFC(){
             int año = registroUsuarioNuevo.getFecha_nacimiento().getYear()+1900;
             int mes = registroUsuarioNuevo.getFecha_nacimiento().getMonth()+1;

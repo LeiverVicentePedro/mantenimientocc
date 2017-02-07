@@ -89,7 +89,7 @@ public class AccesoBEAN implements Serializable{
                 setRedireccion("principalNivelUno.xhtml");
                 }
                 if(usuarioBean.getNivel()==2){
-                setRedireccion("principal.xhtml");
+                setRedireccion("principalNivelDos.xhtml");
                 }
                  if(usuarioBean.getNivel()==3){
                 setRedireccion("principal.xhtml");

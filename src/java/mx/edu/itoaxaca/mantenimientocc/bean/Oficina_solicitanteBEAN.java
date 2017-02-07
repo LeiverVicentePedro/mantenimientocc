@@ -19,7 +19,16 @@ public class Oficina_solicitanteBEAN implements Serializable{
     private Oficina_solicitante oficina= new Oficina_solicitante();
     private List<Oficina_solicitante> listaOficina;
     private List<Oficina_solicitante> filterOficina;
+    private List<Oficina_solicitante> seleccionOficina;
     private String accion;
+
+    public List<Oficina_solicitante> getSeleccionOficina() {
+        return seleccionOficina;
+    }
+
+    public void setSeleccionOficina(List<Oficina_solicitante> seleccionOficina) {
+        this.seleccionOficina = seleccionOficina;
+    }
     
     
     public List<Oficina_solicitante> getFilterOficina() {

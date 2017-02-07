@@ -25,7 +25,7 @@
                         <p/>
                         <p:dataTable id="dataUno" var="equipo" value="#{equipoBEAN.listaEquipoOrdenIn}"  selection="#{orden_internaBEAN.listaEquipo}" rowKey="#{equipo.idequipo}"
 
-                                     style="font-size: 14px;"
+                                     style="font-size: 14px;text-transform: uppercase "
 
                                      resizableColumns="true"
                                      liveResize="true"
@@ -127,50 +127,96 @@
                 <!--//////////////////////////////////////Apartir de Aqui Termina la parte de Equipo ///////////////////////////  -->
 
 
-                <!--//////////////////////////////////////Apartir de aqui Comienza Refaccion////////////////////////////////////-->
+                <!--//////////////////////////////////////Apartir de aqui Comienza Listado de Refaccion////////////////////////////////////-->
 
-                <p:dialog header="Datos de Refaccion" widgetVar="DatosRefaccion" id="dialogoDatosRefaccion" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
+                <p:dialog header="Listado de Datos de Refacción" widgetVar="DatosRefaccionLista" id="dialogoDatosRefaccionLista" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
+                  <h:form id="formaExteriorRefaccion"> 
+                       
+                        <p/>
+                        <p:commandButton value="Nueva Refacción" oncomplete="PF('DatosRefaccion').show();" actionListener="#{refaccion_empleadaBEAN.setAccion('Registrar')}" update=":dialogoDatosRefaccion" >         
+                            <f:ajax execute="#{refaccion_empleadaBEAN.listarRefaccion()}" render="dataUno" />
+                        </p:commandButton>
+                        <p/>
+                        <p:dataTable id="dataUnoRefaccion" var="refaccion" value="#{refaccion_empleadaBEAN.listaRefaccion}"  selection="#{orden_internaBEAN.listaRefaccion}" rowKey="#{refaccion.id_refaccion_empleada}"
 
-                    <h:form id="formaExterior" >               
-                        <p/>
-                        <p:outputLabel value="&nbsp;Cantidad&nbsp;" />
-                        <p:spinner value="#{orden_internaBEAN.refaccion.cantidad}" required="true" 
-                                     requiredMessage="Se necesita un Cantidad"
-                                     style="text-transform: uppercase" min="1">
-                            <f:validator validatorId="validadoresNumeros"/>
-                        </p:spinner>
-                        <p/> 
-                        
-                        <p:outputLabel  value="&nbsp;Num.Serie&nbsp;"/>
-                        <p:inputText  value="#{orden_internaBEAN.refaccion.numero_serie}"  
-                                       placeholder="0(cero) si no tiene"
-                                      required="true" requiredMessage="Se requiere Un Dato">
-                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                        </p:inputText>
-                        
-                        <p/>
-                        <p:outputLabel  value="&nbsp;Descripcion&nbsp;"/>
-                        <p:inputText  value="#{orden_internaBEAN.refaccion.descripcion}" 
-                                      required="true" requiredMessage="Se requiere Descripcion" 
-                                      style="text-transform: uppercase" placeholder="¿Que es?">
-                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                        </p:inputText>
-                        <p/>
-                        <p:outputLabel  value="&nbsp;Precio&nbsp;"/>
-                        <p:spinner  value="#{orden_internaBEAN.refaccion.precio}"  
-                                    style="text-transform: uppercase" min="0" prefix="$" placeholder="0(cero) si no tiene">
-                        </p:spinner>
+                                     style="font-size: 14px;text-transform: uppercase "
 
-                        <p/>
-                        
-                        <center>
-                            <p:commandButton value="Agregar" action="#{orden_internaBEAN.agregaRefaccion()}" oncomplete="PF('DatosRefaccion').hide();" update=":formOrden:displayRefaccion" />
-                            <p:commandButton value="Cerrar" oncomplete="PF('DatosRefaccion').hide();" update=":formOrden:displayRefaccion" immediate="true"/>
-                        </center>
+                                     resizableColumns="true"
+                                     liveResize="true"
+
+                                     liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                     scrollable="true"
+
+                                     widgetVar="buscar"
+                                     filteredValue="#{refaccion_empleadaBEAN.filterRefaccion}"
+                                     emptyMessage="No hay elementos encontrados"
+                                     paginator="true" rows="5"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     paginatorPosition="bottom">
+
+
+                            <f:facet name="header">
+                                <p:outputPanel class="text-right">
+                                    <h:outputText value="Buscar:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
+
+                                                 style="width:150px" />
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:ajax event="rowSelectCheckbox" listener="#{orden_internaBEAN.check}"   />
+                            <p:columnGroup type="header" > 
+                                <p:row> 
+                                    <p:column width="20"></p:column>
+                                <p:column headerText="Descripción" 
+                                          sortBy="#{refaccion.descripcion}" 
+                          filterBy="#{refaccion.descripcion}"
+                          filterMatchMode="startsWith"
+                          width="170"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase "> </p:column>
+                <p:column headerText="Número de Serie" 
+                          sortBy="#{refaccion.numero_serie}" 
+                          filterBy="#{refaccion.numero_serie}"
+                          filterMatchMode="startsWith"
+                          width="140"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase "> </p:column>
+                
+                <p:column headerText="Precio" 
+                          sortBy="#{refaccion.precio}" 
+                          filterBy="#{refaccion.precio}"
+                          filterMatchMode="startsWith"
+                          width="140"
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;text-transform: uppercase "></p:column>
+                
+                <p:column headerText="Cantidad" 
+                          sortBy="#{refaccion.cantidad}" 
+                          filterBy="#{refaccion.cantidad}"
+                          filterMatchMode="startsWith"
+                          width="150" 
+                          filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 13px;"></p:column>
+                
+                                </p:row> 
+                            </p:columnGroup><!-- ESTO ES PARA QUITAR EL SELECCIONAR TODOS LOS CAMPOS el cuadrito del header -->
+                            <p:column  selectionMode="multiple" style="width:35px;text-align:center" />
+                            <p:column> <h:outputText value="#{refaccion.descripcion}" /> </p:column>
+                            <p:column><h:outputText value="#{refaccion.numero_serie}" /> </p:column>
+                            <p:column ><h:outputText value="#{refaccion.precio}" /></p:column>
+                            <p:column ><h:outputText value="#{refaccion.cantidad}" /></p:column>
+                           
+                            <f:facet name="footer">
+                                <p:commandButton process="dataUnoRefaccion" value="Aceptar" oncomplete="PF('DatosRefaccionLista').hide();" update=":formOrden:displayRefaccion" />
+                                 <p:commandButton value="Cerrar" oncomplete="PF('DatosRefaccionLista').hide();" />
+                             </f:facet>
+                        </p:dataTable>
                     </h:form>
+                    
 
                 </p:dialog>
-                <!--/////////////////////////////////////////// Apartir de Aqui Termina la parte de Refaccion  /////////////////////////////////////////////-->
+                <!--/////////////////////////////////////////// Apartir de Aqui Termina listado de Refaccion  /////////////////////////////////////////////-->
 
                 <!-- ////////////////////////////////////Aqui se llenan los campos de Orden interna  //////////////////////////////////////////////--> 
 
@@ -238,9 +284,9 @@
                                 </p:dataList>
                             </p:outputPanel>
                             <br/><p:column/><p:column/><p:column/>
-                            <p:outputLabel value="Seleccione Refaccion usada: "/>
+                            <p:outputLabel value="Seleccione Refacción usada: "/>
                             
-                            <p:commandButton value="Refacción" oncomplete="PF('DatosRefaccion').show();" update=":dialogoDatosRefaccion" /> 
+                            <p:commandButton value="Refacción" oncomplete="PF('DatosRefaccionLista').show();" update=":dialogoDatosRefaccionLista" /> 
                             
                             <p:outputLabel value="Refacción utilizada: "/>
                             <p:outputPanel id="displayRefaccion" style="width:240px;padding-left:5px;margin-top:10px" >
@@ -248,17 +294,15 @@
                                     #{problemas.descripcion}
                                 </p:dataList>
                             </p:outputPanel>
-                            <p:column/><p:column/><p:column/>
-                            <p:commandButton value="Remover Refaccion" action="#{orden_internaBEAN.limpiaListaRefaccion()}" update="formOrden:displayRefaccion"/>
-                            <p:separator style="visibility: hidden"/><p:column/><p:column/><p:column/>
+                          <br/><p:column/><p:column/><p:column/> 
                             <p:column/>
-                            <p:outputLabel value="NOTA: Si el Servicio se detuvo por falta de refaccion apuntar el motivo en el campo sogiente"/>
+                            <p:outputLabel value="NOTA: Si el servicio se detuvo por falta de refacción apuntar el motivo en el campo siguiente"/>
                             <p:column/><p:column/>
                             <p:column/>
-                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.refaccion_faltante}" placeholder="Describa Motivo de falta de refaccion." rows="2" cols="50" counter="reporteTecnico" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false"/>
+                            <p:inputTextarea value="#{orden_internaBEAN.orden_interna.refaccion_faltante}" placeholder="Describa Motivo de falta de refacción." rows="2" cols="50" counter="reporteTecnico" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false"/>
                         </h:panelGrid>
                     </p:panel>
-                    <p:separator style="visibility: hidden;"/>
+                    <br/>
                    
 
                     <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" update="formOrden" ajax="false" />
@@ -330,6 +374,52 @@
                         <p/>
                     </h:form>
                 </p:dialog>
+                
+                <!--//////////////////////////////////////Apartir de aqui Comienza Refaccion////////////////////////////////////-->
+
+                <p:dialog header="Datos de Refaccion" widgetVar="DatosRefaccion" id="dialogoDatosRefaccion" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
+
+                    <h:form id="formaExterior" >               
+                        <p/>
+                        <h:panelGrid id="trabajoF" columns="1" columnClasses="grid" class="container-fluid  text-justify">
+                       <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
+                        <h:outputText value="Cantidad:" style="color: black;font-size:14px;width:200px"/>
+                        <p:spinner value="#{refaccion_empleadaBEAN.refaccion.cantidad}" required="true" 
+                                     requiredMessage="Se necesita un Cantidad"
+                                     style="text-transform: uppercase" min="1">
+                            <f:validator validatorId="validadoresNumeros"/>
+                        </p:spinner>
+                       <br/><p:column/>
+                        <h:outputText  value="Num.Serie:" style="color: black;font-size:14px;width:200px"/>
+                        <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.numero_serie}"  
+                                       placeholder="0(cero) si no tiene"
+                                      required="true" requiredMessage="Se requiere Un Dato">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+                        <br/><p:column/>
+                        <h:outputText  value="Descripcion:" style="color: black;font-size:14px;width:200px"/>
+                        <p:inputText  value="#{refaccion_empleadaBEAN.refaccion.descripcion}" 
+                                      required="true" requiredMessage="Se requiere Descripcion" 
+                                      style="text-transform: uppercase" placeholder="¿Que es?">
+                            <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                        </p:inputText>
+                       <br/><p:column/>
+                        <h:outputText  value="Precio:" style="color: black;font-size:14px;width:200px"/>
+                        <p:spinner  value="#{refaccion_empleadaBEAN.refaccion.precio}"  
+                                    style="text-transform: uppercase" min="0" prefix="$" placeholder="0(cero) si no tiene">
+                        </p:spinner>
+
+                         </h:panelGrid>
+                       </h:panelGrid>
+                        <center>
+                            <p:commandButton value="#{refaccion_empleadaBEAN.accion}" action="#{refaccion_empleadaBEAN.operarRefaccion()}" oncomplete="PF('DatosRefaccion').hide();" update=":formaExteriorRefaccion:dataUnoRefaccion" />
+                            <p:commandButton value="Cerrar" oncomplete="PF('DatosRefaccion').hide();" update=":formOrden:displayRefaccion" immediate="true"/>
+                        </center>
+                    </h:form>
+
+                </p:dialog>
+                <!--/////////////////////////////////////////// Apartir de Aqui Termina la parte de Refaccion  /////////////////////////////////////////////-->
+
 
             </ui:define>
 

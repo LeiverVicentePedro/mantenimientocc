@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                
+                <h:form enctype="multipart/form-data">
+                    <f:event type="preRenderView" listener="#{segiomientoMantenimientoUsuarioBEAN.listarSolicitudesSeguimientoactivasPorUsuario()}"/>
+                    <p:separator style="visibility: hidden"/>
+                    <center>
+                        <h:outputLabel value="Seguimiento de Solicitud Realizada"/>
+                    </center>
+                    
+                    <div class="col-md-12 text-center">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                    <p:panel>  
+                        <h:panelGrid columns="1" class="container-fluid text-center">
+                            <p:outputLabel value="Folio de Solicitud:"/>
+                            <p:selectOneMenu value="#{segiomientoMantenimientoUsuarioBEAN.solicitudABuscar.folio}">
+                                <f:selectItem itemLabel="---------" noSelectionOption="true" itemValue="#{null}"/>
+                                <f:selectItems value="#{segiomientoMantenimientoUsuarioBEAN.listaSolicitudActivas}" var="solicitud" itemLabel="#{solicitud.folio}" itemValue="#{solicitud.folio}"/>
+                            </p:selectOneMenu>
+                            <p:commandButton value="Buscar" action="seguimientoCliente.xhtml" actionListener="#{segiomientoMantenimientoUsuarioBEAN.redirigeVistaSiExisteSolicitudNivelDosYTres()}" ajax="false"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    </div>
+                    
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+

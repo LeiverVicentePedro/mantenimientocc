@@ -18,7 +18,7 @@
             <p:growl id="msj" showDetail="true" sticky="true"/>
             <center>
                         <p:separator style="visibility: hidden;"/> 
-                        <p:outputLabel value="Lista de Equipo" style="font-size: 25px;" />
+                        <p:outputLabel value="Listado de Equipos " style="font-size: 25px;" />
                     </center>
                 <p:separator/> 
              <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{equipoBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
@@ -29,7 +29,7 @@
             <p:dataTable id="data" var="equipo" value="#{equipoBEAN.listaEquipo}"
                          
                          style="font-size: 14px;"
-                                 
+                         selectionMode="multiple" selection="#{equipoBEAN.seleccionEquipo}" rowKey="#{equipo.idequipo}"
                                  resizableColumns="true"
                                  liveResize="true"
                                  
@@ -58,7 +58,7 @@
                           sortBy="#{equipo.tipo}" 
                           filterBy="#{equipo.tipo}"
                           filterMatchMode="startsWith"
-                          width="170"
+                          width="150"
                           filterStyle="visibility:hidden; height:0"
                           style=" font-size: 13px;text-transform: uppercase ">
                     
@@ -69,7 +69,7 @@
                           sortBy="#{equipo.marca}" 
                           filterBy="#{equipo.marca}"
                           filterMatchMode="startsWith"
-                          width="140"
+                          width="130"
                           filterStyle="visibility:hidden; height:0"
                           style=" font-size: 13px;text-transform: uppercase ">
                     
@@ -93,7 +93,7 @@
                           sortBy="#{equipo.numero_serie}" 
                           filterBy="#{equipo.numero_serie}"
                           filterMatchMode="startsWith"
-                          width="150" 
+                          width="140" 
                           filterStyle="visibility:hidden; height:0"
                           style=" font-size: 13px;">
                     
@@ -105,14 +105,14 @@
                           sortBy="#{equipo.folio_inventario}" 
                           filterBy="#{equipo.folio_inventario}"
                           filterMatchMode="startsWith"
-                         width="150" filterStyle="visibility:hidden; height:0"
-                          style=" font-size: 13px;">
+                         width="130" filterStyle="visibility:hidden; height:0"
+                          style=" font-size: 12px;">
                     
                     <h:outputText value="#{equipo.folio_inventario}" />
                    
                 </p:column>
                 
-                <p:column headerText="ESTATUS"
+                <p:column headerText="ESTADO"
                           sortBy="#{equipo.estatus}"
                            filterBy="#{equipo.estatus}"
                            filterMatchMode="equals"
@@ -135,14 +135,18 @@
                 </p:column>
                 
                
-                <p:column headerText="EDITAR"
-                          width="70" style="font-size: 13px ">
-                    <p:commandLink class="fa fa-pencil" actionListener="#{equipoBEAN.elegirDatoEquipo(equipo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                <p:column headerText="MODIFICAR"
+                          width="80" style="font-size: 12px ">
+                    <center>
+                    <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{equipoBEAN.elegirDatoEquipo(equipo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                    </center>
                 </p:column>
                 
-                <p:column headerText="BAJA"
-                          width="60" style="font-size: 13px ">
-                    <p:commandLink class="fa fa-trash" actionListener="#{equipoBEAN.elegirDatoEquipoBaja(equipo)}" update="data"/>
+                <p:column headerText="CAMBIAR ESTADO"
+                          width="120" style="font-size: 12px ">
+                    <center>
+                    <p:commandButton process="data" icon="fa fa-trash" actionListener="#{equipoBEAN.elegirDatoEquipoBaja(equipo)}" update="data"/>
+                    </center>
                 </p:column>
                 
                  
