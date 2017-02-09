@@ -36,6 +36,7 @@ public class Asigna_solicitudBEAN implements Serializable{
     private List<Asigna_solicitud> seleccionAsignacion;
     
 
+    
     public List<Asigna_solicitud> getSeleccionAsignacion() {
         return seleccionAsignacion;
     }
@@ -91,22 +92,34 @@ public class Asigna_solicitudBEAN implements Serializable{
     public void setAsigna_Solicitud(Asigna_solicitud asigna_Solicitud) {
         this.asigna_Solicitud = asigna_Solicitud;
     }
-    
-    
+    public void eligiendoAsignacion(Solicitud_mc solicitudAsigna) throws Exception {
+      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignar",solicitudAsigna);
+        System.out.println("Solicitud Asignada"+solicitudAsigna.getIdsolicitud_mc());   
+    }
     
      public void registrarAsignaSolicitu() throws Exception {
         Asigna_solicitudDAO asignaSolicitudDao;
         SeguimientoDAO seguimientodao;
+        
             try {
+           
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
             Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
             //existir dentro del navegador
+             FacesContext contextoOT = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+           Solicitud_mc paraAsignar = (Solicitud_mc) contextoOT.getExternalContext().getSessionMap().get("solicitudAsignar");
+            System.out.println("Solicitud Asignada"+paraAsignar.getIdsolicitud_mc());
+            
             asignaSolicitudDao = new Asigna_solicitudDAO();
-            
            
-            
+            asigna_Solicitud.setId_solicitud(paraAsignar);
+          //  asigna_Solicitud.setId_usuario_personal(asigna_Solicitud.getId_usuario_personal());
             asigna_Solicitud.setId_usuario_personal_jefe(usuarioVive);
             asigna_Solicitud.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
+                System.out.println("DATOS DE ASIGNACION"+asigna_Solicitud.getId_solicitud().getFolio());
+                System.out.println("DATOS DE ASIGNACION"+asigna_Solicitud.getId_usuario_personal().getNombre());
+                System.out.println("DATOS DE ASIGNACION"+asigna_Solicitud.getId_usuario_personal_jefe().getNombre());
+            
             asignaSolicitudDao.registrarAsignarSolicitud(asigna_Solicitud);
             /*seccion donde se pone el estatus de la solicitud en falso para su asignacion*/
             Solicitud_mc solicitudAsignada = asigna_Solicitud.getId_solicitud();

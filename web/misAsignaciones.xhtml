@@ -19,15 +19,17 @@
              
           <p:separator style="visibility: hidden;"/>    
           <h:form id="formaExterior" > 
-            <center>
-            <p:outputLabel value="Mis Asignaciones" style="font-size: 25px;" />
-            </center>
-            <f:event id="event" type="preRenderView" listener="#{asigna_solicitudBEAN.listaAsignacionesDeUsuarios()}"/>
             
+            <f:event id="event" type="preRenderView" listener="#{asigna_solicitudBEAN.listaAsignacionesDeUsuarios()}"/>
+             <center>
+                        <p:outputLabel value="Listado de Mis Asignaciones" style="font-size: 25px;" />
+                    </center>
+                <p:separator/> 
+                <p:separator style="visibility: hidden;"/>
             <p:dataTable id="data" var="asigna_solicitud" value="#{asigna_solicitudBEAN.listaAsinacionesDeUsuarios}" 
                           
                          style="font-size: 14px;"
-                                 
+                         selectionMode="multiple" selection="#{asigna_solicitudBEAN.seleccionAsignacion}" rowKey="#{asigna_solicitud.idasigna_solicitud}"
                                  resizableColumns="true"
                                  liveResize="true"
                                  
@@ -37,9 +39,9 @@
                                  widgetVar="buscar"
                                  filteredValue="#{asigna_solicitudBEAN.filterAsignar}"
                           emptyMessage="No hay elementos encontrados"
-                          paginator="true" rows="5"
+                          paginator="true" rows="10"
                           paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                          rowsPerPageTemplate="1,2,3,4,5">
+                          paginatorPosition="bottom">
                 
                 
                           <f:facet name="header">
@@ -53,7 +55,9 @@
                 <p:column headerText="Solicitud Asignada" 
                           sortBy="#{asigna_solicitud.id_solicitud.folio}" 
                           filterBy="#{asigna_solicitud.id_solicitud.folio}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0" width="160"
+                           >
                     
                     <h:outputText value="#{asigna_solicitud.id_solicitud.folio}" />
                    
@@ -62,7 +66,9 @@
                <p:column headerText="Fecha de Asignación" 
                           sortBy="#{asigna_solicitud.fecha}" 
                           filterBy="#{asigna_solicitud.fecha}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0" width="175"
+                           >
                     
                     <h:outputText value="#{asigna_solicitud.fecha}" />
                    
@@ -71,7 +77,7 @@
                 <p:column headerText="Asignó" 
                           sortBy="#{asigna_solicitud.id_usuario_personal_jefe.nombre}" 
                           filterBy="#{asigna_solicitud.id_usuario_personal_jefe.nombre}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0">
                     
                     <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.nombre}" />
                     <h:outputText value="&nbsp;"/>
@@ -80,23 +86,26 @@
                     <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.apellidoMaterno}"/>
                    
                 </p:column>
-                <p:column headerText="Seguimiento" width="140" >
-                    <p:commandLink class="fa fa-pencil" action="detalleSeguimiento.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" 
+                <p:column headerText="Seguimiento" width="130" >
+                    <center>
+                    <p:commandButton process="data" icon="fa fa-pencil" action="detalleSeguimiento.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" 
                                    />  
+                    </center>
                 </p:column>
                 <p:column headerText="Orden Interna" style=" width: 130px">
-                    <p:commandLink class=" fa fa-pencil" action="orden_interna.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" />    
-                    
+                    <center>
+                        <p:commandButton process="data" icon="fa fa-pencil" action="orden_interna.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" />    
+                    </center>
                 </p:column>
                 <p:column headerText="Orden de Trabajo" width="140" >
-                    <p:commandLink class="fa fa-pencil" action="orden_trabajo.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}"  />    
-                    
+                    <center>
+                    <p:commandButton process="data" icon="fa fa-pencil" action="orden_trabajo.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}"  />    
+                    </center>
                 </p:column>
             </p:dataTable>
             <p/>
-                <p:commandButton value="Asignaciones Terminadas" action="misAsignacionesTerminadas.xhtml"/>
+                <p:commandButton value="Asignaciones Terminadas" action="misAsignacionesTerminadasNivelTres.xhtml"/>
           </h:form>
-      
             
             </ui:define>
 

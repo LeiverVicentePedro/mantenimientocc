@@ -16,10 +16,12 @@
              <p/><p/>
         <h:form id="formaExterior">     
             <f:event id="event" type="preRenderView" listener="#{asigna_solicitudBEAN.listarAsignaciones()}"/>
-            
+            <p:separator style="visibility: hidden;"/>
             <center>
-                        <p:outputLabel value="Todas Las Asignaciones " style=" font-size: 20px;"/> 
-            </center>
+                        <p:outputLabel value="Listado de Solicitudes Asignadas" style="font-size: 25px;" />
+                    </center>
+                <p:separator/> 
+                <p:separator style="visibility: hidden;"/>
             
             <p:dataTable id="data" var="asigna_solicitud" value="#{asigna_solicitudBEAN.listarAsignacionSolicitudes}" 
                           
@@ -34,9 +36,9 @@
                                  widgetVar="buscar"
                                  filteredValue="#{asigna_solicitudBEAN.filterAsignar}"
                           emptyMessage="No hay elementos encontrados"
-                          paginator="true" rows="5"
+                          paginator="true" rows="10"
                           paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                          rowsPerPageTemplate="1,2,3,4,5">
+                          paginatorPosition="bottom">
                 
                 
                           <f:facet name="header">
@@ -47,10 +49,12 @@
                                              style="width:150px" />
                                 </p:outputPanel>
                            </f:facet>
-                <p:column headerText="Solicitud Asignada" 
+                <p:column headerText="Solicitud" 
                           sortBy="#{asigna_solicitud.id_solicitud.folio}" 
                           filterBy="#{asigna_solicitud.id_solicitud.folio}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                          style="text-transform: uppercase" width="80">
                     
                     <h:outputText value="#{asigna_solicitud.id_solicitud.folio}" />
                    
@@ -59,7 +63,9 @@
                 <p:column headerText="Persona Asignada" 
                           sortBy="#{asigna_solicitud.id_usuario_personal.nombre}" 
                           filterBy="#{asigna_solicitud.id_usuario_personal.nombre}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                          style="text-transform: uppercase" width="120">
                     
                     <h:outputText value="#{asigna_solicitud.id_usuario_personal.nombre}" />
                     <h:outputText value="&nbsp;"/>
@@ -71,10 +77,11 @@
                 
                            
               
-                <p:column headerText="Fecha de Asignación" 
+                <p:column headerText="Fecha" 
                           sortBy="#{asigna_solicitud.fecha}" 
                           filterBy="#{asigna_solicitud.fecha}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0"
+                          style="text-transform: uppercase" width="90">
                     
                     <h:outputText value="#{asigna_solicitud.fecha}" />
                    
@@ -83,7 +90,8 @@
                 <p:column headerText="Asignó" 
                           sortBy="#{asigna_solicitud.id_usuario_personal_jefe.nombre}" 
                           filterBy="#{asigna_solicitud.id_usuario_personal_jefe.nombre}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0"
+                          style="text-transform: uppercase" width=" 130">
                     
                     <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.nombre}" />
                     <h:outputText value="&nbsp;"/>
@@ -96,14 +104,19 @@
                 <p:column headerText="Estado De Solicitud" 
                           sortBy="#{asigna_solicitud.id_solicitud.estado_seguimiento}" 
                           filterBy="#{asigna_solicitud.id_solicitud.estado_seguimiento}"
-                          filterMatchMode="startsWith">
+                          filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0"
+                          style="text-transform: uppercase" width="140">
                     
                     <h:outputText value="#{asigna_solicitud.id_solicitud.estado_seguimiento}" >
                         <f:converter converterId="conversionEstatusSeguimiento" />
                     </h:outputText>    
                    
                 </p:column>
-                
+                <p:column headerText="Seguimiento" width="70">
+                            <center>
+                                <p:commandButton value="Ver" icon="fa fa-eye" action="seguimientoCliente.xhtml" actionListener="#{segiomientoMantenimientoUsuarioBEAN.redirigeVistaSiExisteSolicitud(asigna_solicitud.id_solicitud)}" ajax="false"/>
+                            </center>
+                        </p:column>
         
             </p:dataTable>
            

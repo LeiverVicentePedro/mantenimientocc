@@ -19,7 +19,7 @@ public class MenuDAO extends Conexion{
         ResultSet resultado;
         try{
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM menu WHERE nivel_usuario=?");
+            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM menu WHERE nivel_usuario=? order by idmenu");
             consulta.setInt(1, nivelUsuario);
             resultado = consulta.executeQuery();
             listaMenu = new ArrayList<Menu>();

@@ -31,9 +31,9 @@
                                  widgetVar="buscar"
                                  filteredValue="#{solicitud_mcBEAN.filtrarSolicitudIdUsuario}"
                                  emptyMessage="No hay elementos encontrados"
-                                 paginator="true" rows="5"
+                                 paginator="true" rows="10"
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                 rowsPerPageTemplate="1,2,3,4,5">
+                                  paginatorPosition="bottom">
 
 
                         <f:facet name="header">
@@ -47,7 +47,8 @@
                         <p:column headerText="Folio" 
                                   sortBy="#{solicitud_usuario.folio}" 
                                   filterBy="#{solicitud_usuario.folio}"
-                                  filterMatchMode="startsWith" width="50">
+                                  filterMatchMode="startsWith" width="50"
+                                  filterStyle="visibility:hidden; height:0">
 
                             <h:outputText value="#{solicitud_usuario.folio}" />
 
@@ -55,7 +56,8 @@
                         <p:column headerText="Fecha de Creación" 
                                   sortBy="#{solicitud_usuario.fecha}" 
                                   filterBy="#{solicitud_usuario.fecha}"
-                                  filterMatchMode="startsWith" width="70">
+                                  filterMatchMode="startsWith" width="70"
+                                  filterStyle="visibility:hidden; height:0">
 
                             <h:outputText value="#{solicitud_usuario.fecha}" />
 
@@ -65,7 +67,8 @@
                         <p:column headerText="Dirigidó Al Departamento" 
                                   sortBy="#{solicitud_usuario.id_departamento.nombre_departamento}" 
                                   filterBy="#{solicitud_usuario.id_departamento.nombre_departamento}"
-                                  filterMatchMode="startsWith" width="90">
+                                  filterMatchMode="startsWith" width="90"
+                                  filterStyle="visibility:hidden; height:0">
 
                             <h:outputText value="#{solicitud_usuario.id_departamento.nombre_departamento}" />
 
@@ -74,7 +77,8 @@
                         <p:column headerText="Estado" 
                                   sortBy="#{solicitud_usuario.estado_seguimiento}" 
                                   filterBy="#{solicitud_usuario.estado_seguimiento}"
-                                  filterMatchMode="startsWith" width="70">
+                                  filterMatchMode="startsWith" width="70"
+                                  filterStyle="visibility:hidden; height:0">
 
                             <h:outputText value="#{solicitud_usuario.estado_seguimiento}" >
                                  <f:converter converterId="conversionEstatusSeguimiento" />

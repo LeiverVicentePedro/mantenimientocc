@@ -43,8 +43,7 @@ public class Solicitud_mcBEAN implements Serializable{
     List<Catalogo_servicio_solicitado> serviciosSeleccionados;//usado por el cheboxl
     List<Catalogo_servicio_solicitado> serviciosPorDepartamento;
     List<Catalogo_servicio_solicitado> catalogoServicio;
-
-    
+  
     private String folioSolicitud;
     Usuario usuarioVive;
     
@@ -53,7 +52,17 @@ public class Solicitud_mcBEAN implements Serializable{
     private List<Solicitud_mc> listaFiltroSolicitud;
     private List<Solicitud_mc> listaSolicitudDeUsuarios;
      private List<Solicitud_mc> listaSolicitudDeUsuariosHistorialSeguimiento;
-    private List<Solicitud_mc> filtrarSolicitudIdUsuario;  
+    private List<Solicitud_mc> filtrarSolicitudIdUsuario; 
+    private List<Solicitud_mc> seleccionSolicitud;
+
+    public List<Solicitud_mc> getSeleccionSolicitud() {
+        return seleccionSolicitud;
+    }
+
+    public void setSeleccionSolicitud(List<Solicitud_mc> seleccionSolicitud) {
+        this.seleccionSolicitud = seleccionSolicitud;
+    }
+    
     
     private List<Solicitud_mc> listaSolicitudPorDepartamentoParaAsignar;
 
@@ -217,11 +226,12 @@ public class Solicitud_mcBEAN implements Serializable{
             System.out.println(seguimiento.getEstado_solicitud()+"\n");
             System.out.println(seguimiento.getEstado_asignacion()+"\n");
             seguimientoDao.registrarSeguimiento(seguimiento);
+            
            new CorreoRegistroUsuario().enviarMensajeSolicitud(usuarioVive.getCorreo(), solicitudmc);//correo de validacion de solicitud
             new ReporteMantenimiento().exportarPDFSolicitud(solicitudmc, serviciosSeleccionados);//metodo para exportar pdf desde otra clase
             
             System.out.println("fecha del sistema " + solicitudmc.getFecha());
-            this.limpiarSolicitud();
+           this.limpiarSolicitud();
 
         } catch (Exception ex) {
             System.out.println("Error en SolicitudMCBEAN -> generarSolicitudMC " + ex);
@@ -256,7 +266,7 @@ public class Solicitud_mcBEAN implements Serializable{
     public void limpiarSolicitud() {
         solicitudmc.setId_departamento(null);
         solicitudmc.setOtroProblema("");
-        serviciosSeleccionados.clear();
+       // serviciosSeleccionados.clear();
     }
     
     public void listarSolicituMC() throws Exception{
@@ -287,7 +297,7 @@ public class Solicitud_mcBEAN implements Serializable{
                     else{
                         listaSolicitudPorDepartamento.get(i).setAsignacion("No Asignada");
                         listaSolicitudPorDepartamento.get(i).setIcono("fa fa-thumb-tack");
-                        listaSolicitudPorDepartamento.get(i).setVista("asignaSolicitud.xhtml");
+                      //  listaSolicitudPorDepartamento.get(i).setVista("asignaSolicitud.xhtml");
                     }
                 }
                 

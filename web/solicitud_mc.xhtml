@@ -17,7 +17,7 @@
 
                     <f:event type="preRenderView" listener="#{departamentoBEAN.listaDepartamentoServicio()}"/>
                     <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaServicioSolicitado()}"/>
-                    <p:panel header="Solicitud de Servico" >
+                    <p:panel header="Solicitud de Servico"  >
                         <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
                             <p:column>
                             <p/>
@@ -63,13 +63,10 @@
                             <h:outputText id="MensajecontadorDeCaracteres" />
                         </h:panelGrid>
 
-                        <p:separator style="visibility: hidden;"/>
-                        <p:commandButton value="Registrar" action="#{solicitud_mcBEAN.registrarSolicitudMC()}" update="formSolicitud" ajax="false"/>
-                         <p:commandButton value="Continuar" action="misSolicitudes.xhtml" immediate="true"/>
-                      
-                    </p:panel>
-                    
-
+                        <p:separator style="visibility: hidden;"/>        
+                        <p:commandButton value="Registrar" actionListener="#{solicitud_mcBEAN.registrarSolicitudMC()}" update=":formSolicitud" ajax="false" />
+                        </p:panel>
+                   
                 </h:form>
                
                 <p:dialog id='dialogProblema' header="Problemas" widgetVar="dialogProblemas" closable="false" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="30%">

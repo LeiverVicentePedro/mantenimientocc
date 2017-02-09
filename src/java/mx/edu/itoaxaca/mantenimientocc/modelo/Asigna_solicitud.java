@@ -5,13 +5,14 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Jerusalen
  */
-public class Asigna_solicitud {
+public class Asigna_solicitud implements Serializable{
     
     private int idasigna_solicitud;
     private Usuario id_usuario_personal;
