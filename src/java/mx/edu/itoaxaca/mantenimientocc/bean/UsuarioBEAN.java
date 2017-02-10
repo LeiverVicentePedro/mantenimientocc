@@ -56,10 +56,16 @@ public class UsuarioBEAN implements Serializable{
     private Periodo_semestral periodo=new Periodo_semestral();
     //para el objeto que necesita en modificar EmpleadoPeriodo
     private Empleado_periodo empleadoPeriodoModifica= new Empleado_periodo();
+    private List<Usuario> seleccionUsuario;
 
-  
-    
-    
+    public List<Usuario> getSeleccionUsuario() {
+        return seleccionUsuario;
+    }
+
+    public void setSeleccionUsuario(List<Usuario> seleccionUsuario) {
+        this.seleccionUsuario = seleccionUsuario;
+    }
+
     public Periodo_semestral getPeriodo() {
         return periodo;
     }
@@ -104,7 +110,16 @@ public class UsuarioBEAN implements Serializable{
     private int idDepartamento;
     private int idOficina;
     private List<Usuario> listarUsuariosNivelTresParaOrdenTrabajo;
+    private List<Usuario> listarUsuarioNivelUnoParaAdministrador;
 
+    public List<Usuario> getListarUsuarioNivelUnoParaAdministrador() {
+        return listarUsuarioNivelUnoParaAdministrador;
+    }
+
+    public void setListarUsuarioNivelUnoParaAdministrador(List<Usuario> listarUsuarioNivelUnoParaAdministrador) {
+        this.listarUsuarioNivelUnoParaAdministrador = listarUsuarioNivelUnoParaAdministrador;
+    }
+ 
     public List<Usuario> getListarUsuariosNivelTresParaOrdenTrabajo() {
         return listarUsuariosNivelTresParaOrdenTrabajo;
     }
@@ -213,6 +228,7 @@ public class UsuarioBEAN implements Serializable{
                      periodo.setIdperiodo_semestral(2);
                     periodo.setPeriodo("Ago-Dic");
                 }
+                
                 empleado_periodo.setId_periodo(periodo);
                 empleado_periodo.setAño(String.valueOf(new java.sql.Date(new java.util.Date().getTime()).getYear()+1900));
                 empleado_periodo.setId_usuario_personal(usuarioEmpleado_periodo);
@@ -444,6 +460,19 @@ public class UsuarioBEAN implements Serializable{
             throw ex;
         }
     }
+     public void listarUsuarioNivelUno() throws Exception{
+       UsuarioDAO usuariodao;
+        try{
+            usuariodao=new UsuarioDAO();
+            listarUsuarioNivelUnoParaAdministrador = usuariodao.listaUsuarioNivelUno();
+            
+        }
+        catch(Exception e){
+            System.out.println("error en UsuarioNivelUnoBEAN --> listarNivelUnoUusuariosBEAN"+e);
+        }
+    }
+    
+    
 
     public void modificarUsuario() {
         UsuarioDAO usuariodao;
@@ -619,6 +648,7 @@ public class UsuarioBEAN implements Serializable{
     }
     
     public void departamentoDeUnArea(){
+        setIdArea(3);
         listaTemporalDepartamento = new ArrayList();
         if(idArea !=0){
         for(Departamento departamento : listaDepartamento){
