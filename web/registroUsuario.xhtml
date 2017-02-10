@@ -179,7 +179,7 @@
                                 </p:column>
                                 <p:column><br/> </p:column><p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Contraseña:" style="color: black;font-size:14px" />
-                                <p:password class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" match=":form:confirmaContraseña"
+                                <p:password class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}"
                                              required="true" requiredMessage="Contraseña Requerida" label="Contraseña:" style="width:250px">
                                     <f:validator validatorId="validadoresContrasenia"/><!-- valida que el valor sea igual a el de la contraseña-->
                                     <p:ajax event="blur" update="validaContraseña"/>
@@ -195,7 +195,7 @@
                                 <h:outputText value="Confirma:" style="color: black;font-size:14px" />
                                 <p:password class="form-control" placeholder="Confirma Contraseña" id="confirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}"
                                               required="true" requiredMessage="Confirme su Contraseña" label="Confirma:" style="width:250px">
-                                    <f:validator validatorId="validaContraseña"/>
+                                    <!--<f:validator validatorId="validaContraseña"/>-->
                                     <p:ajax event="keyup" update="mensaje3"/>
                                    
                                 </p:password>
