@@ -29,7 +29,8 @@ import javax.servlet.ServletOutputStream;
  *
  * @author leiver
  */
-public class ReporteMantenimiento {
+public class ReporteMantenimiento{
+    
     
     public void exportarPDFSolicitud(Solicitud_mc solicitudmc, List<Catalogo_servicio_solicitado> serviciosSeleccionados) throws JRException, IOException {
         Map<String, Object> parametros = new HashMap<String, Object>();
@@ -78,4 +79,6 @@ public class ReporteMantenimiento {
 
         FacesContext.getCurrentInstance().responseComplete();
     }
+
+    
 }

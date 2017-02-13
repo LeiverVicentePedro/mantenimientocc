@@ -41,27 +41,27 @@
                              <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="500">
                                  <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="RFC:" style="color: black;font-size:14px"/>
-                                <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}" 
+                                <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}" 
                                              style="text-transform: uppercase" label="RFC" size="50">
                                     <f:validator validatorId="validadoresRFC"  />
                                 </p:inputText>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Nombre:" style="color: black;font-size:14px" />
                                 <p:inputText class="form-control" placeholder="Nombre" id="nombreUsuario"
-                                             value="#{usuarioBEAN.objetoUsuario.nombre}" required="true" requiredMessage="Nombre Requerido"
+                                             value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido"
                                              label="Nombre" size="50">
                                     <f:validator validatorId="validadoresLetrasUsuario" />
                                 </p:inputText>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Apellido: " style="color: black;font-size:14px"/>
-                                <p:inputText class="form-control" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.objetoUsuario.apellidoPaterno}" 
+                                <p:inputText class="form-control" placeholder="Apellido Paterno" id="apellidoPaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoPaterno}" 
                                              required="true" requiredMessage="Apellido Paterno Requerido" label="Apellido Paterno" size="50">
                                     <f:validator validatorId="validadoresLetrasUsuario"/>
                                 </p:inputText>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Apellido:" style="color: black;font-size:14px"/>
                                 <p:inputText class="form-control" placeholder="Apellido Materno" id="apellidoMaterno" 
-                                             value="#{usuarioBEAN.objetoUsuario.apellidoMaterno}" required="true" 
+                                             value="#{usuarioBEAN.registroUsuarioNuevo.apellidoMaterno}" required="true" 
                                              requiredMessage="Apellido Materno Requerido" label="Apellido Materno" size="50">
                                     <f:validator validatorId="validadoresLetrasUsuario"/>
                                 </p:inputText>
