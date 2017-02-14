@@ -69,27 +69,6 @@ if (!(/[A-Za-zñÑ-áéíóúÁÉÍÓÚ\s\t-]/).test(names)){
       return true;
  }
 </script>
-<script type="text/javascript">
-    function contraseña(cont){
-        if(/\s/.test(cont)){
-          PF('growlWV').renderMessage({"summary":"CONTRASEÑA", "detail":"No se permite espacios", "severity":"denger"}) 
-        return true;
-        }
-            if (cont.length == 0) {
-          PF('growlWV').renderMessage({"summary":"CONTRASEÑA", "detail":"No puede quedar vacia", "severity":"denger"}) 
-             return false;
-         }
-        
-   
-    }
-  function confirma(p2) {
-      
-    if (p2.length == 0) {
-          PF('growlWV').renderMessage({"summary":"CONFIRMACIÓN", "detail":"No puede quedar vacia", "severity":"denger"}) 
-             return false;
-         }
-}
- </script>
         
       <style type="text/css">
 .ui-growl{ right:250px; 
