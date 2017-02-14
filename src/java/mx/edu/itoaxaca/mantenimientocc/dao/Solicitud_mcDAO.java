@@ -21,7 +21,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
  */
 public class Solicitud_mcDAO extends Conexion {
 
-    public boolean registrarSolicitudMC(Solicitud_mc solicitudmc) throws Exception {
+    public boolean registrarSolicitudMC(Solicitud_mc solicitudmc) throws Exception{
 
         try {
             this.Conectar();
@@ -37,10 +37,11 @@ public class Solicitud_mcDAO extends Conexion {
             return true;
         } catch (Exception ex) {
             System.out.println("Error en Solicitud_MCDAO -> generarSolicitudMC " + ex);
-            throw ex;
+             return false; 
         } finally {
             this.Cerrar();
         }
+            
     }
     public void modificarSolicitudMC(Solicitud_mc solicitudmc) throws Exception{//para estado de asignacion y el estado seguimiento aun no cambia
         try{
