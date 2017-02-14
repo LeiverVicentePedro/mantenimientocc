@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
+import mx.edu.itoaxaca.mantenimientocc.correo.CorreoSolicitudMC;
 
 
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_servicio_solicitadoDAO;
@@ -199,6 +200,7 @@ public class Solicitud_mcBEAN implements Serializable{
             solicitudmc.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
             solicitudmc.setId_usuario(usuarioVive);
             solicitudmc.setFolio(folioSolicitud);
+            
             solicitudDao.registrarSolicitudMC(solicitudmc);
             
             Solicitud_mc solicitudTemporal = solicitudDao.identificadorDeSolicitud(folioSolicitud);
@@ -227,8 +229,9 @@ public class Solicitud_mcBEAN implements Serializable{
             System.out.println(seguimiento.getEstado_asignacion()+"\n");
             seguimientoDao.registrarSeguimiento(seguimiento);
             
-           new CorreoRegistroUsuario().enviarMensajeSolicitud(usuarioVive.getCorreo(), solicitudmc);//correo de validacion de solicitud
-            new ReporteMantenimiento().exportarPDFSolicitud(solicitudmc, serviciosSeleccionados);//metodo para exportar pdf desde otra clase
+           Thread enviarCorreo = new Thread(new CorreoSolicitudMC(usuarioVive.getCorreo(),solicitudmc));
+           enviarCorreo.start();
+           new ReporteMantenimiento().exportarPDFSolicitud(solicitudmc, serviciosSeleccionados);//metodo para exportar pdf desde otra clase
             
             System.out.println("fecha del sistema " + solicitudmc.getFecha());
            this.limpiarSolicitud();

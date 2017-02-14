@@ -192,14 +192,14 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
         List<DetalleSeguimiento> listaDetalle = detalleDAO.listardetalle(seguimientoEncontrado);
         //List<String> imagen= new ArrayList<String>();
        
-        //String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\resources");
-        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\resources");
+        //String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
         System.out.println("ruta " + path);
 
         for (int contador = 0; contador < listaDetalle.size(); contador++) {
-            //FileOutputStream salida = new FileOutputStream(path+"\\"+listaDetalle.get(contador).getEstado()+contador+".jpg");
-            FileOutputStream salida = new FileOutputStream(path + "/" + listaDetalle.get(contador).getEstado() + contador + ".jpg");
-            System.out.println("con Imagen " + path + "/" + listaDetalle.get(contador).getEstado() + contador + ".jpg");
+            FileOutputStream salida = new FileOutputStream(path+"\\"+listaDetalle.get(contador).getEstado()+contador+".jpg");
+            //FileOutputStream salida = new FileOutputStream(path + "" + listaDetalle.get(contador).getEstado() + contador + ".jpg");
+            System.out.println("con Imagen " + path + "" + listaDetalle.get(contador).getEstado() + contador + ".jpg");
             salida.write(listaDetalle.get(contador).getImagenDowload());
             salida.close();
             listaDetalle.get(contador).setRuta(listaDetalle.get(contador).getEstado() + contador + ".jpg");

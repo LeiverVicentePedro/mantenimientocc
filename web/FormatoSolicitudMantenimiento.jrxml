@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="528" leftMargin="42" rightMargin="42" topMargin="70" bottomMargin="70" uuid="b7f27d63-0ae4-4418-aa15-0814a9dbe3e4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="135"/>
 	<parameter name="recursosMaterialesServicio" class="java.lang.String"/>
 	<parameter name="centroComputo" class="java.lang.String"/>
 	<parameter name="mantenimientoEquipo" class="java.lang.String"/>
@@ -118,14 +118,14 @@
 	<detail>
 		<band height="367" splitType="Stretch">
 			<staticText>
-				<reportElement x="434" y="11" width="30" height="15" uuid="6d48b40d-51b5-4b97-a74f-ab7da69746b0"/>
+				<reportElement x="426" y="11" width="30" height="15" uuid="6d48b40d-51b5-4b97-a74f-ab7da69746b0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Folio:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="463" y="24" width="64" height="1" uuid="9dc9583b-32f5-450c-ae7b-2e1ce9e6035e"/>
+				<reportElement x="458" y="24" width="69" height="1" uuid="9dc9583b-32f5-450c-ae7b-2e1ce9e6035e"/>
 			</line>
 			<rectangle>
 				<reportElement x="0" y="41" width="527" height="33" uuid="aa7cac8d-4bbf-4ec2-b490-2ea527855e43"/>
@@ -171,8 +171,8 @@
 				<reportElement x="0" y="169" width="527" height="198" uuid="19712d94-c5fd-490e-ba78-d7889fbe2812"/>
 			</rectangle>
 			<textField>
-				<reportElement x="464" y="11" width="64" height="13" uuid="473fd5f2-ca0c-400f-807c-37cd26ee3157"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="458" y="11" width="70" height="13" uuid="473fd5f2-ca0c-400f-807c-37cd26ee3157"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{folio}]]></textFieldExpression>
@@ -199,7 +199,7 @@
 				<textFieldExpression><![CDATA[$P{fechaElaboracion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="288" y="331" width="217" height="15" uuid="20badcf6-42c7-46d1-b626-86677aba7a16"/>
+				<reportElement x="8" y="331" width="497" height="15" uuid="20badcf6-42c7-46d1-b626-86677aba7a16"/>
 				<textElement>
 					<font fontName="Arial" size="12"/>
 				</textElement>

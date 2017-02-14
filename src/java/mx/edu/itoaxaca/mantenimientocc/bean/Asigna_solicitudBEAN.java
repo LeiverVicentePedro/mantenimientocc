@@ -10,6 +10,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import mx.edu.itoaxaca.mantenimientocc.correo.CorreoAsignadaSolicitud;
 import mx.edu.itoaxaca.mantenimientocc.dao.Asigna_solicitudDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.DetalleSeguimientoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.SeguimientoDAO;
@@ -109,7 +110,7 @@ public class Asigna_solicitudBEAN implements Serializable{
              FacesContext contextoOT = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
            Solicitud_mc paraAsignar = (Solicitud_mc) contextoOT.getExternalContext().getSessionMap().get("solicitudAsignar");
             System.out.println("Solicitud Asignada"+paraAsignar.getIdsolicitud_mc());
-            
+           
             asignaSolicitudDao = new Asigna_solicitudDAO();
            
             asigna_Solicitud.setId_solicitud(paraAsignar);
@@ -133,7 +134,8 @@ public class Asigna_solicitudBEAN implements Serializable{
             solicitudSeguimientoTemporal.setId_usuario_personal(asigna_Solicitud.getId_usuario_personal()); //se manda el valor del personal extrallendolo desde el get
             solicitudSeguimientoTemporal.setEstado_asignacion(true);
             seguimientodao.modificarSeguimiento(solicitudSeguimientoTemporal);//se manda a llamar el metodo modificar que se encuentra en el SeguimientoDao
-            
+             Thread asignarCorreo = new Thread(new CorreoAsignadaSolicitud(paraAsignar));
+            asignarCorreo.start();
             this.limpiarAsignaSolicitud();
             System.out.println("fecha del sistema " + asigna_Solicitud.getFecha());
            
