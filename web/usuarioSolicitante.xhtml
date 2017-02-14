@@ -330,7 +330,7 @@ background-color: red;
                                    
                                 </p:calendar>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
-                                <p:commandButton  value="Crea RFC" actionListener="#{usuarioBEAN.elaboraRFC}" update=":formDialogo:rfcUsuario"/>
+                                <p:commandButton  value="Crea RFC" actionListener="#{usuarioBEAN.elaboraRFCUsuarioTresDos()}" update=":formDialogo:rfcUsuario"/>
                                 
                                 <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}"
                                              style="text-transform: uppercase" label="RFC" size="50" type="text" onblur="ValidaRfc(this.value)"
