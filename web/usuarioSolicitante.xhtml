@@ -123,7 +123,7 @@ background-color: red;
                     </p:commandButton>
 
                     <p:separator />
-                    <p:dataTable id="tablaU" value="#{usuarioBEAN.listaUsuariosDeUnDepartamento}"
+                    <p:dataTable id="tablaU" value="#{usuarioBEAN.listarUsuarioNivelUnoParaAdministrador}"
                                  var="usuario" 
                                  style="font-size: 14px;"
                                  selectionMode="multiple" selection="#{usuarioBEAN.seleccionUsuario}" rowKey="#{usuario.idUsuario}"
@@ -275,20 +275,20 @@ background-color: red;
                                  <p:message id="inputTextMessage" for="rfcUsuario" />
                                  <h:outputText value="Nombre:" style="color: black;font-size:14px" />
                                 <p:inputText class="form-control" placeholder="Nombre" id="nombreUsuario" 
-                                             value="#{usuarioBEAN.registroUsuarioNuevo.nombre}" required="true" requiredMessage="Nombre Requerido" 
+                                             value="#{usuarioBEAN.objetoUsuario.nombre}" required="true" requiredMessage="Nombre Requerido" 
                                              style="text-transform: uppercase" label="Nombre" type="text" onblur="nombreS(this.value)">
                                    <f:validator validatorId="validadoresLetrasUsuario"/>
                                 </p:inputText>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Apellido:" style="color: black;font-size:14px" />
-                                <p:inputText class="form-control" placeholder="Paterno" id="apellidoPaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoPaterno}" 
+                                <p:inputText class="form-control" placeholder="Paterno" id="apellidoPaterno" value="#{usuarioBEAN.objetoUsuario.apellidoPaterno}" 
                                              required="true" requiredMessage="Apellido Paterno Requerido" style="text-transform: uppercase" 
                                              label="Apellido Paterno" type="text" onblur="apellidoP(this.value)">
                                     <f:validator validatorId="validadoresLetrasUsuario"/>
                                 </p:inputText>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <h:outputText value="Apellido:" style="color: black;font-size:14px" />
-                                <p:inputText class="form-control" placeholder="Materno" id="apellidoMaterno" value="#{usuarioBEAN.registroUsuarioNuevo.apellidoMaterno}" required="true"
+                                <p:inputText class="form-control" placeholder="Materno" id="apellidoMaterno" value="#{usuarioBEAN.objetoUsuario.apellidoMaterno}" required="true"
                                              requiredMessage="Apellido Materno Requerido" style="text-transform: uppercase" 
                                              label="Apellido Materno" type="text" onblur="apellidoM(this.value)" >
                                     <f:validator validatorId="validadoresLetrasUsuario"/>
@@ -326,13 +326,13 @@ background-color: red;
 
                                 </script>
                                 <h:outputText value="Fecha Nacimiento:" style="color: black;font-size:14px"/>
-                                <p:calendar id="calendario" value="#{usuarioBEAN.registroUsuarioNuevo.fecha_nacimiento}" yearRange="c-117: c + 10" pattern="dd/MM/yyyy"  locale="es" required="true" onkeypress="return permite(event, 'none')" requiredMessage="Fecha de Nacimiento Requerido" navigator="true" effect="fadeIn" effectDuration="100">
+                                <p:calendar id="calendario" value="#{usuarioBEAN.objetoUsuario.fecha_nacimiento}" yearRange="c-117: c + 10" pattern="dd/MM/yyyy"  locale="es" required="true" onkeypress="return permite(event, 'none')" requiredMessage="Fecha de Nacimiento Requerido" navigator="true" effect="fadeIn" effectDuration="100">
                                    
                                 </p:calendar>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <p:commandButton  value="Crea RFC" actionListener="#{usuarioBEAN.elaboraRFC}" update=":formDialogo:rfcUsuario"/>
                                 
-                                <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.rfc}"
+                                <p:inputText class="form-control" placeholder="RFC" id="rfcUsuario" value="#{usuarioBEAN.objetoUsuario.rfc}"
                                              style="text-transform: uppercase" label="RFC" size="50" type="text" onblur="ValidaRfc(this.value)"
                                              >
                                 </p:inputText>
@@ -640,7 +640,7 @@ background-color: red;
                 
                  
                  <div class="container text-center">
-                            <p:commandButton value="#{usuarioBEAN.accionDeBotonUsuario}" actionListener="#{usuarioBEAN.establecerAccionDeBoton()}" oncomplete="PF('DatosUsuario').hide();" update=":formTabla:tablaU"/>
+                            <p:commandButton value="#{usuarioBEAN.accionDeBotonUsuario}" actionListener="#{usuarioBEAN.establecerAccionDeBoton()}" oncomplete="PF('DatosUsuarioModificar').hide();" update=":formTabla:tablaU"/>
 
                         </div>
            

@@ -821,4 +821,32 @@ public class UsuarioBEAN implements Serializable{
             System.out.println(rfc.generarRfc(persona));
             registroUsuarioNuevo.setRfc(rfc.generarRfc(persona));
     }
+    
+    public void elaboraRFCUsuarioTresDos(){
+            int año = objetoUsuario.getFecha_nacimiento().getYear()+1900;
+            int mes = objetoUsuario.getFecha_nacimiento().getMonth()+1;
+            int dia = objetoUsuario.getFecha_nacimiento().getDate();
+            Rfc rfc = new Rfc();
+            PersonaRfcDto persona = new PersonaRfcDto();
+            persona.setNombre(objetoUsuario.getNombre());
+            persona.setApPaterno(objetoUsuario.getApellidoPaterno());
+            persona.setApMaterno(objetoUsuario.getApellidoMaterno());
+            String mesc;
+            String diac;
+             if(mes<10)
+                mesc="0"+mes;
+            
+            else
+                mesc=mes+"";
+            
+            if(dia<10)
+                diac="0"+dia;
+            
+            else
+                diac=dia+"";
+            System.out.println(año+""+mesc+""+diac);
+            persona.setFecha(año+""+mesc+""+diac);
+            System.out.println(rfc.generarRfc(persona));
+           objetoUsuario.setRfc(rfc.generarRfc(persona));
+    }
 }
