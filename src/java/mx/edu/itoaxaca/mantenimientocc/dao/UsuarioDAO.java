@@ -157,7 +157,7 @@ public class UsuarioDAO extends Conexion{
         System.out.println("usuario: "+usuario.getIdOficina().getIdOficinaSolicitante());
        try{
            this.Conectar();
-           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE id_oficina=?");
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario WHERE id_oficina=? AND nivel not like '1%'");
            consulta.setInt(1,usuario.getIdOficina().getIdOficinaSolicitante());
            resultado = consulta.executeQuery();
            listaUsuarioDepartamento = new ArrayList();
@@ -390,7 +390,7 @@ public class UsuarioDAO extends Conexion{
         ResultSet resultado;
        try{
            this.Conectar();
-           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario where nivel=1" );
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario where nivel like '1%'" );
            resultado = consulta.executeQuery();
            listaUsuario = new ArrayList();
            while(resultado.next()){
