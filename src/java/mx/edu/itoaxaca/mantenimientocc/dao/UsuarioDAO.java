@@ -36,7 +36,7 @@ public class UsuarioDAO extends Conexion{
             inserta.setInt(9, usuarioRegistrar.getId_profesion().getIdprofesion());
             inserta.setString(10, usuarioRegistrar.getTipoBT());
             inserta.setBoolean(11, usuarioRegistrar.getEstatus());
-            inserta.setDate(12, (Date) usuarioRegistrar.getFecha_nacimiento());
+            inserta.setDate(12, new java.sql.Date(usuarioRegistrar.getFecha_nacimiento().getTime()));
             
             inserta.executeUpdate();
             
@@ -250,7 +250,7 @@ public class UsuarioDAO extends Conexion{
             consulta.setInt(9, usuario.getId_profesion().getIdprofesion());
             consulta.setString(10, usuario.getTipoBT());
             consulta.setBoolean(11, usuario.getEstatus());
-            consulta.setDate(12, (Date) usuario.getFecha_nacimiento());
+            consulta.setDate(12, new java.sql.Date(usuario.getFecha_nacimiento().getTime()));
             consulta.setInt(13, usuario.getIdUsuario());
             consulta.executeUpdate();
         }catch(Exception ex){
