@@ -94,7 +94,8 @@ background-color: red;
 
 
              <h:form id="formDialogo">
-                 <p:growl id="mensajito" widgetVar="growlWV" autoUpdate="true" life="3000" /> 
+                 <p:growl id="mensajito" widgetVar="growlWV" autoUpdate="true" life="3000" />
+                 <p:growl id="mensajitoDos" widgetVar="dos" autoUpdate="true" life="1000" />
                 
                         <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
                         <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
@@ -189,7 +190,7 @@ background-color: red;
                                 <p:selectOneMenu value="#{usuarioBEAN.idArea}" label="Area:" required="true" requiredMessage="Área requerido" style="height:30px;width:350px">
                                     <f:selectItem noSelectionOption="true" itemLabel="-- Area --" itemValue="#{null}" />
                                     <f:selectItems value="#{usuarioBEAN.listaAreas}" var="area" itemLabel="#{area.nombre_area}" itemValue="#{area.idarea}"/>
-                                    <p:ajax listener="#{usuarioBEAN.departamentoDeUnArea()}" update="departamento"/>
+                                    <p:ajax listener="#{usuarioBEAN.departamentoDeUnAreaRegistro()}" update="departamento"/>
                                     <p:ajax update="oficina"/>
                                 </p:selectOneMenu>
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
@@ -246,8 +247,7 @@ background-color: red;
                        <h:outputText value="Contraseña:" style="color: black;font-size:14px" />
                                 <p:password class="form-control" placeholder="Contraseña" id="contraseñaUsuario" value="#{usuarioBEAN.registroUsuarioNuevo.clave}" match="confirmaContraseña"
                                              required="true" requiredMessage="Contraseña Requerida" label="Contraseña:" style="width:250px">
-                                    <f:validator validatorId="validadoresContrasenia" /><!-- valida que el valor sea igual a el de la contraseña-->
-                                   <p:ajax event="blur" update="mensajito"/>
+                                    <f:validator validatorId="validadoresContrasenia"  />
                                 </p:password>
                                
                                 <p:column/>
@@ -261,9 +261,8 @@ background-color: red;
                                 <h:outputText value="Confirma:" style="color: black;font-size:14px" />
                                 <p:password class="form-control" placeholder="Confirma Contraseña" id="confirmaContraseña" value="#{usuarioBEAN.confirmacionContraseña}"
                                               required="true" requiredMessage="Confirme su Contraseña" label="Confirma:" style="width:250px">
-                                    <f:validator validatorId="validadoresContrasenia"/>
-                                    <p:ajax event="keyup" update="mensajito"/>
-                                   
+                                    <f:validator validatorId="validaContraseña"/>
+                                    <p:ajax event="blur" update="mensajitoDos" immediate="true" />
                                 </p:password>
                                 
                          <p:column><br/> </p:column><p:column><br/> </p:column>   
@@ -314,7 +313,6 @@ background-color: red;
                          <h:outputText value="#{usuarioBEAN.usuarioCorreoServicio}" styleClass="outputLabel"
                                        style="color: black;font-size:13px"/>
                         </p:column>
-                       
                       </h:panelGrid>
                 
                 </h:panelGrid> 

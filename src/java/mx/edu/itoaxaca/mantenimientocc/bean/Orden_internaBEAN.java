@@ -292,7 +292,7 @@ public class Orden_internaBEAN implements Serializable{
     public void exportarPDFOrdenInterna(Usuario usuarioActivo) throws JRException, IOException{
         Map<String, Object> parametros = new HashMap<String, Object>();
         
-        String nombreUsuario = orden_interna.getIdsolicitud().getId_usuario().getId_profesion().getNombre_profesion()+". "+
+        String nombreUsuario = orden_interna.getIdsolicitud().getId_usuario().getId_profesion().getNombre_profesion()+" "+
                 orden_interna.getIdsolicitud().getId_usuario().getNombre()+" "+
                 orden_interna.getIdsolicitud().getId_usuario().getApellidoPaterno()+" "+
                 orden_interna.getIdsolicitud().getId_usuario().getApellidoMaterno();

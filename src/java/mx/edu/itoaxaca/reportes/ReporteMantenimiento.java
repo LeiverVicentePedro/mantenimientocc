@@ -54,7 +54,7 @@ public class ReporteMantenimiento{
 
         parametros.put("folio", solicitudmc.getFolio().toUpperCase());
         parametros.put("areaSolicitante", solicitudmc.getId_usuario().getIdOficina().getNombreOficina().toUpperCase());
-        parametros.put("nombreSolicitante", solicitudmc.getId_usuario().getId_profesion().getNombre_profesion().toUpperCase() + ". " + solicitudmc.getId_usuario().getNombre().toUpperCase() + " " + solicitudmc.getId_usuario().getApellidoPaterno().toUpperCase() + " " + solicitudmc.getId_usuario().getApellidoMaterno().toUpperCase());
+        parametros.put("nombreSolicitante", solicitudmc.getId_usuario().getId_profesion().getNombre_profesion().toUpperCase() + " " + solicitudmc.getId_usuario().getNombre().toUpperCase() + " " + solicitudmc.getId_usuario().getApellidoPaterno().toUpperCase() + " " + solicitudmc.getId_usuario().getApellidoMaterno().toUpperCase());
         String fecha = String.valueOf(solicitudmc.getFecha());
         parametros.put("fechaElaboracion", fecha);
         if (solicitudmc.getOtroProblema().equals(null)) {
