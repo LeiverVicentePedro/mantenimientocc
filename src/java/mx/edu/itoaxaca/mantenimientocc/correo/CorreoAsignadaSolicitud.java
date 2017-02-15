@@ -27,22 +27,23 @@ public class CorreoAsignadaSolicitud extends ConexionCorreo implements Runnable{
     public void run() {
         try {
             setup();
-            String asunto = "Asignación de Solicitud al Sistema SIMAPRECO del TEC-OAX";
-            String mensaje = "<center><h1>INSTITUTO TECNOL&Oacute;GICO DE OAXACA<h1></center><br/>"
+            String asunto = "Asignación de Solicitud: "+solicitud.getFolio();
+            String mensaje = "<center><h1>INSTITUTO TECNOL&Oacute;GICO DE OAXACA<h1></center><br/>"+ 
+                    "<center><h3>SISTEMA DE MANTENIMIENTO PREVENTIVO Y/O CORRECTIVO DEL ITO<h3></center><br/>"
                     + "<div><center><h2>Asignaci&oacute;n de Servicio:<h2></center></div>\n"
                     + "<br/><center><h3>Gracias Por usar SIMAPRECO<h3></center><br/>"+"\n"
                     + "<center><p>Por este Medio se le Informa que su Solicitud:</p></center>"+"\n"
-                    + "<center>Con Numero de Folio: \t <b>"+solicitud.getFolio()+"</b> Dirigudo Al Departamento:<b>"+solicitud.getId_departamento().getNombre_departamento()+"</b> </center>"+"\n"
-                    +"<center><p>A sido atendida y ya se encuetra asignada al personal para su atenci&oacute;n.</p></center><br/>" 
+                    + "<center>Con N&uacute;mero de Folio: \t <b>"+solicitud.getFolio()+"</b> Dirigido Al Departamento:<b>"+solicitud.getId_departamento().getNombre_departamento()+"</b> </center>"+"\n"
+                    +"<center><p>A sido atendida y ya se encuentra asignada al personal para su atenci&oacute;n.</p></center><br/>" 
                     +"<center><p>Recuerde que Puede Ver el Seguimiento de su Solicitud.</p></center>"
-                    + "<br/><br/><center><h6 style=\" color:red; font-size:10px;\">* Este correo es de caracter Informativo no es relevante y los datos contenidos son proporcionados por el sistema.<h6></center>"
-                    + "<center>Puede Acceder  al sistema a travez del siguiente enlace:<br/></center>"
-                    +"<center><b><a href="+"\"http://simapreco.j.layershift.co.uk/\" style=\" color:blue;\"><b>SISTEMA DE MANTENIMIENTO PREVENTIVO Y/O CORRECTIVO DEL ITO<b/>"+"</a></b></center>"
+                    + "<br/><br/><center><h6 style=\" color:red; font-size:10px;\">* Este correo es de car&aacute;cter Informativo no es relevante y los datos contenidos son proporcionados por el sistema.<h6></center>"
+                    + "<center>Puede Acceder  al sistema a trav&eacute;s del siguiente enlace:<br/></center>"
+                    +"<center><b><a href="+"\"http://187.154.40.169:8080/mantenimientocc/\" style=\" color:blue;\"><b>SISTEMA DE MANTENIMIENTO PREVENTIVO Y/O CORRECTIVO DEL ITO<b/>"+"</a></b></center>"
                     + "<br/><br/>"
                     + "<center><div><p style=\"font-size: 10pt; line-height:100%;\">Tecnol&oacute;gico Nacional de M&eacute;xico / Instituto Tecnol&oacute;gico de Oaxaca<br/>"
                     + "Avenida Ing. V&iacute;ctor Bravo Ahuja<br/>"
                     + "No. 125 Esquina Calzada Tecnol&oacute;gico, C.P. 68030<br/>"
-                    + "Tels.(951) 501 50 16, Correo electronico SIMAPRECO: sistema.mantenimiento@itoaxaca.edu.mx<br/>"
+                    + "Tels.(951) 501 50 16, Correo electr&oacute;nico SIMAPRECO: sistema.mantenimiento@itoaxaca.edu.mx<br/>"
                     + "Derechos Reservados.</p></center>"; 
 
             Message crearCorreo = new MimeMessage(this.crearSesion(this.setup()));

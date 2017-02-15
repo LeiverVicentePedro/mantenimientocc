@@ -141,7 +141,7 @@ public class Orden_trabajoBEAN implements Serializable{
       
       public void exportarOrdenTrabajo(Usuario activoUsuario) throws JRException, IOException{
           Map<String,Object> parametros = new HashMap<String,Object>();
-          String nombreUsuario = orden_trabajo.getId_solicitudmc().getId_usuario().getId_profesion().getNombre_profesion()+". "+
+          String nombreUsuario = orden_trabajo.getId_solicitudmc().getId_usuario().getId_profesion().getNombre_profesion()+" "+
                 orden_trabajo.getId_solicitudmc().getId_usuario().getNombre()+" "+
                 orden_trabajo.getId_solicitudmc().getId_usuario().getApellidoPaterno()+" "+
                 orden_trabajo.getId_solicitudmc().getId_usuario().getApellidoMaterno();
@@ -155,12 +155,12 @@ public class Orden_trabajoBEAN implements Serializable{
             parametros.put("manInterno"," ");
         }
         parametros.put("tipoServicio",orden_trabajo.getTipo_servicio().toUpperCase());
-        parametros.put("asignado", activoUsuario.getId_profesion().getNombre_profesion().toUpperCase() + ". " + activoUsuario.getNombre().toUpperCase() + " " + activoUsuario.getApellidoPaterno().toUpperCase() + " " + activoUsuario.getApellidoMaterno().toUpperCase());
+        parametros.put("asignado", activoUsuario.getId_profesion().getNombre_profesion().toUpperCase() + " " + activoUsuario.getNombre().toUpperCase() + " " + activoUsuario.getApellidoPaterno().toUpperCase() + " " + activoUsuario.getApellidoMaterno().toUpperCase());
         String fechaRealizacion = String.valueOf(orden_trabajo.getFecha_realizacion());
         parametros.put("fecha", fechaRealizacion);
         parametros.put("trabajo_realizado",orden_trabajo.getTrabajo_descripcion().toUpperCase());
         parametros.put("verificadoYliberado", nombreUsuario.toUpperCase());          
-        parametros.put("aprobadoPor", orden_trabajo.getId_usuario_personal_jefe().getId_profesion().getNombre_profesion().toUpperCase() + ". " + orden_trabajo.getId_usuario_personal_jefe().getNombre().toUpperCase() + " " + orden_trabajo.getId_usuario_personal_jefe().getApellidoPaterno().toUpperCase() + " " + orden_trabajo.getId_usuario_personal_jefe().getApellidoMaterno().toUpperCase());
+        parametros.put("aprobadoPor", orden_trabajo.getId_usuario_personal_jefe().getId_profesion().getNombre_profesion().toUpperCase() + " " + orden_trabajo.getId_usuario_personal_jefe().getNombre().toUpperCase() + " " + orden_trabajo.getId_usuario_personal_jefe().getApellidoPaterno().toUpperCase() + " " + orden_trabajo.getId_usuario_personal_jefe().getApellidoMaterno().toUpperCase());
         parametros.put("fechaLiberado"," ");
         parametros.put("fechaAprobado"," ");
                

@@ -647,6 +647,22 @@ public class UsuarioBEAN implements Serializable{
         } 
     }
     
+    public void departamentoDeUnAreaRegistro(){
+        //setIdArea(3);
+        listaTemporalDepartamento = new ArrayList();
+        if(idArea !=0){
+        for(Departamento departamento : listaDepartamento){
+            if(departamento.getArea().getIdarea() == idArea){
+                listaTemporalDepartamento.add(departamento);
+            }
+        }
+        }else{
+            listaTemporalDepartamento.clear();
+            listaTemporalOficina.clear();
+            setIdDepartamento(0);
+        }
+    }
+    
     public void departamentoDeUnArea(){
         setIdArea(3);
         listaTemporalDepartamento = new ArrayList();
