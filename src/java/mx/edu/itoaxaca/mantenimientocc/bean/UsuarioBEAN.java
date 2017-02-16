@@ -32,6 +32,7 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.StringTokenizer;
 import javax.faces.validator.ValidatorException;
+import mx.edu.itoaxaca.mantenimientocc.correo.CorreoCambioDatosUsuario;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 import mx.edu.itoaxaca.mantenimientocc.dao.Empleado_periodoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Empleado_periodo;
@@ -254,18 +255,13 @@ public class UsuarioBEAN implements Serializable{
            registroUsuarioNuevo.setTipoBT("Base");
             registroUsuarioNuevo.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             this.modificarUsuarioRFC();
-            if (confirmacionContraseña.equals(registroUsuarioNuevo.getClave())) {
+            
                 usuarioDao.registrarUsuario(registroUsuarioNuevo);
                 setMensajeClaseUsuario("Usuario Registrado");
                 new CorreoRegistroUsuario().enviarMensaje(registroUsuarioNuevo.getCorreo(), registroUsuarioNuevo.getClave());
                 System.out.println(mensajeClaseUsuario);
                  
-            } else {
-                setMensajeClaseUsuario("Las Contraseñas no Coinciden");
-                System.out.println(mensajeClaseUsuario);
-            }
-            FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensajeClaseUsuario);
-            RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+            
         } catch (Exception e) {
             System.out.println("=========Error en UsuarioBEAN -> registrarNuevoUsuario" + e + "============");
             throw e;
@@ -479,6 +475,9 @@ public class UsuarioBEAN implements Serializable{
         try {
             usuariodao = new UsuarioDAO();
             objetoUsuario.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
+            Thread CorreoModifica = new Thread(new CorreoCambioDatosUsuario(objetoUsuario));
+            CorreoModifica.start();
+            Thread.sleep(2500);
             usuariodao.modificarUsuario(objetoUsuario);
             this.listaUsuarioDepartameto();
         } catch (Exception ex) {
