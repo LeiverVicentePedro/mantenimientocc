@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                <center>
+                    <p:outputLabel value="Reporte de Solicitudes" style="font-size: 25px;" />
+                </center>
+                <p:separator/> 
+                <p:separator style="visibility: hidden;"/>
+
+                <h:form id="formEstadistica">
+                    <f:event type="preRenderView" listener="#{estadisticaBEAN.generarLista()}"/>
+                    <p:dataTable var="solicitud" value="#{estadisticaBEAN.listaPorDepartamento}" paginator="true" rows="10"
+                                 paginatorTemplate = "{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                 style="margin-bottom:20px"  id="deptoTable">
+                        <f:facet name="{Exporters}">
+                                <h:commandLink>
+                                    <p:graphicImage name="/resources/images/pdf.png" width="24"/>
+                                    <p:dataExporter type="pdf" target="deptoTable" fileName="SolicitudesPorDepartamentos" />
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage  name="/resources/images/xls.png" width="24"/>
+                                    <p:dataExporter type="xls" target="deptoTable" fileName="SolicitudesPorDepartamentos"/>
+                                </h:commandLink>
+
+                            </f:facet>
+
+                        <p:column headerText="Departamentos" sortBy="#{solicitud.departamento.nombre_departamento}" filterBy="#{solicitud.departamento.nombre_departamento}" width="150">
+                            <h:outputText value="#{solicitud.departamento.nombre_departamento}" />
+                        </p:column>
+                        <p:column headerText="Inicial" sortBy="#{solicitud.inicial}" filterBy="#{solicitud.inicial}" width="50">
+                            <h:outputText value="#{solicitud.inicial}" />
+                        </p:column>
+                        <p:column headerText="Proceso" sortBy="#{solicitud.proceso}" filterBy="#{solicitud.proceso}" width="50">
+                            <h:outputText value="#{solicitud.proceso}" />
+                        </p:column>
+                        <p:column headerText="Final" sortBy="#{solicitud.finales}" filterBy="#{solicitud.finales}" width="50">
+                            <h:outputText value="#{solicitud.finales}" />
+                        </p:column>
+                        <p:column headerText="Total" sortBy="#{solicitud.total}" filterBy="#{solicitud.total}" width="50">
+                            <h:outputText value="#{solicitud.total}" />
+                        </p:column>
+                        <p:column headerText="Detalles" width="50">
+                            <p:commandButton icon="fa fa-eye" oncomplete="PF('carDialog').show()" update=":formDialog:mesesTabla" actionListener="#{estadisticaBEAN.generaDetalle(solicitud)}"/>  
+                        </p:column>  
+                    </p:dataTable>
+
+
+                </h:form>
+                <h:form id="formDialog">
+                    <p:dialog header="Detalle de Reporte de Departamento Por Meses" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="550">
+                        <p:dataTable  var="meses" value="#{estadisticaBEAN.listaSolicitudes}" id="mesesTabla">
+                            
+                            <p:column headerText="Meses" width="80">
+                                <h:outputText value="#{meses.mes}">
+                                    <f:converter converterId="conversionMeses"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Inicio" width="20">
+                                <h:outputText value="#{meses.inicial}"/>
+                            </p:column>
+                            <p:column headerText="Proceso" width="20">
+                                <h:outputText value="#{meses.proceso}"/>
+                            </p:column>
+                            <p:column headerText="Final" width="20">
+                                <h:outputText value="#{meses.terminado}"/>
+                            </p:column>
+                            <p:column headerText="Total" width="20">
+                                <h:outputText value="#{meses.total}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

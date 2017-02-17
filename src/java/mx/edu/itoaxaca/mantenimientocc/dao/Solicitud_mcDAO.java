@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
+import mx.edu.itoaxaca.mantenimientocc.modelo.DetallePorMesSolicitud;
 import mx.edu.itoaxaca.mantenimientocc.modelo.SeguimientoCliente;
+import mx.edu.itoaxaca.mantenimientocc.modelo.SolicitudPorDepartamento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
@@ -418,6 +420,70 @@ public class Solicitud_mcDAO extends Conexion {
          }
          return listaSolicitudDeUsuario;
      }
-      
+    
+    
+    
+   //lista para el proceso de estadisticos
+    public List<SolicitudPorDepartamento> listaEstadisticoSolicitud(Usuario usuario){
+        List<SolicitudPorDepartamento> listaTemporal = null;
+        ResultSet resultado;
+        try{
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement(
+                    "select  iddepartamento, sum(case when solicitud_mc.estatus=true then 1 else 0 end) as inicial, \n" +
+"sum(case when estado_seguimiento=false then 1 else 0 end) as termino, \n" +
+"sum(case when idsolicitud_mc then 1 else 0 end) as total,\n" +
+"sum(case when idsolicitud_mc then 1 else 0 end)-sum(case when solicitud_mc.estatus=true then 1 else 0 end) + sum(case when estado_seguimiento=false then 1 else 0 end)-sum(case when estado_seguimiento=false then 1 else 0 end) - sum(case when estado_seguimiento=false then 1 else 0 end) as proceso\n" +
+"from solicitud_mc inner join usuario on idusuario=id_usuario inner join oficinas_solicitantes on usuario.id_oficina = oficinas_solicitantes.idoficinas\n" +
+"inner join departamento on departamento.iddepartamento= oficinas_solicitantes.id_departamento where solicitud_mc.id_departamento=? group by iddepartamento;");
+            
+     consulta.setInt(1,usuario.getIdOficina().getDepartamento().getIddepartamento());
+     resultado = consulta.executeQuery();
+     listaTemporal = new ArrayList();
+     while(resultado.next()){
+         SolicitudPorDepartamento solicitud = new SolicitudPorDepartamento();
+         solicitud.setDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultado.getInt("iddepartamento")));
+         solicitud.setInicial(resultado.getInt("inicial"));
+         solicitud.setProceso(resultado.getInt("proceso"));
+         solicitud.setFinales(resultado.getInt("termino"));
+         solicitud.setTotal(resultado.getInt("total"));
+         listaTemporal.add(solicitud);
+         
+     }
+        }catch(Exception ex){
+            System.out.println("error en Solicitud_mcDAO -> listaEstadisticaSolicitud "+ex);
+        }
+        return listaTemporal;
+    }
+    
+    public List<DetallePorMesSolicitud> detalleMes(SolicitudPorDepartamento departamentoSolicitud){
+        List<DetallePorMesSolicitud> detallesMes = null;
+        ResultSet resultado;
+        try{
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("select month(fecha)as mes, sum(case when solicitud_mc.estatus=true then 1 else 0 end) as inicial, \n" +
+"sum(case when estado_seguimiento=false then 1 else 0 end) as termino, \n" +
+"sum(case when idsolicitud_mc then 1 else 0 end) as total,\n" +
+"sum(case when idsolicitud_mc then 1 else 0 end)-sum(case when solicitud_mc.estatus=true then 1 else 0 end) + sum(case when estado_seguimiento=false then 1 else 0 end)-sum(case when estado_seguimiento=false then 1 else 0 end) - sum(case when estado_seguimiento=false then 1 else 0 end) as proceso\n" +
+"from solicitud_mc inner join usuario on usuario.idusuario=solicitud_mc.id_usuario inner join oficinas_solicitantes on oficinas_solicitantes.idoficinas=usuario.id_oficina\n" +
+"inner join departamento on departamento.iddepartamento=oficinas_solicitantes.id_departamento where departamento.iddepartamento= ? group by EXTRACT(MONTH FROM fecha);");
+            consulta.setInt(1, departamentoSolicitud.getDepartamento().getIddepartamento());
+            resultado = consulta.executeQuery();
+            detallesMes = new ArrayList();
+            while(resultado.next()){
+                DetallePorMesSolicitud detalle = new DetallePorMesSolicitud();
+                
+                detalle.setMes(resultado.getInt("mes"));
+                detalle.setInicial(resultado.getInt("inicial"));
+                detalle.setProceso(resultado.getInt("proceso"));
+                detalle.setTerminado(resultado.getInt("termino"));
+                detalle.setTotal(resultado.getInt("total"));
+                detallesMes.add(detalle);
+            }
+        }catch(Exception ex){
+            System.out.println("Error en Solicitud_DAO -> detalleMes "+ex);
+        }
+        return detallesMes;
+    }
         
 }
