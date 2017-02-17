@@ -27,6 +27,16 @@ public class EstadisticoBEAN {
     
     private List<DetallePorMesSolicitud> listaSolicitudes;
     private List<SolicitudPorDepartamento> listaPorDepartamento;
+    private List<SolicitudPorDepartamento> filterestadistico;
+
+    public List<SolicitudPorDepartamento> getFilterestadistico() {
+        return filterestadistico;
+    }
+
+    public void setFilterestadistico(List<SolicitudPorDepartamento> filterestadistico) {
+        this.filterestadistico = filterestadistico;
+    }
+    
     
     private SolicitudPorDepartamento seleccionado;
     

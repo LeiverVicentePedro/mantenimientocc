@@ -11,6 +11,7 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
+                 <p:separator style="visibility: hidden;"/>
                 <center>
                     <p:outputLabel value="Reporte de Solicitudes" style="font-size: 25px;" />
                 </center>
@@ -19,35 +20,37 @@
 
                 <h:form id="formEstadistica">
                     <f:event type="preRenderView" listener="#{estadisticaBEAN.generarLista()}"/>
-                    <p:dataTable var="solicitud" value="#{estadisticaBEAN.listaPorDepartamento}" paginator="true" rows="10"
-                                 paginatorTemplate = "{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                 style="margin-bottom:20px"  id="deptoTable">
-                        <f:facet name="{Exporters}">
-                                <h:commandLink>
-                                    <p:graphicImage name="/resources/images/pdf.png" width="24"/>
-                                    <p:dataExporter type="pdf" target="deptoTable" fileName="SolicitudesPorDepartamentos" />
-                                </h:commandLink>
-
-                                <h:commandLink>
-                                    <p:graphicImage  name="/resources/images/xls.png" width="24"/>
-                                    <p:dataExporter type="xls" target="deptoTable" fileName="SolicitudesPorDepartamentos"/>
-                                </h:commandLink>
-
-                            </f:facet>
-
-                        <p:column headerText="Departamentos" sortBy="#{solicitud.departamento.nombre_departamento}" filterBy="#{solicitud.departamento.nombre_departamento}" width="150">
+                    <p:dataTable var="solicitud" value="#{estadisticaBEAN.listaPorDepartamento}" 
+                                 paginator="true" rows="10"
+                                 widgetVar="buscar"
+                                 emptyMessage="No hay elementos encontrados"
+                                 filteredValue="#{estadisticaBEAN.filterestadistico}"
+                          emptyMessage="No hay elementos encontrados"
+                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                          paginatorPosition="bottom"
+                          style="margin-bottom:20px"  id="deptoTable">
+                         <f:facet name="header">
+                                <p:outputPanel class="text-right">
+                                   <h:outputText value="Buscar:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
+                                             
+                                             style="width:150px" />
+                                </p:outputPanel>
+                           </f:facet>
+                        <p:column headerText="Departamentos"
+                                  filterBy="#{solicitud.departamento.nombre_departamento}" width="150" filterMatchMode="startsWith">
                             <h:outputText value="#{solicitud.departamento.nombre_departamento}" />
                         </p:column>
-                        <p:column headerText="Inicial" sortBy="#{solicitud.inicial}" filterBy="#{solicitud.inicial}" width="50">
+                        <p:column headerText="Inicial" filterBy="#{solicitud.inicial}" width="50" filterMatchMode="startsWith">
                             <h:outputText value="#{solicitud.inicial}" />
                         </p:column>
-                        <p:column headerText="Proceso" sortBy="#{solicitud.proceso}" filterBy="#{solicitud.proceso}" width="50">
+                        <p:column headerText="Proceso" filterBy="#{solicitud.proceso}" width="50" filterMatchMode="startsWith">
                             <h:outputText value="#{solicitud.proceso}" />
                         </p:column>
-                        <p:column headerText="Final" sortBy="#{solicitud.finales}" filterBy="#{solicitud.finales}" width="50">
+                        <p:column headerText="Final" filterBy="#{solicitud.finales}" width="50" filterMatchMode="startsWith">
                             <h:outputText value="#{solicitud.finales}" />
                         </p:column>
-                        <p:column headerText="Total" sortBy="#{solicitud.total}" filterBy="#{solicitud.total}" width="50">
+                        <p:column headerText="Total" filterBy="#{solicitud.total}" width="50" filterMatchMode="startsWith">
                             <h:outputText value="#{solicitud.total}" />
                         </p:column>
                         <p:column headerText="Detalles" width="50">
