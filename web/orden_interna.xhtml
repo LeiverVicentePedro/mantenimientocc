@@ -13,11 +13,11 @@
 
             <ui:define name="content">              
                 <!-- ////////////////////////////////////// Apartir de Aqui empieza la parte de Equipo //////////////////////////////////////  -->
-                <p:growl id="msjUno" showDetail="true" sticky="true"/>
+                
 
                 <p:dialog header="Datos de Equipo" widgetVar="DatosEquipo" id="dialogoDatosEquipo" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
                     <h:form id="formaExteriorUno"> 
-                       
+                       <p:growl id="msjUno" showDetail="true" sticky="true" life="1000" />
                         <p/>
                         <p:commandButton value="Nuevo Equipo" oncomplete="PF('DatosUno').show();" actionListener="#{equipoBEAN.setAccion('Registrar')}" update=":dialogoDatosUno" >         
                             <f:ajax execute="#{equipoBEAN.listarEquipoOrdenInterna()}" render="dataUno" />
@@ -131,7 +131,7 @@
 
                 <p:dialog header="Listado de Datos de Refacción" widgetVar="DatosRefaccionLista" id="dialogoDatosRefaccionLista" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
                   <h:form id="formaExteriorRefaccion"> 
-                       
+                       <p:growl id="msjDOS" showDetail="true" sticky="true" life="2000" />
                         <p/>
                         <p:commandButton value="Nueva Refacción" oncomplete="PF('DatosRefaccion').show();" actionListener="#{refaccion_empleadaBEAN.setAccion('Registrar')}" update=":dialogoDatosRefaccion" >         
                             <f:ajax execute="#{refaccion_empleadaBEAN.listarRefaccion()}" render="dataUno" />
@@ -221,6 +221,7 @@
                 <!-- ////////////////////////////////////Aqui se llenan los campos de Orden interna  //////////////////////////////////////////////--> 
 
                 <h:form id="formOrden">
+                    <p:growl id="msjTRES" showDetail="true" sticky="true" life="2000"/>
                     <f:event type="preRenderView" listener="#{orden_internaBEAN.existeSolicitud()}"/>
                     
                     <p:panel id="panelOrden">
@@ -283,10 +284,15 @@
                                     #{problemasEquipo.tipo}
                                 </p:dataList>
                             </p:outputPanel>
-                            <br/><p:column/><p:column/><p:column/>
-                            <p:outputLabel value="Seleccione Refacción usada: "/>
+                            <p:column/><p:column/><p:column/><p:column/><p:column/>
+                             
+                           </h:panelGrid>
+                         <p:outputLabel value="Opciones de Refacción: "/>
+                         <p:panel id="horizontal" header="Opciones" toggleable="true" toggleOrientation="horizontal" collapsed="true">
+                  <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
+                       <p:outputLabel value="Seleccione Refacción usada: "/>
                             
-                            <p:commandButton value="Refacción" oncomplete="PF('DatosRefaccionLista').show();" update=":dialogoDatosRefaccionLista" /> 
+                            <p:commandButton id="rafa" value="Refacción" oncomplete="PF('DatosRefaccionLista').show();" update=":dialogoDatosRefaccionLista" /> 
                             
                             <p:outputLabel value="Refacción utilizada: "/>
                             <p:outputPanel id="displayRefaccion" style="width:240px;padding-left:5px;margin-top:10px" >
@@ -300,10 +306,13 @@
                             <p:column/><p:column/>
                             <p:column/>
                             <p:inputTextarea value="#{orden_internaBEAN.orden_interna.refaccion_faltante}" placeholder="Describa Motivo de falta de refacción." rows="2" cols="50" counter="reporteTecnico" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false"/>
-                        </h:panelGrid>
+                        
+                  </h:panelGrid>
+                  </p:panel>
+                        
                     </p:panel>
                     <br/>
-                   
+                  
 
                     <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" update="formOrden" ajax="false" />
                     <p:commandButton value="Continuar" action="detalleSeguimiento.xhtml" immediate="true"/>
@@ -315,13 +324,13 @@
                 <!-- Dialogo del equipo para registrar equipo nuevo-->    
                 <p:dialog header="Datos de Equipo" widgetVar="DatosUno" id="dialogoDatosUno"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <h:form>
-                           
+                        <p:growl id="msjCUATRO" showDetail="true" sticky="true" autoUpdate="true" life="1000"/>     
                 <p/>
                 <h:panelGrid id="trabajoF" columns="2" columnClasses="grid,grid" class="container-fluid  text-justify">
                        <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
                  <h:outputText  value="Tipo:" style="color: black;font-size:14px"/>
                  <p:inputText  value="#{equipoBEAN.equipo.tipo}" 
-                              required="true" requiredMessage="Se requiere Tipo" 
+                              required="true" requiredMessage="Se requiere Tipo En Equipo" 
                               style="text-transform: uppercase" >
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
@@ -329,7 +338,7 @@
                  <br/><p:column/>
                  <h:outputText  value="Marca:" style="color: black;font-size:14px"/>
                  <p:inputText  value="#{equipoBEAN.equipo.marca}" 
-                              required="true" requiredMessage="Se requiere Marca" 
+                              required="true" requiredMessage="Se requiere Marca En Equipo" 
                               style="text-transform: uppercase">
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
@@ -337,7 +346,7 @@
                  <br/><p:column/>
                  <h:outputText  value="Modelo:" style="color: black;font-size:14px"/>
                  <p:inputText  value="#{equipoBEAN.equipo.modelo}" 
-                              required="true" requiredMessage="Se requiere Modelo" 
+                              required="true" requiredMessage="Se requiere Modelo En Equipo" 
                               style="text-transform: uppercase">
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
@@ -346,14 +355,14 @@
                  <br/><p:column/>
                  <h:outputText value="Num.Serie:" style="color: black;font-size:14px"/>
                  <p:inputText  value="#{equipoBEAN.equipo.numero_serie}" 
-                              required="true" requiredMessage="Se requiere Num.Serie" 
+                              required="true" requiredMessage="Se requiere Num.Serie En Equipo" 
                               style="text-transform: uppercase">
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
                  <br/><p:column/>
                  <h:outputText value="Folio Inventario:" style="color: black;font-size:14px" />
                  <p:inputText value="#{equipoBEAN.equipo.folio_inventario}" required="true" 
-                                 requiredMessage="Se necesita un Folio de Inventario"
+                                 requiredMessage="Se necesita un Folio de Inventario En Equipo"
                                  style="text-transform: uppercase">
                         <f:validator validatorId="validadoresNumeros"/>
                  </p:inputText>
@@ -381,6 +390,7 @@
 
                     <h:form id="formaExterior" >               
                         <p/>
+                        <p:growl id="msjCINCO" showDetail="true" sticky="true" life="3000" />
                         <h:panelGrid id="trabajoF" columns="1" columnClasses="grid" class="container-fluid  text-justify">
                        <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
                         <h:outputText value="Cantidad:" style="color: black;font-size:14px;width:200px"/>
