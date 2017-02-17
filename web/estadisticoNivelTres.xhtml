@@ -25,7 +25,7 @@
                                  widgetVar="buscar"
                                  emptyMessage="No hay elementos encontrados"
                                  filteredValue="#{estadisticaBEAN.filterestadistico}"
-                          emptyMessage="No hay elementos encontrados"
+                         
                                   paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                           paginatorPosition="bottom"
                           style="margin-bottom:20px"  id="deptoTable">
@@ -66,7 +66,8 @@
                   
                     <f:event type="preRenderView" listener="#{estadisticaBEAN.generarReporteEmpleado()}"/>
                     <p:dataTable var="empleado" value="#{estadisticaBEAN.listaEmpleados}" paginator="true" rows="10"
-                                 paginatorTemplate = "{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 paginatorTemplate = "{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                                 {PageLinks} {NextPageLink} {LastPageLink}"
                                  style="margin-bottom:20px"  id="empleadoTable">
                         
 
@@ -90,7 +91,8 @@
                 </h:form>
                 
                 <h:form id="formDialog">
-                    <p:dialog header="Detalle de Reporte de Departamento Por Meses" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="550">
+                    <p:dialog header="Detalle de Reporte de Departamento Por Meses" widgetVar="carDialog" modal="true"
+                              showEffect="fade" hideEffect="fade" resizable="false" width="550">
                         <p:dataTable  var="meses" value="#{estadisticaBEAN.listaSolicitudes}" id="mesesTabla">
                             
                             <p:column headerText="Meses" width="80">
