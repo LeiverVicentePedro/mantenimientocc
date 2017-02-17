@@ -283,10 +283,15 @@
                                     #{problemasEquipo.tipo}
                                 </p:dataList>
                             </p:outputPanel>
-                            <br/><p:column/><p:column/><p:column/>
-                            <p:outputLabel value="Seleccione Refacción usada: "/>
+                            <p:column/><p:column/><p:column/><p:column/><p:column/>
+                             
+                           </h:panelGrid>
+                         <p:outputLabel value="Opciones de Refacción: "/>
+                         <p:panel id="horizontal" header="Opciones" toggleable="true" toggleOrientation="horizontal" collapsed="true">
+                  <h:panelGrid columns="4" cellspacing="10" cellpadding="5">
+                       <p:outputLabel value="Seleccione Refacción usada: "/>
                             
-                            <p:commandButton value="Refacción" oncomplete="PF('DatosRefaccionLista').show();" update=":dialogoDatosRefaccionLista" /> 
+                            <p:commandButton id="rafa" value="Refacción" oncomplete="PF('DatosRefaccionLista').show();" update=":dialogoDatosRefaccionLista" /> 
                             
                             <p:outputLabel value="Refacción utilizada: "/>
                             <p:outputPanel id="displayRefaccion" style="width:240px;padding-left:5px;margin-top:10px" >
@@ -300,10 +305,13 @@
                             <p:column/><p:column/>
                             <p:column/>
                             <p:inputTextarea value="#{orden_internaBEAN.orden_interna.refaccion_faltante}" placeholder="Describa Motivo de falta de refacción." rows="2" cols="50" counter="reporteTecnico" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false"/>
-                        </h:panelGrid>
+                        
+                  </h:panelGrid>
+                  </p:panel>
+                        
                     </p:panel>
                     <br/>
-                   
+                  
 
                     <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" update="formOrden" ajax="false" />
                     <p:commandButton value="Continuar" action="detalleSeguimiento.xhtml" immediate="true"/>

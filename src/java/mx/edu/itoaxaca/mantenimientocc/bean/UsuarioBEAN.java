@@ -257,9 +257,12 @@ public class UsuarioBEAN implements Serializable{
             this.modificarUsuarioRFC();
             
                 usuarioDao.registrarUsuario(registroUsuarioNuevo);
+                
                 setMensajeClaseUsuario("Usuario Registrado");
                 new CorreoRegistroUsuario().enviarMensaje(registroUsuarioNuevo.getCorreo(), registroUsuarioNuevo.getClave());
                 System.out.println(mensajeClaseUsuario);
+                FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensajeClaseUsuario);
+                RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
                  
             
         } catch (Exception e) {
@@ -284,7 +287,9 @@ public class UsuarioBEAN implements Serializable{
             FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensajeClaseUsuario);
             RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
         } catch (Exception ex) {
-            System.out.println("Error en UsuarioBEAN ->recuperarCuenta " + ex);
+             mensajeClaseUsuario = "El Correo no Existe Proporcione el correo con el que se registro.";
+              FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensajeClaseUsuario);
+            RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
             throw ex;
         }
     }

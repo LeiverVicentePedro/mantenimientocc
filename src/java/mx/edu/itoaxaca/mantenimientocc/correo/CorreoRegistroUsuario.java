@@ -77,7 +77,7 @@ public class CorreoRegistroUsuario extends ConexionCorreo{
 //Enviamos el Mensaje
             Transport.send(crearCorreo);
         } catch (Exception ex) {
-            System.out.println("Error en CorreoRegistroUsuario -> enviarMensajeRecuperacion " + ex);
+            System.out.println("Error en CorreoRegistroUsuario -> enviarMensajeRecuperacion ");
         }
     }
     
