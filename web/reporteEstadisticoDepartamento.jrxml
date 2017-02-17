@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6e0114ad-d01f-4188-bff2-3b78dae6d3d1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="inicial" class="java.lang.Integer"/>
+	<field name="proceso" class="java.lang.Integer"/>
+	<field name="finales" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Integer"/>
+	<variable name="departamento_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="30" y="0" width="119" height="63" uuid="d8cbe61c-71bd-4c4f-a0f8-b29b9006f2f5"/>
+				<imageExpression><![CDATA["resources\\images\\gobmx.png"]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="450" y="3" width="56" height="59" uuid="9793d7ff-83ab-49b5-8d83-ae09b79f3f89"/>
+				<imageExpression><![CDATA["resources\\images\\LogoITO.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="169" y="9" width="238" height="20" uuid="d046034a-b698-42dd-bc38-83e196b34dc1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO TECNOLÓGICO DE OAXACA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="165" y="32" width="273" height="39" uuid="b3f0f898-b57d-4725-8dc6-817f8b603a28"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Solicitudes Por Departamento]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="222" y="23" width="100" height="20" uuid="7adf0de5-71c6-4eb6-a777-c4b1584e45e1"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[proceso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="23" width="100" height="20" uuid="08e9ef65-b230-4cf3-86ea-b94562f0b52d"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="23" width="100" height="20" uuid="d3e54380-582d-4eef-9da8-f4ff08409f43"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="23" width="100" height="20" uuid="1c2f684b-3dfc-413c-a31d-39a50921d221"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[finales]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="222" y="2" width="100" height="20" uuid="f0d856b7-55c9-411f-b1e0-9352ae722128"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proceso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="2" width="100" height="20" uuid="b74ba247-8be9-41f3-9683-663ea4b4f853"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="2" width="100" height="20" uuid="84d1890a-a2a6-4cb7-8c50-3c663288a070"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="2" width="100" height="20" uuid="fd96691c-5072-4a28-8237-cd6e2e424edb"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{finales}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
