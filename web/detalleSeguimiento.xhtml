@@ -13,6 +13,7 @@
             <ui:define name="content">
                 <p:separator style="visibility: hidden;"/>
               <h:form enctype="multipart/form-data">
+                  <p:growl id="msj" showDetail="true" sticky="true" autoUpdate="true"/>
                   <f:event type="preRenderView" listener="#{detalleSeguimientoBEAN.existeSolicitud()}"/>
                   
                    <p:panel id="panelDetalleSeguimiento">
@@ -33,7 +34,7 @@
                             </p:column>
                             <p:column>
             <p:selectOneMenu value="#{detalleSeguimientoBEAN.detalleSeguimiento.estado}" 
-                             style="text-transform: uppercase; font-size: 12px;  width: 130px;" >
+                             style="text-transform: uppercase; font-size: 12px;  width: 130px;" required="true" requiredMessage="Se requiere un Estado">
                 <f:selectItem noSelectionOption="true" itemLabel="Seleccionar" itemValue="#{null}" />
                 <f:selectItem itemLabel="Inicial" itemValue="Inicial"/>
                 <f:selectItem itemLabel="Proceso" itemValue="Proceso"/>
@@ -44,7 +45,8 @@
             <p:outputLabel  value="Descripción:&nbsp;"/>
                 <p:inputTextarea value="#{detalleSeguimientoBEAN.detalleSeguimiento.descripcion}" 
                                  placeholder="Describa Posible causa" rows="2" cols="50" counter="detalle" 
-                                 maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                                 maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" required="true"
+                                 requiredMessage="Se requiere Descripción"/>
                             
                             <p:column/><p:column/><p:column/>
                             <h:outputText id="detalle" style=" color: #c0c0c0"/>

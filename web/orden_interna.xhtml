@@ -17,7 +17,7 @@
 
                 <p:dialog header="Datos de Equipo" widgetVar="DatosEquipo" id="dialogoDatosEquipo" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
                     <h:form id="formaExteriorUno"> 
-                       <p:growl id="msjUno" showDetail="true" sticky="true" life="1000" />
+                       
                         <p/>
                         <p:commandButton value="Nuevo Equipo" oncomplete="PF('DatosUno').show();" actionListener="#{equipoBEAN.setAccion('Registrar')}" update=":dialogoDatosUno" >         
                             <f:ajax execute="#{equipoBEAN.listarEquipoOrdenInterna()}" render="dataUno" />
@@ -131,7 +131,7 @@
 
                 <p:dialog header="Listado de Datos de Refacción" widgetVar="DatosRefaccionLista" id="dialogoDatosRefaccionLista" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
                   <h:form id="formaExteriorRefaccion"> 
-                       <p:growl id="msjDOS" showDetail="true" sticky="true" life="2000" />
+                      
                         <p/>
                         <p:commandButton value="Nueva Refacción" oncomplete="PF('DatosRefaccion').show();" actionListener="#{refaccion_empleadaBEAN.setAccion('Registrar')}" update=":dialogoDatosRefaccion" >         
                             <f:ajax execute="#{refaccion_empleadaBEAN.listarRefaccion()}" render="dataUno" />
@@ -221,7 +221,7 @@
                 <!-- ////////////////////////////////////Aqui se llenan los campos de Orden interna  //////////////////////////////////////////////--> 
 
                 <h:form id="formOrden">
-                    <p:growl id="msjTRES" showDetail="true" sticky="true" life="2000"/>
+                    <p:growl id="msjTRES" showDetail="true" sticky="true" autoUpdate="true" life="2000"/>
                     <f:event type="preRenderView" listener="#{orden_internaBEAN.existeSolicitud()}"/>
                     
                     <p:panel id="panelOrden">
@@ -324,7 +324,7 @@
                 <!-- Dialogo del equipo para registrar equipo nuevo-->    
                 <p:dialog header="Datos de Equipo" widgetVar="DatosUno" id="dialogoDatosUno"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <h:form>
-                        <p:growl id="msjCUATRO" showDetail="true" sticky="true" autoUpdate="true" life="1000"/>     
+                         
                 <p/>
                 <h:panelGrid id="trabajoF" columns="2" columnClasses="grid,grid" class="container-fluid  text-justify">
                        <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
@@ -390,7 +390,7 @@
 
                     <h:form id="formaExterior" >               
                         <p/>
-                        <p:growl id="msjCINCO" showDetail="true" sticky="true" life="3000" />
+                      
                         <h:panelGrid id="trabajoF" columns="1" columnClasses="grid" class="container-fluid  text-justify">
                        <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
                         <h:outputText value="Cantidad:" style="color: black;font-size:14px;width:200px"/>

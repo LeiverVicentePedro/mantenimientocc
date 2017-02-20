@@ -42,13 +42,17 @@
                             <p:column/>
                             <p:outputLabel value="Tipo de Servicios: "/>
                           
-                            <p:inputText value="#{orden_trabajoBEAN.orden_trabajo.tipo_servicio}" placeholder="Clase de mantenimiento a realizar" style="width:320px"/>  
+                            <p:inputText value="#{orden_trabajoBEAN.orden_trabajo.tipo_servicio}" placeholder="Clase de mantenimiento a realizar" 
+                                         style="width:320px" required="true" requiredMessage=" Se requiere Tipo de Servicio en Orden de Trabajo"/>  
                             <br/>
                            
                             <p:column/>
                             <p:column/><p:column ><p/> </p:column><p:column/><p:column/>
                             <p:outputLabel value="Trabajo Realizado: "/>
-                            <p:inputTextarea value="#{orden_trabajoBEAN.orden_trabajo.trabajo_descripcion}" placeholder="Descripción del trabajo desarrollado" rows="2" cols="70" counter="trabajoRealizado" maxlength="300" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                            <p:inputTextarea value="#{orden_trabajoBEAN.orden_trabajo.trabajo_descripcion}" 
+                                             placeholder="Descripción del trabajo desarrollado" rows="2" 
+                                             cols="70" counter="trabajoRealizado" maxlength="300" counterTemplate="{0} Caracteres restantes." 
+                                             autoResize="false" required="true" requiredMessage="Se requiere campo del Trabajo realizado"/>
                             <p:column/><p:column/><p:column/>
                             <h:outputText id="trabajoRealizado" style=" color: #c0c0c0"/> 
                             <p/><p/>
