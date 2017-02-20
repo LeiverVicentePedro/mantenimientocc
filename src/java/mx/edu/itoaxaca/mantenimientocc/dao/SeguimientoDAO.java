@@ -12,7 +12,9 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import mx.edu.itoaxaca.mantenimientocc.modelo.ModeloEmpleadoReporte;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
 /**
  *
@@ -172,5 +174,35 @@ public class SeguimientoDAO extends Conexion{
         }
     }
    
-    
+    public List<ModeloEmpleadoReporte> obtenerReporteEmpleado(Usuario usuario){
+        List<ModeloEmpleadoReporte> detalle=null;
+        try{
+            this.Conectar();
+            
+            ResultSet resultado;
+            
+            PreparedStatement consulta = this.getConexion().prepareStatement("select  id_usuario_personal, sum(case when estado_asignacion=true then 1 else 0 end) as inicial, \n" +
+"sum(case when estado_solicitud=false then 1 else 0 end) as termino, \n" +
+"sum(case when idseguimiento then 1 else 0 end) as total,\n" +
+"sum(case when idseguimiento then 1 else 0 end)-sum(case when estado_asignacion=true then 1 else 0 end) + sum(case when estado_solicitud=false then 1 else 0 end)-sum(case when estado_solicitud=false then 1 else 0 end) - sum(case when estado_solicitud=false then 1 else 0 end) as proceso\n" +
+"from seguimiento inner join usuario on idusuario = seguimiento.id_usuario_personal "
++ "inner join oficinas_solicitantes on oficinas_solicitantes.idoficinas= usuario.id_oficina where id_oficina=? group by id_usuario_personal");
+            
+            consulta.setInt(1, usuario.getIdOficina().getIdOficinaSolicitante());
+            resultado = consulta.executeQuery();
+            detalle = new ArrayList();
+            while(resultado.next()){
+                ModeloEmpleadoReporte modelo = new ModeloEmpleadoReporte();
+                modelo.setUsuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario_personal")));
+                modelo.setInicio(resultado.getInt("inicial"));
+                modelo.setProceso(resultado.getInt("proceso"));
+                modelo.setFinales(resultado.getInt("termino"));
+                modelo.setTotal(resultado.getInt("total"));
+                detalle.add(modelo);
+            }
+        }catch(Exception ex){
+            System.out.println("Error en SeguimientoDAO -> obtenerReporteEmpleado "+ex);
+        }
+        return detalle;
+    }
 }
