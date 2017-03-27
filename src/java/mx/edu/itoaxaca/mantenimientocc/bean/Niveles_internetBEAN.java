@@ -27,7 +27,16 @@ public class Niveles_internetBEAN implements Serializable {
     private Niveles_internet nivelesInternet= new Niveles_internet();
     Catalogo_niveles catalogo_niveles = new Catalogo_niveles();
     private List<Niveles_internet> listaniveles= new ArrayList();
-   
+    
+    private Boolean nivelCuatro;
+
+    public Boolean getNivelCuatro() {
+        return nivelCuatro;
+    }
+
+    public void setNivelCuatro(Boolean nivelCuatro) {
+        this.nivelCuatro = nivelCuatro;
+    }
 
     public Catalogo_niveles getCatalogo_niveles() {
         return catalogo_niveles;
