@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+               <p:separator style="visibility: hidden;"/> 
+                <h:form id="formaExterior">              
+                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <center>
+                      <p:separator style="visibility: hidden;"/> 
+                   <p:outputLabel value="Niveles de Internet" style="font-size: 25px;" />
+                    </center>
+                       <f:event type="preRenderView" listener="#{catalogo_nivelesBEAN.listaCatalogo_niveles()}"/>
+                       <p:dataTable id="niveles" var="catalogo_niveles" value="#{catalogo_nivelesBEAN.listaCatalogo_niveles}" selection="#{niveles_internetBEAN.catalogo_niveles}"
+                                    rowKey="#{catalogo_niveles.idcatalogo_niveles}">
+                           
+                                <p:column selectionMode="single" style="width:40px;text-align:center"/>
+                              
+                <p:column headerText="Nivel" 
+                         
+                          style=" font-size: 13px;text-transform: uppercase " width="60">
+                    
+                    <h:outputText value="#{catalogo_niveles.nivel}" />
+                   
+                </p:column>
+                <p:column headerText="Privilegios" 
+                         style=" font-size: 13px;text-transform: uppercase ">
+                    <p:inputTextarea value="#{catalogo_niveles.descripcion}" rows="5" cols="160" style="text-align: justify;" />
+                   
+                </p:column>
+                          
+                         
+                        </p:dataTable>
+            <p:separator/> 
+            
+                
+                    
+                
+                    <h:outputText  value="Nota:Para el nivel 4 se requiere una justificación de la persona que solicita el servicio:" style="color: black;font-size:14px"/>
+                <p:inputTextarea value="#{niveles_internetBEAN.nivelesInternet.justificacion}" rows="5" cols="160" style="text-align: justify;" />
+                 
+                <p:outputLabel value="Tipo de Solicitud: "/>
+                <p:selectOneMenu value="#{niveles_internetBEAN.nivelesInternet.tipo_solicitud}" styleClass="selectMenu" 
+                                             required="true" requiredMessage="Se Requiere tipo de Solicitud" 
+                                             style="width:150px"> 
+
+                                <f:selectItem itemLabel="Nueva" itemValue="Nueva" />
+                                <f:selectItem itemLabel="Cambio" itemValue="Cambio"/>
+                                <f:selectItem itemLabel="Baja" itemValue="Baja"/>
+                            </p:selectOneMenu>
+                <h:outputText  value="Tipo de Equipo" style="color: black;font-size:14px"/>
+                <p:inputText value="#{niveles_internetBEAN.nivelesInternet.tipo_equipo}" placeholder="Clase de mantenimiento a realizar" 
+                                         style="width:320px" required="true" requiredMessage=" Se requiere Tipo de Servicio en Orden de Trabajo"/> 
+
+                <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.registrarNivelesInternet()}"/>
+                    
+               </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
