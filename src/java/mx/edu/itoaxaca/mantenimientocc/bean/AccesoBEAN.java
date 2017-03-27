@@ -84,7 +84,9 @@ public class AccesoBEAN implements Serializable{
                 usuarioBean = accesodao.accesoUsuario(correo, clave);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioBean);
                 setMensajeAcceso("Bienvenido");
-                
+                if(usuarioBean.getNivel()==0){
+                setRedireccion("principalNivelUno.xhtml");
+                }
                 if(usuarioBean.getNivel()==1){
                 setRedireccion("principalNivelUno.xhtml");
                 }

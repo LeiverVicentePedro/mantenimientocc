@@ -10,7 +10,6 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 import com.javeros.anonimos.code.Rfc;
 import com.javeros.anonimos.code.dto.PersonaRfcDto;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -18,7 +17,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
 import mx.edu.itoaxaca.mantenimientocc.dao.AreaDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.DepartamentoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Oficina_solicitanteDAO;
@@ -31,7 +29,6 @@ import org.primefaces.context.RequestContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.StringTokenizer;
-import javax.faces.validator.ValidatorException;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoCambioDatosUsuario;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 import mx.edu.itoaxaca.mantenimientocc.dao.Empleado_periodoDAO;
@@ -75,11 +72,7 @@ public class UsuarioBEAN implements Serializable{
         this.periodo = periodo;
     }
 
-    
 
-
-    
-    
     public List<Empleado_periodo> getListaEmpleadoPeriodo() {
         return listaEmpleadoPeriodo;
     }
@@ -246,18 +239,20 @@ public class UsuarioBEAN implements Serializable{
         }
     }
 
-    public void registrarNuevoUsuario(ActionEvent ec) throws Exception {
+    public void registrarNuevoUsuario(ActionEvent ec) throws Exception {//usuarios nivel 1 y 0 
         UsuarioDAO usuarioDao;
         try {
             usuarioDao = new UsuarioDAO();
            registroUsuarioNuevo.setEstatus(true); 
+           if((registroUsuarioNuevo.getId_profesion().getNombre_profesion().trim()+registroUsuarioNuevo.getNombre().trim()+registroUsuarioNuevo.getApellidoPaterno().trim()+registroUsuarioNuevo.getApellidoMaterno().trim()).equalsIgnoreCase(registroUsuarioNuevo.getIdOficina().getDepartamento().getNombre_jefe().replaceAll("\\s", ""))){//para saber si es jefe o usuario comun
+            registroUsuarioNuevo.setNivel(0);   
+          }else{
            registroUsuarioNuevo.setNivel(1);
+           }
            registroUsuarioNuevo.setTipoBT("Base");
-            registroUsuarioNuevo.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
+           registroUsuarioNuevo.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             this.modificarUsuarioRFC();
-            
-                usuarioDao.registrarUsuario(registroUsuarioNuevo);
-                
+                usuarioDao.registrarUsuario(registroUsuarioNuevo);                
                 setMensajeClaseUsuario("Usuario Registrado");
                 new CorreoRegistroUsuario().enviarMensaje(registroUsuarioNuevo.getCorreo(), registroUsuarioNuevo.getClave());
                 System.out.println(mensajeClaseUsuario);
@@ -754,8 +749,7 @@ public class UsuarioBEAN implements Serializable{
     public void valida(){
         
                comparaRFC(registroUsuarioNuevo);
-          
-        
+
     }
     public void comparaRFC(Usuario obj){
              new Runnable(){

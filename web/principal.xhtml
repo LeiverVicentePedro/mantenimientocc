@@ -14,21 +14,21 @@
                     <p:separator style="visibility: hidden"/>
                     <p:outputLabel value="Bienvenido Nivel Administrador" class="text-capitalize" style="font-size:1.8em; color: #ffab2d"/>
                     <p/>
-                    
+
                     <p:outputLabel value="#{accesoBEAN.nombreCompleto}" class="text-capitalize" style="font-size: 1.4em;"/> 
-                  
+
                 </div>
                 <h:form id="formaAsignacion">
-                    
+
                     <f:event id="listaSolicitud" type="preRenderView" listener="#{solicitud_mcBEAN.listarSolicitudPorDepartamento()}"/>
                     <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuario()}"/>
                     <center>
                         <p:separator style="visibility: hidden;"/> 
                         <p:outputLabel value="Listado de Todas las Solicitudes Recibidas no Asignadas" style="font-size: 25px;" />
                     </center>
-                <p:separator/> 
-                <p:separator style="visibility: hidden;"/>
-                 
+                    <p:separator/> 
+                    <p:separator style="visibility: hidden;"/>
+
                     <p:dataTable id="tablaSolicitud" var="solicitudMC" value="#{solicitud_mcBEAN.listaSolicitudPorDepartamento}" 
                                  style="font-size: 14px;text-transform: uppercase;"
                                  selectionMode="multiple" selection="#{solicitud_mcBEAN.seleccionSolicitud}" rowKey="#{solicitudMC.idsolicitud_mc}"
@@ -73,7 +73,7 @@
                                   filterStyle="visibility:hidden; height:0" width="60">
                             <h:outputLabel value="#{solicitudMC.fecha}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Departamento" sortBy="#{solicitudMC.id_usuario.idOficina.departamento.nombre_departamento}" 
                                   filterBy="#{solicitudMC.id_usuario.idOficina.departamento.nombre_departamento}" filterMatchMode="startsWith"
                                   filterStyle="visibility:hidden; height:0" width="120">
@@ -83,35 +83,51 @@
                                   filterStyle="visibility:hidden; height:0" width="60">
                             <h:outputLabel value="#{solicitudMC.asignacion}"/>
                         </p:column>
-      
-                                               
+
+
                         <p:column headerText="Asignar" width="40">
                             <p:commandButton icon="#{solicitudMC.icono}" action="#{asigna_solicitudBEAN.eligiendoAsignacion(solicitudMC)}" oncomplete="PF('DatosDeAsignacion').show();"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
-               
-                 <p:dialog header="Asignar a Usuario" widgetVar="DatosDeAsignacion" id="dialogoDatosSeguimiento"  
-                      modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="300">        
-                <h:form id="formaSeguimiento" > 
-                    <p:panel>
-                        <p:selectOneMenu value="#{asigna_solicitudBEAN.asigna_Solicitud.id_usuario_personal}" converter="omnifaces.SelectItemsConverter" 
-                                              required="true" requiredMessage="Se Requiere Persona Asignada"
-                                              style="text-transform: uppercase;width:200px">
-                                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}" />
+
+                <p:dialog header="Asignar a Usuario" widgetVar="DatosDeAsignacion" id="dialogoDatosSeguimiento"  
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="500">        
+                    <h:form id="formaSeguimiento" > 
+                        <p:panel id="panelAsignaSolicitud">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Personal Asignado:" for="lider"/>
+                            <p:selectOneMenu  id="lider" value="#{asigna_solicitudBEAN.asigna_Solicitud.id_usuario_personal}" converter="omnifaces.SelectItemsConverter" 
+                                             required="true" requiredMessage="Se Requiere Persona Asignada"
+                                             style="text-transform: uppercase;width:13em;">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}" />
                                 <f:selectItems value="#{usuarioBEAN.listarTodosLosUsuarios}" var="asignaSolicituditem" itemLabel="#{asignaSolicituditem.concatenar}" itemValue="#{asignaSolicituditem}"/>
                             </p:selectOneMenu>
-                        <br/>
-                        <center>
-                         <p:commandButton value="Aceptar" action="#{asigna_solicitudBEAN.registrarAsignaSolicitu()}" update=":formaAsignacion" oncomplete="PF('DatosDeAsignacion').hide();"/>
-                        </center>
-                    </p:panel>
-                    
-                </h:form>
+                           
+                                <p:outputLabel value="¿Nesesita Colaboradores?&nbsp;&nbsp;" for="check"/>
+                                <p:selectBooleanCheckbox value="#{asigna_solicitudBEAN.nesecitaColabordores}" id="check">
+                                <p:ajax update="panelAsignaSolicitud"/>
+                            </p:selectBooleanCheckbox>
+                            
+                                <p:outputLabel for="colaboradores" value="Colaborador (es):" rendered="#{asigna_solicitudBEAN.nesecitaColabordores}"/>
+                            <p:selectCheckboxMenu id="colaboradores" value="#{asigna_solicitudBEAN.listaColaboradores}" label="Colaborador(es)"
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:300px" converter="omnifaces.SelectItemsConverter"
+                                                  style="text-transform: uppercase;width: 13em;" rendered="#{asigna_solicitudBEAN.nesecitaColabordores}">
+                                <f:selectItems value="#{usuarioBEAN.listarTodosLosUsuarios}" var="usuario" itemLabel="#{usuario.concatenar}" itemValue="#{usuario}"/>
+                            </p:selectCheckboxMenu>
+                            </h:panelGrid>
+                            <br/>
+                            <br/>
+                            <center>
+                                <p:commandButton value="Aceptar" action="#{asigna_solicitudBEAN.registrarAsignaSolicitu()}" update=":formaAsignacion" oncomplete="PF('DatosDeAsignacion').hide();"/>
+                            </center>
+                        </p:panel>
+
+                    </h:form>
                 </p:dialog>
-                
-           
-                 <div class="text-center">
+
+
+                <div class="text-center">
                     <p:outputLabel value="Sistema de Mantenimiento Preventivo y Correctivo" class="text-justify" style="font-size: 1.3em;"/>
                     <br/>
                     <p:outputLabel value="(SIMAPRECO)" class="text-capitalize" style="font-size: 1.7em;"/>

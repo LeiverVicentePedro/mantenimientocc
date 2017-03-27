@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
+
 
 
 
@@ -24,11 +24,12 @@ public class DepartamentoDAO extends Conexion{
     public void registrarDepartamento(Departamento departamentoregistra) throws Exception{
         try{
             this.Conectar();
-            PreparedStatement consulta= this.getConexion().prepareStatement("INSERT INTO departamento (clave_departamento,nombre_departamento,id_area,estatus) values(?,?,?,?)");
+            PreparedStatement consulta= this.getConexion().prepareStatement("INSERT INTO departamento (clave_departamento,nombre_departamento,jefe_departamento,id_area,estatus) values(?,?,?,?,?)");
             consulta.setString(1, departamentoregistra.getClave_departamento());
             consulta.setString(2,departamentoregistra.getNombre_departamento());
-            consulta.setInt(3,departamentoregistra.getArea().getIdarea());
-            consulta.setBoolean(4,departamentoregistra.getEstatus());
+            consulta.setString(3,departamentoregistra.getNombre_jefe());
+            consulta.setInt(4,departamentoregistra.getArea().getIdarea());
+            consulta.setBoolean(5,departamentoregistra.getEstatus());
             consulta.executeUpdate();
         }
         catch(Exception e){
@@ -46,7 +47,7 @@ public class DepartamentoDAO extends Conexion{
         ResultSet resultadoset;
      try{
          this.Conectar();
-         PreparedStatement consulta=this.getConexion().prepareCall("SELECT iddepartamento, clave_departamento, nombre_departamento, id_area, estatus FROM departamento");
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT * FROM departamento");
          resultadoset= consulta.executeQuery();
          lista =new ArrayList();
          while(resultadoset.next()){
@@ -54,8 +55,8 @@ public class DepartamentoDAO extends Conexion{
              departamento.setIddepartamento(resultadoset.getInt("iddepartamento"));
              departamento.setClave_departamento(resultadoset.getString("clave_departamento"));
              departamento.setNombre_departamento(resultadoset.getString("nombre_departamento"));
+             departamento.setNombre_jefe(resultadoset.getString("jefe_departamento"));
             departamento.setArea(new AreaDAO().buscarIdArea(resultadoset.getInt("id_area")));
-
              departamento.setEstatus(resultadoset.getBoolean("estatus"));
              
              lista.add(departamento);
@@ -72,6 +73,7 @@ public class DepartamentoDAO extends Conexion{
      }
      return lista;
     }
+     
      public List<Departamento> listarDepartamentoOtrasVistas() throws Exception{//usada en otras vistas como usuario
      List<Departamento> lista;
         ResultSet resultadoset;
@@ -85,6 +87,7 @@ public class DepartamentoDAO extends Conexion{
              departamento.setIddepartamento(resultadoset.getInt("iddepartamento"));
              departamento.setClave_departamento(resultadoset.getString("clave_departamento"));
              departamento.setNombre_departamento(resultadoset.getString("nombre_departamento"));
+             departamento.setNombre_jefe(resultadoset.getString("jefe_departamento"));
             departamento.setArea(new AreaDAO().buscarIdArea(resultadoset.getInt("id_area")));
 
              departamento.setEstatus(resultadoset.getBoolean("estatus"));
@@ -109,7 +112,7 @@ public class DepartamentoDAO extends Conexion{
         ResultSet resultadosetdepartamento;
         try{
             this.Conectar();
-             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT iddepartamento, clave_departamento, nombre_departamento,id_area,estatus FROM departamento WHERE iddepartamento=?");
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT * FROM departamento WHERE iddepartamento=?");
             consulta.setInt(1, departamento.getIddepartamento());
             resultadosetdepartamento = consulta.executeQuery();
             while(resultadosetdepartamento.next())
@@ -119,6 +122,7 @@ public class DepartamentoDAO extends Conexion{
              departamentodos.setIddepartamento(resultadosetdepartamento.getInt("iddepartamento"));
               departamentodos.setClave_departamento(resultadosetdepartamento.getString("clave_departamento"));
               departamentodos.setNombre_departamento(resultadosetdepartamento.getString("nombre_departamento"));
+              departamentodos.setNombre_jefe(resultadosetdepartamento.getString("jefe_departamento"));
               departamentodos.setArea(new AreaDAO().buscarIdArea(resultadosetdepartamento.getInt("id_area")));
               departamentodos.setEstatus(resultadosetdepartamento.getBoolean("estatus"));
             }
@@ -139,12 +143,13 @@ public class DepartamentoDAO extends Conexion{
           
         try{
             this.Conectar();
-            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE departamento SET clave_departamento=?, nombre_departamento=?, id_area=?, estatus=? WHERE iddepartamento=?");
+            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE departamento SET clave_departamento=?, nombre_departamento=?, jefe_departamento=? ,id_area=?, estatus=? WHERE iddepartamento=?");
             consulta.setString(1, departamentomodificar.getClave_departamento());
             consulta.setString(2, departamentomodificar.getNombre_departamento());
-            consulta.setInt(3,departamentomodificar.getArea().getIdarea());
-            consulta.setBoolean(4,departamentomodificar.getEstatus());
-            consulta.setInt(5, departamentomodificar.getIddepartamento());
+            consulta.setString(3, departamentomodificar.getNombre_jefe());
+            consulta.setInt(4,departamentomodificar.getArea().getIdarea());
+            consulta.setBoolean(5,departamentomodificar.getEstatus());
+            consulta.setInt(6, departamentomodificar.getIddepartamento());
             consulta.executeUpdate();
         }
         catch(Exception e){
@@ -185,6 +190,7 @@ public class DepartamentoDAO extends Conexion{
              departamento.setIddepartamento(resultadoConsulta.getInt("iddepartamento"));
              departamento.setClave_departamento(resultadoConsulta.getString("clave_departamento"));
              departamento.setNombre_departamento(resultadoConsulta.getString("nombre_departamento"));
+             departamento.setNombre_jefe(resultadoConsulta.getString("jefe_departamento"));
              departamento.setArea(new AreaDAO().buscarIdArea(resultadoConsulta.getInt("id_area")));
              departamento.setEstatus(resultadoConsulta.getBoolean("estatus"));
               }
@@ -243,6 +249,7 @@ public class DepartamentoDAO extends Conexion{
                  departamentoServicio.setIddepartamento(resultado.getInt("iddepartamento"));
                  departamentoServicio.setClave_departamento(resultado.getString("clave_departamento"));
                  departamentoServicio.setNombre_departamento(resultado.getString("nombre_departamento"));
+                 departamentoServicio.setNombre_jefe(resultado.getString("jefe_departamento"));
                  departamentoServicio.setArea(new AreaDAO().buscarIdArea(resultado.getInt("id_area")));
                  departamentoServicio.setEstatus(resultado.getBoolean("estatus"));
                  listaDepartamentoServicio.add(departamentoServicio);

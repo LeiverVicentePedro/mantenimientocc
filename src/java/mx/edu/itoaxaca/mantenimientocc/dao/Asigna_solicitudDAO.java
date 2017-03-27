@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Asigna_solicitud;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 
 /**
  *
@@ -161,7 +162,57 @@ public class Asigna_solicitudDAO extends Conexion{
          return listaAsignasionDeUsuario;
      } 
     
+    //metodo usado para buscar la asignacion de una solicitud para los colaboradores y el lider
+    public Asigna_solicitud buscarSolicitudPorIdAsignacion(int idAsignacion) throws Exception{
+         Asigna_solicitud asignaSolicitud = new Asigna_solicitud();
+        try{
+           
+            ResultSet resultadoConsulta;
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM asigna_solicitud WHERE idasigna_solicitud=?");
+            consulta.setInt(1, idAsignacion);
+            resultadoConsulta = consulta.executeQuery();
+            
+            while(resultadoConsulta.next()){
+             asignaSolicitud.setIdasigna_solicitud(resultadoConsulta.getInt("idasigna_solicitud"));
+             asignaSolicitud.setId_usuario_personal(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoConsulta.getInt("id_usuario_personal")));
+             asignaSolicitud.setId_solicitud(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultadoConsulta.getInt("id_solicitud")));
+             asignaSolicitud.setId_usuario_personal_jefe(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoConsulta.getInt("id_usuario_personal_jefe")));
+             asignaSolicitud.setFecha(resultadoConsulta.getDate("fecha_asignada"));
+            }
+            
+        }catch(Exception ex){
+            System.out.println("Error en Asigna_solicitudDAO -> buscarSolicitudPorIdAsignacion "+ex);
+        }finally{
+            this.Cerrar();
+        }
+        return asignaSolicitud;
+    }
     
-    
-      
+    //Se obtiene un objeto de tipo Asigna_solicitud para que se pueda asignar a los colaboradores.
+      public Asigna_solicitud buscarSolicitudPorIdSolicitud(Solicitud_mc idSolicitud) throws Exception{
+         Asigna_solicitud asignaSolicitud = new Asigna_solicitud();
+        try{
+           
+            ResultSet resultadoConsulta;
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM asigna_solicitud WHERE id_solicitud=?");
+            consulta.setInt(1, idSolicitud.getIdsolicitud_mc());
+            resultadoConsulta = consulta.executeQuery();
+            
+            while(resultadoConsulta.next()){
+             asignaSolicitud.setIdasigna_solicitud(resultadoConsulta.getInt("idasigna_solicitud"));
+             asignaSolicitud.setId_usuario_personal(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoConsulta.getInt("id_usuario_personal")));
+             asignaSolicitud.setId_solicitud(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultadoConsulta.getInt("id_solicitud")));
+             asignaSolicitud.setId_usuario_personal_jefe(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoConsulta.getInt("id_usuario_personal_jefe")));
+             asignaSolicitud.setFecha(resultadoConsulta.getDate("fecha_asignada"));
+            }
+            
+        }catch(Exception ex){
+            System.out.println("Error en Asigna_solicitudDAO -> buscarSolicitudPorIdAsignacion "+ex);
+        }finally{
+            this.Cerrar();
+        }
+        return asignaSolicitud;
+    } 
 }

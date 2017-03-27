@@ -110,10 +110,9 @@ public class MenuBEAN implements Serializable{
                         menuPrincipal.addElement(itemPrincipal);
                         //listaMenu.remove(menu);
                     }
-
                 }
 
-            } else if (!usuarioActivo.getIdOficina().getDepartamento().getClave_departamento().equalsIgnoreCase("cc")) {
+            } else if (!usuarioActivo.getIdOficina().getDepartamento().getClave_departamento().equalsIgnoreCase("dcc")) {
                 for (Menu menu : listaMenu) {//primer for que generara el menu principal
                     if (menu.getId_elemento_menu().getTipo_menu().equalsIgnoreCase("submenu") && menu.getId_elemento_menu().getCodigo_submenu() == 0 && menu.getId_elemento_menu().getDepartamento()==null){//condicion que comprueba si es un submenu principal
                         DefaultSubMenu subMenuPrincipal = new DefaultSubMenu(menu.getId_elemento_menu().getNombre());

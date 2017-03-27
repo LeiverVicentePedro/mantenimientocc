@@ -12,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.DepartamentoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
 import java.io.Serializable;
+import java.util.StringTokenizer;
 
 
 @ManagedBean
@@ -24,12 +25,14 @@ public class DepartamentoBEAN implements Serializable{
   private List<Departamento> filterDepartamento;//esta lista es para una busqueda general es una lista vacia
   private String accion;//esta variable es para usarla en un switch y poder escoger si es opcion registrar o modificar
   private List<Departamento> seleccionDepartamento;
-
+  private String profesionJefe;
+  private String nombreJefe;
+  
     public List<Departamento> getSeleccionDepartamento() {
         return seleccionDepartamento;
     }
 
-    public void setSeleccionDepartamento(List<Departamento> seleccionDepartamento) {
+    public void setSeleccionDepartamento(List<Departamento> seleccionDepartamento){
         this.seleccionDepartamento = seleccionDepartamento;
     }
   
@@ -72,12 +75,28 @@ public class DepartamentoBEAN implements Serializable{
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
+
+    public String getProfesionJefe() {
+        return profesionJefe;
+    }
+
+    public void setProfesionJefe(String profesionJefe) {
+        this.profesionJefe = profesionJefe;
+    }
+
+    public String getNombreJefe() {
+        return nombreJefe;
+    }
+
+    public void setNombreJefe(String nombreJefe) {
+        this.nombreJefe = nombreJefe;
+    }
+
     //metodo Registrar departamento
     public void registrarDepartamento() throws Exception{
         DepartamentoDAO departamentoDao;
         
             try{
-                
                departamentoDao= new DepartamentoDAO();
                 departamentoDao.registrarDepartamento(departamento);
                 this.listarDepartamento();
@@ -103,15 +122,28 @@ public class DepartamentoBEAN implements Serializable{
     public void elegirDatoDepartamento(Departamento departamentoElegirDato) throws Exception{
         DepartamentoDAO departamentodao;
         Departamento departamentoTemporal;
+        String nombreJefe[] = new String[3];
         try{
             departamentodao= new DepartamentoDAO();
             departamentoTemporal = new Departamento();
             departamentoTemporal = departamentodao.elegirDatoDepartamento(departamentoElegirDato);
             
-            if(departamentoTemporal != null){
-                this.departamento = departamentoTemporal;
-                this.accion="Modificar";
+            if(departamentoTemporal!=null){
+                 this.departamento = departamentoTemporal;
+                //periodo = new Empleado_periodoDAO().
+                StringTokenizer st =new StringTokenizer(departamento.getNombre_jefe(),".",true);
+                int contador = 0;
+                while(st.hasMoreElements()){
+                    nombreJefe[contador]=st.nextToken();
+                    contador++;   
+                }
+                setProfesionJefe(nombreJefe[0]+nombreJefe[1]);
+                setNombreJefe(nombreJefe[2].trim());
+
+                 this.accion="Modificar";   
             }
+               
+            
             }
         catch (Exception e){
             throw e;
@@ -124,6 +156,7 @@ public class DepartamentoBEAN implements Serializable{
             try{
                 departamentodao= new DepartamentoDAO();
                 departamentodao.modificarDepartamento(departamento);
+                
                this.listarDepartamento();
             }
             catch(Exception e)

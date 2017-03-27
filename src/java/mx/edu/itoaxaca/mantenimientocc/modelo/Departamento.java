@@ -16,9 +16,12 @@ public class Departamento implements Serializable{
     private int iddepartamento;
     private String clave_departamento;
     private String nombre_departamento;
+    private String nombre_jefe;
     private Area area;
     private Boolean estatus;
-
+    
+  
+    
     public int getIddepartamento() {
         return iddepartamento;
     }
@@ -43,6 +46,14 @@ public class Departamento implements Serializable{
         this.nombre_departamento = nombre_departamento;
     }
 
+    public String getNombre_jefe() {
+        return nombre_jefe;
+    }
+
+    public void setNombre_jefe(String nombre_jefe) {
+        this.nombre_jefe = nombre_jefe;
+    }
+    
     public Area getArea() {
         return area;
     }
@@ -58,7 +69,10 @@ public class Departamento implements Serializable{
     public void setEstatus(Boolean estatus) {
         this.estatus = estatus;
     }
-
+    
+   
+    
+    
     @Override
     public int hashCode() {
         int hash = 3;
