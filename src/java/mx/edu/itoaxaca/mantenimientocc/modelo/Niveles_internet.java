@@ -15,7 +15,6 @@ import java.util.Date;
 public class Niveles_internet implements Serializable{
     
     private int idniveles_internet;
-    private String folio;
     Catalogo_niveles id_catalogo_niveles;
     private String modelo_equipo;
     private String mac;
@@ -29,13 +28,21 @@ public class Niveles_internet implements Serializable{
     private String tipo_equipo;
     Usuario solicita;
     Usuario autoriza;
-    Usuario visto_bueno;
     private String correo_solicita; 
     private String correo_autoriza;
     private String configuro;
     private String ip;
     private String justificacion;
+    private Boolean estatus_autoriza;
 
+    public Boolean getEstatus_autoriza() {
+        return estatus_autoriza;
+    }
+
+    public void setEstatus_autoriza(Boolean estatus_autoriza) {
+        this.estatus_autoriza = estatus_autoriza;
+    }
+    
     public int getIdniveles_internet() {
         return idniveles_internet;
     }
@@ -44,15 +51,6 @@ public class Niveles_internet implements Serializable{
         this.idniveles_internet = idniveles_internet;
     }
 
-    public String getFolio() {
-        return folio;
-    }
-
-    public void setFolio(String folio) {
-        this.folio = folio;
-    }
-
-   
     public String getModelo_equipo() {
         return modelo_equipo;
     }
@@ -150,14 +148,7 @@ public class Niveles_internet implements Serializable{
         this.autoriza = autoriza;
     }
 
-    public Usuario getVisto_bueno() {
-        return visto_bueno;
-    }
-
-    public void setVisto_bueno(Usuario visto_bueno) {
-        this.visto_bueno = visto_bueno;
-    }
-
+  
     public String getCorreo_solicita() {
         return correo_solicita;
     }
@@ -204,6 +195,31 @@ public class Niveles_internet implements Serializable{
 
     public void setJustificacion(String justificacion) {
         this.justificacion = justificacion;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + this.idniveles_internet;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Niveles_internet other = (Niveles_internet) obj;
+        if (this.idniveles_internet != other.idniveles_internet) {
+            return false;
+        }
+        return true;
     }
     
     

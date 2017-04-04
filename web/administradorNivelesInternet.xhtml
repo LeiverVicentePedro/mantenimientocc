@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                 <p:separator style="visibility: hidden;"/> 
+                <h:form id="formaExterior">              
+                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <center>
+                        <p:separator style="visibility: hidden;"/> 
+                        <p:outputLabel value="Autorizar Nivel de Internet" style="font-size: 25px;" />
+                    </center>
+                    <f:event type="preRenderView" listener="#{niveles_internetBEAN.listarNiveles_internetAministrador()}"/>
+                    <p:dataTable id="nivel" var="niveles" value="#{niveles_internetBEAN.listanivelesAdministrador}"
+                                 >
+                     
+                        <p:column headerText="Departamento" 
+
+                                  style=" font-size: 13px;text-transform: uppercase ">
+
+                            <h:outputText value="#{niveles.solicita.idOficina.departamento.nombre_departamento}" />
+
+                        </p:column>
+                        <p:column headerText="Jefe" 
+                                  style=" font-size: 13px;text-transform: uppercase ">
+                            <h:outputText value="#{niveles.solicita.idOficina.departamento.nombre_jefe}" />
+
+                        </p:column>
+                        <p:column headerText="Nivel&#10;Solicitud" 
+                                  style=" font-size: 13px;text-transform: uppercase;white-space:pre;" width="120">
+                            <h:outputText value="#{niveles.id_catalogo_niveles.nivel}"  />
+
+                        </p:column>
+                        <p:column headerText="Tipo Solicitud" 
+                                  style=" font-size: 13px;text-transform: uppercase ">
+                            <h:outputText value="#{niveles.tipo_solicitud}" />
+
+                        </p:column>
+                        <p:column headerText="Tipo Equipo" 
+                                  style=" font-size: 13px;text-transform: uppercase ">
+                            <h:outputText value="#{niveles.tipo_equipo}" />
+
+                        </p:column>
+                        <p:column headerText="Agregar" 
+                                  style=" font-size: 13px;text-transform: uppercase " width="90">
+                            <center>
+                                <p:commandButton process="nivel" icon="fa fa-plus" actionListener="#{niveles_internetBEAN.elegirDatoNivelesInternetAdministradorRegistra(niveles)}" oncomplete="PF('Datos').show();"/>
+                             </center>
+
+                        </p:column>
+                       
+
+                    </p:dataTable>
+                    <p:separator/> 
+                </h:form>
+                   <p:dialog header="Datos para Internet" widgetVar="Datos" id="dialogoDatos"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            
+            <h:form>
+                <p/>
+                 <h:panelGrid id="trabajoF" columns="1" columnClasses="grid" class="container-fluid  text-justify">
+                       <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
+                 <h:outputText value="Modelo de equipo:" style="color: black;font-size:14px"/>
+                 <p:inputText value="#{niveles_internetBEAN.nivelesInternet.modelo_equipo}" 
+                              required="true" requiredMessage="Se requiere Modelo de quipo" 
+                              style="text-transform: uppercase;width:250px" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                 <br/><p:column/>
+            <p:outputLabel value="Mac:" style="color: black;font-size:14px"/> 
+            <p:inputText value="#{niveles_internetBEAN.nivelesInternet.mac}" 
+                              required="true" requiredMessage="Se requiere Mac" 
+                              style="text-transform: uppercase;width:250px" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+            <br/><p:column/>
+            <p:outputLabel value="Sistema Operativo:" style="color: black;font-size:14px"/> 
+            <p:inputText value="#{niveles_internetBEAN.nivelesInternet.so}" 
+                              required="true" requiredMessage="Se requiere Sistema Operativo" 
+                              style="text-transform: uppercase;width:250px" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+            <br/><p:column/>
+            <p:outputLabel value="Edificio:" style="color: black;font-size:14px"/> 
+            <p:inputText value="#{niveles_internetBEAN.nivelesInternet.edificio}" 
+                              required="true" requiredMessage="Se requiere Edificio" 
+                              style="text-transform: uppercase;width:250px" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+            <br/><p:column/>
+            <p:outputLabel value="Nivel Edificio:" style="color: black;font-size:14px"/> 
+            <p:inputText value="#{niveles_internetBEAN.nivelesInternet.nivel_edificio}" 
+                              required="true" requiredMessage="Se requiere Nivel Edificio" 
+                              style="text-transform: uppercase;width:250px" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+            <br/><p:column/>
+            <p:outputLabel value="Conexión:" style="color: black;font-size:14px"/> 
+            <p:inputText value="#{niveles_internetBEAN.nivelesInternet.conexion}" 
+                              required="true" requiredMessage="Se requiere Conexión" 
+                              style="text-transform: uppercase;width:250px" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+            <br/><p:column/>
+            <p:outputLabel value="Configuró:" style="color: black;font-size:14px"/> 
+            <p:inputText  value="#{niveles_internetBEAN.nivelesInternet.configuro}" 
+                              required="true" requiredMessage="Se requiere Personal que Configuró" 
+                              style="text-transform: uppercase;width:250px" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+            <br/><p:column/>
+            <p:outputLabel value="Ip:" style="color: black;font-size:14px"/> 
+            <p:inputText  value="#{niveles_internetBEAN.nivelesInternet.ip}" 
+                              required="true" requiredMessage="Se requiere Ip" 
+                              style="text-transform: uppercase;width:250px" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+                       </h:panelGrid>
+                 </h:panelGrid>
+                <p/>
+            <center>
+                <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.modificarAdministrador()}" oncomplete="PF('Datos').hide();" update=":formaExterior" />
+            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
+            </center>
+            <p/>
+            </h:form>
+        </p:dialog>
+
+               
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
