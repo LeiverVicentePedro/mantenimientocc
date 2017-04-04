@@ -16,7 +16,7 @@ public class ConfiguracionServicioSocialDAO extends Conexion{
     
     public void agregarConfiguracion(ConfiguracionServicioSocial servicio) throws Exception{
         try{
-            
+            this.Conectar();
         }catch(Exception ex){
             
         }finally{
