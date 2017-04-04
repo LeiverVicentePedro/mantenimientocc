@@ -250,5 +250,16 @@ public class Asigna_solicitudBEAN implements Serializable {
             System.out.println("Error en ColaboracionBEAN -> listarColaboradores " + ex);
         }
     }
+    
+    public void listarColaboraciones() {
+        try {
+            FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+            ColaboracionDAO colaboracionDao = new ColaboracionDAO();
+            misColaboraciones = colaboracionDao.listarColaboraciones(usuarioVive);
+        } catch (Exception ex) {
+            System.out.println("Error en ColaboracionBEAN -> listarColaboradores " + ex);
+        }
+    }
 
 }

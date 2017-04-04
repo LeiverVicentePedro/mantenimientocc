@@ -11,110 +11,112 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                       <p:growl id="msj" showDetail="true" sticky="true"/>
-             <div class="text-center">
+                <p:growl id="msj" showDetail="true" sticky="true"/>
+                <div class="text-center">
                     <p:separator style="visibility: hidden"/>
                     <p:outputLabel value="Bienvenido Nivel Dos " class="text-capitalize" style="font-size:1.8em; color: #ffab2d"/>
                     <br/>
-                    
+
                     <p:outputLabel value="#{accesoBEAN.nombreCompleto}" class="text-capitalize" style="font-size: 1.4em;"/> 
                     <br/>
                 </div>
-            
-          <h:form id="formaExterior" > 
-           
-            <f:event id="event" type="preRenderView" listener="#{asigna_solicitudBEAN.listaAsignacionesDeUsuarios()}"/>
-            <center>
+
+                <h:form id="formaExterior" > 
+
+                    <f:event id="event" type="preRenderView" listener="#{asigna_solicitudBEAN.listaAsignacionesDeUsuarios()}"/>
+                    <center>
                         <p:outputLabel value="Listado de Mis Asignaciones" style="font-size: 25px;" />
                     </center>
-                <p:separator/> 
-                <p:separator style="visibility: hidden;"/>
-            <p:dataTable id="data" var="asigna_solicitud" value="#{asigna_solicitudBEAN.listaAsinacionesDeUsuarios}" 
-                          
-                         style="font-size: 14px;"
-                         selectionMode="single" selection="#{asigna_solicitudBEAN.seleccionAsignacion}" rowKey="#{asigna_solicitud.idasigna_solicitud}"
+                    <p:separator/> 
+                    <p:separator style="visibility: hidden;"/>
+                    <p:dataTable id="data" var="asigna_solicitud" value="#{asigna_solicitudBEAN.listaAsinacionesDeUsuarios}" 
+
+                                 style="font-size: 14px;"
+                                 selectionMode="single" selection="#{asigna_solicitudBEAN.seleccionAsignacion}" rowKey="#{asigna_solicitud.idasigna_solicitud}"
                                  resizableColumns="true"
                                  liveResize="true"
-                                 
+
                                  liveScroll="true" scrollRows="15" scrollWidth="100%"
                                  scrollable="true"
-                                 
+
                                  widgetVar="buscar"
                                  filteredValue="#{asigna_solicitudBEAN.filterAsignar}"
-                          emptyMessage="No hay elementos encontrados"
-                          paginator="true" rows="10"
-                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                          paginatorPosition="bottom">
-                <p:ajax event="rowSelect" listener="#{asigna_solicitudBEAN.listarColaboradores()}" update=":formaExterior:tablaColaboradores"/>
-                
-                          <f:facet name="header">
-                                <p:outputPanel class="text-right">
-                                   <h:outputText value="Buscar:" />
+                                 emptyMessage="No hay elementos encontrados"
+                                 paginator="true" rows="10"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 paginatorPosition="bottom">
+                        <p:ajax event="rowSelect" listener="#{asigna_solicitudBEAN.listarColaboradores()}" update=":formaExterior:tablaColaboradores"/>
+
+                        <f:facet name="header">
+                            <p:outputPanel class="text-right">
+                                <h:outputText value="Buscar:" />
                                 <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
-                                             
+
                                              style="width:150px" />
-                                </p:outputPanel>
-                           </f:facet>
-                <p:column headerText="Solicitud Asignada" 
-                          sortBy="#{asigna_solicitud.id_solicitud.folio}" 
-                          filterBy="#{asigna_solicitud.id_solicitud.folio}"
-                          filterMatchMode="startsWith"
-                          filterStyle="visibility:hidden; height:0" width="160"
-                           >
-                    
-                    <h:outputText value="#{asigna_solicitud.id_solicitud.folio}" />
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column headerText="Solicitud Asignada" 
+                                  sortBy="#{asigna_solicitud.id_solicitud.folio}" 
+                                  filterBy="#{asigna_solicitud.id_solicitud.folio}"
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0" width="160"
+                                  >
+
+                            <h:outputText value="#{asigna_solicitud.id_solicitud.folio}" />
+
+                        </p:column>
+
+                        <p:column headerText="Fecha de Asignación" 
+                                  sortBy="#{asigna_solicitud.fecha}" 
+                                  filterBy="#{asigna_solicitud.fecha}"
+                                  filterMatchMode="startsWith"
+                                  filterStyle="visibility:hidden; height:0" width="175"
+                                  >
+
+                            <h:outputText value="#{asigna_solicitud.fecha}" />
+
+                        </p:column>
+
+                        <p:column headerText="Asignó" 
+                                  sortBy="#{asigna_solicitud.id_usuario_personal_jefe.nombre}" 
+                                  filterBy="#{asigna_solicitud.id_usuario_personal_jefe.nombre}"
+                                  filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0">
+
+                            <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.nombre}" />
+                            <h:outputText value="&nbsp;"/>
+                            <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.apellidoPaterno}"/>
+                            <h:outputText value="&nbsp;"/>
+                            <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.apellidoMaterno}"/>
+
+                        </p:column>
+                        <p:column headerText="Seguimiento" width="130" >
+                            <center>
+                                <p:commandButton process="data" icon="fa fa-pencil" action="detalleSeguimiento.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" 
+                                                 />  
+                            </center>
+                        </p:column>
+                        <p:column headerText="Orden Interna" style=" width: 130px">
+                            <center>
+                                <p:commandButton process="data" icon="fa fa-pencil" action="orden_interna.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" />    
+                            </center>
+                        </p:column>
+                        <p:column headerText="Orden de Trabajo" width="140" >
+                            <center>
+                                <p:commandButton process="data" icon="fa fa-pencil" action="orden_trabajo.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}"  />    
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                    <p/>
+                    <p:commandButton value="Asignaciones Terminadas" action="misAsignacionesTerminadas.xhtml"/>
+                    <p:commandButton value="Mis Colaboraciones" oncomplete="PF('misColaboraciones').show();" style="align-content: flex-end"/>
                    
-                </p:column>
-                
-               <p:column headerText="Fecha de Asignación" 
-                          sortBy="#{asigna_solicitud.fecha}" 
-                          filterBy="#{asigna_solicitud.fecha}"
-                          filterMatchMode="startsWith"
-                          filterStyle="visibility:hidden; height:0" width="175"
-                           >
                     
-                    <h:outputText value="#{asigna_solicitud.fecha}" />
-                   
-                </p:column>
-                
-                <p:column headerText="Asignó" 
-                          sortBy="#{asigna_solicitud.id_usuario_personal_jefe.nombre}" 
-                          filterBy="#{asigna_solicitud.id_usuario_personal_jefe.nombre}"
-                          filterMatchMode="startsWith" filterStyle="visibility:hidden; height:0">
-                    
-                    <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.nombre}" />
-                    <h:outputText value="&nbsp;"/>
-                    <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.apellidoPaterno}"/>
-                    <h:outputText value="&nbsp;"/>
-                    <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.apellidoMaterno}"/>
-                   
-                </p:column>
-                <p:column headerText="Seguimiento" width="130" >
+                    <p:separator style=" visibility: hidden"/>
                     <center>
-                    <p:commandButton process="data" icon="fa fa-pencil" action="detalleSeguimiento.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" 
-                                   />  
+                        <p:outputLabel value="Colaboradores para una Solicitud Asignadas" style="font-family: sans-serif; font-size: 1.4em;"/>
                     </center>
-                </p:column>
-                <p:column headerText="Orden Interna" style=" width: 130px">
-                    <center>
-                        <p:commandButton process="data" icon="fa fa-pencil" action="orden_interna.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" />    
-                    </center>
-                </p:column>
-                <p:column headerText="Orden de Trabajo" width="140" >
-                    <center>
-                    <p:commandButton process="data" icon="fa fa-pencil" action="orden_trabajo.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}"  />    
-                    </center>
-                </p:column>
-            </p:dataTable>
-            <p/>
-                <p:commandButton value="Asignaciones Terminadas" action="misAsignacionesTerminadas.xhtml"/>
-                <p:commandButton value="Mis Colaboraciones" action="index.xhtml" style="align-content: flex-end"/>
-                <p:separator style=" visibility: hidden"/>
-                <center>
-                    <p:outputLabel value="Colaboradores para una Solicitud Asignadas" style="font-family: sans-serif; font-size: 1.4em;"/>
-                </center>
-                <p/>
-            <p:dataTable id="tablaColaboradores" var="misColaboradores" value="#{asigna_solicitudBEAN.misColaboradores}" resizableColumns="true"
+                    <p/>
+                    <p:dataTable id="tablaColaboradores" var="misColaboradores" value="#{asigna_solicitudBEAN.misColaboradores}" resizableColumns="true"
                                  liveResize="true"
                                  liveScroll="true" scrollRows="15" scrollWidth="100%"
                                  scrollable="true"
@@ -122,20 +124,51 @@
                                  emptyMessage="No hay elementos encontrados"
                                  paginator="true" rows="5"
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
-                        
-                <p:column headerText="Folio" >
-                    <p:outputLabel value="#{misColaboradores.idAsignaSolicitud.id_solicitud.folio}"/>
-                </p:column>
-                <p:column headerText="Fecha" >
-                    <p:outputLabel value="#{misColaboradores.idAsignaSolicitud.fecha}"/>
-                </p:column>
-                <p:column headerText="Colaborador">
-                    <p:outputLabel value="#{misColaboradores.idUsuario.concatenar}"/>
-                </p:column>
-            </p:dataTable>
-          </h:form>
-                 <div class="text-center">
-                   <p:separator style="visibility: hidden"/>
+
+                        <p:column headerText="Folio" >
+                            <p:outputLabel value="#{misColaboradores.idAsignaSolicitud.id_solicitud.folio}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" >
+                            <p:outputLabel value="#{misColaboradores.idAsignaSolicitud.fecha}"/>
+                        </p:column>
+                        <p:column headerText="Colaborador">
+                            <p:outputLabel value="#{misColaboradores.idUsuario.concatenar}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                
+                <p:dialog header="Mis Colaboraciones" widgetVar="misColaboraciones" id="dialogoColaborador"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form>
+                        <f:event type="preRenderView" listener="#{asigna_solicitudBEAN.listarColaboraciones()}"/>
+                        <p:dataTable id="tablaMisColaboraciones" var="misColaboracionesTabla" value="#{asigna_solicitudBEAN.misColaboraciones}" resizableColumns="true"
+                                 liveResize="true"
+                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                 scrollable="true"
+                                 style="font-size: 14px;"
+                                 emptyMessage="No hay elementos encontrados"
+                                 paginator="true" rows="5"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+
+                        <p:column headerText="Folio" >
+                            <p:outputLabel value="#{misColaboracionesTabla.idAsignaSolicitud.id_solicitud.folio}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" >
+                            <p:outputLabel value="#{misColaboracionesTabla.idAsignaSolicitud.fecha}"/>
+                        </p:column>
+                        <p:column headerText="Lider de Equipo">
+                            <p:outputLabel value="#{misColaboracionesTabla.idAsignaSolicitud.id_usuario_personal.concatenar}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p/>
+                    <center>
+                        <p:commandButton value="Cerrar" oncomplete="PF('misColaboraciones').hide();"/>    
+                    </center>
+                    
+                    </h:form>
+                </p:dialog>
+                
+                <div class="text-center">
+                    <p:separator style="visibility: hidden"/>
                     <p:outputLabel value="Sistema de Mantenimiento Preventivo y Correctivo" class="text-justify" style="font-size: 1.3em;"/>
                     <br/>
                     <p:outputLabel value="(SIMAPRECO)" class="text-capitalize" style="font-size: 1.7em;"/>

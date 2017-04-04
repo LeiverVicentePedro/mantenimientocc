@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                <p:separator style="visibility: hidden"/>
+                <center>
+                    <p:outputLabel value="Administrador de Servicio Social" style="font-family: sans-serif; font-size: 2em;"/>
+                </center>
+                <p:separator/>
+                <h:form id="formServicioSocial">
+                    <f:event type="preRenderView" listener="#{usuarioBEAN.listaUsuarioDepartameto()}"/>
+                    <h:panelGrid columns="2" id="gridPrincipal">
+                        <p:dataTable id="tablaUsuarios" var="usuarioDepartamento" value="#{usuarioBEAN.listaUsuariosDeUnDepartamento}" resizableColumns="true"
+                                     liveResize="true"
+                                     liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                     scrollable="true"
+                                     selection="#{horasEmpleadoBEAN.usuario}"
+                                     rowKey="#{usuarioDepartamento.idUsuario}"
+                                     selectionMode="single"
+                                     style="font-size: 14px;"
+                                     emptyMessage="No hay elementos encontrados"
+                                     paginator="true" rows="15"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+                            <p:ajax event="rowSelect" listener="#{horasEmpleadoBEAN.listarHorasEmpleado()}" update=":formServicioSocial:tablaHoras" />
+                            <p:column headerText="Nombre Completo" width="15">
+                                <p:outputLabel value="#{usuarioDepartamento.concatenar}"/>
+                            </p:column>
+
+                            <p:column headerText="Liberar" width="15">
+                                <p:commandButton  icon="fa fa-unlock"/>
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:dataTable id="tablaHoras" var="misHoras" value="#{horasEmpleadoBEAN.listaHorasEmpleado}" resizableColumns="true"
+                                     liveResize="true"
+                                     liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                     scrollable="true"
+                                     style="font-size: 14px;"
+                                     emptyMessage="Seleccioné algún Nombre"
+                                     paginator="true" rows="15"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+                            <p:column headerText="Hora Entrada">
+                                <p:outputLabel value="#{misHoras.hora_entrada}"/>
+                            </p:column>
+                            <p:column headerText="Hora Salida">
+                                <p:outputLabel value="#{misHoras.hora_salida}"/>
+                            </p:column>
+                            <p:column headerText="Acumulado">
+                                <p:outputLabel value="#{misHoras.horasEmpleado}"/>
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                <p:outputLabel value="#{misHoras.fecha}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                    <br/>
+                    <p:commandButton value="Configuracion Checador" oncomplete="PF('configuraDialogo').show();"/>
+                </h:form>
+                
+                <h:form id="dialogoConfiguracion">
+                    <p:dialog id="dialogoconf" widgetVar="configuraDialogo" width="300">
+                        <center>
+                            <p:outputLabel value="Designe la ip del equipo checador:"/>
+                            <p:inputMask value="" mask="---.---.---.---" style="margin-bottom: 1em;"/>
+                            <p:outputLabel value="Asigne el numero de horas para servicio:"/>
+                            <p:inputText value="" style="margin-bottom: 1em;"/>
+                            <p:commandButton value="Guardar" oncomplete="PF('configuraDialogo').hide();"/>
+                        </center>
+                      
+                    </p:dialog>
+                    
+                </h:form> 
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

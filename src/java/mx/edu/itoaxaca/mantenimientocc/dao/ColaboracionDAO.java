@@ -36,6 +36,30 @@ public class ColaboracionDAO extends Conexion{
            this.Cerrar();
        }
    }
+   
+   public List<Colaboracion> buscarColaboracionPorAsignacionSolicitud(Asigna_solicitud asignaSolicitud) throws Exception{
+       List<Colaboracion> colabora = new ArrayList();
+       try{
+           this.Conectar();
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM colaboracion WHERE id_asigna_solicitud=?");
+           consulta.setInt(1, asignaSolicitud.getIdasigna_solicitud());
+           ResultSet resultado = consulta.executeQuery();
+           while(resultado.next()){
+               Colaboracion colaboracion = new Colaboracion();
+               colaboracion.setIdColaboracion(resultado.getInt("idcolaboracion"));
+               colaboracion.setIdAsignaSolicitud(asignaSolicitud);
+               colaboracion.setIdUsuario(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario")));
+               colaboracion.setEstatus(resultado.getBoolean("estatus"));
+               colabora.add(colaboracion);
+           }
+       }catch(Exception ex){
+           System.out.println("Error en ColaboracionDAO -> buscarColaboracionPorAsignacionSolicitud "+ex);
+       }finally{
+           this.Cerrar();
+       }
+       return colabora;
+   }
+   
    public void modificarEstatusColaboracion(Colaboracion colaborador) throws Exception{
        try{
            this.Conectar();
@@ -43,6 +67,7 @@ public class ColaboracionDAO extends Conexion{
            actualiza.setInt(1, colaborador.getIdAsignaSolicitud().getIdasigna_solicitud());
            actualiza.setInt(2, colaborador.getIdUsuario().getIdUsuario());
            actualiza.setBoolean(3, false);
+           actualiza.setInt(4, colaborador.getIdColaboracion());
            
            actualiza.executeUpdate();
        }catch(Exception ex){
@@ -58,7 +83,7 @@ public class ColaboracionDAO extends Conexion{
            
            this.Conectar();
            ResultSet resultado;
-           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM colaboracion WHERE id_asigna_solicitud=?");
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM colaboracion WHERE id_asigna_solicitud=? and estatus=true");
            consulta.setInt(1, idAsignaSolicitud.getIdasigna_solicitud());
            resultado = consulta.executeQuery();
            while(resultado.next()){
@@ -81,7 +106,7 @@ public class ColaboracionDAO extends Conexion{
        List<Colaboracion> misColaboraciones = new ArrayList();
        try{
            this.Conectar();
-           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM colaboracion WHERE id_usuario = ?");
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM colaboracion WHERE id_usuario = ? and estatus=true");
            consulta.setInt(1, usuario.getIdUsuario());
            ResultSet resultado = consulta.executeQuery();
            while(resultado.next()){

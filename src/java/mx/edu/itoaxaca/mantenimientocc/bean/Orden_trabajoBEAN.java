@@ -8,6 +8,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,12 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
+import mx.edu.itoaxaca.mantenimientocc.dao.Asigna_solicitudDAO;
+import mx.edu.itoaxaca.mantenimientocc.dao.ColaboracionDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_trabajoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Asigna_solicitud;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Colaboracion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Orden_trabajo;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
@@ -116,10 +121,21 @@ public class Orden_trabajoBEAN implements Serializable{
              
              solicitudDao=new Solicitud_mcDAO();//aqui se modifica solicitud en estado_seguimiento
             Solicitud_mc solicitudEstadoSeguimiento=solicitudDao.elegirDatoSolicitudParaModificarEstado_Seguimiento(orden_trabajo.getId_solicitudmc());
+            Asigna_solicitud asignacion = new Asigna_solicitudDAO().buscarSolicitudPorIdSolicitud(solicitudEstadoSeguimiento);
+            List<Colaboracion> listaColabora = new ArrayList();
+            System.out.println("longitud de la lista "+listaColabora.size());
+            System.out.println("longitud de lista despues de arrego "+new ColaboracionDAO().buscarColaboracionPorAsignacionSolicitud(asignacion).isEmpty());
+            if(new ColaboracionDAO().buscarColaboracionPorAsignacionSolicitud(asignacion).isEmpty() == false){
+                listaColabora = new ColaboracionDAO().buscarColaboracionPorAsignacionSolicitud(asignacion);
+                for(Colaboracion colaborador : listaColabora){
+                    new ColaboracionDAO().modificarEstatusColaboracion(colaborador);
+                }
+            }
+            
             solicitudDao.modificarSolicitudSeguimiento(solicitudEstadoSeguimiento);
             new CorreoRegistroUsuario().enviarMensajeOrdenTrabajo(orden_trabajo);
             exportarOrdenTrabajo(usuarioVive);
-            
+           
             this.limpiarOrdenTrabajo();
             
             
