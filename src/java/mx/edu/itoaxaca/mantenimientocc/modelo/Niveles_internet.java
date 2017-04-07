@@ -34,7 +34,18 @@ public class Niveles_internet implements Serializable{
     private String ip;
     private String justificacion;
     private Boolean estatus_autoriza;
+    private int puerto;
 
+    public int getPuerto() {
+        return puerto;
+    }
+
+    public void setPuerto(int puerto) {
+        this.puerto = puerto;
+    }
+    
+
+    
     public Boolean getEstatus_autoriza() {
         return estatus_autoriza;
     }
