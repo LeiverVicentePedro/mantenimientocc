@@ -82,6 +82,13 @@
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
             <br/><p:column/>
+                <p:outputLabel value="VLAN:" style="color: black;font-size:14px"/> 
+                <p:spinner value="#{niveles_internetBEAN.nivelesInternet.vlan}" required="true" 
+                                     requiredMessage="Se necesita VLAN"
+                                     style="text-transform: uppercase" min="0">
+                            <f:validator validatorId="validadoresNumeros"/>
+                </p:spinner>
+            <br/><p:column/>
             <p:outputLabel value="Sistema Operativo:" style="color: black;font-size:14px"/> 
             <p:inputText value="#{niveles_internetBEAN.nivelesInternet.so}" 
                               required="true" requiredMessage="Se requiere Sistema Operativo" 
@@ -103,12 +110,16 @@
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
             <br/><p:column/>
-            <p:outputLabel value="Conexión:" style="color: black;font-size:14px"/> 
-            <p:inputText value="#{niveles_internetBEAN.nivelesInternet.conexion}" 
-                              required="true" requiredMessage="Se requiere Conexión" 
-                              style="text-transform: uppercase;width:250px" >
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
+           
+            <p:outputLabel value="Conexión&nbsp;" style="color: black;font-size:14px"/>
+                    <p:selectOneMenu value="#{niveles_internetBEAN.nivelesInternet.conexion}" styleClass="selectMenu" 
+                                     required="true" requiredMessage="Se Requiere Conexión" 
+                                     style="width:150px"> 
+
+                        <f:selectItem itemLabel="Cableado" itemValue="Cableado" />
+                        <f:selectItem itemLabel="Inalámbrico" itemValue="Inalambrico"/>
+                    </p:selectOneMenu>
+            
             <br/><p:column/>
             <p:outputLabel value="Configuró:" style="color: black;font-size:14px"/> 
             <p:inputText  value="#{niveles_internetBEAN.nivelesInternet.configuro}" 
@@ -123,11 +134,18 @@
                               style="text-transform: uppercase;width:250px" >
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
+            <p:outputLabel value="Puerto:" style="color: black;font-size:14px"/> 
+            <p:inputText  value="#{niveles_internetBEAN.nivelesInternet.puerto}" 
+                              required="true" requiredMessage="Se requiere Puerto" 
+                              style="text-transform: uppercase;width:250px" >
+                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                 </p:inputText>
+            <br/><p:column/>
                        </h:panelGrid>
                  </h:panelGrid>
                 <p/>
             <center>
-                <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.modificarAdministrador()}" oncomplete="PF('Datos').hide();" update=":formaExterior" />
+                <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.modificarAdministrador()}" oncomplete="PF('Datos').hide();" update=":formaExterior" ajax="false" />
             <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
             </center>
             <p/>

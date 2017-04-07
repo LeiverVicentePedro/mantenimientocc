@@ -5,17 +5,28 @@
  */
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_nivelesDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Niveles_internetDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Catalogo_niveles;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Niveles_internet;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -221,12 +232,12 @@ public class Niveles_internetBEAN implements Serializable {
             
             if(nivelesTemporal != null){
                 this.nivelesInternet = nivelesTemporal;
-                this.modificarAdministrador();
+             //   this.modificarAdministrador();
             }
             this.listarNiveles_internetAministrador();
             }
         catch (Exception e){
-            throw e;
+           System.out.println("error en Niveles_internetBEAN -> ElegirAdministrador "+e);
         }
         
     }
@@ -237,12 +248,12 @@ public class Niveles_internetBEAN implements Serializable {
                 modificaniveldao= new Niveles_internetDAO();
                  
                 modificaniveldao.modificarNiveles(nivelesInternet);
-                
-               this.listarNiveles_internetAministrador();
+                exportarNivelInternet();
+              this.listarNiveles_internetAministrador();
             }
             catch(Exception e)
             {
-                System.out.println("error en departamentoBEAN metodo -->modificar"+e);
+                System.out.println("error en Niveles_internetBEAN -> modificarAdministrador "+e);
             }
     } 
     
@@ -279,4 +290,140 @@ public class Niveles_internetBEAN implements Serializable {
                 System.out.println("error en departamentoBEAN metodo -->modificar"+e);
             }
     } 
+    
+     /**
+     * ***********************************************************************
+     */
+    /*
+    *metodo que genera el pdf para la Orden De Trabajo
+    ***************************************************************************/
+      
+      
+      public void exportarNivelInternet() throws JRException, IOException{
+          Map<String,Object> parametros = new HashMap<String,Object>();
+          String nombreUsuario = nivelesInternet.getSolicita().getId_profesion().getNombre_profesion()+" "+
+                nivelesInternet.getSolicita().getConcatenar();
+          
+        String fecha = String.valueOf(nivelesInternet.getFecha());  
+        parametros.put("fechasolicitud", fecha );
+        parametros.put("departamento", nivelesInternet.getSolicita().getIdOficina().getDepartamento().getNombre_departamento());
+        parametros.put("area", nivelesInternet.getSolicita().getIdOficina().getDepartamento().getArea().getNombre_area());
+
+        
+        if(nivelesInternet.getId_catalogo_niveles().getNivel()==2){
+            parametros.put("x1","X");
+            parametros.put("x2"," ");
+            parametros.put("x3"," ");
+        }else{
+             if(nivelesInternet.getId_catalogo_niveles().getNivel()==3){
+            parametros.put("x1"," ");
+            parametros.put("x2","X");
+            parametros.put("x3"," ");
+        }
+             else
+             {
+                if(nivelesInternet.getId_catalogo_niveles().getNivel()==4){
+            parametros.put("x1"," ");
+            parametros.put("x2"," ");
+            parametros.put("x3","X");
+        } 
+             }
+        }
+        parametros.put("modeloequipo",nivelesInternet.getModelo_equipo());
+        parametros.put("mac",nivelesInternet.getMac());
+        parametros.put("so",nivelesInternet.getSo());
+        String puerto= String.valueOf(nivelesInternet.getPuerto()); 
+         parametros.put("puerto",puerto);
+       parametros.put("edificio",nivelesInternet.getEdificio());
+       parametros.put("nivel",nivelesInternet.getNivel_edificio());
+      if(nivelesInternet.getTipo_solicitud().equalsIgnoreCase("Nueva")){
+            parametros.put("nueva","X");
+            parametros.put("cambio"," ");
+            parametros.put("baja"," ");
+        }else{
+             if(nivelesInternet.getTipo_solicitud().equalsIgnoreCase("Cambio")){
+            parametros.put("nueva"," ");
+            parametros.put("cambio","X");
+            parametros.put("baja"," ");
+        }
+             else
+             {
+                if(nivelesInternet.getTipo_solicitud().equalsIgnoreCase("Baja")){
+            parametros.put("nueva"," ");
+            parametros.put("cambio"," ");
+            parametros.put("baja","X");
+        } 
+             }
+        }
+      String velan = String.valueOf(nivelesInternet.getVlan());
+        parametros.put("vlan", velan); 
+        if(nivelesInternet.getConexion().equalsIgnoreCase("Cableado")){
+            parametros.put("cableado","X");
+            parametros.put("inalambrico"," ");
+        }else{
+             if(nivelesInternet.getConexion().equalsIgnoreCase("Inalambrico")){
+            parametros.put("cableado"," ");
+            parametros.put("inalambrico","X");
+        }
+           
+        }
+        
+        if(nivelesInternet.getTipo_equipo().equalsIgnoreCase("Escritorio")){
+            parametros.put("escritorio","X");
+            parametros.put("laptop"," ");
+            parametros.put("tableta"," ");
+            parametros.put("otro"," ");
+        }else{
+             if(nivelesInternet.getTipo_equipo().equalsIgnoreCase("Laptop")){
+            parametros.put("escritorio"," ");
+            parametros.put("laptop","X");
+            parametros.put("tableta"," ");
+            parametros.put("otro"," ");
+        }
+             else
+             {
+                if(nivelesInternet.getTipo_equipo().equalsIgnoreCase("Tableta")){
+            parametros.put("escritorio"," ");
+            parametros.put("laptop"," ");
+            parametros.put("tableta","X");
+            parametros.put("otro"," ");
+        } 
+                else{
+                    if(!nivelesInternet.getTipo_equipo().equalsIgnoreCase("Escritorio")&&!nivelesInternet.getTipo_equipo().equalsIgnoreCase("Laptop")&&!nivelesInternet.getTipo_equipo().equalsIgnoreCase("Tableta")){
+                     parametros.put("escritorio"," ");
+            parametros.put("laptop"," ");
+            parametros.put("tableta"," ");
+            parametros.put("otro", nivelesInternet.getTipo_equipo());   
+                    }
+                
+                        }
+             }
+        }
+        
+        
+        
+        parametros.put("solicita", nombreUsuario.toUpperCase());
+        parametros.put("autoriza", nombreUsuario.toUpperCase());
+        parametros.put("correosolicita",nivelesInternet.getCorreo_solicita());
+        parametros.put("correoautoriza",nivelesInternet.getCorreo_autoriza());
+        parametros.put("configuro",nivelesInternet.getConfiguro());
+        parametros.put("ip",nivelesInternet.getIp());
+        
+               
+           
+           File archivo = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/niveles_internet.jasper"));
+           JasperPrint imprimirArchivo = JasperFillManager.fillReport(archivo.getPath(), parametros, new JREmptyDataSource());
+           
+           HttpServletResponse respuestaArchivo = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        respuestaArchivo.addHeader("Content-Disposition", "attachment; filename=\"Niveles_internet.pdf\";");
+        ServletOutputStream stream = respuestaArchivo.getOutputStream();
+
+        JasperExportManager.exportReportToPdfStream(imprimirArchivo, stream);
+
+        FacesContext.getCurrentInstance().responseComplete();
+        
+
+      }
+      
+      //**********************************************************************************************
 }

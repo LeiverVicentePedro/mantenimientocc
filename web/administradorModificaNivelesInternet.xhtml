@@ -193,12 +193,14 @@
                                 </p:inputText>
 
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
-                                <p:outputLabel value="Conexión:" style="color: black;font-size:14px"/> 
-                                <p:inputText value="#{niveles_internetBEAN.nivelesInternet.conexion}" 
-                                             required="true" requiredMessage="Se requiere Conexión" 
-                                             style="text-transform: uppercase;width:250px" >
-                                    <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                                </p:inputText>
+                                <p:outputLabel value="Conexión&nbsp;" style="color: black;font-size:14px"/>
+                    <p:selectOneMenu value="#{niveles_internetBEAN.nivelesInternet.conexion}" styleClass="selectMenu" 
+                                     required="true" requiredMessage="Se Requiere Conexión" 
+                                     style="width:150px"> 
+
+                        <f:selectItem itemLabel="Cableado" itemValue="Cableado" />
+                        <f:selectItem itemLabel="Inalámbrico" itemValue="Inalambrico"/>
+                    </p:selectOneMenu>
 
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <p:outputLabel value="Tipo de Equipo:" style="color: black;font-size:14px"/> 
