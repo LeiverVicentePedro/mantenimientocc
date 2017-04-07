@@ -20,7 +20,7 @@ public class HorasEmpleado implements Serializable{
     private Date fecha;
     private Boolean estatus;
 
-    //---------------------------------------Geter and seter---------------------------------------------------------
+    //---------------------------------------Getter and setter---------------------------------------------------------
     public int getIdhoras_empleado() {
         return idhoras_empleado;
     }

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                
+                <p:separator style="visibility: hidden"/>
+                <p:separator style="visibility: hidden"/>
+                
+                <h:form>
+                    <center>
+                        <p:outputLabel value="Para realizar el registro de su hora de click al boton REGISTRAR"/> 
+                        <p:separator style="visibility: hidden"/>
+                        <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" autoSync="true" />
+                        <p:separator style="visibility: hidden"/>
+                        <p:commandButton value="REGISTRAR" action="#{horasEmpleadoBEAN.registraHoras()}" style="font-family: sans-serif; font-size: 2em;"/>
+                    </center>
+                </h:form>
+                
+                <p:separator style="visibility: hidden"/>
+                <p:separator style="visibility: hidden"/>
+                
+            </ui:define>
+            
+        </ui:composition>
+
+    </body>
+</html>

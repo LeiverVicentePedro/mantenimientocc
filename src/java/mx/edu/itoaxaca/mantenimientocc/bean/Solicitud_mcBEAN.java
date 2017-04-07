@@ -190,7 +190,7 @@ public class Solicitud_mcBEAN implements Serializable{
         SeguimientoDAO seguimientoDao;
         try {
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
-            usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+            usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya 
             //existir dentro del navegador
             solicitudDao = new Solicitud_mcDAO();
             detalleSolicitudDao = new Detalle_solicitudDAO();
