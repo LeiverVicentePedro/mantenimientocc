@@ -17,7 +17,7 @@
                     <p:growl id="msj" showDetail="true" sticky="true"/>
                     <center>
                         <p:separator style="visibility: hidden;"/> 
-                        <p:outputLabel value="Autorizar Nivel de Internet" style="font-size: 25px;" />
+                        <p:outputLabel value="Asignar Información Nivel de Internet" style="font-size: 25px;" />
                     </center>
                     <f:event type="preRenderView" listener="#{niveles_internetBEAN.listarNiveles_internetAministrador()}"/>
                     <p:dataTable id="nivel" var="niveles" value="#{niveles_internetBEAN.listanivelesAdministrador}"
@@ -64,7 +64,7 @@
                 </h:form>
                    <p:dialog header="Datos para Internet" widgetVar="Datos" id="dialogoDatos"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             
-            <h:form>
+            <h:form >
                 <p/>
                 
                  <h:panelGrid id="trabajoF" columns="3" columnClasses="grid,grid" class="container-fluid  text-justify">

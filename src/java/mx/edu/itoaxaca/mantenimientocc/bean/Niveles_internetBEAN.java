@@ -342,6 +342,8 @@ public class Niveles_internetBEAN implements Serializable {
           Map<String,Object> parametros = new HashMap<String,Object>();
           String nombreUsuario = nivelesInternet.getSolicita().getId_profesion().getNombre_profesion()+" "+
                 nivelesInternet.getSolicita().getConcatenar();
+          String nombreUsuarioAutoriza = nivelesInternet.getAutoriza().getId_profesion().getNombre_profesion()+" "+
+                nivelesInternet.getAutoriza().getConcatenar();
           
         String fecha = String.valueOf(nivelesInternet.getFecha());  
         parametros.put("fechasolicitud", fecha );
@@ -442,7 +444,7 @@ public class Niveles_internetBEAN implements Serializable {
         
         
         parametros.put("solicita", nombreUsuario.toUpperCase());
-        parametros.put("autoriza", nombreUsuario.toUpperCase());
+        parametros.put("autoriza", nombreUsuarioAutoriza.toUpperCase());
         parametros.put("correosolicita",nivelesInternet.getCorreo_solicita());
         parametros.put("correoautoriza",nivelesInternet.getCorreo_autoriza());
         parametros.put("configuro",nivelesInternet.getConfiguro());
