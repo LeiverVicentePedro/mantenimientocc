@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -27,6 +28,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -44,7 +46,31 @@ public class Niveles_internetBEAN implements Serializable {
     private List<Niveles_internet> seleccionJustificacion=new ArrayList();
     private List<Niveles_internet> filterNiveles_internet;
     private List<Niveles_internet> seleccionNiveles_internet;
+    
+    private String redireccion;
+    private String mensaje;
 
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+    
+    
+
+    public String getRedireccion() {
+        return redireccion;
+    }
+
+    public void setRedireccion(String redireccion) {
+        this.redireccion = redireccion;
+    }
+    
+
+    
+    
     public List<Niveles_internet> getFilterNiveles_internet() {
         return filterNiveles_internet;
     }
@@ -149,7 +175,14 @@ public class Niveles_internetBEAN implements Serializable {
               nivelesInternet.setCorreo_solicita(usuarioVive.getCorreo());
                System.out.println("ver "+ nivelesInternet.getId_catalogo_niveles().getNivel());
                 nivelesDao.registrarNivelesInternet(nivelesInternet);
-               // this.listarDepartamento();
+              
+                setMensaje("Registrado");
+                setRedireccion("index.xhtml");
+                FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", mensaje);
+                RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+                
+                
+               
             }
             
             catch(Exception e)
@@ -157,6 +190,12 @@ public class Niveles_internetBEAN implements Serializable {
                 System.out.println("error en Niveles de Internet BEAN -->RegistrarNivelesInternetBEAN"+e);
             }
     }   
+    public void limpiarNivelInternet(){
+        this.nivelesInternet.setJustificacion("");
+        this.nivelesInternet.setTipo_solicitud("");
+        this.nivelesInternet.setTipo_equipo("");
+       
+    }
     public void listarNiveles_internet() throws Exception{
        Niveles_internetDAO niveles_internetdao;
         try{

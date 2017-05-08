@@ -66,9 +66,11 @@
             
             <h:form>
                 <p/>
-                 <h:panelGrid id="trabajoF" columns="1" columnClasses="grid" class="container-fluid  text-justify">
+                
+                 <h:panelGrid id="trabajoF" columns="3" columnClasses="grid,grid" class="container-fluid  text-justify">
                        <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
-                 <h:outputText value="Modelo de equipo:" style="color: black;font-size:14px"/>
+                     <br/><p:column/>
+                      <h:outputText value="Modelo de equipo:" style="color: black;font-size:14px"/>
                  <p:inputText value="#{niveles_internetBEAN.nivelesInternet.modelo_equipo}" 
                               required="true" requiredMessage="Se requiere Modelo de quipo" 
                               style="text-transform: uppercase;width:250px" >
@@ -102,6 +104,12 @@
                               style="text-transform: uppercase;width:250px" >
                      <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
                  </p:inputText>
+            <p:column><br/> </p:column>
+                       </h:panelGrid>
+             <h:panelGrid columns="1" columnClasses="label, value" class="container-fluid  text-justify" width="50">
+                 <p:column><br/> </p:column>
+                       </h:panelGrid>
+            <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
             <br/><p:column/>
             <p:outputLabel value="Nivel Edificio:" style="color: black;font-size:14px"/> 
             <p:inputText value="#{niveles_internetBEAN.nivelesInternet.nivel_edificio}" 
