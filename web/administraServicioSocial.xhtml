@@ -24,14 +24,14 @@
                                      liveResize="true"
                                      liveScroll="true" scrollRows="15" scrollWidth="100%"
                                      scrollable="true"
-                                     selection="#{horasEmpleadoBEAN.usuario}"
+                                     selection="#{horasEmpleadoBEAN2.usuario}"
                                      rowKey="#{usuarioDepartamento.idUsuario}"
                                      selectionMode="single"
                                      style="font-size: 14px;"
                                      emptyMessage="No hay elementos encontrados"
                                      paginator="true" rows="15"
                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
-                            <p:ajax event="rowSelect" listener="#{horasEmpleadoBEAN.listarHorasEmpleado()}" update=":formServicioSocial:tablaHoras" />
+                            <p:ajax event="rowSelect" listener="#{horasEmpleadoBEAN2.listarHorasEmpleado()}" update=":formServicioSocial:tablaHoras" />
                             <p:column headerText="Nombre Completo" width="15">
                                 <p:outputLabel value="#{usuarioDepartamento.concatenar}"/>
                             </p:column>
@@ -41,7 +41,7 @@
                             </p:column>
 
                         </p:dataTable>
-                        <p:dataTable id="tablaHoras" var="misHoras" value="#{horasEmpleadoBEAN.listaHorasEmpleado}" resizableColumns="true"
+                        <p:dataTable id="tablaHoras" var="misHoras" value="#{horasEmpleadoBEAN2.listaHorasEmpleado}" resizableColumns="true"
                                      liveResize="true"
                                      liveScroll="true" scrollRows="15" scrollWidth="100%"
                                      scrollable="true"
@@ -64,7 +64,7 @@
                             </p:column>
                             <f:facet name="footer">
                                 <p:outputLabel value="Total Acumulado:&nbsp;&nbsp;"  style="text-align:right"/>
-                                <p:outputLabel value="#{horasEmpleadoBEAN.horasAcumuladas}" style="text-align: right;"/>
+                                <p:outputLabel value="#{horasEmpleadoBEAN2.horasAcumuladas}" style="text-align: right;"/>
                             </f:facet>
                         </p:dataTable>
                     </h:panelGrid>

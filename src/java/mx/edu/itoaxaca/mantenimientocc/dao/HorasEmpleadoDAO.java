@@ -4,61 +4,72 @@
  * and open the template in the editor.
  */
 package mx.edu.itoaxaca.mantenimientocc.dao;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.HorasEmpleado;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
+
 /**
  *
  * @author leiver
  */
 public class HorasEmpleadoDAO extends Conexion{
     
-    public void insertarHorasEmpleado(HorasEmpleado horas)throws Exception{
-        try{
-        this.Conectar();
-        PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO horas_empleado(id_usuario_empleado, hora_entrada,fecha,estatus) VALUES(?,?,?,?)");
-        inserta.setInt(1, horas.getId_usuario_empleado().getIdUsuario());
-        inserta.setString(2, horas.getHora_entrada());
-        inserta.setDate(3, (Date) horas.getFecha());
-        inserta.setBoolean(4, horas.getEstatus());
-        inserta.executeUpdate();
-        
-        }catch(Exception ex){
-            System.out.println("Error en HorasEmpleadoDAO -> insertarHorasEmpleado "+ex);
-        }finally{
-            this.Cerrar();
-        }
+    public void registrarHorasEmpleado(HorasEmpleado horas) throws Exception{
+      try{
+            this.Conectar();
+            PreparedStatement inserta = this.getConexion().prepareStatement("INSERT INTO horas_empleado(id_usuario_empleado,fecha) VALUES(?,?)");
+            inserta.setInt(1, horas.getId_usuario_empleado().getIdUsuario());
+            inserta.setDate(2, (Date) horas.getFecha());
+            inserta.executeUpdate();
+      }catch(Exception ex){
+          System.out.println("Error en HorasEmpleadoDAO -> registrarHorasEmpleado "+ex);
+      }finally{
+          this.Cerrar();
+      }  
     }
     
-    public List<HorasEmpleado> listaHorasEmpleado(Usuario usuario)throws Exception{
-        List<HorasEmpleado> horasEmpleadoDia = new ArrayList();
-        try{
-            
+    public HorasEmpleado buscarHoraEmpleado(HorasEmpleado horas) throws Exception {
+        HorasEmpleado horasEmpleado = new HorasEmpleado();
+        
+        try {
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareStatement("SELECT idhoras_empleado,id_usuario_empleado,hora_entrada,hora_salida,SUBTIME(hora_salida,hora_entrada) AS horas_dia, fecha FROM horas_empleado WHERE id_usuario_empleado=?");
-            consulta.setInt(1, usuario.getIdUsuario());
+            PreparedStatement consulta =this.getConexion().prepareStatement("Select * from horas_empleado where fecha=? and id_usuario_empleado=?");
+            consulta.setDate(1, (Date)horas.getFecha());
+            consulta.setInt(2, horas.getId_usuario_empleado().getIdUsuario());
             ResultSet resultado = consulta.executeQuery();
             while(resultado.next()){
-                HorasEmpleado horasEmpleado = new HorasEmpleado();
                 horasEmpleado.setIdhoras_empleado(resultado.getInt("idhoras_empleado"));
                 horasEmpleado.setId_usuario_empleado(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario_empleado")));
-                horasEmpleado.setHora_entrada(resultado.getString("hora_entrada"));
-                horasEmpleado.setHora_salida(resultado.getString("hora_salida"));
-                horasEmpleado.setHorasEmpleado(resultado.getString("horas_dia"));
                 horasEmpleado.setFecha(resultado.getDate("fecha"));
-                horasEmpleadoDia.add(horasEmpleado);
             }
-            
-        }catch(Exception ex){
-            System.out.println("Error en HorasEmpleadoDAO -> listaHorasEmpleado "+ex);
+        } catch (Exception ex) {
+            System.out.println("Error en HorasEmpleadoDAO -> buscarHoraEmpleado " + ex);
         }finally{
             this.Cerrar();
         }
-        return horasEmpleadoDia;
+        return horasEmpleado;
+    }
+    
+    public HorasEmpleado buscarHoraEmpleadoPorId(int idHoras) throws Exception {
+        HorasEmpleado horasEmpleado = new HorasEmpleado();
+        try {
+            this.Conectar();
+            PreparedStatement consulta =this.getConexion().prepareStatement("Select * from horas_empleado where idhoras_empleado=?");
+            consulta.setInt(1, idHoras);
+            ResultSet resultado=consulta.executeQuery();
+            while(resultado.next()){
+                horasEmpleado.setIdhoras_empleado(resultado.getInt("idhoras_empleado"));
+                horasEmpleado.setId_usuario_empleado(new UsuarioDAO().consultarUsuarioPorIdEntero(resultado.getInt("id_usuario_empleado")));
+                horasEmpleado.setFecha(resultado.getDate("fecha"));
+            }
+        } catch (Exception ex) {
+            System.out.println("Error en HorasEmpleadoDAO -> buscarHoraEmpleadoPorId " + ex);
+        }finally{
+            this.Cerrar();
+        }
+        return horasEmpleado;
     }
 }

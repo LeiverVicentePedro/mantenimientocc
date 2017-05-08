@@ -16,12 +16,13 @@
                 <p:separator style="visibility: hidden"/>
                 
                 <h:form>
+                    <p:growl autoUpdate="true"/>
                     <center>
                         <p:outputLabel value="Para realizar el registro de su hora de click al boton REGISTRAR"/> 
                         <p:separator style="visibility: hidden"/>
                         <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" autoSync="true" />
                         <p:separator style="visibility: hidden"/>
-                        <p:commandButton value="REGISTRAR" action="#{horasEmpleadoBEAN.registraHoras()}" style="font-family: sans-serif; font-size: 2em;"/>
+                        <p:commandButton value="REGISTRAR" action="#{horasEmpleadoBEAN.registrarHoraEmpleado()}" style="font-family: sans-serif; font-size: 2em;"/>
                     </center>
                 </h:form>
                 
