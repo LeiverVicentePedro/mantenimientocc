@@ -18,19 +18,20 @@
                 <p:separator/>
                 <h:form id="formServicioSocial">
                     <f:event type="preRenderView" listener="#{usuarioBEAN.listaUsuarioDepartameto()}"/>
+                    <f:event type="preRenderView" listener="#{configuracionServicioSocialBEAN.obtenConfiguracion()}"/>
                     <h:panelGrid columns="2" id="gridPrincipal">
                         <p:dataTable id="tablaUsuarios" var="usuarioDepartamento" value="#{usuarioBEAN.listaUsuariosDeUnDepartamento}" resizableColumns="true"
                                      liveResize="true"
                                      liveScroll="true" scrollRows="15" scrollWidth="100%"
                                      scrollable="true"
-                                     selection="#{horasEmpleadoBEAN.usuario}"
+                                     selection="#{horasEmpleadoBEAN2.usuario}"
                                      rowKey="#{usuarioDepartamento.idUsuario}"
                                      selectionMode="single"
                                      style="font-size: 14px;"
                                      emptyMessage="No hay elementos encontrados"
                                      paginator="true" rows="15"
                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
-                            <p:ajax event="rowSelect" listener="#{horasEmpleadoBEAN.listarHorasEmpleado()}" update=":formServicioSocial:tablaHoras" />
+                            <p:ajax event="rowSelect" listener="#{horasEmpleadoBEAN2.listarHorasEmpleado()}" update=":formServicioSocial:tablaHoras" />
                             <p:column headerText="Nombre Completo" width="15">
                                 <p:outputLabel value="#{usuarioDepartamento.concatenar}"/>
                             </p:column>
@@ -40,14 +41,15 @@
                             </p:column>
 
                         </p:dataTable>
-                        <p:dataTable id="tablaHoras" var="misHoras" value="#{horasEmpleadoBEAN.listaHorasEmpleado}" resizableColumns="true"
+                        <p:dataTable id="tablaHoras" var="misHoras" value="#{horasEmpleadoBEAN2.listaHorasEmpleado}" resizableColumns="true"
                                      liveResize="true"
                                      liveScroll="true" scrollRows="15" scrollWidth="100%"
                                      scrollable="true"
                                      style="font-size: 14px;"
                                      emptyMessage="Seleccioné algún Nombre"
                                      paginator="true" rows="15"
-                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     paginatorPosition="top">
                             <p:column headerText="Hora Entrada">
                                 <p:outputLabel value="#{misHoras.hora_entrada}"/>
                             </p:column>
@@ -60,24 +62,28 @@
                             <p:column headerText="Fecha">
                                 <p:outputLabel value="#{misHoras.fecha}"/>
                             </p:column>
+                            <f:facet name="footer">
+                                <p:outputLabel value="Total Acumulado:&nbsp;&nbsp;"  style="text-align:right"/>
+                                <p:outputLabel value="#{horasEmpleadoBEAN2.horasAcumuladas}" style="text-align: right;"/>
+                            </f:facet>
                         </p:dataTable>
                     </h:panelGrid>
                     <br/>
                     <p:commandButton value="Configuracion Checador" oncomplete="PF('configuraDialogo').show();"/>
                 </h:form>
-                
+
                 <h:form id="dialogoConfiguracion">
                     <p:dialog id="dialogoconf" widgetVar="configuraDialogo" width="300">
                         <center>
                             <p:outputLabel value="Designe la ip del equipo checador:"/>
-                            <p:inputMask value="" mask="---.---.---.---" style="margin-bottom: 1em;"/>
+                            <p:inputMask value="#{configuracionServicioSocialBEAN.servicioSocial.ip_checador}" mask="999.999.999.999" style="margin-bottom: 1em;"/>
                             <p:outputLabel value="Asigne el numero de horas para servicio:"/>
-                            <p:inputText value="" style="margin-bottom: 1em;"/>
-                            <p:commandButton value="Guardar" oncomplete="PF('configuraDialogo').hide();"/>
+                            <p:inputText value="#{configuracionServicioSocialBEAN.servicioSocial.horas_servicio}" style="margin-bottom: 1em;"/>
+                            <p:commandButton value="Guardar" action="#{configuracionServicioSocialBEAN.opcionConfiguracion()}" oncomplete="PF('configuraDialogo').hide();"/>
                         </center>
-                      
+
                     </p:dialog>
-                    
+
                 </h:form> 
             </ui:define>
         </ui:composition>
