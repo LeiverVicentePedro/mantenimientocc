@@ -111,4 +111,6 @@ public class HorasEmpleadoBEAN implements Serializable {
             System.out.println("Error en HorasEmpleadoBEAN -> registrarHoras " + ex);
         }
     }
+    
+    
 }
