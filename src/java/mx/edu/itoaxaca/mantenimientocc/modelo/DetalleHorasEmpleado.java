@@ -14,11 +14,19 @@ import java.io.Serializable;
  * @author leiver
  */
 public class DetalleHorasEmpleado implements Serializable{
-    
+    private int idDetalleHorasEmpleado;
     private HorasEmpleado idHorasEmpleado;
     private String horaEntrada;
     private String horaSalida;
 
+    public int getIdDetalleHorasEmpleado() {
+        return idDetalleHorasEmpleado;
+    }
+
+    public void setIdDetalleHorasEmpleado(int idDetalleHorasEmpleado) {
+        this.idDetalleHorasEmpleado = idDetalleHorasEmpleado;
+    }
+    
     public HorasEmpleado getIdHorasEmpleado() {
         return idHorasEmpleado;
     }

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.DetalleHorasEmpleado;
 import mx.edu.itoaxaca.mantenimientocc.modelo.HorasEmpleado;
+import mx.edu.itoaxaca.mantenimientocc.modelo.VistaHorasEmpleados;
 
 /**
  *
@@ -41,6 +42,7 @@ public class DetalleHorasEmpleadoDAO extends Conexion{
             consulta.setInt(1,horas.getIdhoras_empleado());
             ResultSet resultado = consulta.executeQuery();
             while(resultado.next()){
+                detalle.setIdDetalleHorasEmpleado(resultado.getInt("iddetalle_horas_empleado"));
                 detalle.setIdHorasEmpleado(new HorasEmpleadoDAO().buscarHoraEmpleadoPorId(resultado.getInt("id_horas_empleado")));
                 detalle.setHoraEntrada(resultado.getString("hora_entrada"));
                 detalle.setHoraSalida(resultado.getString("hora_salida"));
@@ -62,6 +64,36 @@ public class DetalleHorasEmpleadoDAO extends Conexion{
             modifica.executeUpdate();
         }catch(Exception ex){
             System.out.println("error en DetalleHorasEmpleadoDAO -> modificarHorasEmpleado "+ex);
+        }finally{
+            this.Cerrar();
+        }
+    }
+    
+    public void registrarDetalleHorasEmpleadoCompleto(DetalleHorasEmpleado detalle) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement registra = this.getConexion().prepareStatement("INSERT INTO detalle_horas_empleado(id_horas_empleado,hora_entrada,hora_salida) VALUES(?,?,?)");
+            registra.setInt(1, detalle.getIdHorasEmpleado().getIdhoras_empleado());
+            registra.setString(2, detalle.getHoraEntrada());
+            registra.setString(3, detalle.getHoraSalida());
+            registra.executeUpdate();
+            
+        }catch(Exception ex){
+            System.out.println("Error en DetalleHorasEmpleadoDAO -> registrarDetalleHorssEmpleado "+ex);
+        }finally{
+           this.Cerrar();
+        }
+    }
+    
+    public void eliminarHoras(VistaHorasEmpleados vista) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement elimina = this.getConexion().prepareCall("DELETE FROM detalle_horas_empleado WHERE iddetalle_horas_empleado=?");
+            elimina.setInt(1,vista.getIdDetalleHorasEmpleado());
+            elimina.executeUpdate();
+            
+        }catch(Exception ex){
+            System.out.println("Error en DetalleHorasEmpleadoDAO -> elimiarHoras "+ex);
         }finally{
             this.Cerrar();
         }

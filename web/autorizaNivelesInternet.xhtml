@@ -21,7 +21,8 @@
                     </center>
                     <f:event type="preRenderView" listener="#{niveles_internetBEAN.listarNiveles_internet()}"/>
                     <p:dataTable id="nivel" var="niveles" value="#{niveles_internetBEAN.listaniveles}"
-                                 selectionMode="multiple" selection="#{niveles_internetBEAN.seleccionJustificacion}" rowKey="#{niveles.idniveles_internet}">
+                                 selectionMode="multiple" selection="#{niveles_internetBEAN.seleccionJustificacion}" rowKey="#{niveles.idniveles_internet}"
+                                 emptyMessage="No hay elementos encontrados">
                      
                         <p:column headerText="Solicitante" 
 
@@ -69,7 +70,7 @@
                       </f:facet>
 
                     </p:dataTable>
-                    <p:separator/> 
+                    <p:separator style="visibility: hidden;"/> 
                     <p:dialog header="Justificación" widgetVar="justificaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="800">
         <p:outputPanel id="panelJustifi" style="text-align:center;">
             <ui:repeat value="#{niveles_internetBEAN.seleccionJustificacion}" var="justifica">

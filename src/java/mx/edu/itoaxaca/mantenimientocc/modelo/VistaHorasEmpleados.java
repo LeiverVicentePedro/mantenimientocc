@@ -16,6 +16,7 @@ public class VistaHorasEmpleados implements Serializable{
     
     private HorasEmpleado idHorasEmpleado;
     private Date fecha;
+    private int idDetalleHorasEmpleado;
     private String hora_entrada;
     private String hora_salida;
     private String acumulado;
@@ -34,6 +35,14 @@ public class VistaHorasEmpleados implements Serializable{
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public int getIdDetalleHorasEmpleado() {
+        return idDetalleHorasEmpleado;
+    }
+
+    public void setIdDetalleHorasEmpleado(int idDetalleHorasEmpleado) {
+        this.idDetalleHorasEmpleado = idDetalleHorasEmpleado;
     }
 
     public String getHora_entrada() {

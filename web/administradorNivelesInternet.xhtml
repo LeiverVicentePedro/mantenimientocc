@@ -21,7 +21,7 @@
                     </center>
                     <f:event type="preRenderView" listener="#{niveles_internetBEAN.listarNiveles_internetAministrador()}"/>
                     <p:dataTable id="nivel" var="niveles" value="#{niveles_internetBEAN.listanivelesAdministrador}"
-                                 >
+                                 emptyMessage="No hay elementos encontrados">
                      
                         <p:column headerText="Departamento" 
 
@@ -60,7 +60,7 @@
                        
 
                     </p:dataTable>
-                    <p:separator/> 
+                    <p:separator style="visibility: hidden;"/> 
                 </h:form>
                    <p:dialog header="Datos para Internet" widgetVar="Datos" id="dialogoDatos"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             

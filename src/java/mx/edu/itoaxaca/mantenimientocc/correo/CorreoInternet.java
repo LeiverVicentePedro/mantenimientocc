@@ -19,9 +19,9 @@ public class CorreoInternet extends ConexionCorreo implements Runnable{
     private String correo;
     private Solicitud_mc solicitud;
 
-    public CorreoInternet(String correo, Solicitud_mc solicitud) {
+    public CorreoInternet(String correo) {
         this.correo = correo;
-        this.solicitud = solicitud;
+       
     }
     
     
@@ -29,13 +29,13 @@ public class CorreoInternet extends ConexionCorreo implements Runnable{
     public void run() {
         try {
             setup();
-             String asunto = "Solicitud de Mantenimiento Realizada al Sistema SIMAPRECO del TEC-OAX";
+             String asunto = "Nivel de Internet Rechazado - SIMAPRECO del TEC-OAX";
             String mensaje = "<center><h1>INSTITUTO TECNOL&Oacute;GICO DE OAXACA<h1></center><br/>"+
                     "<center><h3>SISTEMA DE MANTENIMIENTO PREVENTIVO Y/O CORRECTIVO DEL ITO<h3></center><br/>"
-                    + "<div><center><h2>Solicitud de Mantenimiento Realizada:<h2></center></div>\n"
+                    + "<div><center><h2>Solicitud de Niveles de Internet Rechazada:<h2></center></div>\n"
                     + "<br/><center><h3>Gracias Por usar SIMAPRECO<h3></center><br/>"+"\n"
-                    + "<center><p>A realizado una solicitud de mantenimiento con la siguiente informaci&oacute;n b&aacute;sica:</p></center>"+"\n"
-                    + "<center>N&uacute;mero de Folio: \t <b>"+solicitud.getFolio()+"</b>\tAl Departamento:<b>"+solicitud.getId_departamento().getNombre_departamento()+"</b> </center>"+"\n"
+                    + "<center><p>Usted a realizado una solicitud de Niveles de Internet el cual a sido rechazado."
+                    + "<center><p>favor de comunicarse con su jefe inmediato para mas informaci&ocute;n</p></center>"+"\n"
                     + "<br/><br/><center><h6 style=\" color:red; font-size:10px;\">* Este correo es de car&aacute;cter Informativo no es relevante y los datos contenidos son proporcionados por el sistema.<h6></center>"
                     + "<center>Puede Acceder al sistema a trav&eacute;s del siguiente enlace:<br/></center>"
                     +"<center><b><a href="+"\"http://187.154.40.169:8080/mantenimientocc/\" style=\" color:blue;\"><b>SISTEMA DE MANTENIMIENTO PREVENTIVO Y/O CORRECTIVO DEL ITO<b/>"+"</a></b></center>"
