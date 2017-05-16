@@ -21,7 +21,8 @@
                     </center>
                     <f:event type="preRenderView" listener="#{niveles_internetBEAN.listarNiveles_internet()}"/>
                     <p:dataTable id="nivel" var="niveles" value="#{niveles_internetBEAN.listaniveles}"
-                                 selectionMode="multiple" selection="#{niveles_internetBEAN.seleccionJustificacion}" rowKey="#{niveles.idniveles_internet}">
+                                 selectionMode="multiple" selection="#{niveles_internetBEAN.seleccionJustificacion}" rowKey="#{niveles.idniveles_internet}"
+                                 emptyMessage="No hay elementos encontrados">
                      
                         <p:column headerText="Solicitante" 
 

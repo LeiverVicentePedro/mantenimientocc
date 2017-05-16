@@ -21,7 +21,7 @@
                     </center>
                     <f:event type="preRenderView" listener="#{niveles_internetBEAN.listarNiveles_internetAministrador()}"/>
                     <p:dataTable id="nivel" var="niveles" value="#{niveles_internetBEAN.listanivelesAdministrador}"
-                                 >
+                                 emptyMessage="No hay elementos encontrados">
                      
                         <p:column headerText="Departamento" 
 
