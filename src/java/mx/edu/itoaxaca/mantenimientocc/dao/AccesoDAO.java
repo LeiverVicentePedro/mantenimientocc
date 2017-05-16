@@ -21,7 +21,7 @@ public class AccesoDAO extends Conexion {
         ResultSet resultado;
         try{
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM usuario WHERE correo=? and clave=?");
+            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM usuario WHERE correo=? and clave=? and estatus=1");
             consulta.setString(1, correo);
             consulta.setString(2, clave);
              resultado= consulta.executeQuery();
