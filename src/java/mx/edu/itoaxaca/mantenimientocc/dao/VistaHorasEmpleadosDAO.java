@@ -26,7 +26,7 @@ public class VistaHorasEmpleadosDAO extends Conexion{
             this.Conectar();
             PreparedStatement consulta = this.getConexion().prepareStatement("SELECT \n" +
             "idhoras_empleado,\n" +
-            "fecha,hora_entrada, hora_salida\n" +
+            "fecha,iddetalle_horas_empleado,hora_entrada, hora_salida\n" +
             "FROM\n" +
             "horas_empleado\n" +
             "INNER JOIN\n" +
@@ -37,6 +37,7 @@ public class VistaHorasEmpleadosDAO extends Conexion{
                 VistaHorasEmpleados horasEmpleado = new VistaHorasEmpleados();
                 horasEmpleado.setIdHorasEmpleado(new HorasEmpleadoDAO().buscarHoraEmpleadoPorId(resultado.getInt("idhoras_empleado")));
                 horasEmpleado.setFecha(resultado.getDate("fecha"));
+                horasEmpleado.setIdDetalleHorasEmpleado(resultado.getInt("iddetalle_horas_empleado"));
                 horasEmpleado.setHora_entrada(resultado.getString("hora_entrada"));
                 horasEmpleado.setHora_salida(resultado.getString("hora_salida"));
                 listaHoras.add(horasEmpleado);
@@ -56,7 +57,7 @@ public class VistaHorasEmpleadosDAO extends Conexion{
             this.Conectar();
             PreparedStatement consulta = this.getConexion().prepareStatement("SELECT \n" +
             "idhoras_empleado,\n" +
-            "fecha,hora_entrada, hora_salida\n" +
+            "fecha,iddetalle_horas_empleado,hora_entrada, hora_salida\n" +
             "FROM\n" +
             "horas_empleado\n" +
             "INNER JOIN\n" +
@@ -67,6 +68,7 @@ public class VistaHorasEmpleadosDAO extends Conexion{
                 VistaHorasEmpleados horasEmpleado = new VistaHorasEmpleados();
                 horasEmpleado.setIdHorasEmpleado(new HorasEmpleadoDAO().buscarHoraEmpleadoPorId(resultado.getInt("idhoras_empleado")));
                 horasEmpleado.setFecha(resultado.getDate("fecha"));
+                horasEmpleado.setIdDetalleHorasEmpleado(resultado.getInt("iddetalle_horas_empleado"));
                 horasEmpleado.setHora_entrada(resultado.getString("hora_entrada"));
                 horasEmpleado.setHora_salida(resultado.getString("hora_salida"));
                 listaHoras.add(horasEmpleado);

@@ -8,13 +8,17 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import mx.edu.itoaxaca.mantenimientocc.dao.DetalleHorasEmpleadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.VistaHorasEmpleadosDAO;
+import mx.edu.itoaxaca.mantenimientocc.modelo.DetalleHorasEmpleado;
 import mx.edu.itoaxaca.mantenimientocc.modelo.TotalHorasEmpleado;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import mx.edu.itoaxaca.mantenimientocc.modelo.VistaHorasEmpleados;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -72,4 +76,14 @@ public class VistaHorasEmpleadosBEAN implements Serializable{
         }
     }
     
+    public void elimiarHoras(VistaHorasEmpleados vista){
+        try{
+            new DetalleHorasEmpleadoDAO().eliminarHoras(vista);
+            listarHorasEmpleados();
+            FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Horas Eliminadas");
+                    RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+        }catch(Exception ex){
+            System.out.println("Error en VistaHorasEmpleadoBEAN -> eliminarHoras "+ex);
+        }
+    }
 }

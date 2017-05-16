@@ -8,6 +8,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
+import java.util.StringTokenizer;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -15,9 +16,11 @@ import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.dao.ConfiguracionServicioSocialDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.DetalleHorasEmpleadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.HorasEmpleadoDAO;
+import mx.edu.itoaxaca.mantenimientocc.dao.TotalHorasEmpleadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.ConfiguracionServicioSocial;
 import mx.edu.itoaxaca.mantenimientocc.modelo.DetalleHorasEmpleado;
 import mx.edu.itoaxaca.mantenimientocc.modelo.HorasEmpleado;
+import mx.edu.itoaxaca.mantenimientocc.modelo.TotalHorasEmpleado;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import org.primefaces.context.RequestContext;
 
@@ -31,7 +34,23 @@ public class HorasEmpleadoBEAN implements Serializable {
 
     HorasEmpleado horas = new HorasEmpleado();
     DetalleHorasEmpleado detalleHoras = new DetalleHorasEmpleado();
-  
+
+    public HorasEmpleado getHoras() {
+        return horas;
+    }
+
+    public void setHoras(HorasEmpleado horas) {
+        this.horas = horas;
+    }
+
+    public DetalleHorasEmpleado getDetalleHoras() {
+        return detalleHoras;
+    }
+
+    public void setDetalleHoras(DetalleHorasEmpleado detalleHoras) {
+        this.detalleHoras = detalleHoras;
+    }
+    
     public void registrarHoraEmpleado() throws Exception{
         try {
             InetAddress ip;
@@ -66,9 +85,27 @@ public class HorasEmpleadoBEAN implements Serializable {
                         System.out.println("Entro en actualiza hora salida");
                         NuevoDetalleHoras.setHoraSalida(new SimpleDateFormat("HH:mm:ss").format(new java.sql.Date(new java.util.Date().getTime())));
                         new DetalleHorasEmpleadoDAO().actualizarDetalleHorasEmpleado(NuevoDetalleHoras);
-
-                        FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Hora de Salida Registrada");
-                        RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+                        
+                        /*seccion para calcular las horas que le faltan*/
+                        ConfiguracionServicioSocial servicio = new ConfiguracionServicioSocial();
+                         servicio=new ConfiguracionServicioSocialDAO().seleccionarConfiguracion();
+                         TotalHorasEmpleado misHoras = new TotalHorasEmpleado();
+                         misHoras = new TotalHorasEmpleadoDAO().totalMisHoras(usuarioVive);
+                         long horastotales = servicio.getHoras_servicio()*3600000;
+                         String[] arr = new String[3];
+                         StringTokenizer st = new StringTokenizer(misHoras.getHorasTotales(),":",false);
+                         int cont=0;
+                        while (st.hasMoreTokens()) {  arr[cont]=st.nextToken(); cont++;}
+                        long hora = Integer.parseInt(arr[0])*3600000;
+                        long min = Integer.parseInt(arr[1])*60000;
+                        long totalFaltante = horastotales-(hora+min);
+                        
+                        long horas = totalFaltante/3600000;
+                        long minutos = (totalFaltante%3600000)/60000;
+                        
+                        FacesMessage mensajeHorasFaltantes = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion","Hora de Salida Registrada\n"+"Te Falta: "+ horas+":"+minutos+" Horas");
+                        RequestContext.getCurrentInstance().showMessageInDialog(mensajeHorasFaltantes);
+                        /*termina seccion para calcular las horas que le faltan*/
                     } 
                     if(horaAComprobar == null) {
                         //registramos detalle de hora de entrada nueva
@@ -111,6 +148,46 @@ public class HorasEmpleadoBEAN implements Serializable {
             System.out.println("Error en HorasEmpleadoBEAN -> registrarHoras " + ex);
         }
     }
+    //pendiente la nueva agregacion para las horas de un empleado;
     
+    public void registrarHorasPorAdministrador(){
+        try{
+            HorasEmpleado existeRegistroHoras = new HorasEmpleado();
+            horas.setFecha(new java.sql.Date(horas.getFecha().getTime()));
+            existeRegistroHoras = new HorasEmpleadoDAO().buscarHoraEmpleado(horas);
+                System.out.println("idhoras_empleado " + existeRegistroHoras.getIdhoras_empleado());
+                if (existeRegistroHoras.getIdhoras_empleado() != 0){
+                    detalleHoras.setIdHorasEmpleado(existeRegistroHoras);
+                    new DetalleHorasEmpleadoDAO().registrarDetalleHorasEmpleadoCompleto(detalleHoras);
+                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Registro Realizado");
+                    RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+                    limpiarRegistros();
+                }else{
+                    horas.setFecha(new java.sql.Date(horas.getFecha().getTime()));
+                    new HorasEmpleadoDAO().registrarHorasEmpleado(horas);
+
+                    HorasEmpleado registroHoras = new HorasEmpleado();
+                    registroHoras = new HorasEmpleadoDAO().buscarHoraEmpleado(horas);
+                    detalleHoras.setIdHorasEmpleado(registroHoras);
+
+                    new DetalleHorasEmpleadoDAO().registrarDetalleHorasEmpleadoCompleto(detalleHoras);
+                    limpiarRegistros();
+                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Registro Realizado");
+                    RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+                    
+                }
+        }catch(Exception ex){
+            System.out.println("Error en HorasEmpleadoBEAN -> registrarHorasPorAdminstrador "+ex);
+        }
+    }
+    
+    public void limpiarRegistros(){
+        horas.setFecha(null);
+        horas.setId_usuario_empleado(null);
+        detalleHoras.setHoraEntrada("");
+        detalleHoras.setHoraSalida("");
+        detalleHoras.setIdHorasEmpleado(null);
+    }
     
 }
+
