@@ -27,7 +27,7 @@
               <p:dataTable id="data" var="asigna_solicitud" value="#{asigna_solicitudBEAN.listaAsinacionesTerminadasDeUsuarios}" 
                           
                          style="font-size: 14px;"
-                         selectionMode="multiple" selection="#{asigna_solicitudBEAN.seleccionAsignacion}" rowKey="#{asigna_solicitud.idasigna_solicitud}"
+                         selectionMode="single" selection="#{asigna_solicitudBEAN.seleccionAsignacion}" rowKey="#{asigna_solicitud.idasigna_solicitud}"
                                  resizableColumns="true"
                                  liveResize="true"
                                  
@@ -107,9 +107,7 @@
                       </center>
                   </p:column>
             </p:dataTable>
-            <p/>
-                <p:commandButton value="Volver" action="principalNivelDos.xhtml" oncomplete="PF('DatosSeguimiento').show();" />
-                 <p/>
+            
                  
           </h:form>
            <p:dialog header="DatosSeguimiento" widgetVar="DatosSeguimiento" id="dialogoDatosSeguimiento" closable="false"  
