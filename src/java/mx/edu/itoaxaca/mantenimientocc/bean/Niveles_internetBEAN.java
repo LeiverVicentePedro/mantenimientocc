@@ -254,6 +254,7 @@ public class Niveles_internetBEAN implements Serializable {
                  nivelesInternet.setAutoriza(usuarioVive);
                  nivelesInternet.setCorreo_autoriza(usuarioVive.getCorreo());
                 nivelesInternet.setEstatus_autoriza(true);
+                nivelesInternet.setEstatus_no_autoriza(false);
                 nivelesdao.modificarNiveles(nivelesInternet);
             }
             catch(Exception e)
@@ -262,6 +263,42 @@ public class Niveles_internetBEAN implements Serializable {
             }
     } 
      
+        public void elegirDatoNivelesInternetNoAutoriza(Niveles_internet nivelesElegirDato) throws Exception{//esto es para dar de baja primero se elige el dato y despues se pone en inactivo
+        Niveles_internetDAO nivelesdao;
+        Niveles_internet nivelesTemporal;
+        try{
+            nivelesdao= new Niveles_internetDAO();
+            nivelesTemporal=nivelesdao.elegirDatoNivel(nivelesElegirDato);
+            
+            if(nivelesTemporal != null){
+                this.nivelesInternet = nivelesTemporal;
+            }
+            this.autorizaNoAutoriza();//se manda a llamar al metodo dar de baja para q se modifique el estatus por INACTIVO
+            this.listarNiveles_internet();//para actualizar la tabla y se vea reflejado el cambio de estatus
+            }
+        catch (Exception e){
+            throw e;
+        }
+        
+    }
+     public void autorizaNoAutoriza() throws Exception{
+        Niveles_internetDAO nivelesdao;
+            try{
+                nivelesdao= new Niveles_internetDAO();
+                FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+                 Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+                 nivelesInternet.setAutoriza(usuarioVive);
+                 nivelesInternet.setCorreo_autoriza(usuarioVive.getCorreo());
+                
+                nivelesInternet.setEstatus_no_autoriza(true);
+                nivelesInternet.setEstatus_autoriza(false);
+                nivelesdao.modificarNiveles(nivelesInternet);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+    }
     public void elegirDatoNivelesInternetAdministradorRegistra(Niveles_internet nivelesElegirDato) throws Exception{//esto es para dar de baja primero se elige el dato y despues se pone en inactivo
         Niveles_internetDAO nivelesdao;
         Niveles_internet nivelesTemporal;

@@ -23,8 +23,8 @@ public class Niveles_internetDAO extends Conexion {
         try{
             this.Conectar();
             PreparedStatement consulta= this.getConexion().prepareStatement
-        ("INSERT INTO niveles_internet (id_catalogo_niveles,fecha,tipo_solicitud,tipo_equipo,solicita,correo_solicita,justificacion,estatus_autoriza)"
-                + " values(?,?,?,?,?,?,?,?)");
+        ("INSERT INTO niveles_internet (id_catalogo_niveles,fecha,tipo_solicitud,tipo_equipo,solicita,correo_solicita,justificacion,estatus_autoriza,estatus_no_autoriza)"
+                + " values(?,?,?,?,?,?,?,?,?)");
             consulta.setInt(1,niveles_Internetregistra.getId_catalogo_niveles().getIdcatalogo_niveles());
             consulta.setDate(2, (Date) niveles_Internetregistra.getFecha());
             consulta.setString(3,niveles_Internetregistra.getTipo_solicitud());
@@ -32,7 +32,9 @@ public class Niveles_internetDAO extends Conexion {
             consulta.setInt(5,niveles_Internetregistra.getSolicita().getIdUsuario());
             consulta.setString(6,niveles_Internetregistra.getCorreo_solicita());
             consulta.setString(7, niveles_Internetregistra.getJustificacion());
-            consulta.setBoolean(8, false);
+            consulta.setBoolean(8, false );
+            consulta.setBoolean(9, false );
+           
             consulta.executeUpdate();
         }
         catch(Exception e){
@@ -49,7 +51,7 @@ public class Niveles_internetDAO extends Conexion {
         ResultSet resultadoList;
         try {
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM niveles_internet WHERE estatus_autoriza=false");
+            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM niveles_internet WHERE estatus_autoriza=false and estatus_no_autoriza=false");
             resultadoList = consulta.executeQuery();
             lista = new ArrayList();
             while (resultadoList.next()) {
@@ -76,6 +78,7 @@ public class Niveles_internetDAO extends Conexion {
                 niveles.setJustificacion(resultadoList.getString("justificacion"));
                 niveles.setEstatus_autoriza(resultadoList.getBoolean("estatus_autoriza"));
                 niveles.setPuerto(resultadoList.getInt("puerto"));
+                niveles.setEstatus_no_autoriza(resultadoList.getBoolean("estatus_no_autoriza"));
                 lista.add(niveles);
             }
 
@@ -122,6 +125,7 @@ public class Niveles_internetDAO extends Conexion {
                 nivelesdos.setJustificacion(resultadoset.getString("justificacion"));
                 nivelesdos.setEstatus_autoriza(resultadoset.getBoolean("estatus_autoriza"));
                  nivelesdos.setPuerto(resultadoset.getInt("puerto"));
+                 nivelesdos.setEstatus_no_autoriza(resultadoset.getBoolean("estatus_no_autoriza"));
             }
         }
         catch(Exception e){
@@ -138,7 +142,7 @@ public class Niveles_internetDAO extends Conexion {
           
         try{
             this.Conectar();
-            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE niveles_internet SET id_catalogo_niveles=?,modelo_equipo=?,mac=?,so=?,fecha=?,edificio=?,nivel_edificio=?,tipo_solicitud=?,vlan=?,conexion=?,tipo_equipo=?,solicita=?,autoriza=?,correo_solicita=?,correo_autoriza=?,configuro=?,ip=?,justificacion=?,estatus_autoriza=?,puerto=? WHERE idniveles_internet=?");
+            PreparedStatement consulta= this.getConexion().prepareStatement("UPDATE niveles_internet SET id_catalogo_niveles=?,modelo_equipo=?,mac=?,so=?,fecha=?,edificio=?,nivel_edificio=?,tipo_solicitud=?,vlan=?,conexion=?,tipo_equipo=?,solicita=?,autoriza=?,correo_solicita=?,correo_autoriza=?,configuro=?,ip=?,justificacion=?,estatus_autoriza=?,puerto=?,estatus_no_autoriza=? WHERE idniveles_internet=?");
             consulta.setInt(1,nivelesModificar.getId_catalogo_niveles().getIdcatalogo_niveles());
             consulta.setString(2,nivelesModificar.getModelo_equipo());
             consulta.setString(3,nivelesModificar.getMac());
@@ -159,7 +163,8 @@ public class Niveles_internetDAO extends Conexion {
             consulta.setString(18, nivelesModificar.getJustificacion());
             consulta.setBoolean(19, nivelesModificar.getEstatus_autoriza());
             consulta.setInt(20,nivelesModificar.getPuerto());
-            consulta.setInt(21,nivelesModificar.getIdniveles_internet());
+            consulta.setBoolean(21, nivelesModificar.getEstatus_no_autoriza());
+            consulta.setInt(22,nivelesModificar.getIdniveles_internet());
            
             consulta.executeUpdate();
         }
@@ -203,6 +208,7 @@ public class Niveles_internetDAO extends Conexion {
                 niveles.setJustificacion(resultadoList.getString("justificacion"));
                 niveles.setEstatus_autoriza(resultadoList.getBoolean("estatus_autoriza"));
                 niveles.setPuerto(resultadoList.getInt("puerto"));
+                niveles.setEstatus_no_autoriza(resultadoList.getBoolean("estatus_no_autoriza"));
                 lista.add(niveles);
             }
 
@@ -248,6 +254,7 @@ public class Niveles_internetDAO extends Conexion {
                 niveles.setJustificacion(resultadoList.getString("justificacion"));
                 niveles.setEstatus_autoriza(resultadoList.getBoolean("estatus_autoriza"));
                 niveles.setPuerto(resultadoList.getInt("puerto"));
+                niveles.setEstatus_no_autoriza(resultadoList.getBoolean("estatus_no_autoriza"));
                 lista.add(niveles);
             }
 

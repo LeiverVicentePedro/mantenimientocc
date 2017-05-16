@@ -35,7 +35,16 @@ public class Niveles_internet implements Serializable{
     private String justificacion;
     private Boolean estatus_autoriza;
     private int puerto;
+    private Boolean estatus_no_autoriza;
 
+    public Boolean getEstatus_no_autoriza() {
+        return estatus_no_autoriza;
+    }
+
+    public void setEstatus_no_autoriza(Boolean estatus_no_autoriza) {
+        this.estatus_no_autoriza = estatus_no_autoriza;
+    }
+    
     public int getPuerto() {
         return puerto;
     }

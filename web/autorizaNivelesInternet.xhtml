@@ -53,7 +53,14 @@
                         <p:column headerText="Autorizar" 
                                   style=" font-size: 13px;text-transform: uppercase " width="90">
                             <center>
-                                <p:commandButton process="nivel" icon="fa fa-refresh" actionListener="#{niveles_internetBEAN.elegirDatoNivelesInternet(niveles)}" update="nivel"/>
+                                <p:commandButton process="nivel" icon="fa fa-check" actionListener="#{niveles_internetBEAN.elegirDatoNivelesInternet(niveles)}" update="nivel"/>
+                             </center>
+
+                        </p:column>
+                         <p:column headerText="No Autorizar" 
+                                  style=" font-size: 13px;text-transform: uppercase " width="90">
+                            <center>
+                                <p:commandButton process="nivel" icon="fa fa-times" actionListener="#{niveles_internetBEAN.elegirDatoNivelesInternetNoAutoriza(niveles)}" update="nivel"/>
                              </center>
 
                         </p:column>
