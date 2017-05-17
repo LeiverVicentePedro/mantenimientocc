@@ -20,6 +20,7 @@
                     <f:event type="preRenderView" listener="#{totalHorasEmpleadoBEAN.listarEmpleadosHoras()}"/>
                     <f:event type="preRenderView" listener="#{configuracionServicioSocialBEAN.obtenConfiguracion()}"/>
                     <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuario()}"/>
+                    <p:growl id="mensaje" showDetail="true" sticky="true" autoUpdate="true"/>
                     <h:panelGrid columns="2" id="gridPrincipal">
                         
                         <p:dataTable id="tablaUsuarios" var="usuarioDepartamento" value="#{totalHorasEmpleadoBEAN.listaHorasEmpleado}" resizableColumns="true"
@@ -81,10 +82,10 @@
                     <p:dialog id="dialogoconf" widgetVar="configuraDialogo" width="300">
                         <center>
                             <p:outputLabel value="Designe la ip del equipo checador:"/>
-                            <p:inputText id="ip" value="#{configuracionServicioSocialBEAN.servicioSocial.ip_checador}" style="margin-bottom: 1em;"/>
+                            <p:inputText id="ip" value="#{configuracionServicioSocialBEAN.servicioSocial.ip_checador}" style="margin-bottom: 1em;" required="true" requiredMessage="IP Checador Requerido"/>
                             <p:watermark for="ip" value="---.---.---.---" id="watermark" />
                             <p:outputLabel value="Asigne el numero de horas para servicio:"/>
-                            <p:inputText value="#{configuracionServicioSocialBEAN.servicioSocial.horas_servicio}" style="margin-bottom: 1em;"/>
+                            <p:inputText value="#{configuracionServicioSocialBEAN.servicioSocial.horas_servicio}" style="margin-bottom: 1em;" required="true" requiredMessage="Horas de servicio Requerido"/>
                             <p:commandButton value="Guardar" action="#{configuracionServicioSocialBEAN.opcionConfiguracion()}" oncomplete="PF('configuraDialogo').hide();"/>
                         </center>
 
@@ -92,6 +93,7 @@
 
                 </h:form> 
                 <h:form id="formAgregahora">
+                    
                     <p:dialog id="dialogoAgregaHoras" widgetVar="agregaHoras">
                         <h:panelGrid columns="3" columnClasses="grid,grid">
                         <h:panelGrid columns="2">
@@ -103,17 +105,17 @@
                             <f:selectItems value="#{usuarioBEAN.listarTodosLosUsuarios}" var="asignaUsuario" itemLabel="#{asignaUsuario.concatenar}" itemValue="#{asignaUsuario}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Hora Entrada:"/>
-                            <p:inputMask value="#{horasEmpleadoBEAN.detalleHoras.horaEntrada}" mask="99:99:99"/>
+                        <p:inputMask value="#{horasEmpleadoBEAN.detalleHoras.horaEntrada}" mask="99:99:99" required="true" requiredMessage="Hora de Entrada Requerida"/>
                         </h:panelGrid>
                             <h:panelGrid width="50">
                                 <p:column><br/> </p:column>
                             </h:panelGrid>
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="Fecha: "/>
-                                <p:calendar value="#{horasEmpleadoBEAN.horas.fecha}" showOn="button"/>
+                                <p:calendar value="#{horasEmpleadoBEAN.horas.fecha}" showOn="button" required="true" requiredMessage="Fecha Requerida"/>
                             
                             <p:outputLabel value="Hora Salida:"/>
-                            <p:inputMask value="#{horasEmpleadoBEAN.detalleHoras.horaSalida}" mask="99:99:99" />
+                            <p:inputMask value="#{horasEmpleadoBEAN.detalleHoras.horaSalida}" mask="99:99:99" required="true" requiredMessage="Hora de Salida Requerida"/>
                             </h:panelGrid>      
                         
                     </h:panelGrid>
@@ -121,7 +123,7 @@
                         <br/>
                         <center>
                             <p:commandButton value="Registrar" action="#{horasEmpleadoBEAN.registrarHorasPorAdministrador()}" update=":formServicioSocial" oncomplete="PF('agregaHoras').hide();"/>
-                        <p:commandButton value="Cancelar" oncomplete="PF('agregaHoras').hide();"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('agregaHoras').hide();" immediate="true"/>
                         </center>
                         </p:dialog>
                 </h:form>
