@@ -65,7 +65,13 @@ public class Catalogo_nivelesBEAN implements Serializable {
     }
 
     public void setAccion(String accion) {
+        this.limpiarcatalogo();
         this.accion = accion;
+    }
+    
+     public void limpiarcatalogo(){
+        this.catalogo_niveles.setNivel(0);
+        this.catalogo_niveles.setDescripcion("");
     }
     
     
@@ -126,18 +132,15 @@ public class Catalogo_nivelesBEAN implements Serializable {
         {
             case "Registrar":
                 this.registrarCatalogo_niveles();
-               this.limpiarCatalogoNiveles();
+               
                 break;
             case "Modificar":
                 this.modificarCatalogo_niveles();
-                this.limpiarCatalogoNiveles();
+              
                 break;
         }
     }
-      public void limpiarCatalogoNiveles(){
-        this.catalogo_niveles.setNivel(0);
-        this.catalogo_niveles.setDescripcion("");
-    }
+     
      
   public void listaCatalogo_niveles() throws Exception{
         Catalogo_nivelesDAO catalogoNivelesdao;
