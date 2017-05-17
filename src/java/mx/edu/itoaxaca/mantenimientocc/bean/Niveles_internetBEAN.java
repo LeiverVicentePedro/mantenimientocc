@@ -18,6 +18,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import mx.edu.itoaxaca.mantenimientocc.correo.CorreoInternet;
+import mx.edu.itoaxaca.mantenimientocc.correo.CorreoSolicitudMC;
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_nivelesDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Niveles_internetDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Catalogo_niveles;
@@ -289,10 +291,12 @@ public class Niveles_internetBEAN implements Serializable {
                  Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
                  nivelesInternet.setAutoriza(usuarioVive);
                  nivelesInternet.setCorreo_autoriza(usuarioVive.getCorreo());
-                
+                 
                 nivelesInternet.setEstatus_no_autoriza(true);
                 nivelesInternet.setEstatus_autoriza(false);
                 nivelesdao.modificarNiveles(nivelesInternet);
+                Thread enviarCorreo = new Thread(new CorreoInternet(nivelesInternet.getCorreo_solicita()));
+                enviarCorreo.start();
             }
             catch(Exception e)
             {
