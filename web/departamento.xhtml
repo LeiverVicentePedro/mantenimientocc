@@ -16,7 +16,7 @@
 
                 <p:separator style="visibility: hidden;"/> 
                 <h:form id="formaExterior">              
-                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <p:growl id="msj" showDetail="true" sticky="true" autoUpdate="true"/>
                     <center>
                         <p:separator style="visibility: hidden;"/> 
                         <p:outputLabel value="Listado de Departamentos del ITO" style="font-size: 25px;" />
@@ -129,10 +129,10 @@
                     </p:dataTable>
                 </h:form>
 
+                <h:form id="lista">
+                    <p:dialog header="Datos Departamento" widgetVar="Datos" id="dialogoDatos" class="container-fluid"  modal="true" showEffect="fade" hideEffect="fade" resizable="false"> 
 
-                <p:dialog header="Datos Departamento" widgetVar="Datos" id="dialogoDatos" class="container-fluid"  modal="true" showEffect="fade" hideEffect="fade" resizable="false"> 
 
-                    <h:form id="lista">
 
                         <f:event id="event" type="preRenderView" listener="#{areaBEAN.listarArea()}"/>
                         <f:event type="preRenderView" listener="#{profesionBEAN.listarProfesion()}"/>
@@ -156,20 +156,20 @@
                                     <f:validator validatorId="validadoresLetrasNumEspacioPuntoGuion"/>
                                 </p:inputText>
                                 <br/><p:column/>
-                                
+
                                 <h:outputText value="Profesión:" style="color: black; font-size: 14px"/>
                                 <p:selectOneMenu value="#{departamentoBEAN.profesionJefe}" required="true" 
                                                  requiredMessage="Profesión requerida para Jefe" styleClass="selectMenu" style="text-transform: uppercase; height:30px; width:250px"><!-- es para su ancho y largo del selectOneMenu -->
                                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                                     <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesionN" itemLabel="#{profesionN.nombre_profesion}" itemValue="#{profesionN.nombre_profesion}"/>
                                 </p:selectOneMenu>
-                                 <br/><p:column/>
-                                 
+                                <br/><p:column/>
+
                                 <h:outputText value="Nombre del Jefe:" style="color: black; font-size: 14px"/>
                                 <p:inputText value="#{departamentoBEAN.nombreJefe}" required="true" requiredMessage="Seleccione la profesion del jefe de departamento."
                                              style="text-transform: uppercase; width: 250px"/>
                                 <br/><p:column/>
-                               
+
                                 <h:outputText value="Nombre de area:" style="color: black; font-size:14px"/>
                                 <p:selectOneMenu value="#{departamentoBEAN.departamento.area}" converter="omnifaces.SelectItemsConverter" 
                                                  styleClass="selectMenu" required="true" requiredMessage="Se Requiere Area"
@@ -178,7 +178,7 @@
                                     <f:selectItems value="#{areaBEAN.listaArea}" var="areaitem" itemLabel="#{areaitem.nombre_area}" itemValue="#{areaitem}"/>
                                 </p:selectOneMenu> 
                                 <br/><p:column/>
-                                
+
                                 <h:outputText value="Estatus:" style="color: black;font-size:14px"/>
                                 <p:selectOneMenu value="#{departamentoBEAN.departamento.estatus}" styleClass="selectMenu" 
                                                  required="true" requiredMessage="Se Requiere un Estatus" 
@@ -197,9 +197,9 @@
 
                             <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
                         </center>
-                    </h:form>
-                </p:dialog>
 
+                    </p:dialog>
+                </h:form>
 
 
 

@@ -11,92 +11,93 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
-                             <p:separator style="visibility: hidden;"/> 
-                 
-        <h:form id="formaExterior">    
-            <p:growl id="msj" showDetail="true" sticky="true" autoUpdate="true"/>
-            <center>
+                <p:separator style="visibility: hidden;"/> 
+
+                <h:form id="formaExterior">    
+                    <p:growl id="msj" showDetail="true" sticky="true" autoUpdate="true"/>
+                    <center>
                         <p:separator style="visibility: hidden;"/> 
                         <p:outputLabel value="Listado de Catalogo de Niveles " style="font-size: 25px;" />
                     </center>
-                <p:separator/> 
-                <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{catalogo_nivelesBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
-            
-                    <f:ajax execute="#{catalogo_nivelesBEAN.listaCatalogo_niveles()}" render="data" />
-            </p:commandButton>
-            <p:separator style="visibility: hidden;"/> 
-            <p:dataTable id="data" var="catalogo" value="#{catalogo_nivelesBEAN.listaCatalogo_niveles}"
-                         
-                         style="font-size: 14px;"
-                         
+                    <p:separator/> 
+                    <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{catalogo_nivelesBEAN.setAccion('Registrar')}" update=":formdialog:dialogoDatos" >         
+
+                        <f:ajax execute="#{catalogo_nivelesBEAN.listaCatalogo_niveles()}" render="data" />
+                    </p:commandButton>
+                    <p:separator style="visibility: hidden;"/> 
+                    <p:dataTable id="data" var="catalogo" value="#{catalogo_nivelesBEAN.listaCatalogo_niveles}"
+
+                                 style="font-size: 14px;"
+
                                  resizableColumns="true"
                                  liveResize="true"
-                                 
+
                                  liveScroll="true" scrollRows="15" scrollWidth="100%"
                                  scrollable="true"
-                                 
-                                
-                          emptyMessage="No hay elementos encontrados"
-                          paginator="true" rows="10"
-                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                          paginatorPosition="bottom">
-                
-                <p:column headerText="Nivel" 
-                         
-                          style=" font-size: 13px;text-transform: uppercase " width="60">
-                    
-                    <h:outputText value="#{catalogo.nivel}" />
-                   
-                </p:column>
-                <p:column headerText="Privilegios" 
-                         style=" font-size: 13px;text-transform: uppercase ">
-                    <p:inputTextarea value="#{catalogo.descripcion}" rows="5" cols="160" style="text-align: justify;" />
-                   
-                </p:column>
-                    
-                <p:column headerText="MODIFICAR"
-                          width="80" style="font-size: 12px ">
-                    <center>
-                        <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{catalogo_nivelesBEAN.elegirCatalogo_niveles(catalogo)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
-                    </center>
-                </p:column>
-            </p:dataTable>
-        </h:form>
-        
-        <p:dialog header="Datos de Equipo" widgetVar="Datos" id="dialogoDatos"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-            <h:form>
-                <p:growl id="msjDOS" showDetail="true" sticky="true" autoUpdate="true"/>
-                <p/>
-                <h:panelGrid id="trabajoF" columns="2" columnClasses="grid" class="container-fluid  text-justify">
-                       <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
-                 <h:outputText  value="Nivel:" style="color: black;font-size:14px"/>
-                 <p:inputText  value="#{catalogo_nivelesBEAN.catalogo_niveles.nivel}" 
-                              required="true" requiredMessage="Se requiere Nivel" 
-                              style="text-transform: uppercase" >
-                     <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                 </p:inputText>
-                 
-                 <br/><p:column/>
-                 <h:outputText  value="Descripción:" style="color: black;font-size:14px"/>
-                  <p:inputTextarea value="#{catalogo_nivelesBEAN.catalogo_niveles.descripcion}" placeholder="Describa Fallo" rows="13" cols="50" 
-                                             required="true" requiredMessage=" Se Requiere Descripción de Nivel" counter="reporteDeFallo" maxlength="600" 
-                                             counterTemplate="{0} Caracteres restantes." autoResize="false" style="text-justify: auto"/>
-                 <br/>
-                            <h:outputText id="reporteDeFallo" style=" color: #c0c0c0"/>
-                 
-                 <br/><p:column/>
-                
-                       </h:panelGrid>
-                </h:panelGrid>
-                <br/>
-           
-            <center>
-                <p:commandButton value="#{catalogo_nivelesBEAN.accion}" actionListener="#{catalogo_nivelesBEAN.operarNiveles()}" oncomplete="PF('Datos').hide();" update=":formaExterior:data" />
-                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();"/>
-            </center>
-            <p/>
-            </h:form>
-        </p:dialog>
+
+
+                                 emptyMessage="No hay elementos encontrados"
+                                 paginator="true" rows="10"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 paginatorPosition="bottom">
+
+                        <p:column headerText="Nivel" 
+
+                                  style=" font-size: 13px;text-transform: uppercase " width="60">
+
+                            <h:outputText value="#{catalogo.nivel}" />
+
+                        </p:column>
+                        <p:column headerText="Privilegios" 
+                                  style=" font-size: 13px;text-transform: uppercase ">
+                            <p:inputTextarea value="#{catalogo.descripcion}" rows="5" cols="130" style="text-align: justify;" readonly="true"/>
+
+                        </p:column>
+
+                        <p:column headerText="MODIFICAR"
+                                  width="80" style="font-size: 12px ">
+                            <center>
+                                <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{catalogo_nivelesBEAN.elegirCatalogo_niveles(catalogo)}" oncomplete="PF('Datos').show();" update=":formdialog:dialogoDatos"/>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <h:form id="formdialog">
+                    <p:dialog header="Datos de Equipo" widgetVar="Datos" id="dialogoDatos"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+
+                        <p/>
+                        <h:panelGrid id="trabajoF" columns="2" columnClasses="grid" class="container-fluid  text-justify">
+                            <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="300">
+                                <h:outputText  value="Nivel:" style="color: black;font-size:14px"/>
+                                <p:inputText  value="#{catalogo_nivelesBEAN.catalogo_niveles.nivel}" 
+                                              required="true" requiredMessage="Se requiere Nivel" 
+                                              style="text-transform: uppercase" >
+                                    <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
+                                </p:inputText>
+
+                                <br/><p:column/>
+                                <h:outputText  value="Descripción:" style="color: black;font-size:14px"/>
+                                <p:inputTextarea value="#{catalogo_nivelesBEAN.catalogo_niveles.descripcion}" placeholder="Describa Fallo" rows="13" cols="50" 
+                                                 required="true" requiredMessage=" Se Requiere Descripción de Nivel" counter="reporteDeFallo" maxlength="600" 
+                                                 counterTemplate="{0} Caracteres restantes." autoResize="false" style="text-justify: auto"/>
+                                <br/>
+                                <h:outputText id="reporteDeFallo" style=" color: #c0c0c0"/>
+
+                                <br/><p:column/>
+
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <br/>
+
+                        <center>
+                            <p:commandButton value="#{catalogo_nivelesBEAN.accion}" actionListener="#{catalogo_nivelesBEAN.operarNiveles()}" oncomplete="PF('Datos').hide();" update=":formaExterior :formaExterior:msj" />
+                            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();"/>
+                        </center>
+                        <p/>
+
+                    </p:dialog>
+                </h:form>
             </ui:define>
 
         </ui:composition>
