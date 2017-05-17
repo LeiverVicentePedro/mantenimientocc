@@ -252,13 +252,17 @@ public class UsuarioBEAN implements Serializable{
            registroUsuarioNuevo.setTipoBT("Base");
            registroUsuarioNuevo.setCorreo(usuarioCorreoNombre+usuarioCorreoServicio);
             this.modificarUsuarioRFC();
+            if(registroUsuarioNuevo.getRfc().equalsIgnoreCase(new UsuarioDAO().consultarUsuarioPorRFC(registroUsuarioNuevo.getRfc()).getRfc())){
+                FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Usted ya se Encunetra Registrado.");
+                RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+            }else{
                 usuarioDao.registrarUsuario(registroUsuarioNuevo);                
                 setMensajeClaseUsuario("Usuario Registrado");
                 new CorreoRegistroUsuario().enviarMensaje(registroUsuarioNuevo.getCorreo(), registroUsuarioNuevo.getClave());
                 System.out.println(mensajeClaseUsuario);
                 FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", mensajeClaseUsuario);
                 RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
-                 
+            }
             
         } catch (Exception e) {
             System.out.println("=========Error en UsuarioBEAN -> registrarNuevoUsuario" + e + "============");
