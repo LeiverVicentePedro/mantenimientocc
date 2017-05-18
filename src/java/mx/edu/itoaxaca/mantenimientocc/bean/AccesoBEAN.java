@@ -128,7 +128,7 @@ public class AccesoBEAN implements Serializable{
                 contexto.getExternalContext().redirect("index.xhtml");
             } else {
               //  nombreCompleto = usuarioVive.getNombre() + " " + usuarioVive.getApellidoPaterno() + " " + usuarioVive.getApellidoMaterno();
-                 nombreCompleto = " " + usuarioVive.getNombre() + " " + usuarioVive.getApellidoPaterno() ;
+                 nombreCompleto = " " + usuarioVive.getNombre() ;
             }
         } catch (Exception ex) {
 
