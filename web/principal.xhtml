@@ -10,14 +10,7 @@
 
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
             <ui:define name="content">
-                <div class="text-center">
-                    <p:separator style="visibility: hidden"/>
-                    <p:outputLabel value="Bienvenido Nivel Administrador" class="text-capitalize" style="font-size:1.8em; color: #ffab2d"/>
-                    <p/>
-
-                    <p:outputLabel value="#{accesoBEAN.nombreCompleto}" class="text-capitalize" style="font-size: 1.4em;"/> 
-
-                </div>
+               
                 <h:form id="formaAsignacion">
 
                     <f:event id="listaSolicitud" type="preRenderView" listener="#{solicitud_mcBEAN.listarSolicitudPorDepartamento()}"/>

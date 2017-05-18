@@ -13,10 +13,8 @@
             <ui:define name="content">
                  <div class="text-center">
                     <p:separator style="visibility: hidden"/>
-                    <p:outputLabel value="Bienvenido Nivel Uno" class="text-capitalize" style="font-size:1.8em; color: #ffab2d"/>
-                    <br/>
-                    <p:outputLabel value="#{accesoBEAN.nombreCompleto}" class="text-capitalize" style="font-size: 1.4em;"/> 
-                    <p:separator style="visibility: hidden"/>
+                   
+                    
                 </div>
                   <h:form>
                      <f:event type="preRenderView" listener="#{segiomientoMantenimientoUsuarioBEAN.listarSolicitudesSeguimientoactivasPorUsuario()}"/>

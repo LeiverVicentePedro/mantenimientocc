@@ -112,7 +112,7 @@ public class AccesoBEAN implements Serializable{
     }
 
     public void setNombreCompleto() {
-        nombreCompleto = usuarioBean.getNombre() + " " + usuarioBean.getApellidoPaterno() + " " + usuarioBean.getApellidoMaterno();
+       nombreCompleto = usuarioBean.getNombre() + " " + usuarioBean.getApellidoPaterno() + " " + usuarioBean.getApellidoMaterno();
         System.out.println(nombreCompleto);
     }
 
@@ -127,7 +127,8 @@ public class AccesoBEAN implements Serializable{
             if (usuarioVive == null) {
                 contexto.getExternalContext().redirect("index.xhtml");
             } else {
-                nombreCompleto = usuarioVive.getNombre() + " " + usuarioVive.getApellidoPaterno() + " " + usuarioVive.getApellidoMaterno();
+              //  nombreCompleto = usuarioVive.getNombre() + " " + usuarioVive.getApellidoPaterno() + " " + usuarioVive.getApellidoMaterno();
+                 nombreCompleto = " " + usuarioVive.getNombre() + " " + usuarioVive.getApellidoPaterno() ;
             }
         } catch (Exception ex) {
 
