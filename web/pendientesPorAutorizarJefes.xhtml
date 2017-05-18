@@ -52,11 +52,15 @@
                             <p:outputLabel value="#{niveles.solicita.concatenar}"/>
                         </p:column>
                         
-                        <p:column headerText="Autoriza" sortBy="#{niveles.autoriza.concatenar}" filterBy="#{niveles.autoriza.concatenar}" filterMatchMode="startsWith" 
+                        <p:column headerText="Autoriza" sortBy="#{niveles.solicita.idOficina.departamento.nombre_jefe}" filterBy="#{niveles.solicita.idOficina.departamento.nombre_jefe}" filterMatchMode="startsWith" 
                                   filterStyle="visibility:hidden; height:0">
-                            <p:outputLabel value="#{niveles.autoriza.concatenar}"/>
+                            <p:outputLabel value="#{niveles.solicita.idOficina.departamento.nombre_jefe}"/>
                         </p:column>
                         
+                        <p:column headerText="Departamento" sortBy="#{niveles.solicita.idOficina.departamento.nombre_departamento}" filterBy="#{niveles.solicita.idOficina.departamento.nombre_departamento}" filterMatchMode="startsWith" 
+                                  filterStyle="visibility:hidden; height:0">
+                            <p:outputLabel value="#{niveles.solicita.idOficina.departamento.nombre_departamento}"/>
+                        </p:column>
                         <p:column headerText="Estatus Autorizado" sortBy="#{niveles.estatus_autoriza}" filterBy="#{niveles.estatus_autoriza}" filterMatchMode="startsWith" 
                                   filterStyle="visibility:hidden; height:0">
                             <p:outputLabel value="#{niveles.estatus_autoriza}"/>
