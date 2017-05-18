@@ -35,10 +35,10 @@
                             <h:panelGrid columns="2" class="container-fluid text-left">
                                 <p:column> <p/> </p:column><p:column/>
                                 <p:outputLabel value="Cuenta Usuario:" for="campoUsuario"/><p:column/>
-                                <p:inputText class="form-control" placeholder="@ Correo" id="campoUsuario" value="#{accesoBEAN.correo}" required="true" requiredMessage="Ingrese cuenta de correo" maxlength="100"/><p:column/>
+                                <p:inputText class="form-control input-sm" placeholder="@ Correo" id="campoUsuario" value="#{accesoBEAN.correo}" required="true" requiredMessage="Ingrese cuenta de correo"  style="width: 15em;"/><p:column/>
                                 <p:column> <br/> </p:column><p:column/>
                                 <p:outputLabel value="Contraseña:" for="campoContraseña"/><p:column/>
-                                <p:inputText class="form-control" id="campoContraseña" placeholder="Contraseña" value="#{accesoBEAN.clave}" type="password" required="true" requiredMessage="Por favor Ingrese su CLAVE de Acceso"/>
+                                <p:inputText class="form-control input-sm" id="campoContraseña" placeholder="Contraseña" value="#{accesoBEAN.clave}" type="password" required="true" requiredMessage="Por favor Ingrese su CLAVE de Acceso" style="width:15em;"/>
                             </h:panelGrid>
                             <br/>
                             <p:commandButton value="Acceder" icon="fa fa-sign-in" action="#{accesoBEAN.URL()}" actionListener="#{accesoBEAN.accederSistema()}"/>
