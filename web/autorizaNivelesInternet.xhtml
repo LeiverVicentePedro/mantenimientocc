@@ -13,7 +13,8 @@
 
             <ui:define name="content">
             <p:separator style="visibility: hidden;"/> 
-                <h:form id="formaExterior">              
+                <h:form id="formaExterior"> 
+                    <f:event id="event" type="preRenderView" listener="#{catalogo_nivelesBEAN.listaCatalogo_niveles()}"/>
                     <p:growl id="msj" showDetail="true" sticky="true"/>
                     <center>
                         <p:separator style="visibility: hidden;"/> 
@@ -38,7 +39,12 @@
                         </p:column>
                         <p:column headerText="Nivel&#10;Solicitado" 
                                   style=" font-size: 13px;text-transform: uppercase;white-space:pre;" width="120">
-                            <h:outputText value="#{niveles.id_catalogo_niveles.nivel}"  />
+                            <p:selectOneMenu value="#{niveles.id_catalogo_niveles}" converter="omnifaces.SelectItemsConverter" 
+                                                 styleClass="selectMenu" required="true" requiredMessage="Se Requiere Nivel de Internet"
+                                                 style="text-transform: uppercase; height:30px; width:90px">
+                                <f:selectItems value="#{catalogo_nivelesBEAN.listaCatalogo_niveles}" var="nivelitem" itemLabel="#{nivelitem.nivel}" itemValue="#{nivelitem}"/>
+
+                                </p:selectOneMenu>
 
                         </p:column>
                         <p:column headerText="Tipo Solicitud" 
