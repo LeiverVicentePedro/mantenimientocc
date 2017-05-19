@@ -168,7 +168,7 @@ public class Niveles_internetBEAN implements Serializable {
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
             Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
             
-                
+                if(new Niveles_internetDAO().contarSolicitudesInternetPorUsuario(usuarioVive)<2){
                nivelesDao= new Niveles_internetDAO();
                catalogoNivelesdao=new Catalogo_nivelesDAO();
                nivelesInternet.setSolicita(usuarioVive);
@@ -178,11 +178,15 @@ public class Niveles_internetBEAN implements Serializable {
                System.out.println("ver "+ nivelesInternet.getId_catalogo_niveles().getNivel());
                 nivelesDao.registrarNivelesInternet(nivelesInternet);
               
-                setMensaje("Registrado");
+                setMensaje("Registro de Solicitud Enviada");
                 setRedireccion("index.xhtml");
                 FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", mensaje);
                 RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
-                
+                }else{
+                    setRedireccion("index.xhtml");
+                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion","Tiene solicitudes pendientes espere a que sean atendidas.");
+                    RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+                }  
                 
                
             }
@@ -235,7 +239,7 @@ public class Niveles_internetBEAN implements Serializable {
         try{
             nivelesdao= new Niveles_internetDAO();
             nivelesTemporal=nivelesdao.elegirDatoNivel(nivelesElegirDato);
-            
+            nivelesTemporal.setId_catalogo_niveles(nivelesElegirDato.getId_catalogo_niveles());
             if(nivelesTemporal != null){
                 this.nivelesInternet = nivelesTemporal;
             }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Niveles_internet;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
 /**
  *
@@ -267,4 +268,23 @@ public class Niveles_internetDAO extends Conexion {
         }
         return lista;
     }
+     
+     public int contarSolicitudesInternetPorUsuario(Usuario usuario) throws Exception{
+         int resultados=0;
+         try{
+             this.Conectar();
+             PreparedStatement consulta = this.getConexion().prepareStatement("select count(idniveles_internet)as maximo from niveles_internet where solicita=? and autoriza is null");
+             consulta.setInt(1, usuario.getIdUsuario());
+             
+             ResultSet resultado = consulta.executeQuery();
+             while(resultado.next()){
+             resultados = resultado.getInt("maximo");
+             }
+         }catch(Exception ex){
+             System.err.println("Error en Niveles_internetDAO -> ContarSolicitudesInternetPorUsuario "+ex);
+         }finally{
+             this.Cerrar();
+         }
+         return resultados;
+     }
 }
