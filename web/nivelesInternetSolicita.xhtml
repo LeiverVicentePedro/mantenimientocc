@@ -18,8 +18,11 @@
                     <center>
                         <p:separator style="visibility: hidden;"/> 
                         <p:outputLabel value="Niveles de Internet" style="font-size: 25px;" />
+                        <p:outputLabel value="Con el fin de que todos cuenten con los servicios de Internet, máximo se permitirá dos equipos por usuario con el nivel de acceso autorizado por su departamento." 
+                                       style="font-size: 12px;" />
                     </center>
                     <f:event type="preRenderView" listener="#{catalogo_nivelesBEAN.listaCatalogo_niveles()}"/>
+                    
                     <p:dataTable id="niveles" var="catalogo_niveles" value="#{catalogo_nivelesBEAN.listaCatalogo_niveles}" selection="#{niveles_internetBEAN.catalogo_niveles}"
                                  rowKey="#{catalogo_niveles.idcatalogo_niveles}">
                       <!--  <p:ajax event="onClick" listener="#{niveles_internetBEAN.setNivelCuatro}" process="@this" update=":formaExterior:nivel"/>-->
