@@ -55,7 +55,7 @@ public class UsuarioBEAN implements Serializable{
     //para el objeto que necesita en modificar EmpleadoPeriodo
     private Empleado_periodo empleadoPeriodoModifica= new Empleado_periodo();
     private List<Usuario> seleccionUsuario;
-
+    private List<Usuario> listaUsuarios;
     public List<Usuario> getSeleccionUsuario() {
         return seleccionUsuario;
     }
@@ -100,6 +100,7 @@ public class UsuarioBEAN implements Serializable{
     
     private List<Departamento> listaTemporalDepartamento;
     private List<Oficina_solicitante> listaTemporalOficina;
+    private List<Usuario> listaTemporalUsuario;
     private int idArea;
     private int idDepartamento;
     private int idOficina;
@@ -170,6 +171,15 @@ public class UsuarioBEAN implements Serializable{
         this.listaTemporalOficina = listaTemporalOficina;
     }
 
+    public List<Usuario> getListaTemporalUsuario() {
+        return listaTemporalUsuario;
+    }
+
+    public void setListaTemporalUsuario(List<Usuario> listaTemporalUsuario) {
+        this.listaTemporalUsuario = listaTemporalUsuario;
+    }
+    
+    
     
     public List<Usuario> getListarTodosLosUsuarios() {
         return listarTodosLosUsuarios;
@@ -293,63 +303,7 @@ public class UsuarioBEAN implements Serializable{
         }
     }
 
-    /*@PostConstruct
-    public void llenaListaOficinaUsuario() {
-        listaOficinaUsuario = new ArrayList<SelectItem>();
-        Departamento departamento;
-        Area area;
-        Oficina_solicitante oficina;
-        try {
-            List<Area> areaDAO = new AreaDAO().listarAreaOtrasVistas();
-            Iterator recorrerAreaDAO = areaDAO.listIterator();
-
-            while (recorrerAreaDAO.hasNext()) {
-
-                area = new Area();
-                area = (Area) recorrerAreaDAO.next();
-                SelectItemGroup grupoArea = new SelectItemGroup(area.getNombre_area());
-                int idArea = area.getIdarea();
-
-                List<Departamento> departamentoDAO = new DepartamentoDAO().buscarDepartamentoPorIdArea(idArea);
-                Iterator recorrerListaDepartamentoDAO = departamentoDAO.listIterator();
-                int contadorDepartamento = 0;
-                SelectItem arregloItemDepartamento[] = new SelectItem[departamentoDAO.size()];
-                while (recorrerListaDepartamentoDAO.hasNext()) {
-
-                    departamento = new Departamento();
-                    departamento = (Departamento) recorrerListaDepartamentoDAO.next();
-                    SelectItemGroup grupoDepartamento = new SelectItemGroup(departamento.getNombre_departamento());
-                    int idDepartamento = departamento.getIddepartamento();
-
-                    List<Oficina_solicitante> oficinaSolicitanteDAO = new Oficina_solicitanteDAO().buscarOficinaSolicitantePorIdDepartamento(idDepartamento);
-                    Iterator recorrerListaOficinaSolicitanteDAO = oficinaSolicitanteDAO.listIterator();
-                    int contadorOficina = 0;
-
-                    SelectItem arregloItemOficina[] = new SelectItem[oficinaSolicitanteDAO.size()];
-                    while (recorrerListaOficinaSolicitanteDAO.hasNext()) {
-
-                        oficina = new Oficina_solicitante();
-                        oficina = (Oficina_solicitante) recorrerListaOficinaSolicitanteDAO.next();
-                        SelectItem itemOficina = new SelectItem(oficina, oficina.getNombreOficina());
-
-                        arregloItemOficina[contadorOficina] = itemOficina;
-                        contadorOficina++;
-                    }
-                    grupoDepartamento.setSelectItems(arregloItemOficina);
-                    arregloItemDepartamento[contadorDepartamento] = grupoDepartamento;
-                    contadorDepartamento++;
-                }
-                grupoArea.setSelectItems(arregloItemDepartamento);
-
-                listaOficinaUsuario.add(grupoArea);
-            }
-
-        } catch (Exception e) {
-            System.out.println("Error en UsuarioBEAN -> llenarListaOficinaUsuario " + e);
-
-        }
-    }
-*/
+    
     public Usuario getRegistroUsuarioNuevo() {
         return registroUsuarioNuevo;
     }
@@ -641,10 +595,13 @@ public class UsuarioBEAN implements Serializable{
         AreaDAO areaDao = new AreaDAO();
         DepartamentoDAO departamentoDao = new DepartamentoDAO();
         Oficina_solicitanteDAO oficinaDao = new Oficina_solicitanteDAO();
+        UsuarioDAO usuarioDao = new UsuarioDAO();
         try{
         listaAreas = areaDao.listarAreaOtrasVistas();
         listaDepartamento = departamentoDao.listarDepartamentoOtrasVistas();
         listaOficinas = oficinaDao.listarOficinaOtrasVistas();
+        listaUsuarios = usuarioDao.listaUsuario();
+        
         }catch(Exception ex){
             System.out.println("Error en UsuarioBEAN -> llenarListasAreaDepartamentoOficina "+ex);
         } 
@@ -695,6 +652,18 @@ public class UsuarioBEAN implements Serializable{
         }
     }
     
+    public void usuariosDeUnaOficina(){
+        listaTemporalUsuario = new ArrayList();
+        if(idOficina !=0){
+            for(Usuario usuario : listaUsuarios){
+                if(usuario.getIdOficina().getIdOficinaSolicitante() == idOficina){
+                    listaTemporalUsuario.add(usuario);
+                }
+            }
+        }else{
+            listaTemporalUsuario.clear();
+        }
+    }
     public void llenaListaServicoCorreo(){
         listaServicioCorreo = new ArrayList();
         listaServicioCorreo.add("@hotmail.com");
