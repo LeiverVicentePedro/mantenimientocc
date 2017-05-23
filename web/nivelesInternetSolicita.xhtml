@@ -18,6 +18,7 @@
                     <p:growl id="msj" showDetail="true" sticky="true"/>
                     <p:outputLabel value="Solicitudes:" style="font-size: 15px;" />
                     <h:outputText value="&nbsp;&nbsp;#{niveles_internetBEAN.conteo}&nbsp;&nbsp;" style="font-family: sans-serif" />
+                    <p:commandButton value="Detalles" oncomplete="PF('DetalleNiveles').hide();"/>
                     
                     <center>
                         <p:outputLabel value="Niveles de Internet" style="font-size: 25px;" />
@@ -84,6 +85,89 @@
                     
 
                 </h:form>
+                
+                 <p:dialog header="Detalle de Niveles" widgetVar="DetalleNiveles" id="dialogoDetalles" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
+                  <h:form id="formaDetallesNiveles"> 
+                      
+                       <f:event type="preRenderView" listener="#{niveles_internetBEAN.listarNiveles_internetAministradorModifica()}"/>
+                          <p:dataTable id="nivel" var="niveles" value="#{niveles_internetBEAN.listanivelesAdministradorModifica}"
+                                 style="font-size: 14px;" selectionMode="multiple" selection="#{niveles_internetBEAN.seleccionNiveles_internet}" rowKey="#{niveles.idniveles_internet}"
+                                 liveResize="true"
+                                 
+                                 liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                 scrollable="true"
+                                 
+                                 widgetVar="buscar"
+                                 filteredValue="#{niveles_internetBEAN.filterNiveles_internet}"
+                          emptyMessage="No hay elementos encontrados"
+                          paginator="true" rows="10"
+                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                          paginatorPosition="bottom"
+                                 >
+                        <f:facet name="header">
+                                <p:outputPanel class="text-right">
+                                   <h:outputText value="Buscar:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('buscar').filter();" 
+                                             
+                                             style="width:150px" />
+                                </p:outputPanel>
+                           </f:facet>
+                         <p:column headerText="SO" 
+                                    sortBy="#{niveles.so}" 
+                                  filterBy="#{niveles.so}"
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                                  style=" font-size: 13px;text-transform: uppercase ">
+                            <h:outputText value="#{niveles.so}" />
+
+                        </p:column>
+                        
+                        <p:column headerText="Dirección Mac" 
+                                  sortBy="#{niveles.mac}" 
+                          filterBy="#{niveles.mac}"
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                                  style=" font-size: 13px;text-transform: uppercase ">
+
+                            <h:outputText value="#{niveles.mac}" />
+
+                        </p:column>
+                       
+                               <p:column headerText="IP" 
+                                         sortBy="#{niveles.ip}" 
+                                         filterBy="#{niveles.ip}"
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                                  style=" font-size: 13px;text-transform: uppercase ">
+                            <h:outputText value="#{niveles.ip}" />
+
+                        </p:column>
+                        <p:column headerText="Tipo Equipo" 
+                                  sortBy="#{niveles.tipo_equipo}" 
+                                  filterBy="#{niveles.tipo_equipo}"
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                                  style=" font-size: 13px;text-transform: uppercase ">
+                            <h:outputText value="#{niveles.tipo_equipo}" />
+
+                        </p:column>
+                              <p:column headerText="Modelo de Equipo" 
+                                        sortBy="#{niveles.modelo_equipo}" 
+                                        filterBy="#{niveles.modelo_equipo}"
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                                  style=" font-size: 13px;text-transform: uppercase ">
+                                  <h:outputText value="#{niveles.modelo_equipo}" />
+
+                        </p:column>
+                          
+                    </p:dataTable>
+                       
+                       <p:commandButton value="Aceptar" oncomplete="PF('DetalleNiveles').hide();" />
+                    </h:form>
+                    
+
+                </p:dialog>
             </ui:define>
 
         </ui:composition>
