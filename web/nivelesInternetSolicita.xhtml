@@ -16,7 +16,7 @@
                 <p:separator style="visibility: hidden;"/> 
                 <h:form id="formaExterior">              
                     <p:growl id="msj" showDetail="true" sticky="true"/>
-                    <p:outputLabel value="Solicitudes:" style="font-size: 15px;" />
+                    <p:outputLabel value="Solicitudes activas:" style="font-size: 15px;" />
                     <h:outputText value="&nbsp;&nbsp;#{niveles_internetBEAN.conteo}&nbsp;&nbsp;" style="font-family: sans-serif" />
                     <p:commandButton value="Detalles" oncomplete="PF('DetalleNiveles').show();"/>
                     
@@ -118,7 +118,7 @@
                                   filterBy="#{niveles.tipo_equipo}"
                           filterMatchMode="startsWith"
                           filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase " width="30">
+                                  style=" font-size: 13px;text-transform: uppercase " width="10">
                             <h:outputText value="#{niveles.tipo_equipo}" />
 
                         </p:column>
@@ -127,7 +127,7 @@
                                         filterBy="#{niveles.modelo_equipo}"
                           filterMatchMode="startsWith"
                           filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase " width="30">
+                                  style=" font-size: 13px;text-transform: uppercase " width="10">
                                   <h:outputText value="#{niveles.modelo_equipo}" />
 
                         </p:column>
@@ -136,7 +136,7 @@
                                   filterBy="#{niveles.so}"
                           filterMatchMode="startsWith"
                           filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase " width="30">
+                                  style=" font-size: 13px;text-transform: uppercase " width="10">
                             <h:outputText value="#{niveles.so}" />
 
                         </p:column>
@@ -146,7 +146,7 @@
                           filterBy="#{niveles.mac}"
                           filterMatchMode="startsWith"
                           filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase " width="30">
+                                  style=" font-size: 13px;text-transform: uppercase " width="10">
 
                             <h:outputText value="#{niveles.mac}" />
 
@@ -157,7 +157,7 @@
                                          filterBy="#{niveles.ip}"
                           filterMatchMode="startsWith"
                           filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase " width="30">
+                                  style=" font-size: 13px;text-transform: uppercase " width="10">
                             <h:outputText value="#{niveles.ip}" />
 
                         </p:column>
