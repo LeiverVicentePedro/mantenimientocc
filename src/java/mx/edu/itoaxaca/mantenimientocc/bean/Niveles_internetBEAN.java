@@ -130,10 +130,8 @@ public class Niveles_internetBEAN implements Serializable {
     public void setListanivelesAdministradorModifica(List<Niveles_internet> listanivelesAdministradorModifica) {
         this.listanivelesAdministradorModifica = listanivelesAdministradorModifica;
     }
-    
-    
-    
-    
+
+        
     private Boolean nivelCuatro;
 
     public Boolean getNivelCuatro() {
@@ -210,7 +208,46 @@ public class Niveles_internetBEAN implements Serializable {
             {
                 System.out.println("error en Niveles de Internet BEAN -->RegistrarNivelesInternetBEAN"+e);
             }
-    }   
+    }
+    
+    public void registrarNivelesInternetAdministrador() throws Exception{//usado para asignar una solicitud de solicitud de internet por parte del administrador
+        //aun por agregar informacion y eliminar infotmacion
+        Niveles_internetDAO nivelesDao;
+        
+        Catalogo_nivelesDAO catalogoNivelesdao;
+            try{
+            FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+            
+                if(new Niveles_internetDAO().contarSolicitudesInternetPorUsuario(usuarioVive)<2){
+               nivelesDao= new Niveles_internetDAO();
+               catalogoNivelesdao=new Catalogo_nivelesDAO();
+               nivelesInternet.setSolicita(usuarioVive);
+              nivelesInternet.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
+              nivelesInternet.setId_catalogo_niveles(catalogo_niveles);
+              nivelesInternet.setCorreo_solicita(usuarioVive.getCorreo());
+               System.out.println("ver "+ nivelesInternet.getId_catalogo_niveles().getNivel());
+                nivelesDao.registrarNivelesInternet(nivelesInternet);
+              
+                setMensaje("Registro de Solicitud Enviada");
+                setRedireccion("index.xhtml");
+                FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", mensaje);
+                RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+                }else{
+                    setRedireccion("index.xhtml");
+                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion","Tiene solicitudes pendientes espere a que sean atendidas.");
+                    RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+                }  
+                
+               
+            }
+            
+            catch(Exception e)
+            {
+                System.out.println("error en Niveles de Internet BEAN -->RegistrarNivelesInternetBEAN"+e);
+            }
+    }
+    
     public void limpiarNivelInternet(){
         this.nivelesInternet.setJustificacion("");
         this.nivelesInternet.setTipo_solicitud("");

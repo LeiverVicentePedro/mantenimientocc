@@ -306,7 +306,7 @@ public class UsuarioDAO extends Conexion{
         } 
     }
     
-   /* public List<Usuario> listaUsuario() throws Exception
+   public List<Usuario> listaUsuario() throws Exception
     {
         List<Usuario> listaUsuario;
         ResultSet resultado;
@@ -329,6 +329,7 @@ public class UsuarioDAO extends Conexion{
             usuarioParaLista.setId_profesion(new ProfesionDAO().elegirDatoProfesionPorIdProfesion(resultado.getInt("id_profesion")));
             usuarioParaLista.setTipoBT(resultado.getString("tipo_bt"));
             usuarioParaLista.setEstatus(resultado.getBoolean("estatus"));
+            usuarioParaLista.setFecha_nacimiento(resultado.getDate("fecha_nacimiento"));
             usuarioParaLista.setConcatenar();
             listaUsuario.add(usuarioParaLista);
             
@@ -342,7 +343,7 @@ public class UsuarioDAO extends Conexion{
        }
        return listaUsuario;
     }
-    */
+    
     //para clasificar los usuarios de nivel tres
     public List<Usuario> listaUsuarioNivelTres(Usuario usuarioNivelTres) throws Exception
     {
