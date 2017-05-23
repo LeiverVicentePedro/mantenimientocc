@@ -201,16 +201,12 @@ public class Niveles_internetBEAN implements Serializable {
         
         Catalogo_nivelesDAO catalogoNivelesdao;
             try{
-            FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
-            Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
-            
-                if(new Niveles_internetDAO().contarSolicitudesInternetPorUsuario(usuarioVive)<2){
+                if(new Niveles_internetDAO().contarSolicitudesInternetPorUsuario(nivelesInternet.getSolicita())<2){
                nivelesDao= new Niveles_internetDAO();
                catalogoNivelesdao=new Catalogo_nivelesDAO();
-               nivelesInternet.setSolicita(usuarioVive);
               nivelesInternet.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
               nivelesInternet.setId_catalogo_niveles(catalogo_niveles);
-              nivelesInternet.setCorreo_solicita(usuarioVive.getCorreo());
+              nivelesInternet.setCorreo_solicita(nivelesInternet.getSolicita().getCorreo());
                System.out.println("ver "+ nivelesInternet.getId_catalogo_niveles().getNivel());
                 nivelesDao.registrarNivelesInternet(nivelesInternet);
               

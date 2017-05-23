@@ -21,7 +21,7 @@
                     </center>
                         <h:panelGrid columns="2">
                             <p:commandButton value="Solicitado para:" oncomplete="PF('dialogoUsuario').show();"/>
-                            <p:outputLabel value="#{niveles_internetBEAN.usuario.concatenar}"/>
+                            <p:outputLabel value="#{niveles_internetBEAN.nivelesInternet.solicita.concatenar}" id="nombreUsuario"/>
                         </h:panelGrid>
                     
                     <p:separator style="visibility: hidden;"/>
@@ -79,7 +79,7 @@
 
                         <br/>
                         <center>
-                            <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.registrarNivelesInternet()}" action="nivelesInternetSolicita.xhtml" update="formaExterior" />
+                            <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.registrarNivelesInternetAdministrador()}" action="nivelesInternetSolicita.xhtml" update="formaExterior" />
                         </center>
                     </p:panel>   
 
@@ -120,7 +120,7 @@
                             </p:selectOneMenu>
                         </h:panelGrid>
                         <center>
-                            <p:commandButton value="Seleccionar" oncomplete="PF('dialogoUsuario').hide();"/>
+                            <p:commandButton value="Seleccionar" oncomplete="PF('dialogoUsuario').hide();" update=":formaExterior:nombreUsuario"/>
                     </center>
                 </p:dialog>
 
