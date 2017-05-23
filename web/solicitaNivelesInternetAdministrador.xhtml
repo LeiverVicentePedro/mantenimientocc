@@ -106,10 +106,10 @@
                             </p:selectOneMenu>
                             <p:column><br/> </p:column><p:column><br/> </p:column>
                             <p:outputLabel value="Oficina:*" style="color: black;font-size:14px" /> 
-                            <p:selectOneMenu id="oficina" value="#{usuarioBEAN.registroUsuarioNuevo.idOficina}" converter="omnifaces.SelectItemsConverter" 
+                            <p:selectOneMenu id="oficina" value="#{usuarioBEAN.idOficina}" converter="omnifaces.SelectItemsConverter" 
                                              required="true" requiredMessage="Oficina requerido" label="Oficina:" style="height:30px;width:350px">
                                 <f:selectItem noSelectionOption="true" itemLabel="-- Oficina --" itemValue="#{null}"/>
-                                <f:selectItems value="#{usuarioBEAN.listaTemporalOficina}" var="oficina" itemLabel="#{oficina.nombreOficina}" itemValue="#{oficina}"/>
+                                <f:selectItems value="#{usuarioBEAN.listaTemporalOficina}" var="oficina" itemLabel="#{oficina.nombreOficina}" itemValue="#{oficina.idOficinaSolicitante}"/>
                                 <p:ajax listener="#{usuarioBEAN.usuariosDeUnaOficina()}" update="usuario"/>
                             </p:selectOneMenu>
                              <p:column><br/> </p:column><p:column><br/> </p:column>
