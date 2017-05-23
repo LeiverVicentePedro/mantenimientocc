@@ -112,10 +112,11 @@
                                 <f:selectItems value="#{usuarioBEAN.listaTemporalOficina}" var="oficina" itemLabel="#{oficina.nombreOficina}" itemValue="#{oficina}"/>
                                 <p:ajax listener="#{usuarioBEAN.usuariosDeUnaOficina()}" update="usuario"/>
                             </p:selectOneMenu>
+                             <p:column><br/> </p:column><p:column><br/> </p:column>
                             <p:outputLabel value="Usuario:*" style="color: black;font-size:14px" /> 
                             <p:selectOneMenu id="usuario" value="#{niveles_internetBEAN.nivelesInternet.solicita}" converter="omnifaces.SelectItemsConverter" 
-                                             required="true" requiredMessage="Oficina requerido" label="Oficina:" style="height:30px;width:350px">
-                                <f:selectItem noSelectionOption="true" itemLabel="-- Oficina --" itemValue="#{null}"/>
+                                             required="true" requiredMessage="Usuario requerido" label="Usuario:" style="height:30px;width:350px">
+                                <f:selectItem noSelectionOption="true" itemLabel="-- Usuario --" itemValue="#{null}"/>
                                 <f:selectItems value="#{usuarioBEAN.listaTemporalUsuario}" var="usuario" itemLabel="#{usuario.concatenar}" itemValue="#{usuario}"/>
                             </p:selectOneMenu>
                         </h:panelGrid>
