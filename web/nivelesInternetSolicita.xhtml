@@ -86,7 +86,7 @@
 
                 </h:form>
                 
-                 <p:dialog header="Detalle de Niveles" widgetVar="DetalleNiveles" id="dialogoDetalles" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false">        
+                 <p:dialog header="Detalle de Niveles" widgetVar="DetalleNiveles" id="dialogoDetalles" closable="false"  modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="70%">        
                   <h:form id="formaDetallesNiveles"> 
                       
                        <f:event type="preRenderView" listener="#{niveles_internetBEAN.listarNiveles_internetAministradorModifica()}"/>
@@ -112,12 +112,31 @@
                                              style="width:150px" />
                                 </p:outputPanel>
                            </f:facet>
+                              
+                          <p:column headerText="Tipo Equipo" 
+                                  sortBy="#{niveles.tipo_equipo}" 
+                                  filterBy="#{niveles.tipo_equipo}"
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                                  style=" font-size: 13px;text-transform: uppercase " width="70">
+                            <h:outputText value="#{niveles.tipo_equipo}" />
+
+                        </p:column>
+                              <p:column headerText="Modelo de Equipo" 
+                                        sortBy="#{niveles.modelo_equipo}" 
+                                        filterBy="#{niveles.modelo_equipo}"
+                          filterMatchMode="startsWith"
+                          filterStyle="visibility:hidden; height:0"
+                                  style=" font-size: 13px;text-transform: uppercase " width="70">
+                                  <h:outputText value="#{niveles.modelo_equipo}" />
+
+                        </p:column>
                          <p:column headerText="SO" 
                                     sortBy="#{niveles.so}" 
                                   filterBy="#{niveles.so}"
                           filterMatchMode="startsWith"
                           filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase ">
+                                  style=" font-size: 13px;text-transform: uppercase " width="70">
                             <h:outputText value="#{niveles.so}" />
 
                         </p:column>
@@ -127,7 +146,7 @@
                           filterBy="#{niveles.mac}"
                           filterMatchMode="startsWith"
                           filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase ">
+                                  style=" font-size: 13px;text-transform: uppercase " width="70">
 
                             <h:outputText value="#{niveles.mac}" />
 
@@ -138,33 +157,17 @@
                                          filterBy="#{niveles.ip}"
                           filterMatchMode="startsWith"
                           filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase ">
+                                  style=" font-size: 13px;text-transform: uppercase " width="70">
                             <h:outputText value="#{niveles.ip}" />
 
                         </p:column>
-                        <p:column headerText="Tipo Equipo" 
-                                  sortBy="#{niveles.tipo_equipo}" 
-                                  filterBy="#{niveles.tipo_equipo}"
-                          filterMatchMode="startsWith"
-                          filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase ">
-                            <h:outputText value="#{niveles.tipo_equipo}" />
-
-                        </p:column>
-                              <p:column headerText="Modelo de Equipo" 
-                                        sortBy="#{niveles.modelo_equipo}" 
-                                        filterBy="#{niveles.modelo_equipo}"
-                          filterMatchMode="startsWith"
-                          filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase ">
-                                  <h:outputText value="#{niveles.modelo_equipo}" />
-
-                        </p:column>
+                       
                           
                     </p:dataTable>
-                       
+                       <center>
                        <p:commandButton value="Aceptar" oncomplete="PF('DetalleNiveles').hide();" />
-                    </h:form>
+                       <center/>
+                  </h:form>
                     
 
                 </p:dialog>
