@@ -336,7 +336,7 @@ public class UsuarioDAO extends Conexion{
            }
    
        }catch(Exception ex){
-           System.out.println("Eror en UsuarioDAO -> listaUsuarioDepartamento "+ex);
+           System.out.println("Error en UsuarioDAO -> listaUsuarioDepartamento "+ex);
            throw ex;
        }finally{
            this.Cerrar();
