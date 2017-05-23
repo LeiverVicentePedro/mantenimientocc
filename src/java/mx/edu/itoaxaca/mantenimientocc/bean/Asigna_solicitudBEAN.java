@@ -151,6 +151,7 @@ public class Asigna_solicitudBEAN implements Serializable {
             System.out.println("DATOS DE ASIGNACION" + asigna_Solicitud.getId_usuario_personal_jefe().getNombre());
 
             asignaSolicitudDao.registrarAsignarSolicitud(asigna_Solicitud);
+            
             /*seccion donde se pone el estatus de la solicitud en falso para su asignacion*/
             Solicitud_mc solicitudAsignada = asigna_Solicitud.getId_solicitud();
             new Solicitud_mcDAO().modificarSolicitudMC(solicitudAsignada);
@@ -167,7 +168,7 @@ public class Asigna_solicitudBEAN implements Serializable {
             asignarCorreo.start();
 
             //seccion donde se crea colaboradores si la solicitud a asignar lo requeire.
-            if (nesecitaColabordores) {
+            if (nesecitaColabordores==true) {
 
                 for (Usuario colaborador : listaColaboradores) {
                     Colaboracion colaboracion = new Colaboracion();
@@ -176,9 +177,12 @@ public class Asigna_solicitudBEAN implements Serializable {
                     colaboracion.setEstatus(true);
                     new ColaboracionDAO().AgregarColaborador(colaboracion);
                 }
+                 setNesecitaColabordores(false);
+                listaColaboradores.clear();
             }
-
+            
             this.limpiarAsignaSolicitud();
+            
             System.out.println("fecha del sistema " + asigna_Solicitud.getFecha());
 
             //  this.limpiar();
@@ -202,8 +206,6 @@ public class Asigna_solicitudBEAN implements Serializable {
     public void limpiarAsignaSolicitud() {
         this.asigna_Solicitud.setId_solicitud(null);
         this.asigna_Solicitud.setId_usuario_personal(null);
-        setNesecitaColabordores(false);
-        listaColaboradores.clear();
 
     }
 
