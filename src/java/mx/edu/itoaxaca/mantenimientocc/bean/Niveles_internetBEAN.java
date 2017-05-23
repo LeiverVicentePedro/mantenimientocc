@@ -51,6 +51,21 @@ public class Niveles_internetBEAN implements Serializable {
     
     private String redireccion;
     private String mensaje;
+    private int conteo;
+
+    public int getConteo() throws Exception {
+         FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+               Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+            
+               
+        return conteo=new Niveles_internetDAO().contarSolicitudesInternetPorUsuarioDetalles(usuarioVive);
+    }
+
+    public void setConteo(int conteo) {
+        this.conteo = conteo;
+    }
+    
+    
 
     public String getMensaje() {
         return mensaje;
@@ -340,6 +355,7 @@ public class Niveles_internetBEAN implements Serializable {
                 System.out.println("error en Niveles_internetBEAN -> modificarAdministrador "+e);
             }
     } 
+
     
     public void elegirDatoNivelesInternetAdministradorModificar(Niveles_internet nivelesElegirDato) throws Exception{//esto es para dar de baja primero se elige el dato y despues se pone en inactivo
         Niveles_internetDAO nivelesdao;
