@@ -254,7 +254,7 @@ public class UsuarioBEAN implements Serializable{
         try {
             usuarioDao = new UsuarioDAO();
            registroUsuarioNuevo.setEstatus(true); 
-           if((registroUsuarioNuevo.getId_profesion().getNombre_profesion().trim()+registroUsuarioNuevo.getNombre().trim()+registroUsuarioNuevo.getApellidoPaterno().trim()+registroUsuarioNuevo.getApellidoMaterno().trim()).equalsIgnoreCase(registroUsuarioNuevo.getIdOficina().getDepartamento().getNombre_jefe().replaceAll("\\s", ""))){//para saber si es jefe o usuario comun
+           if((registroUsuarioNuevo.getId_profesion().getNombre_profesion().trim()+registroUsuarioNuevo.getNombre().trim().replaceAll("\\s", "")+registroUsuarioNuevo.getApellidoPaterno().trim().replaceAll("\\s", "")+registroUsuarioNuevo.getApellidoMaterno().trim().replaceAll("\\s", "")).equalsIgnoreCase(registroUsuarioNuevo.getIdOficina().getDepartamento().getNombre_jefe().replaceAll("\\s", ""))){//para saber si es jefe o usuario comun
             registroUsuarioNuevo.setNivel(0);   
           }else{
            registroUsuarioNuevo.setNivel(1);
