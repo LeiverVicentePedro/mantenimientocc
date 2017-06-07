@@ -7,8 +7,7 @@ package mx.edu.itoaxaca.mantenimientocc.conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -33,8 +32,8 @@ public class Conexion {
             String usuarioDB="u135348475_root";
             String passwordDB="administrador"; 
       conexion = DriverManager.getConnection("jdbc:mysql://mysql140309-simapreco.j.layershift.co.uk/mantenimientobd?user=root&password=TFSbhb72636");*/
-      conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=admin");
-       //conexion = DriverManager.getConnection("jdbc:mysql://mysql144642-simapreco.j.layershift.co.uk/mantenimientobd?user=root&password=mKSZUI275h");
+      conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=sistemasTec01");
+       //conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=admin");
      
    //  conexion= DriverManager.getConnection(servidor,usuarioDB,passwordDB);
         }
