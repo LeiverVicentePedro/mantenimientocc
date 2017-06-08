@@ -28,14 +28,8 @@ public class Conexion {
     public void Conectar() throws Exception{
         try{
      Class.forName("com.mysql.jdbc.Driver");
-    /* String servidor = "jdbc:mysql://sql37.hostinger.mx:3306/u135348475_mant";
-            String usuarioDB="u135348475_root";
-            String passwordDB="administrador"; 
-      conexion = DriverManager.getConnection("jdbc:mysql://mysql140309-simapreco.j.layershift.co.uk/mantenimientobd?user=root&password=TFSbhb72636");*/
-      conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=sistemaTec01");
-       //conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=admin");
-     
-   //  conexion= DriverManager.getConnection(servidor,usuarioDB,passwordDB);
+      //conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=sistemaTec01");
+       conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mantenimientobd?user=root&password=admin");
         }
      catch(Exception ex){
         System.out.println("Error de Conexion" +ex+" ==============================");
