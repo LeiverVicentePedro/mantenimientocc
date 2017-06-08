@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import mx.edu.itoaxaca.mantenimientocc.dao.DetalleSeguimientoDAO;
 
 import mx.edu.itoaxaca.mantenimientocc.dao.Orden_internaDAO;
-import mx.edu.itoaxaca.mantenimientocc.dao.Refaccion_empleadaDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Relacion_orden_equipoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Relacion_orden_refaccionDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.SeguimientoDAO;
@@ -41,8 +40,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DefaultUploadedFile;
-import org.primefaces.model.UploadedFile;
+
 
 
 /**
@@ -211,15 +209,7 @@ public class Orden_internaBEAN implements Serializable{
 
             }
                 System.out.println("Lista de Refaccion "+listaRefaccion.size());                      
-           /* for (int i = 0; i < listaRefaccion.size(); i++) {
-                Relacion_orden_refaccion detalleOrdenRefaccion = new Relacion_orden_refaccion();
-                new Refaccion_empleadaDAO().registrarRefaccion(listaRefaccion.get(i));
-                listaRefaccion.set(i,new Refaccion_empleadaDAO().BuscaRefaccionEmpledaPorObjeto(listaRefaccion.get(i)));
-                detalleOrdenRefaccion.setIdOrdenRefaccion(ordenTemporal);
-                detalleOrdenRefaccion.setIdRefaccion(listaRefaccion.get(i));
-                relacion_orden_refaccionDAO.registrarDetalleOrdenRefaccion(detalleOrdenRefaccion);
-               
-            }*/
+           
             
             System.out.println("fecha del sistema " + orden_interna.getFecha());
             Seguimiento segimiento = new SeguimientoDAO().elegirDatoSeguimiento(folioDesdeAsignacion);
@@ -380,7 +370,8 @@ public class Orden_internaBEAN implements Serializable{
         this.orden_interna.setSe_recibe("");
     }
     
-    /*Metodo que llena la lista para las refacciones empleadas*/
+    /*Metodo que llena la lista para las refacciones empleadas
+      actualmente no utilizada debido a que las refacciones ya no son listadas en esta etapa del sistema*/
    /* public void agregaRefaccion(){
         System.out.println(refaccion.getDescripcion()+"objeto");
         

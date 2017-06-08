@@ -160,7 +160,7 @@ public class Catalogo_servicio_solicitadoBEAN  implements Serializable{
         
     }
     
-     /*
+     /* se Mantiene comentado debido que se remplazo por el metodo dar de baja ya que en la base de datos no se puede romper la relacion entre datos.
     public void eliminarCatalogo(Catalogo_servicio_solicitado catalogoEliminar) throws Exception{
         Catalogo_servicio_solicitadoDAO catalogodao;
             try{

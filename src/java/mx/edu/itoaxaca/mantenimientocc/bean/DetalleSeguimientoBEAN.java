@@ -146,21 +146,7 @@ public class DetalleSeguimientoBEAN implements Serializable{
             System.out.println("error en DetalleSegimientoBEAN --> listarDetalleBEAN"+e);
         }
     }
-    /*
-    public void listarDetalleSeguimientoEstados() throws Exception{
-        DetalleSeguimientoDAO detalleSeguimientodao;
-        try{
-            detalleSeguimientodao=new DetalleSeguimientoDAO();
-             FacesContext contextoOT = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
-            solicitudEstado = (Solicitud_mc) contextoOT.getExternalContext().getSessionMap().get("solicitudAsignadaEstado");
-            System.out.println("Para Estados"+solicitudEstado.getIdsolicitud_mc());
-            detalleListaSeguimientoEstados = detalleSeguimientodao.listarEstados(solicitudEstado);
-            System.out.println(detalleListaSeguimientoEstados);
-        }
-        catch(Exception e){
-            System.out.println("error en DetalleSegimientoEstadoBEAN --> listarDetalleEstadoBEAN"+e);
-        }
-    }*/
+    
     public void eligeIdAsignaSolicitudEstados(Solicitud_mc ordenTrabajoFolio){//para Seguimiento,Orden Interna,Trabajo
        
                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("solicitudAsignadaEstado",ordenTrabajoFolio);

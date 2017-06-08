@@ -144,7 +144,7 @@ public class Oficina_solicitanteBEAN implements Serializable{
                 break;
         }
     }
-     /*Se remplasara por dar de baja
+     /*Se remplasara por dar de baja ya que no se puede eliminar de la base de datos
      public void eliminarOficina(Oficina_solicitante oficinaEliminar) throws Exception{
         Oficina_solicitanteDAO oficinadao;
             try{

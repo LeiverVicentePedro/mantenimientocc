@@ -96,7 +96,7 @@ public class AccesoBEAN implements Serializable{
                  if(usuarioBean.getNivel()==3){
                 setRedireccion("principal.xhtml");
                 }
-               // new ValidacionMantenimientoRFC().comparaRFC(usuarioBean.getNombre(), usuarioBean.getApellidoPaterno(), usuarioBean.getApellidoMaterno(), usuarioBean.getFecha_nacimiento());
+              
             } else {
                 setMensajeAcceso("Credenciales incorrectos");
                 FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", mensajeAcceso);
@@ -127,7 +127,7 @@ public class AccesoBEAN implements Serializable{
             if (usuarioVive == null) {
                 contexto.getExternalContext().redirect("index.xhtml");
             } else {
-              //  nombreCompleto = usuarioVive.getNombre() + " " + usuarioVive.getApellidoPaterno() + " " + usuarioVive.getApellidoMaterno();
+             
                  nombreCompleto = " " + usuarioVive.getNombre() ;
             }
         } catch (Exception ex) {

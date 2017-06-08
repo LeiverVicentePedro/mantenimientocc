@@ -17,15 +17,14 @@ import mx.edu.itoaxaca.mantenimientocc.dao.SeguimientoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Solicitud_mcDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.DetallePorMesSolicitud;
 import mx.edu.itoaxaca.mantenimientocc.modelo.ModeloEmpleadoReporte;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Oficina_solicitante;
 import mx.edu.itoaxaca.mantenimientocc.modelo.SolicitudPorDepartamento;
-import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
+
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
-import net.sf.jasperreports.engine.JREmptyDataSource;
+
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 
@@ -124,7 +123,8 @@ public class EstadisticoBEAN {
     }
     
     
-    
+    //metodo aun en construccion no se encuentra terminado solo esta la estructura
+    //se necesita aun extraer los datso y darle un formato.
     public void reportePDF(){
         try{
             File archivo = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reporteEstadisticoDepartamento.jasper"));

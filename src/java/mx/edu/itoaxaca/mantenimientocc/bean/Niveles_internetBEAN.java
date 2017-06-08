@@ -19,7 +19,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoInternet;
-import mx.edu.itoaxaca.mantenimientocc.correo.CorreoSolicitudMC;
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_nivelesDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.Niveles_internetDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Catalogo_niveles;
@@ -178,7 +177,7 @@ public class Niveles_internetBEAN implements Serializable {
         
         Catalogo_nivelesDAO catalogoNivelesdao;
             try{
-            FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+            FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar al dom del navegador
             Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
             
                 if(new Niveles_internetDAO().contarSolicitudesInternetPorUsuario(usuarioVive)<2){
