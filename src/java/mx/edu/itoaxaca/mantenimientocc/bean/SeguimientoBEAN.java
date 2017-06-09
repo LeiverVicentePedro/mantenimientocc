@@ -6,6 +6,7 @@
 package mx.edu.itoaxaca.mantenimientocc.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -72,6 +73,7 @@ public class SeguimientoBEAN implements Serializable{
     public void listarSeguimiento() throws Exception{
         SeguimientoDAO seguimientodao;
         try{
+            
             seguimientodao=new SeguimientoDAO();
             listarSeguimiento = seguimientodao.listarSeguimiento();
         }

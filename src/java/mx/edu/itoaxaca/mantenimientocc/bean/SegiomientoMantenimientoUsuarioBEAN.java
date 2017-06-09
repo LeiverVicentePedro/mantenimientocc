@@ -37,9 +37,9 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     private String noExisteSolicitud;
     private String vista;
     private List<Solicitud_mc> listaSolicitudActivas = new ArrayList();
-    private List<DetalleSeguimiento> listaDetalle = new ArrayList();
-    private List<DetalleSeguimiento> listaDetalleProceso = new ArrayList();
-    private List<DetalleSeguimiento> listaDetalleFinal = new ArrayList();
+    private List<DetalleSeguimiento> listaDetalle ;
+    private List<DetalleSeguimiento> listaDetalleProceso;
+    private List<DetalleSeguimiento> listaDetalleFinal;
     private List<Solicitud_mc> listaSolicitudActivasfilter;
 
     public List<Solicitud_mc> getListaSolicitudActivasfilter() {
@@ -173,7 +173,9 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     public void setListaDetalleImagenes() throws IOException, Exception {
         List<DetalleSeguimiento> listaSD = new ArrayList();
         listaSD = getListaDetalleImagenes();
-
+        listaDetalle = new ArrayList();
+        listaDetalleProceso = new ArrayList();
+        listaDetalleFinal = new ArrayList();
         for (DetalleSeguimiento seguimiento : listaSD) {
             if (seguimiento.getEstado().equalsIgnoreCase("Inicial")) {
                 listaDetalle.add(seguimiento);
@@ -199,7 +201,7 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
         for (int contador = 0; contador < listaDetalle.size(); contador++) {
             FileOutputStream salida = new FileOutputStream(path+"\\"+listaDetalle.get(contador).getEstado()+contador+".jpg");
             //FileOutputStream salida = new FileOutputStream(path + "" + listaDetalle.get(contador).getEstado() + contador + ".jpg");
-            System.out.println("con Imagen " + path + "" + listaDetalle.get(contador).getEstado() + contador + ".jpg");
+            System.out.println("con Imagen " + path + "\\" + listaDetalle.get(contador).getEstado() + contador + ".jpg");
             salida.write(listaDetalle.get(contador).getImagenDowload());
             salida.close();
             listaDetalle.get(contador).setRuta(listaDetalle.get(contador).getEstado() + contador + ".jpg");

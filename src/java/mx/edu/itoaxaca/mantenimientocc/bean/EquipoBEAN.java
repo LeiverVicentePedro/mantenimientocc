@@ -144,7 +144,7 @@ public class EquipoBEAN implements Serializable{
                 break;
         }
     }
-     //se modifica por metodo baja
+     //se modifica por metodo baja ya que no se puede eliminar desde la base de datos
     /* public void eliminarEquipo(Equipo equipoEliminar) throws Exception{
         EquipoDAO equipodao;
             try{
