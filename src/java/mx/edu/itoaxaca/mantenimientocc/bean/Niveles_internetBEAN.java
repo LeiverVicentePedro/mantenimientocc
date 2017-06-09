@@ -231,7 +231,7 @@ public class Niveles_internetBEAN implements Serializable {
                 RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
                 }else{
                     setRedireccion("index.xhtml");
-                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion","Tiene solicitudes pendientes espere a que sean atendidas.");
+                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion","Tiene solicitudes pendientes esperé a que sean atendidas.");
                     RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
                 }  
                 
