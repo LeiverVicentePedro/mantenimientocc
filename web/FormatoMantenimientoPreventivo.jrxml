@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="702" leftMargin="45" rightMargin="45" topMargin="42" bottomMargin="42" uuid="112c7786-2df2-4048-8c78-70a02529f619">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="77"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="40"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -306,30 +306,30 @@
 		<band height="65" splitType="Stretch">
 			<image vAlign="Middle">
 				<reportElement x="627" y="0" width="75" height="64" uuid="7f59ab24-06d7-462a-aa09-6a086d4cebe6"/>
-				<imageExpression><![CDATA["resources\\images\\LogoITO.png"]]></imageExpression>
+				<imageExpression><![CDATA["resources/images/LogoITO.png"]]></imageExpression>
 			</image>
 			<image vAlign="Middle">
 				<reportElement x="0" y="0" width="150" height="64" uuid="99e474ce-631e-4493-b6e4-87c186d94789"/>
-				<imageExpression><![CDATA["resources\\images\\gobmx.png"]]></imageExpression>
+				<imageExpression><![CDATA["resources/images/gobmx.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="263" y="30" width="254" height="16" uuid="4cfe026b-bcca-479e-9453-ed0f162d3ea4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="12" isBold="false"/>
+					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[INSTITUTO TECNOLÓGICO DE OAXACA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="225" y="8" width="330" height="20" uuid="d197e9d3-4020-469c-b3bf-8ad2e4bc733c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TECNOLÓGICO NACIONAL DE MÉXICO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="250" y="46" width="283" height="17" uuid="737d305a-0b55-4d7e-8c75-1410e021aba0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="12" isBold="false"/>
+					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Programa de Mantenimiento Preventivo]]></text>
 			</staticText>

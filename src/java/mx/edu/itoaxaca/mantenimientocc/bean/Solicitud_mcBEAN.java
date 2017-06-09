@@ -41,7 +41,7 @@ public class Solicitud_mcBEAN implements Serializable{
 
     Solicitud_mc solicitudmc = new Solicitud_mc();
     
-    List<Catalogo_servicio_solicitado> serviciosSeleccionados;//usado por el cheboxl
+    List<Catalogo_servicio_solicitado> serviciosSeleccionados = new ArrayList();//usado por el cheboxl
     List<Catalogo_servicio_solicitado> serviciosPorDepartamento;
     List<Catalogo_servicio_solicitado> catalogoServicio;
   
