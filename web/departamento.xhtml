@@ -22,7 +22,7 @@
                         <p:outputLabel value="Listado de Departamentos del ITO" style="font-size: 25px;" />
                     </center>
                     <p:separator/> 
-                    <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{departamentoBEAN.setAccion('Registrar')}" update=":dialogoDatos" >
+                    <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{departamentoBEAN.setAccion('Registrar')}" update=":lista:dialogoDatos" >
                         <f:ajax execute="#{departamentoBEAN.listarDepartamento()}" render="data" />
                     </p:commandButton>
 
@@ -117,7 +117,7 @@
                         <p:column headerText="MODIFICAR"
                                   width="20" style="font-size: 11px ">
                             <center>
-                                <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('Datos').show();" update=":dialogoDatos"/>
+                                <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('Datos').show();" update=":lista:dialogoDatos"/>
                             </center>
                         </p:column>
                         <p:column headerText="CAMBIAR ESTADO"
