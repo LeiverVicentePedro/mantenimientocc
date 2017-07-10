@@ -216,9 +216,9 @@ public class Orden_internaBEAN implements Serializable{
             
             /*subir evidencia a la base de datos de que falta herramientas
             *creando los objetos nesesarios*/
-            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("\\resources");
-            File imagen = new File(path+"\\"+"images\\"+"aviso.jpg");
-            System.out.println("ruta imagen:-> "+path+"\\"+"images\\"+"aviso.jpg");
+            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources");
+            File imagen = new File(path+"/"+"images/"+"aviso.jpg");
+            System.out.println("ruta imagen:-> "+path+"/"+"images/"+"aviso.jpg");
             FileInputStream parseoImagen = new FileInputStream(imagen);
             if(!orden_interna.getRefaccion_faltante().isEmpty()){
             DetalleSeguimiento detalleseguimiento = new DetalleSeguimiento();
