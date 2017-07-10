@@ -61,7 +61,7 @@
                                   filterBy="#{departamento.clave_departamento}"
                                   filterMatchMode="startsWith"
                                   filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase " width="1" >
+                                  style=" font-size: 13px;text-transform: uppercase " width="2" >
 
                             <h:outputText value="#{departamento.clave_departamento}"  />
 
@@ -71,7 +71,7 @@
                                   filterBy="#{departamento.nombre_departamento}"
                                   filterMatchMode="startsWith"
                                   filterStyle="visibility:hidden; height:0"
-                                  style=" font-size: 13px;text-transform: uppercase " width="55">
+                                  style=" font-size: 13px;text-transform: uppercase " width="45">
 
                             <p:outputLabel value="#{departamento.nombre_departamento}" />
 
@@ -99,7 +99,7 @@
                         <p:column headerText="ESTADO"
                                   sortBy="#{departamento.estatus}"
                                   filterBy="#{departamento.estatus}"
-                                  filterMatchMode="equals" style=" font-size: 13px;text-transform: uppercase " width="40">
+                                  filterMatchMode="equals" style=" font-size: 13px;text-transform: uppercase " width="50">
 
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('buscar').filter()" style="font-size: 9px ">
@@ -115,13 +115,14 @@
                             </p:outputLabel>
                         </p:column>
                         <p:column headerText="MODIFICAR"
-                                  width="20" style="font-size: 11px ">
+                                  width="25" style="font-size: 11px ">
                             <center>
                                 <p:commandButton process="data" icon="fa fa-pencil" actionListener="#{departamentoBEAN.elegirDatoDepartamento(departamento)}" oncomplete="PF('Datos').show();" update=":lista:dialogoDatos"/>
                             </center>
                         </p:column>
-                        <p:column headerText="CAMBIAR ESTADO"
-                                  width="35" style="font-size: 11px ">
+                        <p:column style="font-size: 11px "
+                                  headerText="CAMBIAR ESTADO"
+                                  width="40">
                             <center>
                                 <p:commandButton process="data" icon="fa fa-refresh" actionListener="#{departamentoBEAN.elegirDatoDepartamentoBaja(departamento)}" update="data"/>
                             </center>
