@@ -58,7 +58,7 @@ public class HorasEmpleadoBEAN implements Serializable {
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             String ipAddress=getRemoteAddress(request);
             String ipNueva = ipAddress;
-            System.out.println("ip del local: "+ipNueva);
+            //System.out.println("ip del local: "+ipNueva);
             //ip = InetAddress.getLocalHost();
             ConfiguracionServicioSocial configuracion = new ConfiguracionServicioSocial();
             configuracion = new ConfiguracionServicioSocialDAO().seleccionarConfiguracion();
@@ -89,29 +89,11 @@ public class HorasEmpleadoBEAN implements Serializable {
                         NuevoDetalleHoras = new DetalleHorasEmpleadoDAO().buscaDetalleHorasEmpleado(existeRegistroHoras);
                         System.out.println("Entro en actualiza hora salida");
                         NuevoDetalleHoras.setHoraSalida(new SimpleDateFormat("HH:mm:ss").format(new java.sql.Date(new java.util.Date().getTime())));
+                        System.out.println("Hora de salida: "+NuevoDetalleHoras.getHoraSalida());
                         new DetalleHorasEmpleadoDAO().actualizarDetalleHorasEmpleado(NuevoDetalleHoras);
-
-                        /*seccion para calcular las horas que le faltan*/
-                        ConfiguracionServicioSocial servicio = new ConfiguracionServicioSocial();
-                        servicio = new ConfiguracionServicioSocialDAO().seleccionarConfiguracion();
-                        TotalHorasEmpleado misHoras = new TotalHorasEmpleado();
-                        misHoras = new TotalHorasEmpleadoDAO().totalMisHoras(usuarioVive);
-                        long horastotales = servicio.getHoras_servicio() * 3600000;
-                        String[] arr = new String[3];
-                        StringTokenizer st = new StringTokenizer(misHoras.getHorasTotales(), ":", false);
-                        int cont = 0;
-                        while (st.hasMoreTokens()) {
-                            arr[cont] = st.nextToken();
-                            cont++;
-                        }
-                        long hora = Integer.parseInt(arr[0]) * 3600000;
-                        long min = Integer.parseInt(arr[1]) * 60000;
-                        long totalFaltante = horastotales - (hora + min);
-
-                        long horas = totalFaltante / 3600000;
-                        long minutos = (totalFaltante % 3600000) / 60000;
-
-                        FacesMessage mensajeHorasFaltantes = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Hora de Salida Registrada\n" + "Te Falta: " + horas + ":" + minutos + " Horas");
+                        System.out.println("Exito se termino el registro");
+                      
+                        FacesMessage mensajeHorasFaltantes = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Hora de Salida Registrada");
                         RequestContext.getCurrentInstance().showMessageInDialog(mensajeHorasFaltantes);
                         /*termina seccion para calcular las horas que le faltan*/
                     }
