@@ -439,6 +439,7 @@ public class UsuarioBEAN implements Serializable{
             Thread.sleep(2500);
             usuariodao.modificarUsuario(objetoUsuario);
             this.listaUsuarioDepartameto();
+            this.listarUsuarioNivelUno();
         } catch (Exception ex) {
 
         }
