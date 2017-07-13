@@ -390,7 +390,7 @@ public class UsuarioDAO extends Conexion{
         ResultSet resultado;
        try{
            this.Conectar();
-           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario where nivel like '1%' and nivel like '0%' and nivel like'3%'" );
+           PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM usuario where nivel like '1%' or nivel like '0%' or nivel like'3%'" );
            resultado = consulta.executeQuery();
            listaUsuario = new ArrayList();
            while(resultado.next()){
