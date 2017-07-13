@@ -265,6 +265,7 @@ background-color: red;
                         <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
                         <f:event type="preRenderView" listener="#{usuarioBEAN.llenaListaServicoCorreo()}"/>
                         <f:event type="preRenderView" listener="#{periodo_semestralBEAN.listarPeriodo()}"/>
+                        <f:event type="preRenderView" listener="#{usuarioBEAN.departamentoDeUnArea()}"/>
                      
                 <p:wizard backLabel="Atras" nextLabel="Siguiente">
                      <p:tab id="personal" title="Personal" >
@@ -481,7 +482,9 @@ background-color: red;
                            <p:column><br/> </p:column><p:column><br/> </p:column>
                            <h:outputText value="Estatus: " style="color: black;font-size:13px"/>
                            <h:outputText value="#{usuarioBEAN.objetoUsuario.estatus}" styleClass="outputLabel"
-                                         style="color: black;font-size:13px;text-transform: uppercase"/>
+                                         style="color: black;font-size:13px;text-transform: uppercase">
+                             <f:converter converterId="conversionEstatus" />
+                           </h:outputText>
                            <p:column><br/> </p:column><p:column><br/> </p:column>
                            <h:outputText value="Nivel de Acceso: " style="color: black;font-size:13px"/>
                            <h:outputText value="#{usuarioBEAN.objetoUsuario.nivel}" styleClass="outputLabel"
@@ -592,11 +595,11 @@ background-color: red;
                          <h:panelGrid id="trabajoFM" columns="3" columnClasses="grid,grid" class="container-fluid  text-justify">
                             <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="500">
                                 
-                                <h:outputText value="Departamento:" style="color: black;font-size:12px"/>
-                                <p:selectOneMenu id="departamentoM" value="#{usuarioBEAN.idDepartamento}" converter="omnifaces.SelectItemsConverter" label="Departamento:" 
+                                 <h:outputText value="Departamento:" style="color: black;font-size:12px"/>
+                                 <p:selectOneMenu id="departamentoM" value="#{usuarioBEAN.objetoUsuario.idOficina.departamento}" converter="omnifaces.SelectItemsConverter" label="Departamento:" 
                                                  required="true" requiredMessage="Departamento requerido" style="height:30px;width:300px">
                                     <f:selectItem noSelectionOption="true" itemLabel="-- Departamento --" itemValue="#{null}"/>
-                                    <f:selectItems value="#{usuarioBEAN.listaTemporalDepartamento}" var="departamento" itemLabel="#{departamento.nombre_departamento}" itemValue="#{departamento.iddepartamento}"/>
+                                    <f:selectItems value="#{usuarioBEAN.listaTemporalDepartamento}" var="departamento" itemLabel="#{departamento.nombre_departamento}" itemValue="#{departamento}"/>
                                     <p:ajax listener="#{usuarioBEAN.oficinaDeUnDepartamento()}" update="oficinaM"/>
                                 </p:selectOneMenu>
                                 
