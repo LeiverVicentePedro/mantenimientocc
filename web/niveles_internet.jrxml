@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="526" leftMargin="44" rightMargin="42" topMargin="14" bottomMargin="12" uuid="9f46ccbd-731f-4d17-bb1e-1436240e656d">
 	<property name="ireport.zoom" value="2.1961500000000007"/>
-	<property name="ireport.x" value="49"/>
-	<property name="ireport.y" value="1142"/>
+	<property name="ireport.x" value="108"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="fechasolicitud" class="java.lang.String"/>
 	<parameter name="departamento" class="java.lang.String"/>
 	<parameter name="area" class="java.lang.String"/>
@@ -40,7 +40,7 @@
 		<band height="67" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="1" width="192" height="65" uuid="95b529f1-2674-4a24-8a7c-428698b058aa"/>
-				<imageExpression><![CDATA["resources\\images\\gobmx.png"]]></imageExpression>
+				<imageExpression><![CDATA["resources/images/gobmx.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="334" y="1" width="192" height="20" forecolor="#666666" uuid="00d0b898-026c-4a12-a045-38cfc1ec7ebe"/>
@@ -94,7 +94,7 @@
 		<band height="537">
 			<image>
 				<reportElement x="41" y="23" width="443" height="429" uuid="74dc36e3-4da5-4b13-9b06-1819bceb6e75"/>
-				<imageExpression><![CDATA["resources\\images\\escudo nacional.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["resources/images/escudo nacional.jpg"]]></imageExpression>
 			</image>
 			<rectangle>
 				<reportElement x="0" y="21" width="525" height="25" uuid="fa52f3ab-5898-4f2d-aaa9-29905e69c97c"/>
@@ -751,15 +751,15 @@
 		<band height="48">
 			<image>
 				<reportElement x="464" y="0" width="61" height="48" uuid="481206b4-210d-41e4-9de7-9daed93d964f"/>
-				<imageExpression><![CDATA["resources\\images\\pie de pagina 2.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["resources/images/pie de pagina 2.jpg"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="410" y="1" width="54" height="47" uuid="a55f9626-0195-4fbb-be0b-24472cb74de7"/>
-				<imageExpression><![CDATA["resources\\images\\pie de pagina1.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["resources/images/pie de pagina1.jpg"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="2" y="1" width="48" height="47" uuid="32546e7c-86ae-4ef8-ae9c-045b99407c78"/>
-				<imageExpression><![CDATA["resources\\images\\LogoITO.png"]]></imageExpression>
+				<imageExpression><![CDATA["resources/images/LogoITO.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="94" y="9" width="281" height="11" uuid="824e9faf-0503-4ea2-a8b1-f4c682ae5d53"/>

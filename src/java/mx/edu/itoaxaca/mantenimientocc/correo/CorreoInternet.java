@@ -38,7 +38,7 @@ public class CorreoInternet extends ConexionCorreo implements Runnable{
                     + "<center><p>favor de comunicarse con su jefe inmediato para mas informaci&ocute;n</p></center>"+"\n"
                     + "<br/><br/><center><h6 style=\" color:red; font-size:10px;\">* Este correo es de car&aacute;cter Informativo no es relevante y los datos contenidos son proporcionados por el sistema.<h6></center>"
                     + "<center>Puede Acceder al sistema a trav&eacute;s del siguiente enlace:<br/></center>"
-                    +"<center><b><a href="+"\"http://187.154.40.169:8080/mantenimientocc/\" style=\" color:blue;\"><b>SISTEMA DE MANTENIMIENTO PREVENTIVO Y/O CORRECTIVO DEL ITO<b/>"+"</a></b></center>"
+                    +"<center><b><a href="+"\"http://mantenimientocc.itoaxaca.edu.mx:8080/\" style=\" color:blue;\"><b>SISTEMA DE MANTENIMIENTO PREVENTIVO Y/O CORRECTIVO DEL ITO<b/>"+"</a></b></center>"
                     + "<br/><br/>"
                     + "<center><div><p style=\"font-size: 10pt; line-height:100%;\">Tecnol&oacute;gico Nacional de M&eacute;xico / Instituto Tecnol&oacute;gico de Oaxaca<br/>"
                     + "Avenida Ing. V&iacute;ctor Bravo Ahuja<br/>"
