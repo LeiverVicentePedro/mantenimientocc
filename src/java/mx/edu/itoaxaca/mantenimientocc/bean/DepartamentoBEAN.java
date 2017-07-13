@@ -130,16 +130,6 @@ public class DepartamentoBEAN implements Serializable{
             
             if(departamentoTemporal!=null){
                  this.departamento = departamentoTemporal;
-                //periodo = new Empleado_periodoDAO().
-                StringTokenizer st =new StringTokenizer(departamento.getNombre_jefe(),".",true);
-                int contador = 0;
-                while(st.hasMoreElements()){
-                    nombreJefe[contador]=st.nextToken();
-                    contador++;   
-                }
-                setProfesionJefe(nombreJefe[0]+nombreJefe[1]);
-                setNombreJefe(nombreJefe[2].trim());
-
                  this.accion="Modificar";   
             }
                
@@ -232,6 +222,7 @@ public class DepartamentoBEAN implements Serializable{
         this.departamento.setNombre_departamento("");
         this.departamento.setArea(null);
         this.departamento.setEstatus(Boolean.TRUE);
+        this.departamento.setNombre_jefe("");
     }
      
       //Metodo ´para listar 

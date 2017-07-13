@@ -158,16 +158,8 @@
                                 </p:inputText>
                                 <br/><p:column/>
 
-                                <h:outputText value="Profesión:" style="color: black; font-size: 14px"/>
-                                <p:selectOneMenu value="#{departamentoBEAN.profesionJefe}" required="true" 
-                                                 requiredMessage="Profesión requerida para Jefe" styleClass="selectMenu" style="text-transform: uppercase; height:30px; width:250px"><!-- es para su ancho y largo del selectOneMenu -->
-                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                                    <f:selectItems value="#{profesionBEAN.profesionLista}" var="profesionN" itemLabel="#{profesionN.nombre_profesion}" itemValue="#{profesionN.nombre_profesion}"/>
-                                </p:selectOneMenu>
-                                <br/><p:column/>
-
                                 <h:outputText value="Nombre del Jefe:" style="color: black; font-size: 14px"/>
-                                <p:inputText value="#{departamentoBEAN.nombreJefe}" required="true" requiredMessage="Seleccione la profesion del jefe de departamento."
+                                <p:inputText value="#{departamentoBEAN.departamento.nombre_jefe}" required="true" requiredMessage="Seleccione la profesion del jefe de departamento."
                                              style="text-transform: uppercase; width: 250px"/>
                                 <br/><p:column/>
 
@@ -196,7 +188,7 @@
                         <center>
                             <p:commandButton value="#{departamentoBEAN.accion}" actionListener="#{departamentoBEAN.operarDepartamento()}" oncomplete="PF('Datos').hide();" update=":formaExterior"/>
 
-                            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
+                            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" action="#{departamentoBEAN.limpiarDepartamento()}" />
                         </center>
 
                     </p:dialog>

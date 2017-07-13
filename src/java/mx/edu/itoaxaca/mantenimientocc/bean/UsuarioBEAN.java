@@ -242,6 +242,7 @@ public class UsuarioBEAN implements Serializable{
                 System.out.println("periodo " + empleado_periodo.getId_periodo().getIdperiodo_semestral());
                 System.out.println("Año " + empleado_periodo.getAño());
                  this.listaUsuarioDepartameto();
+                 listarUsuarioNivelUno();
             
         } catch (Exception e) {
             System.out.println("=========Error en UsuarioBEAN -> registrarUsuario" + e + "============");
@@ -468,6 +469,7 @@ public class UsuarioBEAN implements Serializable{
         setIdDepartamento(0);
         setUsuarioCorreoNombre("");
         setUsuarioCorreoServicio("");
+        this.objetoUsuario.setFecha_nacimiento(null);
         
     }
     
@@ -499,6 +501,7 @@ public class UsuarioBEAN implements Serializable{
                 //periodo = new Empleado_periodoDAO().
                 setIdArea(objetoUsuario.getIdOficina().getDepartamento().getArea().getIdarea());
                 setIdDepartamento(objetoUsuario.getIdOficina().getDepartamento().getIddepartamento());
+                System.out.println("idDepartamento: "+idDepartamento);
                 StringTokenizer st =new StringTokenizer(objetoUsuario.getCorreo(),"@",true);
                 int contador = 0;
                 while(st.hasMoreElements()){
@@ -507,7 +510,8 @@ public class UsuarioBEAN implements Serializable{
                 }
                 setUsuarioCorreoNombre(correo[0]);
                 setUsuarioCorreoServicio(correo[1]+correo[2]);
-                departamentoDeUnArea();
+                
+                departamentoDeUnAreaRegistro();
                 oficinaDeUnDepartamento();
                 this.accionDeBotonUsuario = "Modificar";
                 
