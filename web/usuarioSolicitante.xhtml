@@ -265,7 +265,7 @@ background-color: red;
                         <f:event type="preRenderView" listener="#{usuarioBEAN.llenarListasAreaDepartamentoOficina()}"/>
                         <f:event type="preRenderView" listener="#{usuarioBEAN.llenaListaServicoCorreo()}"/>
                         <f:event type="preRenderView" listener="#{periodo_semestralBEAN.listarPeriodo()}"/>
-                        <f:event type="preRenderView" listener="#{usuarioBEAN.departamentoDeUnArea()}"/>
+                        
                      
                 <p:wizard backLabel="Atras" nextLabel="Siguiente">
                      <p:tab id="personal" title="Personal" >
@@ -599,7 +599,7 @@ background-color: red;
                                  <p:selectOneMenu id="departamentoM" value="#{usuarioBEAN.idDepartamento}" converter="omnifaces.SelectItemsConverter" label="Departamento:" 
                                                  required="true" requiredMessage="Departamento requerido" style="height:30px;width:300px">
                                     <f:selectItem noSelectionOption="true" itemLabel="-- Departamento --" itemValue="#{null}"/>
-                                    <f:selectItems value="#{usuarioBEAN.listaTemporalDepartamento}" var="departamento" itemLabel="#{departamento.nombre_departamento}" itemValue="#{departamento}"/>
+                                    <f:selectItems value="#{usuarioBEAN.listaTemporalDepartamento}" var="departamento" itemLabel="#{departamento.nombre_departamento}" itemValue="#{departamento.iddepartamento}"/>
                                     <p:ajax listener="#{usuarioBEAN.oficinaDeUnDepartamento()}" update="oficinaM"/>
                                 </p:selectOneMenu>
                                 
