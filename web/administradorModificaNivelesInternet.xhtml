@@ -116,6 +116,13 @@
                             </center>
 
                         </p:column>
+                        <p:column headerText="Eliminar" 
+                                  style=" font-size: 13px;text-transform: uppercase " width="90">
+                            <center>
+                                <p:commandButton icon="fa fa-trash" actionListener="#{niveles_internetBEAN.eliminarNivel(niveles)}" update="nivel"/>
+                            </center>
+
+                        </p:column>
 
 
                     </p:dataTable>

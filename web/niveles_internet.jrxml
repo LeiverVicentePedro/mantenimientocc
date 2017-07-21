@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="526" leftMargin="44" rightMargin="42" topMargin="14" bottomMargin="12" uuid="9f46ccbd-731f-4d17-bb1e-1436240e656d">
 	<property name="ireport.zoom" value="2.1961500000000007"/>
-	<property name="ireport.x" value="108"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="42"/>
+	<property name="ireport.y" value="24"/>
 	<parameter name="fechasolicitud" class="java.lang.String"/>
 	<parameter name="departamento" class="java.lang.String"/>
 	<parameter name="area" class="java.lang.String"/>
@@ -79,14 +79,14 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial Narrow"/>
 				</textElement>
-				<text><![CDATA[Marcar con una X el nivel a elegir (donde sin nivel, es el más bajo y el nivel 4 es el más alto) tomando en cuenta que ]]></text>
+				<text><![CDATA[Marcar con una X el nivel a elegir (donde sin nivel, es el más bajo y el nivel 4 es el más alto) tomando en cuenta que]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="51" width="294" height="13" uuid="801beef3-7962-41a7-947e-0b7677385fe2"/>
+				<reportElement x="1" y="51" width="519" height="13" uuid="801beef3-7962-41a7-947e-0b7677385fe2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial Narrow"/>
 				</textElement>
-				<text><![CDATA[ al seleccionar un nivel, tendrá además los privilegios de los niveles anteriores.]]></text>
+				<text><![CDATA[  al seleccionar un nivel, tendrá además los privilegios de los niveles anteriores.]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -140,14 +140,14 @@
 				<reportElement x="14" y="58" width="1" height="170" uuid="ce201ed1-8059-475a-b535-49da872d527c"/>
 			</line>
 			<staticText>
-				<reportElement x="13" y="59" width="30" height="13" uuid="a0e0f023-28da-45a6-a91d-583a3a90c78e"/>
+				<reportElement x="15" y="59" width="29" height="13" uuid="a0e0f023-28da-45a6-a91d-583a3a90c78e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Narrow" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NIVEL]]></text>
 			</staticText>
 			<line>
-				<reportElement x="42" y="58" width="1" height="170" uuid="d5177144-c813-444a-9a07-2dd15a51d7b2"/>
+				<reportElement x="44" y="58" width="1" height="170" uuid="d5177144-c813-444a-9a07-2dd15a51d7b2"/>
 			</line>
 			<staticText>
 				<reportElement x="235" y="59" width="62" height="13" uuid="83714381-4db3-4928-a3f4-5f0d1c0202c0"/>

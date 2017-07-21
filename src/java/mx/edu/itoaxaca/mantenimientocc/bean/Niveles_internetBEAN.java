@@ -249,6 +249,13 @@ public class Niveles_internetBEAN implements Serializable {
         this.nivelesInternet.setTipo_equipo("");
        
     }
+     public void limpiarNivelInternetDos(){
+        this.nivelesInternet.setJustificacion("");
+        this.nivelesInternet.setTipo_solicitud("");
+        this.nivelesInternet.setTipo_equipo("");
+       
+    }
+    
     public void listarNiveles_internet() throws Exception{
        Niveles_internetDAO niveles_internetdao;
         try{
@@ -379,7 +386,10 @@ public class Niveles_internetBEAN implements Serializable {
                 modificaniveldao= new Niveles_internetDAO();
                  
                 modificaniveldao.modificarNiveles(nivelesInternet);
-                exportarNivelInternet();
+                this.limpiarNivelInternet();
+                 FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion","Registro Exitoso.");
+                 RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+              //  exportarNivelInternet(); esto comente el que genera el pdf
               this.listarNiveles_internetAministrador();
             }
             catch(Exception e)
@@ -422,6 +432,18 @@ public class Niveles_internetBEAN implements Serializable {
                 System.out.println("error en departamentoBEAN metodo -->modificar"+e);
             }
     } 
+     public void eliminarNivel(Niveles_internet nivelEliminar) throws Exception{
+        Niveles_internetDAO niveldao;
+            try{
+                niveldao= new Niveles_internetDAO();
+                niveldao.eliminarNivelInternet(nivelEliminar);
+                this.listarNiveles_internetAministradorModifica();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+    }
     
      /**
      * ***********************************************************************
