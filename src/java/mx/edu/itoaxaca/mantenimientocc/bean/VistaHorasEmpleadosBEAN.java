@@ -8,6 +8,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -85,5 +86,10 @@ public class VistaHorasEmpleadosBEAN implements Serializable{
         }catch(Exception ex){
             System.out.println("Error en VistaHorasEmpleadoBEAN -> eliminarHoras "+ex);
         }
+    }
+    
+     public void limpiarHorasEmpleado(){
+        vistaEmpleados.setHorasTotales("");
+        vistaEmpleados.setIdUsuarioEmpleado(null);
     }
 }

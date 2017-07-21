@@ -123,13 +123,13 @@
                      <f:validator validatorId="validadoresCatalogo"/>
                  </p:inputText>
                  <br/><p:column/>
-                     <h:outputText value="Nombre de departamento:" style="color: black;font-size:14px"/>
+                     <!--<h:outputText value="Nombre de departamento:" style="color: black;font-size:14px"/>
                      <p:selectOneMenu value="#{catalogo_servicio_solicitadoBEAN.catalogo.departamento}" converter="omnifaces.SelectItemsConverter" 
                                       styleClass="selectMenu" required="true" requiredMessage="Seleccione un Departamento" 
                                       style="text-transform: uppercase;width:350px">
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                             <f:selectItems value="#{departamentoBEAN.listadepartamentoServicio}" var="departamentoitem" itemLabel="#{departamentoitem.nombre_departamento}" itemValue="#{departamentoitem}"/>
-                        </p:selectOneMenu> 
+                        </p:selectOneMenu> -->
                      <br/><p:column/>
                       <h:outputText value="Estatus:" style="color: black;font-size:14px"/>
                     <p:selectOneMenu value="#{catalogo_servicio_solicitadoBEAN.catalogo.estatus}" required="true" 

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Catalogo_servicio_solicitado;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Departamento;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 
 /**
  *
@@ -38,12 +40,13 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
     }
      
      
-    public List<Catalogo_servicio_solicitado> listarCatalogo() throws Exception{
+    public List<Catalogo_servicio_solicitado> listarCatalogo(Departamento departamento) throws Exception{
      List<Catalogo_servicio_solicitado> listaCatalogo;
         ResultSet resultadosetCatalogo;
      try{
          this.Conectar();
-         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idcatalogo_servicio_solicitado, servicio_solicitado, id_departamento, estatus FROM catalogo_servicio_solicitado");
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idcatalogo_servicio_solicitado, servicio_solicitado, id_departamento, estatus FROM catalogo_servicio_solicitado where id_departamento=?");
+         consulta.setInt(1,departamento.getIddepartamento());
          resultadosetCatalogo= consulta.executeQuery();
          listaCatalogo =new ArrayList();
          while(resultadosetCatalogo.next()){
@@ -67,6 +70,43 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
      }
      return listaCatalogo;
     }
+    
+    //lista para solicitud mc debido a que tiene que ser de un solo departamento
+    public List<Catalogo_servicio_solicitado> listarCatalogos() throws Exception{
+     List<Catalogo_servicio_solicitado> listaCatalogo;
+        ResultSet resultadosetCatalogo;
+     try{
+         this.Conectar();
+         PreparedStatement consulta=this.getConexion().prepareCall("SELECT idcatalogo_servicio_solicitado, servicio_solicitado, id_departamento, estatus FROM catalogo_servicio_solicitado");
+         
+         resultadosetCatalogo= consulta.executeQuery();
+         listaCatalogo =new ArrayList();
+         while(resultadosetCatalogo.next()){
+             Catalogo_servicio_solicitado catalogo=new Catalogo_servicio_solicitado();
+             catalogo.setIdcatalogo_servicio_solicitado(resultadosetCatalogo.getInt("idcatalogo_servicio_solicitado"));
+             catalogo.setServicio_solicitado(resultadosetCatalogo.getString("servicio_solicitado"));
+             catalogo.setDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultadosetCatalogo.getInt("id_departamento")));
+             catalogo.setEstatus(resultadosetCatalogo.getBoolean("estatus"));
+             
+             
+             listaCatalogo.add(catalogo);
+         }
+             
+     }
+     catch(Exception e){
+         throw e;
+         
+     }
+     finally{
+         this.Cerrar();
+     }
+     return listaCatalogo;
+    }
+    
+    
+    
+    
+    
     
     public Catalogo_servicio_solicitado elegirDatoCatalogo(Catalogo_servicio_solicitado catalogoElegir) throws Exception{
         Catalogo_servicio_solicitado catalogoElegirdos=null;

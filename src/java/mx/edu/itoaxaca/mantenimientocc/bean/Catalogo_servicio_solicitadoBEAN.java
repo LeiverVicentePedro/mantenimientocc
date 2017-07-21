@@ -11,6 +11,8 @@ import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.Catalogo_servicio_solicitadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Catalogo_servicio_solicitado;
 import java.io.Serializable;
+import javax.faces.context.FacesContext;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 /**
  *
  * @author Jerusalen
@@ -105,6 +107,9 @@ public class Catalogo_servicio_solicitadoBEAN  implements Serializable{
         
         Catalogo_servicio_solicitadoDAO catalogo_servicio_solicitadodao;
             try{
+                FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
+                Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
+                catalogo.setDepartamento(usuarioVive.getIdOficina().getDepartamento());
                 catalogo_servicio_solicitadodao= new Catalogo_servicio_solicitadoDAO();
                 catalogo_servicio_solicitadodao.registrarCatalogo_servicio_solicitado(catalogo);
                 this.listarCatalogo();
@@ -135,7 +140,10 @@ public class Catalogo_servicio_solicitadoBEAN  implements Serializable{
         Catalogo_servicio_solicitadoDAO catalogodao;
         try{
             catalogodao=new Catalogo_servicio_solicitadoDAO();
-            catalogoLista = catalogodao.listarCatalogo();
+            FacesContext contexto = FacesContext.getCurrentInstance();
+             Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");
+            
+            catalogoLista = catalogodao.listarCatalogo(usuarioVive.getIdOficina().getDepartamento());
         }
         catch(Exception e){
             throw e;

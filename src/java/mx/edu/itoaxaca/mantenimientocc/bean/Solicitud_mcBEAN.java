@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoRegistroUsuario;
 import mx.edu.itoaxaca.mantenimientocc.correo.CorreoSolicitudMC;
@@ -182,12 +183,24 @@ public class Solicitud_mcBEAN implements Serializable{
 //    }
     
    
+    // variable para desabilitar un boton o habilitarlo
+    boolean habilitar=false;
 
+    public boolean getHabilitar() {
+        return habilitar;
+    }
+
+    public void setHabilitar(boolean habilitar) {
+        this.habilitar = habilitar;
+    }
+    
+    
     
     public void registrarSolicitudMC() throws Exception {
         Solicitud_mcDAO solicitudDao;
         Detalle_solicitudDAO detalleSolicitudDao;
         SeguimientoDAO seguimientoDao;
+        
         try {
             FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
             usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya 
@@ -221,21 +234,18 @@ public class Solicitud_mcBEAN implements Serializable{
             seguimiento.setId_solicitud(solicitudTemporal); //mandamos a llenar idSolicitud de seguimiento con solicitud Temporal porque ahi ya esta cargada la solicitud
             seguimiento.setEstado_solicitud(true);
             seguimiento.setEstado_asignacion(false);
-            
-            System.out.println(seguimiento.getFecha()+"\n");
-            System.out.println(seguimiento.getId_usuario_personal()+"\n");
-            System.out.println(seguimiento.getId_solicitud()+"\n");
-            System.out.println(seguimiento.getEstado_solicitud()+"\n");
-            System.out.println(seguimiento.getEstado_asignacion()+"\n");
+           
             seguimientoDao.registrarSeguimiento(seguimiento);
             
            Thread enviarCorreo = new Thread(new CorreoSolicitudMC(usuarioVive.getCorreo(),solicitudmc));
            enviarCorreo.start();
-           new ReporteMantenimiento().exportarPDFSolicitud(solicitudmc, serviciosSeleccionados);//metodo para exportar pdf desde otra clase
+           //new ReporteMantenimiento().exportarPDFSolicitud(solicitudmc, serviciosSeleccionados);//metodo para exportar pdf desde otra clase
             
             System.out.println("fecha del sistema " + solicitudmc.getFecha());
+             
            this.limpiarSolicitud();
 
+          
         } catch (Exception ex) {
             System.out.println("Error en SolicitudMCBEAN -> generarSolicitudMC " + ex);
             throw ex;
@@ -269,7 +279,8 @@ public class Solicitud_mcBEAN implements Serializable{
     public void limpiarSolicitud() {
         solicitudmc.setId_departamento(null);
         solicitudmc.setOtroProblema("");
-       // serviciosSeleccionados.clear();
+        serviciosSeleccionados.clear();
+       
     }
     
     public void listarSolicituMC() throws Exception{
@@ -350,7 +361,7 @@ public class Solicitud_mcBEAN implements Serializable{
          Catalogo_servicio_solicitadoDAO servicioSolicitado = new Catalogo_servicio_solicitadoDAO();
          try{
             catalogoServicio = new ArrayList();
-            catalogoServicio = servicioSolicitado.listarCatalogo();
+            catalogoServicio = servicioSolicitado.listarCatalogos();
          }catch(Exception ex){
            System.out.println("Error en Solicitud_mcBEAN -> listaServicioSolicitado "+ex);  
          }

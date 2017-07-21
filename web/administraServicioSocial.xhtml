@@ -27,27 +27,27 @@
                                      liveResize="true"
                                      liveScroll="true" scrollRows="15" scrollWidth="100%"
                                      scrollable="true"
-                                     selection="#{vistaHorasEmpleadosBEAN.vistaEmpleados}"
+                                     selection="#{totalHorasEmpleadoBEAN.vistaEmpleados}"
                                      rowKey="#{usuarioDepartamento.idUsuarioEmpleado}"
                                      selectionMode="single"
                                      style="font-size: 14px;"
                                      emptyMessage="No hay elementos encontrados"
                                      paginator="true" rows="15"
                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
-                            <p:ajax event="rowSelect" listener="#{vistaHorasEmpleadosBEAN.listarHorasEmpleados()}" update=":formServicioSocial:tablaHoras"/>
-                            <p:column headerText="Nombre Completo" width="20">
+                            <p:ajax event="rowSelect" listener="#{totalHorasEmpleadoBEAN.listarHorasEmpleados()}" update=":formServicioSocial:tablaHoras"/>
+                            <p:column headerText="Nombre Completo" width="20" style="text-transform: uppercase">
                                 <p:outputLabel value="#{usuarioDepartamento.idUsuarioEmpleado.concatenar}"/>
                             </p:column>
-                            <p:column headerText="Total Horas" width="20">
+                            <p:column headerText="Total Horas" width="20" style="text-transform: uppercase">
                                 <p:outputLabel value="#{usuarioDepartamento.horasTotales}"/>
                             </p:column>
-                            <p:column headerText="Liberar" width="15">
+                            <p:column headerText="Liberar" width="15" style="text-transform: uppercase">
                                 <p:commandButton  icon="fa fa-unlock" actionListener="#{usuarioBEAN.elegirDatoUsuarioBaja(usuarioDepartamento.idUsuarioEmpleado)}" update="tablaUsuarios"/>
                             </p:column>
 
                         </p:dataTable>
                         
-                        <p:dataTable var="vistaDetalle" value="#{vistaHorasEmpleadosBEAN.listaHorasEmpleados}" id="tablaHoras" resizableColumns="true"
+                        <p:dataTable var="vistaDetalle" value="#{totalHorasEmpleadoBEAN.listaHorasEmpleados}" id="tablaHoras" resizableColumns="true"
                                      liveResize="true"
                                      liveScroll="true" scrollRows="15" scrollWidth="100%"
                                      scrollable="true"
@@ -56,19 +56,19 @@
                                      paginator="true" rows="15"
                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" paginatorPosition="bottom">
                             <f:facet name="header">
-                                Registro de Horas
+                                REGISTRO DE HORAS
                             </f:facet>
-                            <p:column headerText="Fecha">
+                            <p:column headerText="Fecha" style="text-transform: uppercase">
                                 <h:outputText value="#{vistaDetalle.fecha}" />
                             </p:column>
-                            <p:column headerText="hora entrada">
+                            <p:column headerText="hora entrada" style="text-transform: uppercase">
                                 <h:outputText value="#{vistaDetalle.hora_entrada}" />
                             </p:column>
-                            <p:column headerText="hora salida">
+                            <p:column headerText="hora salida" style="text-transform: uppercase">
                                 <h:outputText value="#{vistaDetalle.hora_salida}" />
                             </p:column>
-                            <p:column headerText="Eliminar" width="70">
-                                <p:commandButton icon="fa fa-trash-o" action="#{vistaHorasEmpleadosBEAN.elimiarHoras(vistaDetalle)}" update=":formServicioSocial"/>
+                            <p:column headerText="Eliminar" width="80" style="text-transform: uppercase">
+                                <p:commandButton icon="fa fa-trash-o" action="#{totalHorasEmpleadoBEAN.elimiarHoras(vistaDetalle)}" update=":formServicioSocial"/>
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>
@@ -102,7 +102,7 @@
                                              required="true" requiredMessage="Se Requiere Persona Asignada"
                                              style="text-transform: uppercase;width:13em;">
                             <f:selectItem itemLabel="-- Seleccione --" noSelectionOption="true" itemValue="#{null}"/>
-                            <f:selectItems value="#{usuarioBEAN.listarTodosLosUsuarios}" var="asignaUsuario" itemLabel="#{asignaUsuario.concatenar}" itemValue="#{asignaUsuario}"/>
+                            <f:selectItems value="#{usuarioBEAN.listarTodosLosUsuarios}" var="asignaUsuario" itemLabel="#{asignaUsuario.concatenar}" itemValue="#{asignaUsuario}" />
                         </p:selectOneMenu>
                         <p:outputLabel value="Hora Entrada:"/>
                         <p:inputMask value="#{horasEmpleadoBEAN.detalleHoras.horaEntrada}" mask="99:99:99" required="true" requiredMessage="Hora de Entrada Requerida"/>
