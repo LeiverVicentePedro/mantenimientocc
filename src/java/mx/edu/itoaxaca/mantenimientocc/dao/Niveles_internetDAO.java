@@ -305,4 +305,21 @@ public class Niveles_internetDAO extends Conexion {
          }
          return resultados;
      }
+     
+      public void eliminarNivelInternet (Niveles_internet niveleliminar) throws Exception{
+        try{
+            this.Conectar();
+            PreparedStatement consulta= this.getConexion().prepareStatement("DELETE FROM niveles_internet WHERE idniveles_internet=?");
+            consulta.setInt(1,niveleliminar.getIdniveles_internet());
+            consulta.executeUpdate();
+        }
+        catch(Exception e){
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }
+    }   
+     
+     
 }

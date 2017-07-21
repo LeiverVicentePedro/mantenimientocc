@@ -6,6 +6,22 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+       
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+       
+        <script >
+          
+function desactiva_enlace(enlace)
+{
+      enlace.disabled='disabled';
+}
+
+        </script>
+        
+        </h:head>
 
     <body>
 
@@ -153,12 +169,14 @@
                  </h:panelGrid>
                 <p/>
             <center>
-                <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.modificarAdministrador()}" oncomplete="PF('Datos').hide();" update=":formaExterior" ajax="false" />
-            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" />
+                <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.modificarAdministrador()}" oncomplete="PF('Datos').hide();" update=":formaExterior" ajax="false"  />
+                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('Datos').hide();" update=":formaExterior" />
             </center>
             <p/>
             </h:form>
         </p:dialog>
+                 
+           
 
                
                 
