@@ -185,8 +185,17 @@ public class Solicitud_mcBEAN implements Serializable{
 //    }
     
    
-    // variable para desabilitar un boton o habilitarlo
-   
+    // variable para redirigir a principal segun usuraio
+    String redireccion ="index.xhtml";
+
+    public String getRedireccion() {
+        return redireccion;
+    }
+
+    public void setRedireccion(String redireccion) {
+        this.redireccion = redireccion;
+    }
+    
     
     
     public void registrarSolicitudMC() throws Exception {
@@ -229,6 +238,8 @@ public class Solicitud_mcBEAN implements Serializable{
             seguimiento.setEstado_asignacion(false);
            
             seguimientoDao.registrarSeguimiento(seguimiento);
+            
+            
             
            //Thread enviarCorreo = new Thread(new CorreoSolicitudMC(usuarioVive.getCorreo(),solicitudmc));
            //enviarCorreo.start();
