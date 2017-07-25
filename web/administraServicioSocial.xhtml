@@ -11,43 +11,47 @@
         <ui:composition template="./WEB-INF/template/plantilla.xhtml">
 
             <ui:define name="content">
+               
                 <p:separator style="visibility: hidden"/>
                 <center>
                     <p:outputLabel value="Administrador de Servicio Social" style="font-family: sans-serif; font-size: 2em;"/>
                 </center>
                 <p:separator/>
-                <h:form id="formServicioSocial">
+                
                     <f:event type="preRenderView" listener="#{totalHorasEmpleadoBEAN.listarEmpleadosHoras()}"/>
                     <f:event type="preRenderView" listener="#{configuracionServicioSocialBEAN.obtenConfiguracion()}"/>
                     <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuario()}"/>
+                <h:form id="formServicioSocial">
+                     
                     <p:growl id="mensaje" showDetail="true" sticky="true" autoUpdate="true"/>
                     <h:panelGrid columns="2" id="gridPrincipal">
                         
-                        <p:dataTable id="tablaUsuarios" var="usuarioDepartamento" value="#{totalHorasEmpleadoBEAN.listaHorasEmpleado}" resizableColumns="true"
+                        <p:dataTable id="tablaUsuarios" var="vistaEmpleados" value="#{totalHorasEmpleadoBEAN.listaHorasEmpleado}" resizableColumns="true"
                                      liveResize="true"
-                                     liveScroll="true" scrollRows="15" scrollWidth="100%"
-                                     scrollable="true"
                                      selection="#{totalHorasEmpleadoBEAN.vistaEmpleados}"
-                                     rowKey="#{usuarioDepartamento.idUsuarioEmpleado}"
+                                     rowKey="#{vistaEmpleados.idUsuarioEmpleado}"
+                                      liveScroll="true" scrollRows="15" scrollWidth="100%"
+                                     scrollable="true"
                                      selectionMode="single"
                                      style="font-size: 14px;"
                                      emptyMessage="No hay elementos encontrados"
-                                     paginator="true" rows="15"
+                                     paginator="true" rows="5"
                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
-                            <p:ajax event="rowSelect" listener="#{totalHorasEmpleadoBEAN.listarHorasEmpleados()}" update=":formServicioSocial:tablaHoras"/>
+                            <p:ajax event="rowSelect" listener="#{totalHorasEmpleadoBEAN.listarHorasEmpleados()}" update=":formServicioSocial:tablaHoras" />
+                       
                             <p:column headerText="Nombre Completo" width="20" style="text-transform: uppercase">
-                                <p:outputLabel value="#{usuarioDepartamento.idUsuarioEmpleado.concatenar}"/>
+                                <p:outputLabel value="#{vistaEmpleados.idUsuarioEmpleado.concatenar}"/>
                             </p:column>
                             <p:column headerText="Total Horas" width="20" style="text-transform: uppercase">
-                                <p:outputLabel value="#{usuarioDepartamento.horasTotales}"/>
+                                <p:outputLabel value="#{vistaEmpleados.horasTotales}"/>
                             </p:column>
                             <p:column headerText="Liberar" width="15" style="text-transform: uppercase">
-                                <p:commandButton  icon="fa fa-unlock" actionListener="#{usuarioBEAN.elegirDatoUsuarioBaja(usuarioDepartamento.idUsuarioEmpleado)}" update="tablaUsuarios"/>
+                                <p:commandButton  icon="fa fa-unlock" actionListener="#{usuarioBEAN.elegirDatoUsuarioBaja(vistaEmpleados.idUsuarioEmpleado)}" update="tablaUsuarios"/>
                             </p:column>
 
                         </p:dataTable>
                         
-                        <p:dataTable var="vistaDetalle" value="#{totalHorasEmpleadoBEAN.listaHorasEmpleados}" id="tablaHoras" resizableColumns="true"
+                        <p:dataTable id="tablaHoras" var="vistaDetalle" value="#{totalHorasEmpleadoBEAN.listaHorasEmpleados}" resizableColumns="true"
                                      liveResize="true"
                                      liveScroll="true" scrollRows="15" scrollWidth="100%"
                                      scrollable="true"
