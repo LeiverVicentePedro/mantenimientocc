@@ -85,7 +85,7 @@ public class Orden_trabajoDAO extends Conexion {
                 orden_trabajo.setId_usuario_personal(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoList.getInt("id_usuario_personal")));
                 orden_trabajo.setFecha_realizacion(resultadoList.getDate("fecha_realizacion"));
                 orden_trabajo.setTrabajo_descripcion(resultadoList.getString("trabajo_descripcion"));
-                orden_trabajo.setId_usuario_personal_jefe(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoList.getInt("id_usuario_personal")));
+                orden_trabajo.setId_usuario_personal_jefe(new UsuarioDAO().consultarUsuarioPorIdEntero(resultadoList.getInt("id_usuario_personal_jefe")));
                 orden_trabajo.setId_solicitudmc(new Solicitud_mcDAO().buscarDeSolicitudEntero(resultadoList.getInt("id_solicitudmc")));
 
                 lista.add(orden_trabajo);

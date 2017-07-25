@@ -134,7 +134,7 @@ public class Orden_trabajoBEAN implements Serializable{
             
             solicitudDao.modificarSolicitudSeguimiento(solicitudEstadoSeguimiento);
             new CorreoRegistroUsuario().enviarMensajeOrdenTrabajo(orden_trabajo);
-            exportarOrdenTrabajo(usuarioVive);
+            exportarOrdenTrabajo(orden_trabajo);
            
             this.limpiarOrdenTrabajo();
             
@@ -155,7 +155,7 @@ public class Orden_trabajoBEAN implements Serializable{
     ***************************************************************************/
       
       
-      public void exportarOrdenTrabajo(Usuario activoUsuario) throws JRException, IOException{
+      public void exportarOrdenTrabajo(Orden_trabajo orden_trabajo) throws JRException, IOException{
           Map<String,Object> parametros = new HashMap<String,Object>();
           String nombreUsuario = orden_trabajo.getId_solicitudmc().getId_usuario().getId_profesion().getNombre_profesion()+" "+
                 orden_trabajo.getId_solicitudmc().getId_usuario().getNombre()+" "+
@@ -171,7 +171,7 @@ public class Orden_trabajoBEAN implements Serializable{
             parametros.put("manInterno"," ");
         }
         parametros.put("tipoServicio",orden_trabajo.getTipo_servicio().toUpperCase());
-        parametros.put("asignado", activoUsuario.getId_profesion().getNombre_profesion().toUpperCase() + " " + activoUsuario.getNombre().toUpperCase() + " " + activoUsuario.getApellidoPaterno().toUpperCase() + " " + activoUsuario.getApellidoMaterno().toUpperCase());
+        parametros.put("asignado", orden_trabajo.getId_usuario_personal().getConcatenar().toUpperCase());
         String fechaRealizacion = String.valueOf(orden_trabajo.getFecha_realizacion());
         parametros.put("fecha", fechaRealizacion);
         parametros.put("trabajo_realizado",orden_trabajo.getTrabajo_descripcion().toUpperCase());

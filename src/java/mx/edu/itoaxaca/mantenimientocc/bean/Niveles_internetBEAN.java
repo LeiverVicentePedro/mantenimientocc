@@ -453,7 +453,7 @@ public class Niveles_internetBEAN implements Serializable {
     ***************************************************************************/
       
       
-      public void exportarNivelInternet() throws JRException, IOException{
+      public void exportarNivelInternet(Niveles_internet nivelesInternet) throws JRException, IOException{
           Map<String,Object> parametros = new HashMap<String,Object>();
           String nombreUsuario = nivelesInternet.getSolicita().getId_profesion().getNombre_profesion()+" "+
                 nivelesInternet.getSolicita().getConcatenar();

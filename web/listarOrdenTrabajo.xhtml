@@ -94,7 +94,13 @@
                      <h:outputText value="#{ordenTrabajo.mantenimiento_tipo}" />
                    
                 </p:column>
-               
+               <p:column headerText="PDF" 
+                                  style=" font-size: 13px;text-transform: uppercase " width="90">
+                            <center>
+                                <p:commandButton icon="fa fa-download" actionListener="#{orden_trabajoBEAN.exportarOrdenTrabajo(ordenTrabajo)}" ajax="false"/>
+                            </center>
+
+                        </p:column>
                 
              
             </p:dataTable>
