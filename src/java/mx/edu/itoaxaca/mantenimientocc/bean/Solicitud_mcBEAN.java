@@ -217,7 +217,8 @@ public class Solicitud_mcBEAN implements Serializable{
             solicitudmc.setFolio(folioSolicitud);
             
             solicitudDao.registrarSolicitudMC(solicitudmc);
-            
+            Thread enviarCorreo = new Thread(new CorreoSolicitudMC(usuarioVive.getCorreo(),solicitudmc));
+            enviarCorreo.start();
             Solicitud_mc solicitudTemporal = solicitudDao.identificadorDeSolicitud(folioSolicitud);
             
             for (int i = 0; i < serviciosSeleccionados.size(); i++) {
