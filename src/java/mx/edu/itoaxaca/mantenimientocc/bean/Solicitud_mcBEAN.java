@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -30,6 +31,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Seguimiento;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Usuario;
 import mx.edu.itoaxaca.reportes.ReporteMantenimiento;
+import org.primefaces.context.RequestContext;
 
 
 /**
@@ -184,16 +186,7 @@ public class Solicitud_mcBEAN implements Serializable{
     
    
     // variable para desabilitar un boton o habilitarlo
-    boolean habilitar=false;
-
-    public boolean getHabilitar() {
-        return habilitar;
-    }
-
-    public void setHabilitar(boolean habilitar) {
-        this.habilitar = habilitar;
-    }
-    
+   
     
     
     public void registrarSolicitudMC() throws Exception {
@@ -237,10 +230,11 @@ public class Solicitud_mcBEAN implements Serializable{
            
             seguimientoDao.registrarSeguimiento(seguimiento);
             
-           Thread enviarCorreo = new Thread(new CorreoSolicitudMC(usuarioVive.getCorreo(),solicitudmc));
-           enviarCorreo.start();
+           //Thread enviarCorreo = new Thread(new CorreoSolicitudMC(usuarioVive.getCorreo(),solicitudmc));
+           //enviarCorreo.start();
            //new ReporteMantenimiento().exportarPDFSolicitud(solicitudmc, serviciosSeleccionados);//metodo para exportar pdf desde otra clase
-            
+            FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION","Su Folio: "+solicitudmc.getFolio()+" Con este puede descargar su solicitud.");
+             RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
             System.out.println("fecha del sistema " + solicitudmc.getFecha());
              
            this.limpiarSolicitud();
@@ -385,6 +379,14 @@ public class Solicitud_mcBEAN implements Serializable{
         }
     }
      
-    
+    public void crearPDF(Solicitud_mc solicitud){
+        try{
+        List<Detalle_solicitud> listaServicioSeleccionado = new ArrayList();
+        listaServicioSeleccionado = new Detalle_solicitudDAO().listaDetalleDeUnaSolicitud(solicitud);
+        new ReporteMantenimiento().exportarPDFSolicitud(solicitud, listaServicioSeleccionado);
+        }catch(Exception ex){
+         System.out.println("Error en Solicitud_mcBEAN -> crearPDF: "+ex);
+        }
+    }
      
 }

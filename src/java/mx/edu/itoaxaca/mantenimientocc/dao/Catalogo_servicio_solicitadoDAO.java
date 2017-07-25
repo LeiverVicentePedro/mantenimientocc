@@ -202,5 +202,33 @@ public class Catalogo_servicio_solicitadoDAO extends Conexion {
      }
      return listaCatalogo;
     }
-    
+    //para el pdf nueva forma de gener el archivo pdf
+   public Catalogo_servicio_solicitado elegirDatoCatalogoPorId(int idCatalogoServicioSeleccionado) throws Exception{
+        Catalogo_servicio_solicitado catalogoElegirdos=null;
+        ResultSet resultadosetElegirCatalogo;
+        
+        try{
+            this.Conectar();
+             PreparedStatement consulta= this.getConexion().prepareStatement("SELECT idcatalogo_servicio_solicitado, servicio_solicitado, id_departamento, estatus FROM catalogo_servicio_solicitado WHERE idcatalogo_servicio_solicitado=?");
+            consulta.setInt(1, idCatalogoServicioSeleccionado);
+            resultadosetElegirCatalogo = consulta.executeQuery();
+            while(resultadosetElegirCatalogo.next())
+            {
+              catalogoElegirdos= new Catalogo_servicio_solicitado();
+              catalogoElegirdos.setIdcatalogo_servicio_solicitado(resultadosetElegirCatalogo.getInt("idcatalogo_servicio_solicitado"));
+              catalogoElegirdos.setServicio_solicitado(resultadosetElegirCatalogo.getString("servicio_solicitado"));
+              catalogoElegirdos.setDepartamento(new DepartamentoDAO().buscarIdDepartamento(resultadosetElegirCatalogo.getInt("id_departamento")));
+              catalogoElegirdos.setEstatus(resultadosetElegirCatalogo.getBoolean("estatus"));
+             
+            }
+        }
+        catch(Exception e){
+           throw e; 
+        }
+        finally{
+           this.Cerrar();
+        }
+        return catalogoElegirdos;
+    }
+   
 }

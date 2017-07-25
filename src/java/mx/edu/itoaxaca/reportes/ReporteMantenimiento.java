@@ -20,6 +20,7 @@ import java.io.File;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletOutputStream;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Detalle_solicitud;
 
 
 
@@ -32,7 +33,7 @@ import javax.servlet.ServletOutputStream;
 public class ReporteMantenimiento{
     
     
-    public void exportarPDFSolicitud(Solicitud_mc solicitudmc, List<Catalogo_servicio_solicitado> serviciosSeleccionados) throws JRException, IOException {
+    public void exportarPDFSolicitud(Solicitud_mc solicitudmc, List<Detalle_solicitud> serviciosSeleccionados) throws JRException, IOException {
         Map<String, Object> parametros = new HashMap<String, Object>();
         String servicioSolicitado = "";
 
@@ -63,8 +64,8 @@ public class ReporteMantenimiento{
             parametros.put("otroProblema", solicitudmc.getOtroProblema().toUpperCase());
         }
         //parametro para los problemas encontrados, servicioSolicitado
-        for (Catalogo_servicio_solicitado servicio : serviciosSeleccionados) {
-            servicioSolicitado += servicio.getServicio_solicitado() + "\n";
+        for (Detalle_solicitud servicio : serviciosSeleccionados) {
+            servicioSolicitado += servicio.getId_catalogo_servicio_solicitado().getServicio_solicitado() + "\n";
         }
         parametros.put("servicioSolicitado", servicioSolicitado.toUpperCase());
 

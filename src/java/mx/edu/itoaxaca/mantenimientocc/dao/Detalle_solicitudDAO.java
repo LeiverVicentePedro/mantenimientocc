@@ -6,8 +6,12 @@
 package mx.edu.itoaxaca.mantenimientocc.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import mx.edu.itoaxaca.mantenimientocc.conexion.Conexion;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Detalle_solicitud;
+import mx.edu.itoaxaca.mantenimientocc.modelo.Solicitud_mc;
 
 /**
  *
@@ -28,5 +32,27 @@ public class Detalle_solicitudDAO extends Conexion{
         }finally{
             this.Cerrar();
         }
+    }
+    
+    public List<Detalle_solicitud> listaDetalleDeUnaSolicitud(Solicitud_mc solicitud)throws Exception{
+        List<Detalle_solicitud> lista = new ArrayList();
+        try{
+            this.Conectar();
+            PreparedStatement consulta = this.getConexion().prepareStatement("select * from detalle_solicitud where id_solicitud_mc=?");
+            consulta.setInt(1, solicitud.getIdsolicitud_mc());
+            ResultSet resultado = consulta.executeQuery();
+            while(resultado.next()){
+                Detalle_solicitud detalle = new Detalle_solicitud();
+                detalle.setId_solicitud_mc(solicitud);
+                detalle.setId_catalogo_servicio_solicitado(new Catalogo_servicio_solicitadoDAO().elegirDatoCatalogoPorId(resultado.getInt("id_catalogo_servicio_solicitado")));
+                lista.add(detalle);
+            }
+            
+        }catch(Exception ex){
+            System.out.println("Error en Detalle_solicitudDAO -> listaDetalleDeUnaSoliciutd: "+ex);
+        }finally{
+            this.Cerrar();
+        }
+        return lista;
     }
 }

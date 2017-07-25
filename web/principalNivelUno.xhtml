@@ -83,6 +83,12 @@
                            <p:commandButton value="Ver" icon="fa fa-eye" action="seguimientoCliente.xhtml" actionListener="#{segiomientoMantenimientoUsuarioBEAN.redirigeVistaSiExisteSolicitud(seguimientoActivos)}" ajax="false"/>
                             </center>
                         </p:column>
+                        
+                        <p:column headerText="PDF" width="50">
+                            <center>
+                                <p:commandButton icon="fa fa-download"  actionListener="#{solicitud_mcBEAN.crearPDF(seguimientoActivos)}" ajax="false"/>
+                            </center>
+                        </p:column>
                     </p:dataTable>
                 </h:form>
                 <div class="text-center">
