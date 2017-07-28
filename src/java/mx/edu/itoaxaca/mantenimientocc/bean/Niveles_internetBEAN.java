@@ -222,8 +222,10 @@ public class Niveles_internetBEAN implements Serializable {
               nivelesInternet.setId_catalogo_niveles(catalogo_niveles);
               nivelesInternet.setCorreo_solicita(nivelesInternet.getSolicita().getCorreo());
                System.out.println("ver "+ nivelesInternet.getId_catalogo_niveles().getNivel());
-                nivelesDao.registrarNivelesInternet(nivelesInternet);
               
+               nivelesDao.registrarNivelesInternet(nivelesInternet);
+               
+               
                 setMensaje("Registro de Solicitud Enviada");
                 setRedireccion("index.xhtml");
                 FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", mensaje);
@@ -234,7 +236,6 @@ public class Niveles_internetBEAN implements Serializable {
                     RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
                 }  
                 
-               
             }
             
             catch(Exception e)
