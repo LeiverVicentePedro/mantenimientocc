@@ -14,7 +14,7 @@
             <ui:define name="content">
                  <p:separator style="visibility: hidden;"/>
                 <h:form id="formOrdenTrabajo">
-                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <p:growl id="msj" showDetail="true" autoUpdate="true"/>
                    
                     <f:event type="preRenderView" listener="#{orden_trabajoBEAN.existeSolicitud()}"/>
                      <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuarioNivelTres()}"/>

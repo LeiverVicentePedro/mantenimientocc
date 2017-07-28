@@ -17,7 +17,7 @@
                 </div>
                 <p:separator style="visibility: hidden"/>
                 <h:form id="formPreventivo">
-                    <p:growl id="msj" showDetail="true" sticky="true" />
+                    <p:growl id="msj" showDetail="true" autoUpdate="true"/>
                     <f:event type="preRenderView" listener="#{periodo_semestralBEAN.listarPeriodo()}"/>
                     <p:panel header="Formulario de Registro" class="text-center container-fluid">
                         <h:panelGrid columns="6" class="container-fluid">

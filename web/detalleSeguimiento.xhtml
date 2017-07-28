@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <p:separator style="visibility: hidden;"/>
               <h:form enctype="multipart/form-data">
-                  <p:growl id="msj" showDetail="true" sticky="true" autoUpdate="true"/>
+                  <p:growl id="msj" showDetail="true" autoUpdate="true"/>
                   <f:event type="preRenderView" listener="#{detalleSeguimientoBEAN.existeSolicitud()}"/>
                   
                    <p:panel id="panelDetalleSeguimiento">

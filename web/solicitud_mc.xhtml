@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <p:separator style="visibility: hidden;"/>
                 <h:form id="formSolicitud">
-                    <p:growl id="msj" showSummary="true" showDetail="true" sticky="true"/>
+                    <p:growl id="msj" showSummary="true" showDetail="true" autoUpdate="true"/>
 
                     <f:event type="preRenderView" listener="#{departamentoBEAN.listaDepartamentoServicio()}"/>
                     <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listaServicioSolicitado()}"/>

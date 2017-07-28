@@ -13,7 +13,7 @@
                 
                 <p/>
                 <h:form id="formAsignar">
-                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <p:growl id="msj" showDetail="true" autoUpdate="true"/>
                     <f:event type="preRenderView" listener="#{solicitud_mcBEAN.listarSolicitudPorDepartamentoParaAsignar()}"/>
                     <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuario()}"/>
                     <center>

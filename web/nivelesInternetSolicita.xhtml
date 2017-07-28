@@ -15,7 +15,7 @@
                 
                 <p:separator style="visibility: hidden;"/> 
                 <h:form id="formaExterior">              
-                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <p:growl id="msj" showDetail="true" autoUpdate="true"/>
                     <p:outputLabel value="Solicitudes activas:" style="font-size: 15px;" />
                     <h:outputText value="&nbsp;&nbsp;#{niveles_internetBEAN.conteo}&nbsp;&nbsp;" style="font-family: sans-serif" />
                     <p:commandButton value="Detalles" oncomplete="PF('DetalleNiveles').show();"/>

@@ -23,7 +23,7 @@
                     <f:event type="preRenderView" listener="#{usuarioBEAN.listarUsuario()}"/>
                 <h:form id="formServicioSocial">
                      
-                    <p:growl id="mensaje" showDetail="true" sticky="true" autoUpdate="true"/>
+                    <p:growl id="mensaje" showDetail="true" autoUpdate="true"/>
                     <h:panelGrid columns="2" id="gridPrincipal">
                         
                         <p:dataTable id="tablaUsuarios" var="vistaEmpleados" value="#{totalHorasEmpleadoBEAN.listaHorasEmpleado}" resizableColumns="true"

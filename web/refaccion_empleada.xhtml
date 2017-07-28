@@ -14,7 +14,7 @@
 
             <ui:define name="content">
                 
-                  <p:growl id="msj" showDetail="true" sticky="true"/>
+                <p:growl id="msj" showDetail="true" autoUpdate="true"/>
         <h:form id="formaExterior">                      
             <p:commandButton value="Nuevo" oncomplete="PF('Datos').show();" actionListener="#{refaccion_empleadaBEAN.setAccion('Registrar')}" update=":dialogoDatos" >         
             

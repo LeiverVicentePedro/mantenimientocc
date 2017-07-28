@@ -15,7 +15,7 @@
             <p:separator style="visibility: hidden;"/> 
                 <h:form id="formaExterior"> 
                     <f:event id="event" type="preRenderView" listener="#{catalogo_nivelesBEAN.listaCatalogo_niveles()}"/>
-                    <p:growl id="msj" showDetail="true" sticky="true"/>
+                    <p:growl id="msj" showDetail="true" autoUpdate="true"/>
                     <center>
                         <p:separator style="visibility: hidden;"/> 
                         <p:outputLabel value="Autorizar Nivel de Internet" style="font-size: 25px;" />

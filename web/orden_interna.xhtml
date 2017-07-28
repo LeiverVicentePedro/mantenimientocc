@@ -221,7 +221,7 @@
                 <!-- ////////////////////////////////////Aqui se llenan los campos de Orden interna  //////////////////////////////////////////////--> 
 
                 <h:form id="formOrden">
-                    <p:growl id="msjTRES" showDetail="true" sticky="true" autoUpdate="true"/>
+                    <p:growl id="msjTRES" showDetail="true" autoUpdate="true"/>
                     <f:event type="preRenderView" listener="#{orden_internaBEAN.existeSolicitud()}"/>
                     
                     <p:panel id="panelOrden">
@@ -314,7 +314,7 @@
                     <br/>
                   
 
-                    <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" actionListener="principalNivelDos.xhtml" update="formOrden" ajax="false" />
+                    <p:commandButton value="Registrar Orden Interna" actionListener="#{orden_internaBEAN.registrarOrden()}" action="principalNivelDos.xhtml" update="formOrden" ajax="false" />
                     
                 </h:form>
                 <!--////////////////////////////////////////////////Aqui termina Orden Interna///////////////////////////////-->
