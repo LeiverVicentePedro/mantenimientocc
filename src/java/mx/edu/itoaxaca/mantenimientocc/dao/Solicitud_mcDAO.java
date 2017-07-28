@@ -200,7 +200,7 @@ public class Solicitud_mcDAO extends Conexion {
         ResultSet resultadoList;
         try {
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM solicitud_mc where id_departamento=?  order by estatus desc");
+            PreparedStatement consulta = this.getConexion().prepareCall("SELECT * FROM solicitud_mc where id_departamento=? and estado_seguimiento=1 order by estatus desc");
             consulta.setInt(1, usuario.getIdOficina().getDepartamento().getIddepartamento());
             resultadoList = consulta.executeQuery();
             lista = new ArrayList();

@@ -81,6 +81,11 @@
                         <p:column headerText="Asignar" width="40">
                             <p:commandButton icon="#{solicitudMC.icono}" action="#{asigna_solicitudBEAN.eligiendoAsignacion(solicitudMC)}" oncomplete="PF('DatosDeAsignacion').show();"/>
                         </p:column>
+                        <p:column headerText="Orden de Trabajo" width="140" >
+                            <center>
+                                <p:commandButton  icon="fa fa-pencil" action="orden_trabajo.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(solicitudMC)}"  />    
+                            </center>
+                        </p:column>
                     </p:dataTable>
                 </h:form>
 
