@@ -230,7 +230,7 @@ public class Orden_internaBEAN implements Serializable{
             new DetalleSeguimientoDAO().registrarDetalleSeguimientoEnOrdenInterna(detalleseguimiento,parseoImagen);
             }
            
-            exportarPDFOrdenInterna(usuarioVive);
+          //  exportarPDFOrdenInterna(usuarioVive); se retiro para poderlo generar en cualquier momento desde otra vista
              this.limpiarOrdenInterna();
 
         } catch (Exception ex) {

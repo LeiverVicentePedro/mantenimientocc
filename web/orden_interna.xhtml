@@ -247,14 +247,14 @@
                             <p:separator style="visibility: hidden"/>
                             <p:outputLabel value="Reporte Fallo: "/>
                             <p:inputTextarea value="#{orden_internaBEAN.orden_interna.reporte_fallo}" placeholder="Describa Fallo" rows="2" cols="50" 
-                                             required="true" requiredMessage=" Se Requiere Reporte Fallo" counter="reporteDeFallo" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                                             required="true" requiredMessage=" Se Requiere Reporte Fallo" counter="reporteDeFallo" maxlength="200" counterTemplate="{0} Caracteres restantes." autoResize="false" />
                             <p:column/><p:column/><p:column/>
                             <h:outputText id="reporteDeFallo" style=" color: #c0c0c0"/>
                             <p/><p/>
                             <p:column/>
                             <p:outputLabel value="Reporte Técnico: "/>
                             <p:inputTextarea value="#{orden_internaBEAN.orden_interna.reporte_tecnico}" placeholder="Describa Reporte Técnico" 
-                                             required="true" requiredMessage="Se requiere Reporte Técnico" rows="2" cols="50" counter="reporteTecnico" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                                             required="true" requiredMessage="Se requiere Reporte Técnico" rows="2" cols="50" counter="reporteTecnico" maxlength="200" counterTemplate="{0} Caracteres restantes." autoResize="false" />
                             <p:column/><p:column/><p:column/>
                             <h:outputText id="reporteTecnico" style=" color: #c0c0c0"/>
                             <p/><p/>
@@ -262,7 +262,7 @@
                            
                             <p:outputLabel value="Posible Causa: "/>
                             <p:inputTextarea value="#{orden_internaBEAN.orden_interna.posible_causa}" placeholder="Describa Posible causa" 
-                                             required="true" requiredMessage="Se requiere Posible Causa" rows="2" cols="50" counter="posibleCausa" maxlength="150" counterTemplate="{0} Caracteres restantes." autoResize="false" />
+                                             required="true" requiredMessage="Se requiere Posible Causa" rows="2" cols="50" counter="posibleCausa" maxlength="200" counterTemplate="{0} Caracteres restantes." autoResize="false" />
                             
                             <br/><p:column/><p:column/>
                             <h:outputText id="posibleCausa" style=" color: #c0c0c0"/>
@@ -314,8 +314,8 @@
                     <br/>
                   
 
-                    <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" update="formOrden" ajax="false" />
-                    <p:commandButton value="Continuar" action="detalleSeguimiento.xhtml" immediate="true"/>
+                    <p:commandButton value="Registrar Orden Interna" action="#{orden_internaBEAN.registrarOrden()}" actionListener="principalNivelDos.xhtml" update="formOrden" ajax="false" />
+                    
                 </h:form>
                 <!--////////////////////////////////////////////////Aqui termina Orden Interna///////////////////////////////-->
 
