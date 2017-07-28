@@ -214,5 +214,19 @@ public class Asigna_solicitudDAO extends Conexion{
             this.Cerrar();
         }
         return asignaSolicitud;
-    } 
+    }
+      
+      public void modificarAsignacion(Asigna_solicitud asignacion)throws Exception{
+          try{
+              this.Conectar();
+              PreparedStatement modifica = this.getConexion().prepareStatement("UPDATE asigna_solicitud set id_usuario_personal=? where id_solicitud=?");
+              modifica.setInt(1,asignacion.getId_usuario_personal().getIdUsuario());
+              modifica.setInt(2,asignacion.getId_solicitud().getIdsolicitud_mc());
+              modifica.executeUpdate();
+          }catch(Exception ex){
+              System.out.println("Error en Asigna_solicitudDAO -> modificarAsignacion: "+ex);
+          }finally{
+              this.Cerrar();
+          }
+      }
 }

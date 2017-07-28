@@ -146,11 +146,17 @@ public class Asigna_solicitudBEAN implements Serializable {
             //  asigna_Solicitud.setId_usuario_personal(asigna_Solicitud.getId_usuario_personal());
             asigna_Solicitud.setId_usuario_personal_jefe(usuarioVive);
             asigna_Solicitud.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
+            
             System.out.println("DATOS DE ASIGNACION" + asigna_Solicitud.getId_solicitud().getFolio());
             System.out.println("DATOS DE ASIGNACION" + asigna_Solicitud.getId_usuario_personal().getNombre());
             System.out.println("DATOS DE ASIGNACION" + asigna_Solicitud.getId_usuario_personal_jefe().getNombre());
-
-            asignaSolicitudDao.registrarAsignarSolicitud(asigna_Solicitud);
+            if(paraAsignar.getIcono().equalsIgnoreCase("fa fa-thumb-tack")){
+                asignaSolicitudDao.registrarAsignarSolicitud(asigna_Solicitud);
+                System.out.println("Registro de una nueva asignación");
+            }else{
+                asignaSolicitudDao.modificarAsignacion(asigna_Solicitud);
+                System.out.println("Se actualiza la asignacion");
+            }
             
             /*seccion donde se pone el estatus de la solicitud en falso para su asignacion*/
             Solicitud_mc solicitudAsignada = asigna_Solicitud.getId_solicitud();

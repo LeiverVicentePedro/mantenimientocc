@@ -313,6 +313,7 @@ public class Solicitud_mcBEAN implements Serializable{
                 for(int i=0;i<listaSolicitudPorDepartamento.size();i++){
                     if(listaSolicitudPorDepartamento.get(i).getEstatus().equals(false)){
                         listaSolicitudPorDepartamento.get(i).setAsignacion("Asignada");
+                        listaSolicitudPorDepartamento.get(i).setIcono("fa fa-refresh");//aca se le pondra otro icono si se trata de modificar quien tiene la solicitus para otra persona.
                     }
                     else{
                         listaSolicitudPorDepartamento.get(i).setAsignacion("No Asignada");

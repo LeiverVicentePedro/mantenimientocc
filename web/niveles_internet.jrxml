@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="526" leftMargin="44" rightMargin="42" topMargin="14" bottomMargin="12" uuid="9f46ccbd-731f-4d17-bb1e-1436240e656d">
 	<property name="ireport.zoom" value="2.1961500000000007"/>
 	<property name="ireport.x" value="42"/>
-	<property name="ireport.y" value="741"/>
+	<property name="ireport.y" value="955"/>
 	<parameter name="fechasolicitud" class="java.lang.String"/>
 	<parameter name="departamento" class="java.lang.String"/>
 	<parameter name="area" class="java.lang.String"/>
