@@ -96,11 +96,6 @@
                                 <p:commandButton process="data" icon="fa fa-pencil" action="orden_interna.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" />    
                             </center>
                         </p:column>
-                        <p:column headerText="Orden de Trabajo" width="140" >
-                            <center>
-                                <p:commandButton process="data" icon="fa fa-pencil" action="orden_trabajo.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}"  />    
-                            </center>
-                        </p:column>
                     </p:dataTable>
                     <p/>
                     <p:commandButton value="Asignaciones Terminadas" action="misAsignacionesTerminadas.xhtml"/>
