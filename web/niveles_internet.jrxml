@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="526" leftMargin="44" rightMargin="42" topMargin="14" bottomMargin="12" uuid="9f46ccbd-731f-4d17-bb1e-1436240e656d">
 	<property name="ireport.zoom" value="2.1961500000000007"/>
 	<property name="ireport.x" value="42"/>
-	<property name="ireport.y" value="63"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="fechasolicitud" class="java.lang.String"/>
 	<parameter name="departamento" class="java.lang.String"/>
 	<parameter name="area" class="java.lang.String"/>
@@ -43,22 +43,22 @@
 				<imageExpression><![CDATA["resources/images/gobmx.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="334" y="1" width="192" height="20" forecolor="#666666" uuid="00d0b898-026c-4a12-a045-38cfc1ec7ebe"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<reportElement x="332" y="1" width="192" height="20" forecolor="#666666" uuid="00d0b898-026c-4a12-a045-38cfc1ec7ebe"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tecnológoco Nacional de México]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="366" y="21" width="160" height="13" forecolor="#666666" uuid="24fec83c-6b43-442d-9edc-d452ff24aeae"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<reportElement x="364" y="21" width="160" height="13" forecolor="#666666" uuid="24fec83c-6b43-442d-9edc-d452ff24aeae"/>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Instituto Tecnológico de Oaxaca]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="425" y="35" width="100" height="13" forecolor="#666666" uuid="8b86cdf4-c8e3-442c-849c-0feec71e27e0"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<reportElement x="423" y="35" width="100" height="13" forecolor="#666666" uuid="8b86cdf4-c8e3-442c-849c-0feec71e27e0"/>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Centro de Computo]]></text>
