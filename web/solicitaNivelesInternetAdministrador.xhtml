@@ -76,11 +76,12 @@
                             <f:selectItem itemLabel="Escritorio" itemValue="Escritorio" />
                             <f:selectItem itemLabel="Laptop" itemValue="Laptop"/>
                             <f:selectItem itemLabel="Tableta" itemValue="Tableta"/>
+                        <f:selectItem itemLabel="Smartphone" itemValue="Smartphone"/>
                         </p:selectOneMenu>
 
                         <br/>
                         <center>
-                            <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.registrarNivelesInternetAdministrador()}" action="solicitaNivelesInternetAdministrador.xhtml" update="formaExterior" />
+                            <p:commandButton value="Registrar" actionListener="#{niveles_internetBEAN.registrarNivelesInternetAdministrador()}" action="principal.xhtml" update="formaExterior" />
                         </center>
                     </p:panel>   
 
@@ -91,7 +92,7 @@
                     <p:dialog widgetVar="dialogoUsuario" closeOnEscape="true" closable="true" header="Seleccion de Ususario" hideEffect="clip" showEffect="clip" modal="true">
                         <h:panelGrid columns="2">
                             <h:outputText value="Area:*" style="color: black;font-size:14px"/>
-                            <p:selectOneMenu value="#{usuarioBEAN.idArea}" label="Area:" required="true" requiredMessage="Área requerido" style="height:30px;width:350px">
+                            <p:selectOneMenu value="#{usuarioBEAN.idArea}" label="Area:" required="true" requiredMessage="Área requerido" style="height:30px;width:350px;text-transform: uppercase">
                                 <f:selectItem noSelectionOption="true" itemLabel="-- Area --" itemValue="#{null}" />
                                 <f:selectItems value="#{usuarioBEAN.listaAreas}" var="area" itemLabel="#{area.nombre_area}" itemValue="#{area.idarea}"/>
                                 <p:ajax listener="#{usuarioBEAN.departamentoDeUnAreaRegistro()}" update="departamento"/>
@@ -100,7 +101,7 @@
                             <p:column><br/> </p:column><p:column><br/> </p:column>
                             <h:outputText value="Departamento:*" style="color: black;font-size:14px"/>
                             <p:selectOneMenu id="departamento" value="#{usuarioBEAN.idDepartamento}" converter="omnifaces.SelectItemsConverter" label="Departamento:" 
-                                             required="true" requiredMessage="Departamento requerido" style="height:30px;width:350px">
+                                             required="true" requiredMessage="Departamento requerido" style="height:30px;width:350px;text-transform: uppercase">
                                 <f:selectItem noSelectionOption="true" itemLabel="-- Departamento --" itemValue="#{null}"/>
                                 <f:selectItems value="#{usuarioBEAN.listaTemporalDepartamento}" var="departamento" itemLabel="#{departamento.nombre_departamento}" itemValue="#{departamento.iddepartamento}"/>
                                 <p:ajax listener="#{usuarioBEAN.oficinaDeUnDepartamento()}" update="oficina"/>
@@ -108,7 +109,7 @@
                             <p:column><br/> </p:column><p:column><br/> </p:column>
                             <p:outputLabel value="Oficina:*" style="color: black;font-size:14px" /> 
                             <p:selectOneMenu id="oficina" value="#{usuarioBEAN.idOficina}" converter="omnifaces.SelectItemsConverter" 
-                                             required="true" requiredMessage="Oficina requerido" label="Oficina:" style="height:30px;width:350px">
+                                             required="true" requiredMessage="Oficina requerido" label="Oficina:" style="height:30px;width:350px;text-transform: uppercase">
                                 <f:selectItem noSelectionOption="true" itemLabel="-- Oficina --" itemValue="#{null}"/>
                                 <f:selectItems value="#{usuarioBEAN.listaTemporalOficina}" var="oficina" itemLabel="#{oficina.nombreOficina}" itemValue="#{oficina.idOficinaSolicitante}"/>
                                 <p:ajax listener="#{usuarioBEAN.usuariosDeUnaOficina()}" update="usuario"/>
@@ -116,7 +117,7 @@
                              <p:column><br/> </p:column><p:column><br/> </p:column>
                             <p:outputLabel value="Usuario:*" style="color: black;font-size:14px" /> 
                             <p:selectOneMenu id="usuario" value="#{niveles_internetBEAN.nivelesInternet.solicita}" converter="omnifaces.SelectItemsConverter" 
-                                             required="true" requiredMessage="Usuario requerido" label="Usuario:" style="height:30px;width:350px">
+                                             required="true" requiredMessage="Usuario requerido" label="Usuario:" style="height:30px;width:350px;text-transform: uppercase">
                                 <f:selectItem noSelectionOption="true" itemLabel="-- Usuario --" itemValue="#{null}"/>
                                 <f:selectItems value="#{usuarioBEAN.listaTemporalUsuario}" var="usuario" itemLabel="#{usuario.concatenar}" itemValue="#{usuario}"/>
                             </p:selectOneMenu>
