@@ -279,9 +279,14 @@ public class Orden_internaBEAN implements Serializable{
     
     //--------------------------------------------------------------------------------------
     //----------------metodo que nos genera el pdf para la Orden Interna--------------------
-    public void exportarPDFOrdenInterna(Usuario usuarioActivo) throws JRException, IOException{
+    public void exportarPDFOrdenInterna(Orden_interna orden_interna) throws JRException, IOException, Exception{
         Map<String, Object> parametros = new HashMap<String, Object>();
         
+           
+            List <Relacion_orden_equipo> listaEquipo = new ArrayList();
+            List <Relacion_orden_refaccion> listaRefaccion = new ArrayList();
+            listaEquipo = new Relacion_orden_equipoDAO().listaOrdenEquipo(orden_interna);
+            listaRefaccion = new Relacion_orden_refaccionDAO().listaOrdenRefaccion(orden_interna);
         String nombreUsuario = orden_interna.getIdsolicitud().getId_usuario().getId_profesion().getNombre_profesion()+" "+
                 orden_interna.getIdsolicitud().getId_usuario().getNombre()+" "+
                 orden_interna.getIdsolicitud().getId_usuario().getApellidoPaterno()+" "+
@@ -316,12 +321,12 @@ public class Orden_internaBEAN implements Serializable{
         parametros.put("fecha",fechaOrden);
         
         
-        for(Equipo elementoEquipo : listaEquipo){
-          tipo += elementoEquipo.getTipo()+"\n";
-          marca+= elementoEquipo.getMarca()+"\n";
-          modelo += elementoEquipo.getModelo()+"\n";
-          numeroSerie += elementoEquipo.getNumero_serie()+"\n";
-          folioInventario += elementoEquipo.getFolio_inventario()+"\n";
+        for(Relacion_orden_equipo elementoEquipo : listaEquipo){
+          tipo += elementoEquipo.getIdEquipo().getTipo()+"\n";
+          marca+= elementoEquipo.getIdEquipo().getMarca()+"\n";
+          modelo += elementoEquipo.getIdEquipo().getModelo()+"\n";
+          numeroSerie += elementoEquipo.getIdEquipo().getNumero_serie()+"\n";
+          folioInventario += elementoEquipo.getIdEquipo().getFolio_inventario()+"\n";
         }
         
         parametros.put("tipo", tipo.toUpperCase());
@@ -332,15 +337,15 @@ public class Orden_internaBEAN implements Serializable{
         parametros.put("reporteFalla",orden_interna.getReporte_fallo().toUpperCase());
         parametros.put("reporteTecnico",orden_interna.getReporte_tecnico().toUpperCase());
         parametros.put("causaFalla", orden_interna.getPosible_causa().toUpperCase());
-        parametros.put("realizo",usuarioActivo.getNombre().toUpperCase()+" "+usuarioActivo.getApellidoPaterno().toUpperCase()+" "+usuarioActivo.getApellidoMaterno().toUpperCase());
+        parametros.put("realizo",orden_interna.getId_usuario_personal().getConcatenar().toUpperCase());
         parametros.put("fechaRealizo",fecha);
         parametros.put("seRecibe",orden_interna.getSe_recibe().toUpperCase());
         
-        for(Refaccion_empleada refaccion : listaRefaccion){
-         cantidad += refaccion.getCantidad()+"\n";
-         numeroPartes += refaccion.getNumero_serie()+"\n";
-         descripcion += refaccion.getDescripcion()+"\n";
-         precio += refaccion.getPrecio()+"\n";
+        for(Relacion_orden_refaccion refaccion : listaRefaccion){
+         cantidad += refaccion.getIdRefaccion().getCantidad()+"\n";
+         numeroPartes += refaccion.getIdRefaccion().getNumero_serie()+"\n";
+         descripcion += refaccion.getIdRefaccion().getDescripcion()+"\n";
+         precio += refaccion.getIdRefaccion().getPrecio()+"\n";
         }
         
         parametros.put("cantidad", cantidad);

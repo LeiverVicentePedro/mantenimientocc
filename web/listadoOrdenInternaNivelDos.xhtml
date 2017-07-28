@@ -108,7 +108,13 @@
                      <h:outputText value="#{ordenInterna.posible_causa}" />
                    
                 </p:column>
-               
+                <p:column headerText="PDF" 
+                                  style=" font-size: 13px;text-transform: uppercase " width="90">
+                            <center>
+                                <p:commandButton icon="fa fa-download" actionListener="#{orden_internaBEAN.exportarPDFOrdenInterna(ordenInterna)}" ajax="false"/>
+                            </center>
+
+                </p:column> 
               
                 
              
