@@ -192,12 +192,15 @@
                             <h:panelGrid columns="2" columnClasses="label, value" class="container-fluid  text-justify" width="500">
 
                                 <p:outputLabel value="Tipo de Solicitud:" style="color: black;font-size:14px"/> 
-                                <p:inputText value="#{niveles_internetBEAN.nivelesInternet.tipo_solicitud}" 
-                                             required="true" requiredMessage="Tipo de Solicitud" 
-                                             style="text-transform: uppercase;width:250px" >
-                                    <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                                </p:inputText>
+                                <p:selectOneMenu value="#{niveles_internetBEAN.nivelesInternet.tipo_solicitud}" styleClass="selectMenu" 
+                                    required="true" requiredMessage="Tipo de Solicitud" 
+                                             style="text-transform: uppercase;width:250px" > 
 
+                        <f:selectItem itemLabel="Nueva" itemValue="Nueva" />
+                        <f:selectItem itemLabel="Cambio" itemValue="Cambio"/>
+                        <f:selectItem itemLabel="Baja" itemValue="Baja"/>
+                    </p:selectOneMenu>
+                                
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <p:outputLabel value="VLAN:" style="color: black;font-size:14px"/> 
                                 <p:inputText value="#{niveles_internetBEAN.nivelesInternet.vlan}" 
@@ -218,11 +221,15 @@
 
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <p:outputLabel value="Tipo de Equipo:" style="color: black;font-size:14px"/> 
-                                <p:inputText value="#{niveles_internetBEAN.nivelesInternet.tipo_solicitud}" 
-                                             required="true" requiredMessage="Tipo de Equipo" 
-                                             style="text-transform: uppercase;width:250px" >
-                                    <f:validator validatorId="validadoresLetrasNumEspacioPunto"/>
-                                </p:inputText>
+                                <p:selectOneMenu value="#{niveles_internetBEAN.nivelesInternet.tipo_equipo}" styleClass="selectMenu" 
+                                    required="true" requiredMessage="Tipo de Equipo" 
+                                             style="text-transform: uppercase;width:250px" > 
+
+                        <f:selectItem itemLabel="Escritorio" itemValue="Escritorio" />
+                        <f:selectItem itemLabel="Laptop" itemValue="Laptop"/>
+                        <f:selectItem itemLabel="Tableta" itemValue="Tableta"/>
+                        <f:selectItem itemLabel="Smartphone" itemValue="Smartphone"/>
+                    </p:selectOneMenu>
 
                                 <p:column><br/> </p:column><p:column><br/> </p:column>
                                 <p:outputLabel value="Configuró:" style="color: black;font-size:14px"/> 
