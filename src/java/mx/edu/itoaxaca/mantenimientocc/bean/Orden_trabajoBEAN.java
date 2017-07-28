@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -32,6 +33,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -109,7 +111,8 @@ public class Orden_trabajoBEAN implements Serializable{
             orden_trabajo.setId_solicitudmc(solicitudOT);
             ordenTrabajoDao.registrarOrdenTrabajo(orden_trabajo);
             
-            
+            FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION","Registro Exitoso");
+             RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
             
              System.out.println("Datos  " + orden_trabajo.getMantenimiento_tipo()+"\n"+
                     orden_trabajo.getTipo_servicio()+"\n "+
@@ -134,7 +137,7 @@ public class Orden_trabajoBEAN implements Serializable{
             
             solicitudDao.modificarSolicitudSeguimiento(solicitudEstadoSeguimiento);
             new CorreoRegistroUsuario().enviarMensajeOrdenTrabajo(orden_trabajo);
-            exportarOrdenTrabajo(orden_trabajo);
+          //  exportarOrdenTrabajo(orden_trabajo);
            
             this.limpiarOrdenTrabajo();
             
