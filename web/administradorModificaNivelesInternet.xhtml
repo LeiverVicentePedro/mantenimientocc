@@ -109,6 +109,13 @@
                             <h:outputText value="#{niveles.tipo_equipo}" />
 
                         </p:column>
+                        <p:column headerText="PDF" 
+                                  style=" font-size: 13px;text-transform: uppercase " width="90">
+                            <center>
+                                <p:commandButton icon="fa fa-download" actionListener="#{niveles_internetBEAN.exportarNivelInternet(niveles)}" ajax="false"/>
+                            </center>
+
+                        </p:column>
                         <p:column headerText="Modificar" 
                                   style=" font-size: 13px;text-transform: uppercase " width="90">
                             <center>
@@ -123,7 +130,7 @@
                             </center>
 
                         </p:column>
-
+                        
 
                     </p:dataTable>
                     <p:separator style="visibility: hidden"/> 
