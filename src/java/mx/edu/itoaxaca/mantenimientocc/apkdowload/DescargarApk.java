@@ -21,7 +21,7 @@ public class DescargarApk {
     private StreamedContent file;
      
     public DescargarApk() {        
-        InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/apk/mantenimientocc.apk");
+        InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/apk/mantenimietocc.apk");
         file = new DefaultStreamedContent(stream, "application/vnd.android.package-archive", "mantenimientocc.apk");
     }
  
