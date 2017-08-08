@@ -11,7 +11,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import mx.edu.itoaxaca.mantenimientocc.dao.DetalleHorasEmpleadoDAO;
 import mx.edu.itoaxaca.mantenimientocc.dao.VistaHorasEmpleadosDAO;
@@ -26,7 +26,7 @@ import org.primefaces.context.RequestContext;
  * @author leiver
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class VistaHorasEmpleadosBEAN implements Serializable{
     
     private TotalHorasEmpleado vistaEmpleados = new TotalHorasEmpleado();

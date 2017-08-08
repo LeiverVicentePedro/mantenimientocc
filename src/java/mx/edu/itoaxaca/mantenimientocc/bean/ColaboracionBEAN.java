@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.ColaboracionDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Asigna_solicitud;
 import mx.edu.itoaxaca.mantenimientocc.modelo.Colaboracion;
@@ -20,7 +20,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.Colaboracion;
  */
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ColaboracionBEAN implements Serializable{
     
     Colaboracion colaborador = new Colaboracion();

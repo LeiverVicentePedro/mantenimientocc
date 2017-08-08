@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import mx.edu.itoaxaca.mantenimientocc.dao.ConfiguracionServicioSocialDAO;
@@ -30,7 +30,7 @@ import org.primefaces.context.RequestContext;
  * @author leiver
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class HorasEmpleadoBEAN implements Serializable {
 
     HorasEmpleado horas = new HorasEmpleado();
