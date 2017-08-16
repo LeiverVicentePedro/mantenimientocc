@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -39,6 +40,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 
@@ -181,8 +183,9 @@ public class Orden_internaBEAN implements Serializable{
             relacion_orden_equipoDAO = new Relacion_orden_equipoDAO();
             relacion_orden_refaccionDAO =new Relacion_orden_refaccionDAO();
             
-           
-            
+            Orden_interna ordenExistente = new Orden_interna();
+            ordenExistente = ordenInternaDao.identificadorDeOrden(folioDesdeAsignacion);
+            if(ordenExistente == null){
             orden_interna.setId_usuario_personal(usuarioVive);
             orden_interna.setFecha(new java.sql.Date(new java.util.Date().getTime()));//fecha sistema
             orden_interna.setIdsolicitud(folioDesdeAsignacion);
@@ -229,7 +232,10 @@ public class Orden_internaBEAN implements Serializable{
           
             new DetalleSeguimientoDAO().registrarDetalleSeguimientoEnOrdenInterna(detalleseguimiento,parseoImagen);
             }
-           
+        }else{
+                FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Registro ya Existente.");
+                RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
+             }
           //  exportarPDFOrdenInterna(usuarioVive); se retiro para poderlo generar en cualquier momento desde otra vista
              this.limpiarOrdenInterna();
 
