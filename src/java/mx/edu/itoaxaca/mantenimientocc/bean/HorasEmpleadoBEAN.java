@@ -67,7 +67,7 @@ public class HorasEmpleadoBEAN implements Serializable {
             if (ipNueva.trim().equalsIgnoreCase(configuracion.getIp_checador().trim())) {
                 FacesContext contexto = FacesContext.getCurrentInstance(); //paraq entrar ql dom del navegador
                 Usuario usuarioVive = (Usuario) contexto.getExternalContext().getSessionMap().get("usuario");//llamo a  la etiqueta usuario que es un objeto que ya debe
-
+        
                 HorasEmpleado existeRegistroHoras = new HorasEmpleado();
                 horas.setFecha(new java.sql.Date(new java.util.Date().getTime()));
                 horas.setId_usuario_empleado(usuarioVive);
@@ -103,7 +103,6 @@ public class HorasEmpleadoBEAN implements Serializable {
                         DetalleHorasEmpleado detalleHorasNueva = new DetalleHorasEmpleado();
                         detalleHorasNueva.setIdHorasEmpleado(existeRegistroHoras);
                         detalleHorasNueva.setHoraEntrada(new SimpleDateFormat("HH:mm:ss").format(new java.sql.Date(new java.util.Date().getTime())));
-
                         new DetalleHorasEmpleadoDAO().registrarDetalleHorasEmpleado(detalleHorasNueva);
                         FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Hora de Entrada Registrada");
                         RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);

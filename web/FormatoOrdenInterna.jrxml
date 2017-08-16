@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="516" leftMargin="48" rightMargin="48" topMargin="48" bottomMargin="48" uuid="af22f82a-4c25-4687-b0ce-3855f185b1b5">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="63"/>
+	<property name="ireport.y" value="173"/>
 	<parameter name="cordinacion" class="java.lang.String"/>
 	<parameter name="orden" class="java.lang.String"/>
 	<parameter name="nombreUsiario" class="java.lang.String"/>
@@ -343,14 +343,14 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{area}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{departamento}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="116" y="59" width="252" height="12" uuid="ff0a7c82-989b-4e6c-a067-ec444b207a96"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{departamento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{area}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="424" y="40" width="91" height="11" uuid="682d5d6b-b8fe-4310-a1fb-e8954478b896"/>
