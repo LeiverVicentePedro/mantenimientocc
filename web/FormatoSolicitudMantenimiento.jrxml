@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="528" leftMargin="42" rightMargin="42" topMargin="70" bottomMargin="70" uuid="b7f27d63-0ae4-4418-aa15-0814a9dbe3e4">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="397"/>
+	<property name="ireport.y" value="861"/>
 	<parameter name="recursosMaterialesServicio" class="java.lang.String"/>
 	<parameter name="centroComputo" class="java.lang.String"/>
 	<parameter name="mantenimientoEquipo" class="java.lang.String"/>
@@ -200,9 +200,9 @@
 				<textFieldExpression><![CDATA[$P{fechaElaboracion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="8" y="331" width="497" height="15" uuid="20badcf6-42c7-46d1-b626-86677aba7a16"/>
+				<reportElement x="8" y="331" width="515" height="26" uuid="20badcf6-42c7-46d1-b626-86677aba7a16"/>
 				<textElement>
-					<font fontName="Arial" size="12"/>
+					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{otroProblema}]]></textFieldExpression>
 			</textField>
