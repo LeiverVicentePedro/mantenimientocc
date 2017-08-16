@@ -25,6 +25,7 @@ public class TotalHorasEmpleadoDAO extends Conexion{
             this.Conectar();
             PreparedStatement consulta = this.getConexion().prepareStatement("SELECT * FROM total_horas_empleado");
             ResultSet resultado = consulta.executeQuery();
+            
             while(resultado.next()){
                 /*creamos el objeto y llenamos lista*/
                 TotalHorasEmpleado horasEmpleado = new TotalHorasEmpleado();
