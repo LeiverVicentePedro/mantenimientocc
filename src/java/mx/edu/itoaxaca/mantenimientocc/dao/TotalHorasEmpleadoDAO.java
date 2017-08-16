@@ -47,7 +47,7 @@ public class TotalHorasEmpleadoDAO extends Conexion{
         TotalHorasEmpleado misHoras = new TotalHorasEmpleado();
         try{
             this.Conectar();
-            PreparedStatement consulta = this.getConexion().prepareStatement("select * from total_horas_empleado where id_usuario_empleado=?");
+            PreparedStatement consulta = this.getConexion().prepareStatement("select id_usuario_empleado, CONCAT(\"\",total)as total from total_horas_empleado where id_usuario_empleado=?");
             consulta.setInt(1,usuario.getIdUsuario());
             ResultSet resultado = consulta.executeQuery();
             while(resultado.next()){
