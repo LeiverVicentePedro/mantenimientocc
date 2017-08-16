@@ -90,7 +90,7 @@ public class TotalHorasEmpleadoBEAN implements Serializable{
     }
 
     public void setVistaEmpleados(TotalHorasEmpleado vistaEmpleados) {
-        limpiarHorasEmpleado();
+        //limpiarHorasEmpleado();
         this.vistaEmpleados = vistaEmpleados;
     }
 

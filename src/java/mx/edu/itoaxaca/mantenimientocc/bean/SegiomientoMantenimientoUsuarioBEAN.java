@@ -41,7 +41,8 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
     private List<DetalleSeguimiento> listaDetalleProceso;
     private List<DetalleSeguimiento> listaDetalleFinal;
     private List<Solicitud_mc> listaSolicitudActivasfilter;
-
+    private String asignado;
+    
     public List<Solicitud_mc> getListaSolicitudActivasfilter() {
         return listaSolicitudActivasfilter;
     }
@@ -111,6 +112,14 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
         return vista;
     }
 
+    public String getAsignado() {
+        return asignado;
+    }
+
+    public void setAsignado(String asignado) {
+        this.asignado = asignado;
+    }
+
     /*metodo que busca la lista de solicitudes realizad por un usuario*/
     public void listarSolicitudesSeguimientoactivasPorUsuario() {
         try {
@@ -127,6 +136,11 @@ public class SegiomientoMantenimientoUsuarioBEAN implements Serializable {
             if (new SeguimientoDAO().elegirDatoSeguimiento(buscarSolicitud) != null) {
                 seguimientoEncontrado = new SeguimientoDAO().elegirDatoSeguimiento(buscarSolicitud);
                 setNoExisteSolicitud("ACTIVO");
+                if(buscarSolicitud.getEstatus() == false){
+                    setAsignado(seguimientoEncontrado.getId_usuario_personal().getConcatenar());
+                }else{
+                    setAsignado(" No se Encuentra Asignado");
+                }
                 if (buscarSolicitud.getEstado_seguimiento() == false) {
                     setNoExisteSolicitud("TERMINADO");
                 }
