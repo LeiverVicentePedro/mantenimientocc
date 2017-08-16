@@ -86,6 +86,11 @@
                     <h:outputText value="#{asigna_solicitud.id_usuario_personal_jefe.apellidoMaterno}"/>
                    
                 </p:column>
+                <p:column headerText="PDF" width="60">
+                            <center>
+                                <p:commandButton icon="fa fa-download"  actionListener="#{solicitud_mcBEAN.crearPDF(asigna_solicitud.id_solicitud)}" ajax="false"/>
+                            </center>
+                        </p:column>
                 <p:column headerText="Seguimiento" width="130" >
                     <center>
                     <p:commandButton process="data" icon="fa fa-pencil" action="detalleSeguimiento.xhtml" actionListener="#{asigna_solicitudBEAN.eligeIdAsignaSolicitudOTrabajo(asigna_solicitud.id_solicitud)}" 

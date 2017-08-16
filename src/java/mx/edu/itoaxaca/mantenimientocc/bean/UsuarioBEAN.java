@@ -671,13 +671,12 @@ public class UsuarioBEAN implements Serializable{
     }
     public void llenaListaServicoCorreo(){
         listaServicioCorreo = new ArrayList();
-        listaServicioCorreo.add("@hotmail.com");
-        listaServicioCorreo.add("@gmail.com");
-        listaServicioCorreo.add("@gmail.com.mx");
-        listaServicioCorreo.add("@yahoo.com.mx");
-        listaServicioCorreo.add("@yahoo.com");
         listaServicioCorreo.add("@itoaxaca.edu.mx");
+        listaServicioCorreo.add("@gmail.com");
+        listaServicioCorreo.add("@hotmail.com");
         listaServicioCorreo.add("@outlook.com");
+        listaServicioCorreo.add("@yahoo.com");
+        
     }
     
     public void listarUsuarioNivelTres() throws Exception{

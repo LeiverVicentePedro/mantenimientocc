@@ -54,7 +54,7 @@ public class ReporteMantenimiento{
         }
 
         parametros.put("folio", solicitudmc.getFolio().toUpperCase());
-        parametros.put("areaSolicitante", solicitudmc.getId_usuario().getIdOficina().getNombreOficina().toUpperCase());
+        parametros.put("areaSolicitante", solicitudmc.getId_usuario().getIdOficina().getDepartamento().getNombre_departamento().toUpperCase());
         parametros.put("nombreSolicitante", solicitudmc.getId_usuario().getId_profesion().getNombre_profesion().toUpperCase() + " " + solicitudmc.getId_usuario().getNombre().toUpperCase() + " " + solicitudmc.getId_usuario().getApellidoPaterno().toUpperCase() + " " + solicitudmc.getId_usuario().getApellidoMaterno().toUpperCase());
         String fecha = String.valueOf(solicitudmc.getFecha());
         parametros.put("fechaElaboracion", fecha);
@@ -68,7 +68,8 @@ public class ReporteMantenimiento{
             servicioSolicitado += servicio.getId_catalogo_servicio_solicitado().getServicio_solicitado() + "\n";
         }
         parametros.put("servicioSolicitado", servicioSolicitado.toUpperCase());
-
+        parametros.put("oficinaSolicitante", solicitudmc.getId_usuario().getIdOficina().getNombreOficina().toUpperCase());
+        
         File archivo = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/FormatoSolicitudMantenimiento.jasper"));
         JasperPrint imprimirArchivo = JasperFillManager.fillReport(archivo.getPath(), parametros, new JREmptyDataSource());
 

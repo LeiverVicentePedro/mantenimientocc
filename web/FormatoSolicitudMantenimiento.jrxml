@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="528" leftMargin="42" rightMargin="42" topMargin="70" bottomMargin="70" uuid="b7f27d63-0ae4-4418-aa15-0814a9dbe3e4">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="397"/>
 	<parameter name="recursosMaterialesServicio" class="java.lang.String"/>
 	<parameter name="centroComputo" class="java.lang.String"/>
 	<parameter name="mantenimientoEquipo" class="java.lang.String"/>
@@ -12,6 +12,7 @@
 	<parameter name="fechaElaboracion" class="java.lang.String"/>
 	<parameter name="otroProblema" class="java.lang.String"/>
 	<parameter name="servicioSolicitado" class="java.lang.String"/>
+	<parameter name="oficinaSolicitante" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -178,7 +179,7 @@
 				<textFieldExpression><![CDATA[$P{folio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="108" y="51" width="410" height="14" uuid="6190e2ef-bd6e-4798-8cf9-78f53e488ed7"/>
+				<reportElement x="108" y="44" width="410" height="14" uuid="6190e2ef-bd6e-4798-8cf9-78f53e488ed7"/>
 				<textElement>
 					<font fontName="Arial" size="12"/>
 				</textElement>
@@ -211,6 +212,13 @@
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{servicioSolicitado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="58" width="410" height="15" uuid="99b64ee6-6cf0-4cdf-8eb6-90a6b73881f0"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{oficinaSolicitante}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
