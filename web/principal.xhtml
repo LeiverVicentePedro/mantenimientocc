@@ -76,7 +76,11 @@
                                   filterStyle="visibility:hidden; height:0" width="60">
                             <h:outputLabel value="#{solicitudMC.asignacion}"/>
                         </p:column>
-
+                        <p:column headerText="PDF" width="30">
+                            <center>
+                                <p:commandButton icon="fa fa-download"  actionListener="#{solicitud_mcBEAN.crearPDF(solicitudMC)}" ajax="false"/>
+                            </center>
+                        </p:column>
 
                         <p:column headerText="Asignar" width="40">
                             <p:commandButton icon="#{solicitudMC.icono}" action="#{asigna_solicitudBEAN.eligiendoAsignacion(solicitudMC)}" oncomplete="PF('DatosDeAsignacion').show();"/>
