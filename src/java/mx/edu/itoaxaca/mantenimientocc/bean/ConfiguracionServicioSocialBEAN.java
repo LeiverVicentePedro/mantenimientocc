@@ -7,7 +7,7 @@ package mx.edu.itoaxaca.mantenimientocc.bean;
 
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import mx.edu.itoaxaca.mantenimientocc.dao.ConfiguracionServicioSocialDAO;
 import mx.edu.itoaxaca.mantenimientocc.modelo.ConfiguracionServicioSocial;
 
@@ -16,7 +16,7 @@ import mx.edu.itoaxaca.mantenimientocc.modelo.ConfiguracionServicioSocial;
  * @author leiver
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ConfiguracionServicioSocialBEAN implements Serializable{
     
     ConfiguracionServicioSocial servicioSocial = new ConfiguracionServicioSocial();

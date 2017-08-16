@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -143,7 +142,7 @@ public class HorasEmpleadoBEAN implements Serializable {
     }
     //pendiente la nueva agregacion para las horas de un empleado;
 
-    public void registrarHorasPorAdministrador() {
+   public void registrarHorasPorAdministrador() {
         try {
             HorasEmpleado existeRegistroHoras = new HorasEmpleado();
             horas.setFecha(new java.sql.Date(horas.getFecha().getTime()));
@@ -151,7 +150,7 @@ public class HorasEmpleadoBEAN implements Serializable {
             System.out.println("idhoras_empleado " + existeRegistroHoras.getIdhoras_empleado());
             if (existeRegistroHoras.getIdhoras_empleado() != 0) {
                 
-                if((detalleHoras.getHoraEntrada().compareTo("06:00:00")>=0&&detalleHoras.getHoraEntrada().compareTo("16:00:00")<=0)&&(detalleHoras.getHoraSalida().compareTo("06:00:00")>=0&&detalleHoras.getHoraSalida().compareTo("16:00:00")<=0)){//esta linea define el intervalo de horas validas entre 7 y 4 de la tarde
+                if((detalleHoras.getHoraEntrada().compareTo("06:00:00")>=0&&detalleHoras.getHoraEntrada().compareTo("21:00:00")<=0)&&(detalleHoras.getHoraSalida().compareTo("06:00:00")>=0&&detalleHoras.getHoraSalida().compareTo("21:00:00")<=0)){//esta linea define el intervalo de horas validas entre 7 y 9 de la tarde
                 
                     detalleHoras.setIdHorasEmpleado(existeRegistroHoras);
                 new DetalleHorasEmpleadoDAO().registrarDetalleHorasEmpleadoCompleto(detalleHoras);
@@ -159,7 +158,7 @@ public class HorasEmpleadoBEAN implements Serializable {
                 RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
                 
                 }else{
-                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Hora no valida. Debe estar entre 7 A.M. y 16 P.M.");//mensaje cuando una hora no es valida
+                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Hora no valida. Debe estar entre 7 A.M. y 21 P.M.");//mensaje cuando una hora no es valida
                     RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
                 }
                 
@@ -167,7 +166,7 @@ public class HorasEmpleadoBEAN implements Serializable {
                 
             } else {
                 
-                if((detalleHoras.getHoraEntrada().compareTo("06:00:00")>=0&&detalleHoras.getHoraEntrada().compareTo("16:00:00")<=0)&&(detalleHoras.getHoraSalida().compareTo("06:00:00")>=0&&detalleHoras.getHoraSalida().compareTo("16:00:00")<=0)){//esta linea define el intervalo de horas validas entre 7 y 4 de la tarde
+                if((detalleHoras.getHoraEntrada().compareTo("06:00:00")>=0&&detalleHoras.getHoraEntrada().compareTo("21:00:00")<=0)&&(detalleHoras.getHoraSalida().compareTo("06:00:00")>=0&&detalleHoras.getHoraSalida().compareTo("21:00:00")<=0)){//esta linea define el intervalo de horas validas entre 7 y 9 de la tarde
                 
                     horas.setFecha(new java.sql.Date(horas.getFecha().getTime()));
                     new HorasEmpleadoDAO().registrarHorasEmpleado(horas);
@@ -182,7 +181,7 @@ public class HorasEmpleadoBEAN implements Serializable {
                     RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
                 
                 }else{
-                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Hora no valida. Debe estar entre 7 A.M. y 16 P.M.");//mensaje cuando una hora no es valida
+                    FacesMessage mensajeSalida = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Hora no valida. Debe estar entre 7 A.M. y 21 P.M.");//mensaje cuando una hora no es valida
                     RequestContext.getCurrentInstance().showMessageInDialog(mensajeSalida);
                 }
                 
@@ -192,6 +191,7 @@ public class HorasEmpleadoBEAN implements Serializable {
             System.out.println("Error en HorasEmpleadoBEAN -> registrarHorasPorAdminstrador " + ex);
         }
     }
+   
     
     public static String getRemoteAddress(HttpServletRequest req) {
     String ipAddress = req.getHeader("X-FORWARDED-FOR");
@@ -202,6 +202,17 @@ public class HorasEmpleadoBEAN implements Serializable {
     }
     return ipAddress;
 }
+    private String limpiar;
+
+    public String getLimpiar() {
+        return limpiar;
+    }
+
+    public void setLimpiar(String limpiar) {
+        this.limpiarRegistros();
+        this.limpiar = limpiar;
+    }
+    
     public void limpiarRegistros() {
         horas.setFecha(null);
         horas.setId_usuario_empleado(null);
